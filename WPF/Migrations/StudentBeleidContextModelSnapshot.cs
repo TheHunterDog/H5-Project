@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WPF.Model;
 
@@ -15,36 +16,41 @@ namespace WPF.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("WPF.Model.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Achternaam")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Klasscode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentbegeleiderId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Studentnummer")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Tussenvoegsel")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Voornaam")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -60,15 +66,17 @@ namespace WPF.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Docentcode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -81,20 +89,20 @@ namespace WPF.Migrations
             modelBuilder.Entity("WPF.Model.StudentBegeleiderGesprekken", b =>
                 {
                     b.Property<int>("StudentId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("StudentBegeleiderId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("GesprekDatum")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Opmerkingen")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Voltooid")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.HasKey("StudentId", "StudentBegeleiderId");
 
@@ -108,8 +116,7 @@ namespace WPF.Migrations
                     b.HasOne("WPF.Model.StudentBegeleider", "Studentbegeleider")
                         .WithMany("Students")
                         .HasForeignKey("StudentbegeleiderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Studentbegeleider");
                 });
@@ -117,13 +124,13 @@ namespace WPF.Migrations
             modelBuilder.Entity("WPF.Model.StudentBegeleiderGesprekken", b =>
                 {
                     b.HasOne("WPF.Model.StudentBegeleider", "StudentBegeleider")
-                        .WithMany()
+                        .WithMany("StudentBegeleiderGesprekken")
                         .HasForeignKey("StudentBegeleiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WPF.Model.Student", "Student")
-                        .WithMany()
+                        .WithMany("StudentBegeleiderGesprekkens")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -133,8 +140,15 @@ namespace WPF.Migrations
                     b.Navigation("StudentBegeleider");
                 });
 
+            modelBuilder.Entity("WPF.Model.Student", b =>
+                {
+                    b.Navigation("StudentBegeleiderGesprekkens");
+                });
+
             modelBuilder.Entity("WPF.Model.StudentBegeleider", b =>
                 {
+                    b.Navigation("StudentBegeleiderGesprekken");
+
                     b.Navigation("Students");
                 });
 #pragma warning restore 612, 618

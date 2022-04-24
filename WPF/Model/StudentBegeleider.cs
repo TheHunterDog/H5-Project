@@ -14,9 +14,17 @@ public class StudentBegeleider
     private string naam;
     private string docentcode;
     private IEnumerable<Student> students;
+    private IEnumerable<StudentBegeleiderGesprekken> studentBegeleiderGesprekken;
     #endregion
 
     #region Properties
+
+    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
+    {
+        get => studentBegeleiderGesprekken;
+        set => studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
     public int Id
     {
         get => id;

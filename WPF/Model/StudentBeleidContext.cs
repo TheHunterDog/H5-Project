@@ -13,13 +13,16 @@ public class StudentBeleidContext: DbContext
    public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekkens { get; set; }
 
    public IConfiguration Configuration;
-
+   public string DbPath { get; }
     #region Constructors
 
-    protected StudentBeleidContext()
+    public StudentBeleidContext()
     {
-       
+
     }
+
+
+
 
     #endregion
 
@@ -27,8 +30,7 @@ public class StudentBeleidContext: DbContext
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-       options.UseSqlServer(ConfigurationManager.ConnectionStrings["StudentBeleidDatabase"].ConnectionString);
-
+       options.UseSqlServer("Server=localhost,1433;Database=StudentBegeleid;User Id=sa;Password=YourStrong!Passw0rd");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,16 +45,20 @@ public class StudentBeleidContext: DbContext
          .HasIndex(s => s.Studentnummer).IsUnique();
       modelBuilder.Entity<Student>()
          .Property(s => s.Voornaam).IsRequired();
-      // modelBuilder.Entity<Student>()
-      //    .Property(s => s.Tussenvoegsel).IsOptional();
+      modelBuilder.Entity<Student>()
+      .Property(s => s.Tussenvoegsel).IsRequired(false);
       modelBuilder.Entity<Student>()
          .Property(s => s.Achternaam).IsRequired();
       modelBuilder.Entity<Student>()
          .Property(s => s.Klasscode).IsRequired();
+
+
       modelBuilder.Entity<Student>()
          .HasOne<StudentBegeleider>(s => s.Studentbegeleider)
          .WithMany(sb => sb.Students)
-         .HasForeignKey(s => s.StudentbegeleiderId);
+         .HasForeignKey(s => s.StudentbegeleiderId)
+         .OnDelete(DeleteBehavior.NoAction)
+         .IsRequired(false);
 
       #region Seeder
 
@@ -119,6 +125,18 @@ public class StudentBeleidContext: DbContext
 
       modelBuilder.Entity<StudentBegeleiderGesprekken>()
          .HasKey(sbg => new {sbg.StudentId, sbg.StudentBegeleiderId});
+
+      modelBuilder.Entity<StudentBegeleiderGesprekken>()
+         .HasOne<Student>(sbg => sbg.Student)
+         .WithMany(s => s.StudentBegeleiderGesprekkens)
+         .HasForeignKey(sbg => sbg.StudentId)
+         .OnDelete(DeleteBehavior.Cascade);
+
+      modelBuilder.Entity<StudentBegeleiderGesprekken>()
+         .HasOne<StudentBegeleider>(sbg => sbg.StudentBegeleider)
+         .WithMany(sb => sb.StudentBegeleiderGesprekken)
+         .HasForeignKey(sbg => sbg.StudentBegeleiderId)
+         .OnDelete(DeleteBehavior.Cascade);
 
       #endregion
    }

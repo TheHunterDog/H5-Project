@@ -13,10 +13,10 @@ namespace WPF.Migrations
                 name: "StudentBegeleiders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Naam = table.Column<string>(type: "TEXT", nullable: false),
-                    Docentcode = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Docentcode = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,14 +27,14 @@ namespace WPF.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Studentnummer = table.Column<string>(type: "TEXT", nullable: false),
-                    Voornaam = table.Column<string>(type: "TEXT", nullable: false),
-                    Tussenvoegsel = table.Column<string>(type: "TEXT", nullable: false),
-                    Achternaam = table.Column<string>(type: "TEXT", nullable: false),
-                    Klasscode = table.Column<string>(type: "TEXT", nullable: false),
-                    StudentbegeleiderId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Studentnummer = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Voornaam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tussenvoegsel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Achternaam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Klasscode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentbegeleiderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,19 +43,18 @@ namespace WPF.Migrations
                         name: "FK_Students_StudentBegeleiders_StudentbegeleiderId",
                         column: x => x.StudentbegeleiderId,
                         principalTable: "StudentBegeleiders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "StudentBegeleiderGesprekkens",
                 columns: table => new
                 {
-                    StudentBegeleiderId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StudentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    GesprekDatum = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Voltooid = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Opmerkingen = table.Column<string>(type: "TEXT", nullable: false)
+                    StudentBegeleiderId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    GesprekDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Voltooid = table.Column<bool>(type: "bit", nullable: false),
+                    Opmerkingen = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,9 +18,18 @@ public class Student
     private string klasscode;
     private int studentbegeleiderId;
     private StudentBegeleider studentBegeleider;
+    private IEnumerable<StudentBegeleiderGesprekken> studentBegeleiderGesprekkens;
     #endregion
 
     #region Properties
+
+    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekkens
+    {
+        get => studentBegeleiderGesprekkens;
+        set => studentBegeleiderGesprekkens = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+
     public int Id
     {
         get => id;
