@@ -15,24 +15,24 @@ public class StudentViewModel
         {
             new Student
             {
-                Id = 3, Klasscode = "OOSDDH2022", Voornaam = "Mark", Achternaam = "Heijnekamp", Tussenvoegsel = "",
+                Klasscode = "OOSDDH2022", Voornaam = "Mark", Achternaam = "Heijnekamp", Tussenvoegsel = "",
                 Studentnummer = "s1156618", Studentbegeleider = null,StudentbegeleiderId = 0
             },
             new Student
             {
-                Id = 3, Klasscode = "OOSDDH2022", Voornaam = "Rob", Achternaam = "Hutten", Tussenvoegsel = "",
+                 Klasscode = "OOSDDH2022", Voornaam = "Rob", Achternaam = "Hutten", Tussenvoegsel = "",
                 Studentnummer = "s1152882", Studentbegeleider = null,StudentbegeleiderId = 0
             },            new Student
             {
-                Id = 3, Klasscode = "OOSDDH2022", Voornaam = "Antoine", Achternaam = "Pijlgroms", Tussenvoegsel = "",
+                 Klasscode = "OOSDDH2022", Voornaam = "Antoine", Achternaam = "Pijlgroms", Tussenvoegsel = "",
                 Studentnummer = "s1159362", Studentbegeleider = null,StudentbegeleiderId = 0
             },            new Student
             {
-                Id = 3, Klasscode = "OOSDDH2022", Voornaam = "Evert-Jan", Achternaam = "Nijsink", Tussenvoegsel = "",
+                 Klasscode = "OOSDDH2022", Voornaam = "Evert-Jan", Achternaam = "Nijsink", Tussenvoegsel = "",
                 Studentnummer = "s1160918", Studentbegeleider = null,StudentbegeleiderId = 0
             },            new Student
             {
-                Id = 3, Klasscode = "OOSDDH2022", Voornaam = "Tristan", Achternaam = "Jongedijk", Tussenvoegsel = "",
+                 Klasscode = "OOSDDH2022", Voornaam = "Tristan", Achternaam = "Jongedijk", Tussenvoegsel = "",
                 Studentnummer = "s1147577", Studentbegeleider = null,StudentbegeleiderId = 0
             }
         };

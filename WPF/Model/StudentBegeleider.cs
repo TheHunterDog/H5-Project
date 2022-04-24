@@ -8,11 +8,15 @@ namespace WPF.Model;
 
 public class StudentBegeleider
 {
+    
+    #region PrivateFields
     private int id;
     private string naam;
     private string docentcode;
     private IEnumerable<Student> students;
+    #endregion
 
+    #region Properties
     public int Id
     {
         get => id;
@@ -36,4 +40,5 @@ public class StudentBegeleider
         get => students;
         set => students = value ?? throw new ArgumentNullException(nameof(value));
     }
+    #endregion
 }

@@ -9,10 +9,7 @@ namespace WPF.Model;
 public class Student
 {
     #region PrivateFields
-    [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
-    [Key]
     private int id;
-    [Key]
     private string studentnummer;
     private string voornaam;
     private string tussenvoegsel;
