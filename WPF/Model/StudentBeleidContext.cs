@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace WPF.Model;
 
@@ -10,20 +12,14 @@ public class StudentBeleidContext: DbContext
    public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
    public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekkens { get; set; }
 
-   public string DbPath { get; }
+   public IConfiguration Configuration;
 
     #region Constructors
 
-
-    public StudentBeleidContext()
-   {
-       var folder = Environment.SpecialFolder.LocalApplicationData;
-       var path = Environment.GetFolderPath(folder);
-       DbPath = System.IO.Path.Join(path, "studentBegeleider.db");
+    protected StudentBeleidContext()
+    {
+       
     }
-
-
-
 
     #endregion
 
@@ -31,7 +27,8 @@ public class StudentBeleidContext: DbContext
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseSqlite($"Data Source={DbPath}");
+       options.UseSqlServer(ConfigurationManager.ConnectionStrings["StudentBeleidDatabase"].ConnectionString);
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
