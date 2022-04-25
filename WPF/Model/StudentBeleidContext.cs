@@ -30,8 +30,8 @@ public class StudentBeleidContext: DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
       // String will be moved to app.config
-       options.UseSqlServer(System.Configuration.ConfigurationManager.
-          ConnectionStrings["StudentBeleidDatabase"].ConnectionString);
+       // options.UseSqlServer(System.Configuration.ConfigurationManager.ConnectionStrings["StudentBeleidDatabase"].ConnectionString);
+       options.UseSqlServer("Server=ftp.huttennl.nl,1433;Database=StudentBegeleid;User Id=sa;Password=9CknApvBHa2aNuovTirqhmEd");
     }
     
     /// <summary>
