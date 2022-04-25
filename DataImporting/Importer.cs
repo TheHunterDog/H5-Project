@@ -28,6 +28,7 @@ public class Importer
         adapter.Fill(ds);
         System.Data.DataTable data = ds.Tables[0];
 
+        List<Student> studentList = new List<Student>();
         for (int i = 0; i < data.Rows.Count; i++)
         {
             string info = Regex.Replace(data.Rows[i][0].ToString(), " ", "");
@@ -36,8 +37,11 @@ public class Importer
             {
                 Student student = new Student(dataStrings[0], dataStrings[1], dataStrings[2], dataStrings[3], dataStrings[4]);
                 Console.WriteLine(student);
+                studentList.Add(student);
             }
         }
+
+        students = studentList.ToArray();
     }
 }
 
