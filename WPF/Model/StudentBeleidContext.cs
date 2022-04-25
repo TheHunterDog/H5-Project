@@ -8,12 +8,14 @@ namespace WPF.Model;
 
 public class StudentBeleidContext: DbContext
 {
+  /// <summary>
+  /// Dbsets required for OnModelCreating
+  /// </summary>
+  /// <value></value>
    public DbSet<Student> Students { get; set; }
    public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
    public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekkens { get; set; }
 
-   public IConfiguration Configuration;
-   public string DbPath { get; }
     #region Constructors
 
 /// <summary>
@@ -45,7 +47,7 @@ public class StudentBeleidContext: DbContext
     /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
-     
+
       #region Student
       modelBuilder.Entity<Student>()
          .HasKey(s => new {s.Id});
