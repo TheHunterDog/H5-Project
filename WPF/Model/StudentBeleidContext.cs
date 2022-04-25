@@ -16,6 +16,10 @@ public class StudentBeleidContext: DbContext
    public string DbPath { get; }
     #region Constructors
 
+/// <summary>
+/// conext needs empty constructor
+/// @see https://docs.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli#using-a-constructor-with-no-parameters
+/// </summary>
     public StudentBeleidContext()
     {
 
@@ -26,15 +30,22 @@ public class StudentBeleidContext: DbContext
 
     #endregion
 
-    // The following configures EF to create a Sqlite database file in the
-    // special "local" folder for your platform.
+    /// <summary>
+    /// Connect to the mssql database
+    /// </summary>
+    /// <param name="options"></param>
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
+      /// String will be moved to app.config
        options.UseSqlServer("Server=localhost,1433;Database=StudentBegeleid;User Id=sa;Password=YourStrong!Passw0rd");
     }
-
+    /// <summary>
+    /// Set all fields to required constraints
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
+     
       #region Student
       modelBuilder.Entity<Student>()
          .HasKey(s => new {s.Id});
@@ -59,39 +70,8 @@ public class StudentBeleidContext: DbContext
          .HasForeignKey(s => s.StudentbegeleiderId)
          .OnDelete(DeleteBehavior.NoAction)
          .IsRequired(false);
-
-      #region Seeder
-
-      // modelBuilder.Entity<Student>().HasData(
-      //
-      //    new Student
-      //    {
-      //      Id = -1, Klasscode = "OOSDDH2022", Voornaam = "Mark", Achternaam = "Heijnekamp", Tussenvoegsel = "",
-      //       Studentnummer = "s1156618", 
-      //    },
-      //    new Student
-      //    {
-      //       Id = -2,Klasscode = "OOSDDH2022", Voornaam = "Rob", Achternaam = "Hutten", Tussenvoegsel = "",
-      //       Studentnummer = "s1152882", 
-      //    },
-      //    new Student
-      //    {
-      //       Id = -3,Klasscode = "OOSDDH2022", Voornaam = "Antoine", Achternaam = "Pijlgroms", Tussenvoegsel = "",
-      //       Studentnummer = "s1159362", 
-      //    },            new Student
-      //    {
-      //       Id = -4,Klasscode = "OOSDDH2022", Voornaam = "Evert-Jan", Achternaam = "Nijsink", Tussenvoegsel = "",
-      //       Studentnummer = "s1160918",
-      //    },            new Student
-      //    {
-      //       Id = -5,Klasscode = "OOSDDH2022", Voornaam = "Tristan", Achternaam = "Jongedijk", Tussenvoegsel = "",
-      //       Studentnummer = "s1147577",
-      //       
-      //    }
-      // );
       
 
-      #endregion
       #endregion
    
       #region StudentBegeleider
@@ -103,22 +83,7 @@ public class StudentBeleidContext: DbContext
       modelBuilder.Entity<StudentBegeleider>()
          .Property(s => s.Docentcode).IsRequired();
 
-      #region Seeder
 
-      // modelBuilder.Entity<StudentBegeleider>().HasData(
-      //    new StudentBegeleider
-      //    {Id = -1,
-      //       Naam = "Karen Brakband",
-      //       Docentcode = "ABCD-KB-2022"
-      //    },
-      // new StudentBegeleider
-      // {Id = -2,
-      //    Naam = "Willie conen",
-      //    Docentcode = "ABCD-WC-2022"
-      // }
-      //    );
-
-      #endregion
       #endregion
    
       #region studentBegeleiderGesprekken

@@ -10,14 +10,44 @@ namespace WPF.Model;
 public class Student
 {
     #region PrivateFields
+    
+
+
+    /// <summary>
+    /// Student has an id
+    /// </summary>
     private int id;
+    /// <summary>
+    /// student has an studentnumber
+    /// </summary>
     private string studentnummer;
+    /// <summary>
+    /// Student has a firstname
+    /// </summary>
     private string voornaam;
+    /// <summary>
+    /// student might have a surname prefix
+    /// </summary>
     private string tussenvoegsel;
+    /// <summary>
+    /// Student has a lastname
+    /// </summary>
     private string achternaam;
+    /// <summary>
+    /// student has a class code
+    /// </summary>
     private string klasscode;
+    /// <summary>
+    /// Student has a Studentbegeleider forgein-key
+    /// </summary>
     private int studentbegeleiderId;
+    /// <summary>
+    /// Student has a studentbegeleider
+    /// </summary>
     private StudentBegeleider studentBegeleider;
+    /// <summary>
+    /// A student belongs to many meetings
+    /// </summary>
     private IEnumerable<StudentBegeleiderGesprekken> studentBegeleiderGesprekkens;
     #endregion
 

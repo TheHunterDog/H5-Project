@@ -10,10 +10,25 @@ public class StudentBegeleider
 {
     
     #region PrivateFields
+   /// <summary>
+    /// studentbegeleider has an id
+    /// </summary>
     private int id;
+    /// <summary>
+    /// Studentbegeleider has a name
+    /// </summary>
     private string naam;
+    /// <summary>
+    /// StudentBegeleider has a docentcode
+    /// </summary>
     private string docentcode;
+    /// <summary>
+    /// StudentBegeleider belongs to many students
+    /// </summary>
     private IEnumerable<Student> students;
+    /// <summary>
+    /// Studentbegeleider belongs to many meetings
+    /// </summary>
     private IEnumerable<StudentBegeleiderGesprekken> studentBegeleiderGesprekken;
     #endregion
 
