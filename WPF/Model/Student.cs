@@ -1,156 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace WPF.Model;
 
 public class Student
 {
     #region PrivateFields
-    
-
-
     /// <summary>
     /// Student has an id
     /// </summary>
-    private int id;
+    private int _id;
+    
     /// <summary>
     /// student has an studentnumber
     /// </summary>
-    private string studentnummer;
+    private string _studentnummer;
+    
     /// <summary>
     /// Student has a firstname
     /// </summary>
-    private string voornaam;
+    private string _voornaam;
+    
     /// <summary>
     /// student might have a surname prefix
     /// </summary>
-    private string tussenvoegsel;
+    private string _tussenvoegsel;
+    
     /// <summary>
     /// Student has a lastname
     /// </summary>
-    private string achternaam;
+    private string _achternaam;
+    
     /// <summary>
     /// student has a class code
     /// </summary>
-    private string klasscode;
+    private string _klasscode;
+    
     /// <summary>
     /// Student has a Studentbegeleider forgein-key
     /// </summary>
-    private int studentbegeleiderId;
+    private int _studentbegeleiderId;
     /// <summary>
     /// Student has a studentbegeleider
     /// </summary>
-    private StudentBegeleider studentBegeleider;
+    private StudentBegeleider _studentBegeleider;
+    
     /// <summary>
     /// A student belongs to many meetings
     /// </summary>
-    private IEnumerable<StudentBegeleiderGesprekken> studentBegeleiderGesprekkens;
+    private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
+    
     #endregion
 
     #region Properties
 
-    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekkens
+    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
     {
-        get => studentBegeleiderGesprekkens;
-        set => studentBegeleiderGesprekkens = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentBegeleiderGesprekken;
+        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
     }
 
 
     public int Id
     {
-        get => id;
-        set
-        {
-            id = value;
-            onProprtyChanged("Id");
-        }
+        get => _id;
+        set => _id = value;
     }
 
     public string Studentnummer
     {
-        get => studentnummer;
-        set
-        {
-            studentnummer = value ?? throw new ArgumentNullException(nameof(value));
-            onProprtyChanged("Studentnummer");
-
-        }
+        get => _studentnummer;
+        set => _studentnummer = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string Voornaam
     {
-        get => voornaam;
-        set
-        {
-            voornaam = value ?? throw new ArgumentNullException(nameof(value));
-            onProprtyChanged("Voornaam");
-        }
+        get => _voornaam;
+        set => _voornaam = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string Tussenvoegsel
     {
-        get => tussenvoegsel;
-        set { 
-            tussenvoegsel = value ?? throw new ArgumentNullException(nameof(value)); 
-            onProprtyChanged("Tussenvoegsel");
-        }
-}
+        get => _tussenvoegsel;
+        set => _tussenvoegsel = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     public string Achternaam
     {
-        get => achternaam;
-        set
-        {
-            achternaam = value ?? throw new ArgumentNullException(nameof(value));
-            onProprtyChanged("Achternaam");
-
-        }
+        get => _achternaam;
+        set => _achternaam = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string Klasscode
     {
-        get => klasscode;
-        set
-        {
-            klasscode = value ?? throw new ArgumentNullException(nameof(value));
-            onProprtyChanged("Klasscode");
-        }
+        get => _klasscode;
+        set => _klasscode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public StudentBegeleider Studentbegeleider
     {
-        get => studentBegeleider;
-        set
-        {
-            studentBegeleider = value;
-            onProprtyChanged("Studentbegeleider");
-        }
+        get => _studentBegeleider;
+        set => _studentBegeleider = value;
     }
 
     public int StudentbegeleiderId
     {
-        get => studentbegeleiderId;
-        set
-        {
-            studentbegeleiderId = value;
-            onProprtyChanged("StudentbegeleiderId");
-        }
+        get => _studentbegeleiderId;
+        set => _studentbegeleiderId = value;
     }
 
     #endregion
-
-    #region Propertychanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private void onProprtyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
+    
 }

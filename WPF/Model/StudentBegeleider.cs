@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace WPF.Model;
 
@@ -13,55 +10,60 @@ public class StudentBegeleider
    /// <summary>
     /// studentbegeleider has an id
     /// </summary>
-    private int id;
+   private int _id;
+   
     /// <summary>
     /// Studentbegeleider has a name
     /// </summary>
-    private string naam;
+    private string _naam;
+    
     /// <summary>
     /// StudentBegeleider has a docentcode
     /// </summary>
-    private string docentcode;
+    private string _docentcode;
+    
     /// <summary>
     /// StudentBegeleider belongs to many students
     /// </summary>
-    private IEnumerable<Student> students;
+    private IEnumerable<Student> _students;
+    
     /// <summary>
     /// Studentbegeleider belongs to many meetings
     /// </summary>
-    private IEnumerable<StudentBegeleiderGesprekken> studentBegeleiderGesprekken;
+    private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
+    
     #endregion
 
     #region Properties
 
     public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
     {
-        get => studentBegeleiderGesprekken;
-        set => studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentBegeleiderGesprekken;
+        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public int Id
     {
-        get => id;
-        set => id = value;
+        get => _id;
+        set => _id = value;
     }
 
     public string Naam
     {
-        get => naam;
-        set => naam = value ?? throw new ArgumentNullException(nameof(value));
+        get => _naam;
+        set => _naam = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string Docentcode
     {
-        get => docentcode;
-        set => docentcode = value ?? throw new ArgumentNullException(nameof(value));
+        get => _docentcode;
+        set => _docentcode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public IEnumerable<Student> Students
     {
-        get => students;
-        set => students = value ?? throw new ArgumentNullException(nameof(value));
+        get => _students;
+        set => _students = value ?? throw new ArgumentNullException(nameof(value));
     }
     #endregion
 }

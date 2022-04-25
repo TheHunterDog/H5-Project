@@ -8,75 +8,82 @@ public class StudentBegeleiderGesprekken
  /// <summary>
     /// A meeting has a student forgeinkey
     /// </summary>
-    private int student_id;
+    private int _studentId;
+ 
     /// <summary>
     /// A meeting has a student
     /// </summary>
-    private Student student;
+    private Student _student;
+    
     /// <summary>
     /// A meeting has a StudentBegeleider Forgeinkey
     /// </summary>
-    private int studentBegeleider_id;
+    private int _studentBegeleiderId;
+    
     /// <summary>
     /// A meeting has a studentbegeleider
     /// </summary>
-    private StudentBegeleider studentBegeleider;
+    private StudentBegeleider _studentBegeleider;
+    
     /// <summary>
     /// A meeting has a date
     /// </summary>
-    private DateTime gesprek_datum;
+    private DateTime _gesprekDatum;
+    
     /// <summary>
     /// A meeting can be completed
     /// </summary>
-    private bool voltooid;
+    private bool _voltooid;
+    
     /// <summary>
     /// A meeting may havve notes
     /// </summary>
-    private string opmerkingen;
+    private string _opmerkingen;
+    
     #endregion
     
     #region Properties
 
     public int StudentBegeleiderId
     {
-        get => studentBegeleider_id;
-        set => studentBegeleider_id = value;
+        get => _studentBegeleiderId;
+        set => _studentBegeleiderId = value;
     }
 
     public StudentBegeleider StudentBegeleider
     {
-        get => studentBegeleider;
-        set => studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentBegeleider;
+        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public int StudentId
     {
-        get => student_id;
-        set => student_id = value;
+        get => _studentId;
+        set => _studentId = value;
     }
 
     public Student Student
     {
-        get => student;
-        set => student = value ?? throw new ArgumentNullException(nameof(value));
+        get => _student;
+        set => _student = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public DateTime GesprekDatum
     {
-        get => gesprek_datum;
-        set => gesprek_datum = value;
+        get => _gesprekDatum;
+        set => _gesprekDatum = value;
     }
 
     public bool Voltooid
     {
-        get => voltooid;
-        set => voltooid = value;
+        get => _voltooid;
+        set => _voltooid = value;
     }
 
     public string Opmerkingen
     {
-        get => opmerkingen;
-        set => opmerkingen = value ?? throw new ArgumentNullException(nameof(value));
+        get => _opmerkingen;
+        set => _opmerkingen = value ?? throw new ArgumentNullException(nameof(value));
     }
     #endregion
 }

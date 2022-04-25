@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace WPF.Model;
 
@@ -11,10 +7,9 @@ public class StudentBeleidContext: DbContext
   /// <summary>
   /// Dbsets required for OnModelCreating
   /// </summary>
-  /// <value></value>
-   public DbSet<Student> Students { get; set; }
+  public DbSet<Student> Students { get; set; }
    public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
-   public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekkens { get; set; }
+   public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
 
     #region Constructors
 
@@ -26,21 +21,19 @@ public class StudentBeleidContext: DbContext
     {
 
     }
-
-
-
-
-    #endregion
+#endregion
 
     /// <summary>
     /// Connect to the mssql database
     /// </summary>
-    /// <param name="options"></param>
+    /// <param name="options"><see cref="DbContextOptionsBuilder"/></param>
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-      /// String will be moved to app.config
-       options.UseSqlServer("Server=localhost,1433;Database=StudentBegeleid;User Id=sa;Password=YourStrong!Passw0rd");
+      // String will be moved to app.config
+       options.UseSqlServer(System.Configuration.ConfigurationManager.
+          ConnectionStrings["StudentBeleidDatabase"].ConnectionString);
     }
+    
     /// <summary>
     /// Set all fields to required constraints
     /// </summary>
@@ -67,7 +60,7 @@ public class StudentBeleidContext: DbContext
 
 
       modelBuilder.Entity<Student>()
-         .HasOne<StudentBegeleider>(s => s.Studentbegeleider)
+         .HasOne(s => s.Studentbegeleider)
          .WithMany(sb => sb.Students)
          .HasForeignKey(s => s.StudentbegeleiderId)
          .OnDelete(DeleteBehavior.NoAction)
@@ -94,13 +87,13 @@ public class StudentBeleidContext: DbContext
          .HasKey(sbg => new {sbg.StudentId, sbg.StudentBegeleiderId});
 
       modelBuilder.Entity<StudentBegeleiderGesprekken>()
-         .HasOne<Student>(sbg => sbg.Student)
-         .WithMany(s => s.StudentBegeleiderGesprekkens)
+         .HasOne(sbg => sbg.Student)
+         .WithMany(s => s.StudentBegeleiderGesprekken)
          .HasForeignKey(sbg => sbg.StudentId)
          .OnDelete(DeleteBehavior.Cascade);
 
       modelBuilder.Entity<StudentBegeleiderGesprekken>()
-         .HasOne<StudentBegeleider>(sbg => sbg.StudentBegeleider)
+         .HasOne(sbg => sbg.StudentBegeleider)
          .WithMany(sb => sb.StudentBegeleiderGesprekken)
          .HasForeignKey(sbg => sbg.StudentBegeleiderId)
          .OnDelete(DeleteBehavior.Cascade);
