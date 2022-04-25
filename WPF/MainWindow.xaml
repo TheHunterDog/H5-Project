@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Button Width="150" Height="20" x:Name="btnPlan" Click="ButtonPlanIn_Click" Margin="600,300,50,50">gesprek inplannen</Button>
     </Grid>
 </Window>

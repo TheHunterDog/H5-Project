@@ -24,5 +24,11 @@ namespace WPF
         {
             InitializeComponent();
         }
+
+        private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
+        {
+            Inplannen popup = new Inplannen();
+            popup.ShowDialog();
+        }
     }
 }
