@@ -108,7 +108,7 @@ namespace WPF.Migrations
 
                     b.HasIndex("StudentBegeleiderId");
 
-                    b.ToTable("StudentBegeleiderGesprekkens");
+                    b.ToTable("StudentBegeleiderGesprekken");
                 });
 
             modelBuilder.Entity("WPF.Model.Student", b =>
@@ -130,7 +130,7 @@ namespace WPF.Migrations
                         .IsRequired();
 
                     b.HasOne("WPF.Model.Student", "Student")
-                        .WithMany("StudentBegeleiderGesprekkens")
+                        .WithMany("StudentBegeleiderGesprekken")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -142,7 +142,7 @@ namespace WPF.Migrations
 
             modelBuilder.Entity("WPF.Model.Student", b =>
                 {
-                    b.Navigation("StudentBegeleiderGesprekkens");
+                    b.Navigation("StudentBegeleiderGesprekken");
                 });
 
             modelBuilder.Entity("WPF.Model.StudentBegeleider", b =>

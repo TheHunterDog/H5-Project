@@ -12,7 +12,7 @@ using WPF.Model;
 namespace WPF.Migrations
 {
     [DbContext(typeof(StudentBeleidContext))]
-    [Migration("20220424223358_InitialCreate")]
+    [Migration("20220426093227_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,7 @@ namespace WPF.Migrations
 
                     b.HasIndex("StudentBegeleiderId");
 
-                    b.ToTable("StudentBegeleiderGesprekkens");
+                    b.ToTable("StudentBegeleiderGesprekken");
                 });
 
             modelBuilder.Entity("WPF.Model.Student", b =>
@@ -132,7 +132,7 @@ namespace WPF.Migrations
                         .IsRequired();
 
                     b.HasOne("WPF.Model.Student", "Student")
-                        .WithMany("StudentBegeleiderGesprekkens")
+                        .WithMany("StudentBegeleiderGesprekken")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -144,7 +144,7 @@ namespace WPF.Migrations
 
             modelBuilder.Entity("WPF.Model.Student", b =>
                 {
-                    b.Navigation("StudentBegeleiderGesprekkens");
+                    b.Navigation("StudentBegeleiderGesprekken");
                 });
 
             modelBuilder.Entity("WPF.Model.StudentBegeleider", b =>

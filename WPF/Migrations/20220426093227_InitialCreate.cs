@@ -47,7 +47,7 @@ namespace WPF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentBegeleiderGesprekkens",
+                name: "StudentBegeleiderGesprekken",
                 columns: table => new
                 {
                     StudentBegeleiderId = table.Column<int>(type: "int", nullable: false),
@@ -58,15 +58,15 @@ namespace WPF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentBegeleiderGesprekkens", x => new { x.StudentId, x.StudentBegeleiderId });
+                    table.PrimaryKey("PK_StudentBegeleiderGesprekken", x => new { x.StudentId, x.StudentBegeleiderId });
                     table.ForeignKey(
-                        name: "FK_StudentBegeleiderGesprekkens_StudentBegeleiders_StudentBegeleiderId",
+                        name: "FK_StudentBegeleiderGesprekken_StudentBegeleiders_StudentBegeleiderId",
                         column: x => x.StudentBegeleiderId,
                         principalTable: "StudentBegeleiders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentBegeleiderGesprekkens_Students_StudentId",
+                        name: "FK_StudentBegeleiderGesprekken_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -74,8 +74,8 @@ namespace WPF.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentBegeleiderGesprekkens_StudentBegeleiderId",
-                table: "StudentBegeleiderGesprekkens",
+                name: "IX_StudentBegeleiderGesprekken_StudentBegeleiderId",
+                table: "StudentBegeleiderGesprekken",
                 column: "StudentBegeleiderId");
 
             migrationBuilder.CreateIndex(
@@ -99,7 +99,7 @@ namespace WPF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentBegeleiderGesprekkens");
+                name: "StudentBegeleiderGesprekken");
 
             migrationBuilder.DropTable(
                 name: "Students");
