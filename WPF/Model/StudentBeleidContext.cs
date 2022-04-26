@@ -84,7 +84,7 @@ public class StudentBeleidContext: DbContext
       #region studentBegeleiderGesprekken
 
       modelBuilder.Entity<StudentBegeleiderGesprekken>()
-         .HasKey(sbg => new {sbg.StudentId, sbg.StudentBegeleiderId});
+         .HasKey(sbg => new {sbg.StudentId, sbg.StudentBegeleiderId,sbg.GesprekDatum});
 
       modelBuilder.Entity<StudentBegeleiderGesprekken>()
          .HasOne(sbg => sbg.Student)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WPF.Model;
 
@@ -11,9 +12,10 @@ using WPF.Model;
 namespace WPF.Migrations
 {
     [DbContext(typeof(StudentBeleidContext))]
-    partial class StudentBeleidContextModelSnapshot : ModelSnapshot
+    [Migration("20220426094753_AddDateToSBG")]
+    partial class AddDateToSBG
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
