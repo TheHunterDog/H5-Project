@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WPF.Model;
+namespace Database.Model;
 
 public class StudentBegeleiderGesprekken
 {
