@@ -475,3 +475,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+*.lck
+*.vpp
