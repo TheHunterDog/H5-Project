@@ -1,0 +1,30 @@
+﻿<Window x:Class="WPF.ShowStudentTable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="ShowStudentTable" Height="450" Width="1500">
+     
+        <DataGrid x:Name = "Student" Height="148" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" Width="440" CanUserAddRows="FALSE"> 
+
+                <DataGrid.Columns> 
+                        <DataGridTextColumn x:Name="StudentID" Binding ="{Binding student_id}" Header="studentID" IsReadOnly="TRUE" />
+
+                        <DataGridTextColumn x:Name="Firstname" Binding ="{Binding firstname}" Header="Firstname" IsReadOnly="TRUE" />
+
+                        <DataGridTextColumn x:Name="Midname" Binding ="{Binding midname}" Header="Midname" IsReadOnly="TRUE" />
+
+                        <DataGridTextColumn x:Name="Lastname" Binding ="{Binding lastname}" Header="Lastname" IsReadOnly="TRUE" />
+
+                        <DataGridTextColumn x:Name="Classname" Binding ="{Binding classname}" Header="Classname" IsReadOnly="TRUE" />
+
+                        <DataGridTextColumn x:Name="Studentbegeleider" Binding ="{Binding studentbegeleider}" Header="Studentbegeleider" IsReadOnly="TRUE" />
+
+                </DataGrid.Columns>
+        </DataGrid>
+
+        
+        
+</Window>
