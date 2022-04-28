@@ -32,7 +32,7 @@ namespace WPF
                 DispatcherPriority.Render,
                 new Action(() =>
                     {
-                        Importer.ImportStudentsFromFile();
+                        //ExcelImporter.ImportStudentsFromFile();
                         //Number.Content = Importer.students.Length;
                     }
                 ));
