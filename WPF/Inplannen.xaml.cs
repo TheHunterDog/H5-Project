@@ -43,8 +43,8 @@ namespace WPF
                 // make the meeting
                 Model.StudentBegeleiderGesprekken meeting = new Model.StudentBegeleiderGesprekken
                 {
-                    StudentId = context.Students.ToList()[0].Id,
-                    StudentBegeleiderId = context.Students.ToList()[0].StudentbegeleiderId,
+                    StudentId = context.Students.First().Id,
+                    StudentBegeleiderId = context.Students.First().StudentbegeleiderId,
                     GesprekDatum = datumAfspraak,
                     Opmerkingen = $"{opmerkingen.Text}"
                 };
