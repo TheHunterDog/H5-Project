@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Diagnostics;
-using System.Linq; // kan weg
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Net.Mail;
 using Database.Model;
 
@@ -18,38 +18,56 @@ namespace WPF
             InitializeComponent();
             DatePicked.BlackoutDates.AddDatesInPast();
         }
-
+        
+        /**
+         * <summary>button click logic</summary> 
+         */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            MailMessage message = new MailMessage("afspraakplanner123@gmail.com", "s1147577@student.windesheim.nl", $"afspraak op {DatePicked.Text}", $"Er is een afspraak ingpepland voor {DatePicked.Text} met als opmerking:\n {opmerkingen.Text}"); // TODO replace email with the students email
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-            client.Credentials = new System.Net.NetworkCredential("afspraakplanner123@gmail.com", "Mailtest123");
-            client.EnableSsl = true;
+            // get time out of the DatePicker and combibox
             DateTime datumAfspraak = (DateTime)DatePicked.SelectedDate;
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
-            Trace.WriteLine($"{datumAfspraak} + {opmerkingen.Text}");
-            //client.Send(message);
-            using (var context = new StudentBeleidContext())
+
+            // specify the database
+            using (var context = new Model.StudentBeleidContext())
             {
-                StudentBegeleiderGesprekken gesprek = new StudentBegeleiderGesprekken
+                // make the meeting
+                Model.StudentBegeleiderGesprekken meeting = new Model.StudentBegeleiderGesprekken
                 {
-                    StudentId = 93,
-                    Student = context.Students.Find(93), // TODO replace with the selected student
-                    StudentBegeleiderId = 1,
-                    StudentBegeleider = context.StudentBegeleiders.Find(71), // TODO replace wit the selected studentbegeleider
+                    StudentId = context.Students.ToList()[0].Id,
+                    StudentBegeleiderId = context.Students.ToList()[0].StudentbegeleiderId,
                     GesprekDatum = datumAfspraak,
-                    Voltooid = false,
                     Opmerkingen = $"{opmerkingen.Text}"
                 };
-                if (context.StudentBegeleiderGesprekken.Any(a=> a.GesprekDatum == datumAfspraak && a.StudentId == gesprek.StudentId))
+
+                // check if the meeting already exists
+                if (context.StudentBegeleiderGesprekken.Any(a=> a.GesprekDatum == datumAfspraak && a.StudentId == meeting.StudentId))
                 {
                     MessageBox.Show("Afspraak bestaat al!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                context.StudentBegeleiderGesprekken.Add(gesprek);
+                //send a mail to the student
+                send_Mail(datumAfspraak, opmerkingen.Text);
+                // save and add the meeting to the database
+                context.StudentBegeleiderGesprekken.Add(meeting);
                 context.SaveChanges();
             }
             Close();
+        }
+
+        /**
+         * <summary>  </summary> 
+         */
+        private void send_Mail(DateTime date, string notes)
+        {
+            //create the message
+            MailMessage message = new MailMessage("afspraakplanner123@gmail.com", "s1147577@student.windesheim.nl", $"afspraak op {date}", $"Er is een afspraak ingpepland op {date} met als opmerking:\n {notes}"); // TODO replace email with the students email
+            //config the mail service
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.Credentials = new System.Net.NetworkCredential("afspraakplanner123@gmail.com", "Mailtest123");
+            client.EnableSsl = true;
+            //send the email
+            client.Send(message);
         }
     }
 }
