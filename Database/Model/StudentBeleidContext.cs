@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WPF.Model;
+namespace Database.Model;
 
 public class StudentBeleidContext: DbContext
 {

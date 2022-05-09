@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WPF.Model;
+namespace Database.Model;
 
 public class Student
 {

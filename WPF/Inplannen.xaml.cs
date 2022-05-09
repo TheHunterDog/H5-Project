@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Diagnostics; // kan weg
+using System.Diagnostics;
+using System.Linq; // kan weg
 using System.Net.Mail;
+using Database.Model;
 
 
 namespace WPF
@@ -38,14 +29,14 @@ namespace WPF
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
             Trace.WriteLine($"{datumAfspraak} + {opmerkingen.Text}");
             //client.Send(message);
-            using (var context = new Model.StudentBeleidContext())
+            using (var context = new StudentBeleidContext())
             {
-                Model.StudentBegeleiderGesprekken gesprek = new Model.StudentBegeleiderGesprekken
+                StudentBegeleiderGesprekken gesprek = new StudentBegeleiderGesprekken
                 {
-                    StudentId = 1,
-                    Student = context.Students.Find(1), // TODO replace with the selected student
+                    StudentId = 93,
+                    Student = context.Students.Find(93), // TODO replace with the selected student
                     StudentBegeleiderId = 1,
-                    StudentBegeleider = context.StudentBegeleiders.Find(1), // TODO replace wit the selected studentbegeleider
+                    StudentBegeleider = context.StudentBegeleiders.Find(71), // TODO replace wit the selected studentbegeleider
                     GesprekDatum = datumAfspraak,
                     Voltooid = false,
                     Opmerkingen = $"{opmerkingen.Text}"
@@ -58,7 +49,7 @@ namespace WPF
                 context.StudentBegeleiderGesprekken.Add(gesprek);
                 context.SaveChanges();
             }
-            this.Close();
+            Close();
         }
     }
 }
