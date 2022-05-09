@@ -36,5 +36,10 @@ namespace WPF
             Inplannen popup = new Inplannen();
             popup.ShowDialog();
         }
+
+        private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Console.WriteLine("HELLO WORLD!");
+        }
     }
 }

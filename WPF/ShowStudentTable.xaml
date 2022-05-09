@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ShowStudentTable" Height="450" Width="1500">
      
-        <DataGrid x:Name = "Student" Height="148" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" Width="440" CanUserAddRows="FALSE"> 
+        <DataGrid x:Name = "Student" MinHeight="80" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" CanUserAddRows="FALSE"> 
 
                 <DataGrid.Columns> 
                         <DataGridTextColumn x:Name="StudentID" Binding ="{Binding Id}" Header="studentID" IsReadOnly="TRUE" />
