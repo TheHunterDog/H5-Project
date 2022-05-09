@@ -12,8 +12,7 @@ public class StudentBeleidContext: DbContext
    public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
 
     #region Constructors
-
-/// <summary>
+    /// <summary>
 /// conext needs empty constructor
 /// @see https://docs.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli#using-a-constructor-with-no-parameters
 /// </summary>

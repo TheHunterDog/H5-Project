@@ -10,17 +10,19 @@
         <DataGrid x:Name = "Student" Height="148" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" Width="440" CanUserAddRows="FALSE"> 
 
                 <DataGrid.Columns> 
-                        <DataGridTextColumn x:Name="StudentID" Binding ="{Binding student_id}" Header="studentID" IsReadOnly="TRUE" />
+                        <DataGridTextColumn x:Name="StudentID" Binding ="{Binding Id}" Header="studentID" IsReadOnly="TRUE" />
+                        
+                        <DataGridTextColumn x:Name="StudentNumber" Binding ="{Binding Studentnummer}" Header="studentID" IsReadOnly="TRUE" />
 
-                        <DataGridTextColumn x:Name="Firstname" Binding ="{Binding firstname}" Header="Firstname" IsReadOnly="TRUE" />
+                        <DataGridTextColumn x:Name="Firstname" Binding ="{Binding Voornaam}" Header="Firstname" IsReadOnly="TRUE" />
 
-                        <DataGridTextColumn x:Name="Midname" Binding ="{Binding midname}" Header="Midname" IsReadOnly="TRUE" />
+                        <DataGridTextColumn x:Name="Midname" Binding ="{Binding Tussenvoegsel}" Header="Midname" IsReadOnly="TRUE" />
 
-                        <DataGridTextColumn x:Name="Lastname" Binding ="{Binding lastname}" Header="Lastname" IsReadOnly="TRUE" />
+                        <DataGridTextColumn x:Name="Lastname" Binding ="{Binding Achternaam}" Header="Lastname" IsReadOnly="TRUE" />
 
-                        <DataGridTextColumn x:Name="Classname" Binding ="{Binding classname}" Header="Classname" IsReadOnly="TRUE" />
+                        <DataGridTextColumn x:Name="Classname" Binding ="{Binding Klasscode}" Header="Classname" IsReadOnly="TRUE" />
 
-                        <DataGridTextColumn x:Name="Studentbegeleider" Binding ="{Binding studentbegeleider}" Header="Studentbegeleider" IsReadOnly="TRUE" />
+                        <DataGridTextColumn x:Name="Studentbegeleider" Binding ="{Binding StudentbegeleiderId}" Header="Studentbegeleider" IsReadOnly="TRUE" />
 
                 </DataGrid.Columns>
         </DataGrid>

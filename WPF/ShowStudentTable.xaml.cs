@@ -16,6 +16,10 @@ public partial class ShowStudentTable : Window
         {
             Students = context.Students.ToList();
         }
+
+        Student.ItemsSource = Students;
+
+
     }
 
      
