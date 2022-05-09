@@ -74,6 +74,6 @@ public class StudentBegeleider
     }
     public override string ToString()
     {
-        return $"{Naam}, {Docentcode}";
+        return $"{Id}, {Naam}, {Docentcode}";
     }
 }
