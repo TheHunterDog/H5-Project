@@ -24,5 +24,11 @@ namespace WPF
         {
             InitializeComponent();
         }
+        
+        private void Click(object sender, RoutedEventArgs e)
+        {
+            ShowStudentTable win2 = new ShowStudentTable();
+            win2.Show();
+        }
     }
 }
