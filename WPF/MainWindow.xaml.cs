@@ -24,11 +24,17 @@ namespace WPF
         {
             InitializeComponent();
         }
-        
+
         private void Click(object sender, RoutedEventArgs e)
         {
             ShowStudentTable win2 = new ShowStudentTable();
             win2.Show();
+        }
+
+        private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
+        {
+            Inplannen popup = new Inplannen();
+            popup.ShowDialog();
         }
     }
 }
