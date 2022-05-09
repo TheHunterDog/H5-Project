@@ -14,7 +14,5 @@ namespace UnitTest_WPF_Inplannen
         {
             
         }
-
-        [TestCase]
     }
 }

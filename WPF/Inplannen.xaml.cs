@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Net.Mail;
 using Database.Model;
 
@@ -29,10 +28,10 @@ namespace WPF
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
 
             // specify the database
-            using (var context = new Model.StudentBeleidContext())
+            using (var context = new StudentBeleidContext())
             {
                 // make the meeting
-                Model.StudentBegeleiderGesprekken meeting = new Model.StudentBegeleiderGesprekken
+                StudentBegeleiderGesprekken meeting = new StudentBegeleiderGesprekken
                 {
                     StudentId = context.Students.ToList()[0].Id,
                     StudentBegeleiderId = context.Students.ToList()[0].StudentbegeleiderId,

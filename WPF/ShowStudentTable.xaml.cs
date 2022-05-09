@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using Database.Model;
-using WPF.Model;
 
 namespace WPF;
 

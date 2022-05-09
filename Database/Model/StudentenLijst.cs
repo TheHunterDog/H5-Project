@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Database.Model;
+﻿using Database.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace WPF.Model;

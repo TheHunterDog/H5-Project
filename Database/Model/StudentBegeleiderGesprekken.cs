@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Database.Model;
+﻿namespace Database.Model;
 
 public class StudentBegeleiderGesprekken
 {
