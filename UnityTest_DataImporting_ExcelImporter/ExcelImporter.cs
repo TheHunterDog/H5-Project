@@ -63,7 +63,7 @@ namespace UnityTest_DataImporting_ExcelImporter
         [TestCase((string)"d", (string)"")]
         [TestCase((string)"@\"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Students1.xlsx", (string)"")]
         [TestCase((string)"@\"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Coaches1.xlsx", (string)"")]
-        public void GetDataTableFromFile(string location, string sheetname) // tests values of a student created from from string
+        public void GetDataTableFromFile(string location, string sheetname)
         {
             DataTable data = ExcelImporter.GetDataTableFromFile(location, sheetname);
             if (location.Equals(ExcelImporter._defaultCoachFileLocation) || location.Equals(ExcelImporter._defaultStudentFileLocation)) Assert.IsNotNull(data);

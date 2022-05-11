@@ -200,21 +200,22 @@ public class ExcelImporter
         var connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=Excel 12.0;";
         // create command string
         var commandString = $"SELECT * FROM [{sheetName}$]";
+        OleDbDataAdapter adapter;
         try
         {
             // create adapter
-            var adapter = new OleDbDataAdapter(commandString, connectionString);
-            // create dataset
-            var ds = new DataSet();
-            // fill dataset
-            adapter.Fill(ds);
-            // return dataset
-            return ds.Tables[0];
+            adapter = new OleDbDataAdapter(commandString, connectionString);
         }
         catch (Exception e)
         {
             return null;
         }
+        // create dataset
+        var ds = new DataSet();
+        // fill dataset
+        adapter.Fill(ds);
+        // return dataset
+        return ds.Tables[0];
 
     }
 
@@ -241,7 +242,7 @@ public class ExcelImporter
         if (dataStrings.Length > 4)
         {
             // create student object
-            Student student = new Student();
+            Student student = new ();
             // fill in info
             student.Studentnummer = dataStrings[0].Trim();
             student.Voornaam = dataStrings[1].Trim();
@@ -263,7 +264,7 @@ public class ExcelImporter
         if (dataStrings.Length > 1)
         {
             // create coach object
-            StudentBegeleider coach = new StudentBegeleider();
+            StudentBegeleider coach = new();
             // fill in info
             coach.Naam = dataStrings[0].Trim();
             coach.Docentcode = dataStrings[1].Trim();
