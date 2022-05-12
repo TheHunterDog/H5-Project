@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="ShowStudentTable" Height="450" Width="1500">
      
+
         
         <DataGrid x:Name = "StudentLeerdoelen" MinHeight="80" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" CanUserAddRows="FALSE">
                 <DataGrid.Columns> 

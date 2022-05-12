@@ -22,5 +22,9 @@ public partial class ShowStudentLeerdoelenTable : Window
 
     }
 
-     
+
+    private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
 }

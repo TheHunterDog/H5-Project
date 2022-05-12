@@ -34,5 +34,10 @@ namespace WPF
         {
             new ShowStudentLeerdoelenTable().Show();
         }
+
+        private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
+        {
+            new StudentLeerdoelenToevoegen().Show();
+        }
     }
 }
