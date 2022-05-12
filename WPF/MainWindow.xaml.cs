@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace WPF
@@ -38,7 +40,12 @@ namespace WPF
 
         private void ButtonImportStudents_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files(.xlsx)|*.xlsx";
+            openFileDialog.ShowDialog();
 
+            string directory = openFileDialog.FileName;
+            Trace.WriteLine(directory);
         }
     }
 }
