@@ -477,3 +477,5 @@ FodyWeavers.xsd
 *.sln.iml
 *.lck
 *.vpp
+/DataImporting/Files/Coaches1.xlsx
+/DataImporting/Files/Students1.xlsx

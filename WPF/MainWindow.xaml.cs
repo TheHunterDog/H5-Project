@@ -29,5 +29,16 @@ namespace WPF
         {
             Console.WriteLine("HELLO WORLD!");
         }
+
+        private void ButtonProblemSubmitting_Click(object sender, RoutedEventArgs e)
+        {
+            ProblemSubmitting popup = new ProblemSubmitting();
+            popup.ShowDialog();
+        }
+
+        private void ButtonImportStudents_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
