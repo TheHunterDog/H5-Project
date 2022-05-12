@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WPF.Model;
 
-namespace WPF.Model;
+namespace Database.Model;
 
 public class StudentBeleidContext : DbContext
 {
@@ -15,11 +16,7 @@ public class StudentBeleidContext : DbContext
     public DbSet<Teacher> Teachers { get; set; }
 
     #region Constructors
-
-    /// <summary>
-    /// Context needs empty constructor
-    /// @see https://docs.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli#using-a-constructor-with-no-parameters
-    /// </summary>
+    
     public StudentBeleidContext()
     {
     }

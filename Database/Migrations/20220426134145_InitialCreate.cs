@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WPF.Migrations
+namespace Database.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -58,7 +58,7 @@ namespace WPF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentBegeleiderGesprekken", x => new { x.StudentId, x.StudentBegeleiderId });
+                    table.PrimaryKey("PK_StudentBegeleiderGesprekken", x => new { x.StudentId, x.StudentBegeleiderId, x.GesprekDatum });
                     table.ForeignKey(
                         name: "FK_StudentBegeleiderGesprekken_StudentBegeleiders_StudentBegeleiderId",
                         column: x => x.StudentBegeleiderId,

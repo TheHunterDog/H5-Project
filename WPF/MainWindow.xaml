@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Label></Label>
+        Title="MainWindow" 
+        Height="450" 
+        Width="800"
+        SizeChanged="FrameworkElement_OnSizeChanged">
+    <Grid Height="450" Width="800">
+        <Button 
+            Width="100" 
+            Height="20" 
+            HorizontalAlignment="Left"
+            Margin="20,0,0 0"
+            x:Name="Button1"
+            Content="Open Window" 
+            Click="Click"/>
+        
+        <Button 
+            Width="150" 
+            Height="20" 
+            HorizontalAlignment="Right"
+            Margin="0,0,20 0"
+            x:Name="BtnPlan" 
+            Content="Gesprek inplannen"
+            Click="ButtonPlanIn_Click"/>
     </Grid>
 </Window>

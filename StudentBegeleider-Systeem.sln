@@ -5,6 +5,10 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF", "WPF\WPF.csproj", "{B213E1D4-95D8-4A9C-BC71-4E6BB156E362}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{55E3AEDC-8716-43BB-BC93-011F40A0FDB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_WPF_Inplannen", "UnitTest_WPF_Inplannen\UnitTest_WPF_Inplannen.csproj", "{C1F6A2A5-DA10-4078-9B0A-2969924D56A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,16 @@ Global
 		{B213E1D4-95D8-4A9C-BC71-4E6BB156E362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B213E1D4-95D8-4A9C-BC71-4E6BB156E362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B213E1D4-95D8-4A9C-BC71-4E6BB156E362}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{55E3AEDC-8716-43BB-BC93-011F40A0FDB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E3AEDC-8716-43BB-BC93-011F40A0FDB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E3AEDC-8716-43BB-BC93-011F40A0FDB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E3AEDC-8716-43BB-BC93-011F40A0FDB2}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{C1F6A2A5-DA10-4078-9B0A-2969924D56A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1F6A2A5-DA10-4078-9B0A-2969924D56A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1F6A2A5-DA10-4078-9B0A-2969924D56A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1F6A2A5-DA10-4078-9B0A-2969924D56A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

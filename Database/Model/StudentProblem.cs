@@ -1,4 +1,5 @@
 ﻿using System;
+using Database.Model;
 
 namespace WPF.Model;
 
