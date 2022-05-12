@@ -34,7 +34,7 @@ public class StudentBegeleiderGesprekken
     private bool _voltooid;
     
     /// <summary>
-    /// A meeting may havve notes
+    /// A meeting may have notes
     /// </summary>
     private string _opmerkingen;
     
