@@ -27,5 +27,11 @@
             x:Name="BtnPlan" 
             Content="Gesprek inplannen"
             Click="ButtonPlanIn_Click"/>
+        <Button 
+            Width="150" 
+            Height="20" 
+            x:Name="Leerdoelen" 
+            Content="Leerdoelen"
+            Click="Leerdoelen_OnClick"/>
     </Grid>
 </Window>

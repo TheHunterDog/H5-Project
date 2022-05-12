@@ -46,7 +46,8 @@ public class Student
     /// A student belongs to many meetings
     /// </summary>
     private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
-    
+
+    private IEnumerable<Leerdoel> _leerdoelen;
     #endregion
 
     #region Properties
@@ -104,6 +105,18 @@ public class Student
     {
         get => _studentbegeleiderId;
         set => _studentbegeleiderId = value;
+    }
+
+    public StudentBegeleider StudentBegeleider
+    {
+        get => _studentBegeleider;
+        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public IEnumerable<Leerdoel> Leerdoelen
+    {
+        get => _leerdoelen;
+        set => _leerdoelen = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion

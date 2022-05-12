@@ -29,5 +29,10 @@ namespace WPF
         {
             Console.WriteLine("HELLO WORLD!");
         }
+
+        private void Leerdoelen_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ShowStudentLeerdoelenTable().Show();
+        }
     }
 }

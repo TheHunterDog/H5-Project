@@ -8,8 +8,9 @@ public class StudentBeleidContext: DbContext
   /// Dbsets required for OnModelCreating
   /// </summary>
   public DbSet<Student> Students { get; set; }
-   public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
-   public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
+  public DbSet<Leerdoel> Leerdoelen { get; set; }
+  public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
+  public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
 
     #region Constructors
     /// <summary>
@@ -96,6 +97,32 @@ public class StudentBeleidContext: DbContext
          .WithMany(sb => sb.StudentBegeleiderGesprekken)
          .HasForeignKey(sbg => sbg.StudentBegeleiderId)
          .OnDelete(DeleteBehavior.Cascade);
+
+      #endregion
+
+      #region Leerdoel
+
+      modelBuilder.Entity<Leerdoel>()
+         .HasKey(s => new {s.Id});
+      modelBuilder.Entity<Leerdoel>()
+         .Property(s => s.Id)
+         .ValueGeneratedOnAdd();
+      modelBuilder.Entity<Leerdoel>()
+         .HasIndex(s => s.Beschrijving).IsUnique();
+      
+      modelBuilder.Entity<Student>()
+         .HasOne(s => s.Studentbegeleider)
+         .WithMany(sb => sb.Students)
+         .HasForeignKey(s => s.StudentbegeleiderId)
+         .OnDelete(DeleteBehavior.NoAction)
+         .IsRequired(false);
+
+      modelBuilder.Entity<Leerdoel>()
+         .HasOne(s => s.Student)
+         .WithMany(sb => sb.Leerdoelen)
+         .HasForeignKey(s => s.StudentId)
+         .OnDelete(DeleteBehavior.NoAction)
+         .IsRequired(false);
 
       #endregion
    }
