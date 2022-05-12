@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Database.Model;
 
 namespace WPF
 {
@@ -7,5 +8,6 @@ namespace WPF
     /// </summary>
     public partial class App : Application
     {
+        public static StudentBeleidContext context = new StudentBeleidContext();
     }
 }
