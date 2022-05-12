@@ -3,55 +3,34 @@ using System.Collections.Generic;
 
 namespace WPF.Model;
 
-public class StudentProblem
+public class Teacher
 {
     #region PrivateFields
     /// <summary>
-    /// StudentProblem has an associated <see cref="Student"/>
-    /// </summary>
-    private int _studentId;
-    
-    /// <summary>
-    /// StudentProblem has an associated Teacher
+    /// Teacher has an id
     /// </summary>
     private int _teacherId;
     
     /// <summary>
-    /// StudentProblem has an priority
+    /// A teacher belongs to many or zero <see cref="StudentProblem"/>
     /// </summary>
-    private int _priority;
-    
-    /// <summary>
-    /// StudentProblem has an description
-    /// </summary>
-    private string _description;
+    private IEnumerable<StudentProblem> _studentProblems;
     
     #endregion
 
     #region Properties
 
-    public int Student
-    {
-        get => _studentId;
-        set => _studentId = value;
-    }
-    
-    public int Teacher
+    public int Id
     {
         get => _teacherId;
         set => _teacherId = value;
     }
     
-    public int Priority
-    {
-        get => _priority;
-        set => _priority = value;
-    }
     
-    public string Description
+    public IEnumerable<StudentProblem> StudentProblems
     {
-        get => _description;
-        set => _description = value;
+        get => _studentProblems;
+        set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
     
     #endregion

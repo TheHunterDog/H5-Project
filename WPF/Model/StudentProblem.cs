@@ -1,114 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace WPF.Model;
 
-public class Student
+public class StudentProblem
 {
     #region PrivateFields
     /// <summary>
-    /// Student has an id
+    /// StudentProblem has an associated studentId
     /// </summary>
-    private int _id;
+    private int _studentId;
+
+    /// <summary>
+    /// StudentProblem has an associated <see cref="Student"/>
+    /// </summary>
+    private Student _student;
+
+    /// <summary>
+    /// StudentProblem has an associated Teacher
+    /// </summary>
+    private int _teacherId;
+
+    /// <summary>
+    /// StudentProblem has an associated <see cref="Teacher"/>
+    /// </summary>
+    private Teacher _teacher;
     
     /// <summary>
-    /// student has an studentnumber
+    /// StudentProblem has an priority
     /// </summary>
-    private string _studentnummer;
+    private int _priority;
     
     /// <summary>
-    /// Student has a firstname
+    /// StudentProblem has an description
     /// </summary>
-    private string _voornaam;
-    
-    /// <summary>
-    /// student might have a surname prefix
-    /// </summary>
-    private string _tussenvoegsel;
-    
-    /// <summary>
-    /// Student has a lastname
-    /// </summary>
-    private string _achternaam;
-    
-    /// <summary>
-    /// student has a class code
-    /// </summary>
-    private string _klasscode;
-    
-    /// <summary>
-    /// Student has a Studentbegeleider forgein-key
-    /// </summary>
-    private int _studentbegeleiderId;
-    /// <summary>
-    /// Student has a studentbegeleider
-    /// </summary>
-    private StudentBegeleider _studentBegeleider;
-    
-    /// <summary>
-    /// A student belongs to many meetings
-    /// </summary>
-    private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
-    
+    private string _description;
     #endregion
 
     #region Properties
 
-    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
+    public int StudentId
     {
-        get => _studentBegeleiderGesprekken;
-        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentId;
+        set => _studentId = value;
     }
-
-
-    public int Id
-    {
-        get => _id;
-        set => _id = value;
-    }
-
-    public string Studentnummer
-    {
-        get => _studentnummer;
-        set => _studentnummer = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public string Voornaam
-    {
-        get => _voornaam;
-        set => _voornaam = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public string Tussenvoegsel
-    {
-        get => _tussenvoegsel;
-        set => _tussenvoegsel = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public string Achternaam
-    {
-        get => _achternaam;
-        set => _achternaam = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public string Klasscode
-    {
-        get => _klasscode;
-        set => _klasscode = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public StudentBegeleider Studentbegeleider
-    {
-        get => _studentBegeleider;
-        set => _studentBegeleider = value;
-    }
-
-    public int StudentbegeleiderId
-    {
-        get => _studentbegeleiderId;
-        set => _studentbegeleiderId = value;
-    }
-
-    #endregion
     
+    public Student Student
+    {
+        get => _student;
+        set => _student = _student = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    
+    public int TeacherId
+    {
+        get => _teacherId;
+        set => _teacherId = value;
+    }
+    
+    public Teacher Teacher
+    {
+        get => _teacher;
+        set => _teacher = _teacher = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    
+    public int Priority
+    {
+        get => _priority;
+        set => _priority = value;
+    }
+    
+    public string Description
+    {
+        get => _description;
+        set => _description = value;
+    }
+    
+    #endregion
 }
