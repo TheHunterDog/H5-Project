@@ -14,7 +14,7 @@ public partial class ShowStudentTable : Window
     {
         InitializeComponent();
 
-        using (StudentBeleidContext context = new StudentBeleidContext())
+        using (var context = App.context)
         {
             Students = context.Students.ToList();
         }
