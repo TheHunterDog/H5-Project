@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WPF\WPF.csproj" />
+    <ProjectReference Include="..\Database\Database.csproj" />
   </ItemGroup>
 
 </Project>

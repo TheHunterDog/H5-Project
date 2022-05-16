@@ -49,6 +49,9 @@ namespace WPF
 
             string directory = openFileDialog.FileName;
             Trace.WriteLine(directory);
+
+            ExcelImporter.ImportStudentsFromFile(directory);
+            ExcelImporter.PrintStudents();
         }
     }
 }

@@ -110,6 +110,6 @@ public class Student
 
     public override string ToString()
     {
-        return $"{Id}, {Studentnummer}, {Voornaam}, {Achternaam}, {StudentbegeleiderId}, {Klasscode}";
+        return $"{Id}, {Studentnummer}, {Voornaam}, {Achternaam}, {Tussenvoegsel}, {StudentbegeleiderId}, {Klasscode}";
     }
 }

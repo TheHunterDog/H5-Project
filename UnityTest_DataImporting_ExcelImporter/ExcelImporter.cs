@@ -1,7 +1,7 @@
 using System.Data;
 using System.Diagnostics;
 using NUnit.Framework;
-using WPF.Model;
+using Database.Model;
 
 
 namespace UnityTest_DataImporting_ExcelImporter
@@ -59,33 +59,17 @@ namespace UnityTest_DataImporting_ExcelImporter
             Assert.IsTrue(coach.Docentcode.Equals("bhk17"));
         }
 
-        [TestCase((string)"", (string)"")]
-        [TestCase((string)"d", (string)"")]
-        [TestCase((string)"@\"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Students1.xlsx", (string)"")]
-        [TestCase((string)"@\"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Coaches1.xlsx", (string)"")]
-        public void GetDataTableFromFile(string location, string sheetname)
+        [TestCase((string)"")]
+        [TestCase((string)"d")]
+        [TestCase((string)"@\"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Students1.xlsx")]
+        [TestCase((string)"@\"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Coaches1.xlsx")]
+        public void GetDataTableFromFile(string location)
         {
-            DataTable data = ExcelImporter.GetDataTableFromFile(location, sheetname);
+            DataTable data = ExcelImporter.GetDataTableFromFile(location);
             if (location.Equals(ExcelImporter._defaultCoachFileLocation) || location.Equals(ExcelImporter._defaultStudentFileLocation)) Assert.IsNotNull(data);
             else
             {
                 Assert.IsNull(data);
-            }
-        }
-        [TestCase((string)"")]
-        [TestCase((string)"d")]
-        [TestCase((string)"henk")]
-        [TestCase((string)"Coaches")]
-        public void ReadDataFromDataTable(string sheetname)
-        {
-            string[] result = ExcelImporter.ReadDataFromDataTable(ExcelImporter.GetDataTableFromFile(@"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Coaches1.xlsx", sheetname));
-            if (sheetname.Equals("Coaches"))
-            {
-                Assert.IsTrue(result.Length > 0);
-            }
-            else
-            {
-                Assert.IsTrue(result.Length == 0);
             }
         }
     }

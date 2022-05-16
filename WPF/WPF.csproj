@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\DataImporting\DataImporting.csproj" />
   </ItemGroup>
 
 

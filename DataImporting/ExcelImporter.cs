@@ -1,8 +1,9 @@
 ﻿using System.Data;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Documents;
+using Database.Model;
 using Microsoft.EntityFrameworkCore.Internal;
 using WPF;
 using WPF.Model;
@@ -18,7 +19,7 @@ public class ExcelImporter
     // ran from console, for testing purposes only
     static void Main(string[] args)
     {
-        // print coaches and students
+/*        // print coaches and students
         PrintStudents();
         PrintCoaches();
         // remove all students and coaches
@@ -30,7 +31,7 @@ public class ExcelImporter
         ImportStudentsFromFile();
         Console.WriteLine("New:");
         PrintStudents();
-        PrintCoaches();
+        PrintCoaches();*/
 
     }
 
@@ -50,7 +51,7 @@ public class ExcelImporter
     // TEST
     public static void PrintStudents()
     {
-        Console.WriteLine("\n All Students in database:");
+        Trace.WriteLine("\n All Students in database:");
         using (var context = new StudentBeleidContext())
         {
             // obtain students from database
@@ -58,9 +59,9 @@ public class ExcelImporter
             for (int i = 0; i < students.Count; i++)
             {
                 // get student from list
-                Student student = students.ElementAt(i); 
+                Student student = students.ElementAt(i);
                 // print student data
-                Console.WriteLine(student); 
+                Trace.WriteLine(student); 
             }
         }
     }
@@ -88,7 +89,7 @@ public class ExcelImporter
         // set fileLocation
         if (fileLocation.Equals("")) fileLocation = _defaultStudentFileLocation;
         // get data from file
-        DataTable data = GetDataTableFromFile(fileLocation, "Students");
+        DataTable data = GetDataTableFromFile(fileLocation);//, "Students");
         // if data is null, file could not be found
         if(data == null) return;
         // get strings with student data
@@ -104,7 +105,7 @@ public class ExcelImporter
                 if (student != null)
                 {
                     // obtain coach(docentcode) from datastring
-                    string docentCode = studentStrings[i].Split(",")[3].Trim();
+                    string docentCode = (studentStrings.Length == 5) ? studentStrings[i].Split(",")[3].Trim() : studentStrings[i].Split(",")[4].Trim();
                     // get count of coaches which have a matching docentcode(max 1);
                     int countBeg = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(docentCode)).Count();
                     // if no matching coach is found, create a new one with an undefined name(can be overwritten when added to excel file with the same docentcode)
@@ -131,11 +132,12 @@ public class ExcelImporter
                         // get student from database
                         var result = context.Students.Where(x => x.Studentnummer.Equals(student.Studentnummer)).First();
                         // edit student parameters
-                        result.Voornaam = student.Voornaam;
-                        result.Achternaam = student.Achternaam;
-                        result.Klasscode = student.Klasscode;
-                        result.StudentbegeleiderId = student.StudentbegeleiderId;
-                        result.Studentnummer = student.Studentnummer; // redundant
+                        if (student.Voornaam != null) result.Voornaam = student.Voornaam;
+                        if (student.Achternaam != null) result.Achternaam = student.Achternaam;
+                        if (student.Tussenvoegsel != null) result.Tussenvoegsel = student.Tussenvoegsel;
+                        if (student.Klasscode != null) result.Klasscode = student.Klasscode;
+                        if (student.StudentbegeleiderId != null) result.StudentbegeleiderId = student.StudentbegeleiderId;
+                        if (student.Studentnummer != null) result.Studentnummer = student.Studentnummer; // redundant
                     }
                     // when no, add the student to the database
                     else
@@ -155,7 +157,7 @@ public class ExcelImporter
         // set fileLocation
         if (fileLocation.Equals("")) fileLocation = _defaultCoachFileLocation;
         // get data from file
-        DataTable data = GetDataTableFromFile(fileLocation, "Coaches");
+        DataTable data = GetDataTableFromFile(fileLocation);//, "Coaches");
         // if data is null, file could not be found
         if (data == null) return;
         // get strings with coach data
@@ -194,12 +196,47 @@ public class ExcelImporter
         }
     }
 
-    public static DataTable GetDataTableFromFile(string fileLocation, string sheetName)
+    public static DataTable GetDataTableFromFile(string fileLocation)
     {
         // create connection string
         var connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=Excel 12.0;";
+
+        OleDbConnection objConn;
+        DataTable dt;
+        try
+        {
+            // create connection
+            objConn = new OleDbConnection(connectionString);
+            objConn.Open();
+            // get first sheet name
+            dt = objConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+            if (dt == null)
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+
+        string sheetName = dt.Rows[0]["TABLE_NAME"].ToString();
+        sheetName = sheetName.Replace("$", "");
+
+        // dispose and close connection
+        if (objConn != null)
+        {
+            objConn.Close();
+            objConn.Dispose();
+        }
+        if (dt != null)
+        {
+            dt.Dispose();
+        }
+        Trace.WriteLine(sheetName);
         // create command string
         var commandString = $"SELECT * FROM [{sheetName}$]";
+
         OleDbDataAdapter adapter;
         try
         {
@@ -210,10 +247,13 @@ public class ExcelImporter
         {
             return null;
         }
+
         // create dataset
         var ds = new DataSet();
         // fill dataset
         adapter.Fill(ds);
+        // dispose adapter
+        adapter.Dispose();
         // return dataset
         return ds.Tables[0];
 
@@ -247,7 +287,16 @@ public class ExcelImporter
             student.Studentnummer = dataStrings[0].Trim();
             student.Voornaam = dataStrings[1].Trim();
             student.Achternaam = dataStrings[2].Trim();
-            student.Klasscode = dataStrings[4].Trim();
+            if (dataStrings.Length == 5)
+            {
+                student.Klasscode = dataStrings[4].Trim();
+            }
+            else if (dataStrings.Length == 6)
+            {
+                student.Tussenvoegsel = dataStrings[3].Trim();
+                student.Klasscode = dataStrings[5].Trim();
+
+            }
             // return student
             return student;
         }
