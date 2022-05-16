@@ -28,7 +28,8 @@ namespace WPF
                 Leerdoel leerdoel = new Leerdoel
                 {
                     Beschrijving = this.leerdoel.Text,
-                    StudentId = context.Students.First().Id
+                    StudentId = context.Students.First().Id,
+                    Student = context.Students.First()
                 };
 
                 context.Leerdoelen.Add(leerdoel);
