@@ -1,4 +1,6 @@
-﻿namespace Database.Model;
+﻿using WPF.Model;
+
+namespace Database.Model;
 
 public class Student
 {
@@ -38,25 +40,23 @@ public class Student
     /// </summary>
     private int _studentbegeleiderId;
     /// <summary>
-    /// Student has a studentbegeleider
+    /// Student has a <see cref="Studentbegeleider"/>
     /// </summary>
     private StudentBegeleider _studentBegeleider;
     
     /// <summary>
-    /// A student belongs to many meetings
+    /// A student belongs to many or zero <see cref="StudentBegeleiderGesprekken"/>
     /// </summary>
     private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
+    
+    /// <summary>
+    /// A student belongs to many or zero <see cref="StudentProblem"/>
+    /// </summary>
+    private IEnumerable<StudentProblem> _studentProblems;
     
     #endregion
 
     #region Properties
-
-    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
-    {
-        get => _studentBegeleiderGesprekken;
-        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
 
     public int Id
     {
@@ -104,6 +104,18 @@ public class Student
     {
         get => _studentbegeleiderId;
         set => _studentbegeleiderId = value;
+    }
+    
+    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
+    {
+        get => _studentBegeleiderGesprekken;
+        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    
+    public IEnumerable<StudentProblem> StudentProblems
+    {
+        get => _studentProblems;
+        set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion
