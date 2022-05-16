@@ -12,12 +12,7 @@ public partial class ShowStudentLeerdoelenTable : Window
     {
         InitializeComponent();
 
-        using (StudentBeleidContext context = new StudentBeleidContext())// TODO: Change to App.Context
-        {
-            Leerdoelen = context.Leerdoelen.ToList();
-        }
 
-        StudentLeerdoelen.ItemsSource = Leerdoelen;
 
 
     }
@@ -26,5 +21,22 @@ public partial class ShowStudentLeerdoelenTable : Window
     private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
     {
         throw new System.NotImplementedException();
+    }
+    
+    private void Search_OnClick(object sender, RoutedEventArgs e)
+    {
+        using (StudentBeleidContext context = new StudentBeleidContext())// TODO: Change to App.Context
+        {
+            if (SearchInput.Text.Length == 0)
+            {
+                Leerdoelen = context.Leerdoelen.ToList();
+            }
+            else
+            {
+                Leerdoelen = context.Leerdoelen.Where(s => s.Student.Studentnummer == SearchInput.Text).ToList();
+            }
+        }
+
+        StudentLeerdoelen.ItemsSource = Leerdoelen;
     }
 }

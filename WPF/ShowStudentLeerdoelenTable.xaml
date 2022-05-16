@@ -7,16 +7,27 @@
         mc:Ignorable="d"
         Title="ShowStudentTable" Height="450" Width="1500">
      
-
         
-        <DataGrid x:Name = "StudentLeerdoelen" MinHeight="80" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" CanUserAddRows="FALSE">
-                <DataGrid.Columns> 
-                        <DataGridTextColumn x:Name="Leerdoelid" Binding ="{Binding Id}" Header="id" IsReadOnly="TRUE" />
-                        <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Beschrijving}" Header="Leerdoel" IsReadOnly="TRUE" />
-                        <DataGridTextColumn x:Name="studentId" Binding ="{Binding StudentId}" Header="StudentId" IsReadOnly="TRUE" />
-                </DataGrid.Columns>
-        </DataGrid>
+        <Grid>
+                
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Margin="50,0,0,0">Studentnummer:</Label>
+                <TextBox Grid.Row="0" Grid.ColumnSpan="2" Margin="50,25,50,0" Name="SearchInput"></TextBox>
+                
+                <Button Height="50" Width="115" Name="Search" Grid.Row="1" Grid.Column="0" Click="Search_OnClick">Search</Button>
+                
+                <DataGrid Grid.Row="2" x:Name = "StudentLeerdoelen" MinHeight="80" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" CanUserAddRows="FALSE">
+                        <DataGrid.Columns> 
+                                <DataGridTextColumn x:Name="Leerdoelid" Binding ="{Binding Id}" Header="id" IsReadOnly="TRUE" />
+                                <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Beschrijving}" Header="Leerdoel" IsReadOnly="TRUE" />
+                                <DataGridTextColumn x:Name="studentId" Binding ="{Binding StudentId}" Header="StudentId" IsReadOnly="TRUE" />
+                        </DataGrid.Columns>
+                </DataGrid>
 
-        
+        </Grid>
         
 </Window>
