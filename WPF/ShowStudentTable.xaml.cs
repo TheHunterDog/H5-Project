@@ -26,9 +26,13 @@ public partial class ShowStudentTable : Window
     {
         Detailscreen detailscreen = new Detailscreen();
         Student selectedstudent = (Student)Student.SelectedItem;
-        detailscreen.studentnr = selectedstudent.Studentnummer;
-        detailscreen.addStudentInfo();
-        detailscreen.Show();
+        if (selectedstudent != null)
+        {
+            detailscreen.studentnr = selectedstudent.Studentnummer;
+            detailscreen.addStudentInfo();
+            detailscreen.Show();
+        }
+        
 
     }
 }

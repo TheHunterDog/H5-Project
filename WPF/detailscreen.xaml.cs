@@ -35,10 +35,11 @@ namespace WPF
                 // find the students
                 selectedStudent = context.Students.Where(x => x.Studentnummer == studentnr).First();
                 // fill the labels with the student's info
+                information.Content = $"informatie student: {studentnr}";
                 naam.Content = $"Naam: {selectedStudent.Voornaam}{(" " + selectedStudent.Tussenvoegsel).TrimEnd()} {selectedStudent.Achternaam}";
                 studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
                 klas.Content = $"Klas: {selectedStudent.Klasscode}";
-                SBer.Content = $"studentbegeleider: {selectedStudent.Studentbegeleider}";
+                SBer.Content = $"studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
                 isMessagePlanned.Content = meetingIsPlanned(selectedStudent.Studentnummer);
             }
             
@@ -69,9 +70,9 @@ namespace WPF
 
         private void planMeeting(object sender, RoutedEventArgs e)
         {
-            Inplannen popup = new Inplannen();
-            popup.studentnr = studentnr;
-            popup.ShowDialog();
+            Inplannen inplannen = new Inplannen();
+            inplannen.studentnr = studentnr;
+            inplannen.ShowDialog();
         }
 
         private void meetingList(object sender, RoutedEventArgs e)
