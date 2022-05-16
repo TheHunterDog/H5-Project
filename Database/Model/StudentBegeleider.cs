@@ -63,4 +63,14 @@ public class StudentBegeleider
         set => _students = value ?? throw new ArgumentNullException(nameof(value));
     }
     #endregion
+
+    public StudentBegeleider(string docentcode = "", string naam = "")
+    {
+        this.Docentcode = docentcode;
+        this.Naam = naam;
+    }
+    public override string ToString()
+    {
+        return $"{Id}, {Naam}, {Docentcode}";
+    }
 }

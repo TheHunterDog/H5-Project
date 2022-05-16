@@ -13,6 +13,9 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
+            //ExcelImportWindow excelImportWindow = new ExcelImportWindow();
+            //excelImportWindow.Show();
+            //new ExcelImportWindow().Show();
         }
 
         private void Click(object sender, RoutedEventArgs e)

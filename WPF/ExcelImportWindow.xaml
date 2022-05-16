@@ -1,0 +1,15 @@
+﻿<Window x:Class="WPF.ExcelImportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="ExcelImportWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox HorizontalAlignment="Center" Margin="310,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,80" Width="100" Height="22" Click="OnImportButtonClick"/>
+        <Label x:Name="Number" Content="Label" HorizontalAlignment="Left" Margin="292,173,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
