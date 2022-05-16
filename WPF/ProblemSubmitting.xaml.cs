@@ -21,25 +21,27 @@ namespace WPF
     /// </summary>
     public partial class ProblemSubmitting : Window
     {
-        private Problem _problem;
+        private Model.StudentProblem _problem;
 
         // initialize problem on load window
         public ProblemSubmitting(int studentId = -1, int teacherId = -1)
         {
             InitializeComponent();
 
+            //PrintAllProblems();
+
             // initialize new problem
-            _problem = new Problem();
+            _problem = new Model.StudentProblem();
 
             // set student- and teacher id, first if no id is given, closes window if invalid id's are given
             using (var context = new StudentBeleidContext())
             {
                 if (studentId == -1) studentId = context.Students.First().Id;
                 else if (context.Students.Find(studentId) == null) CloseWindow();
-                if (teacherId == -1) teacherId = context.StudentBegeleiders.First().Id;
-                else if (context.StudentBegeleiders.Find(teacherId) == null) CloseWindow();
-                _problem.StudentID = studentId;
-                _problem.TeacherID = teacherId;
+                if (teacherId == -1) teacherId = context.Teachers.First().Id;
+                else if (context.Teachers.Find(teacherId) == null) CloseWindow();
+                _problem.StudentId = studentId;
+                _problem.TeacherId = teacherId;
             }
 
         }
@@ -50,6 +52,10 @@ namespace WPF
             if (_problem == null || Problem.Text == null) return;
 
             Trace.WriteLine(_problem);
+
+            AddProblemToDatabase();
+
+
             CloseWindow();
         }
 
@@ -93,8 +99,44 @@ namespace WPF
         {
             Close();
         }
-    }
 
+        private void AddProblemToDatabase()
+        {
+            using (var context = new StudentBeleidContext())
+            {
+                context.StudentProblems.Add(_problem);
+                // save changes to database
+                context.SaveChanges();
+            }
+        }
+
+        private void PrintAllProblems()
+        {
+            Trace.WriteLine("\n All Problems in database:");
+            try
+            {
+                using (var context = new StudentBeleidContext())
+                {
+                    // obtain students from database
+                    List<Model.StudentProblem> problems = context.StudentProblems.ToList();
+                    for (int i = 0; i < problems.Count; i++)
+                    {
+                        // get student from list
+                        Model.StudentProblem problem = problems.ElementAt(i);
+                        // print student data
+                        Trace.WriteLine(problem);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+            }
+
+
+        }
+    }
+/*
     public class Problem
     {
         public int StudentID;
@@ -106,6 +148,6 @@ namespace WPF
         {
             return $"{StudentID}, {Description}, {Priority}, {TeacherID}";
         }
-    }
+    }*/
 
 }

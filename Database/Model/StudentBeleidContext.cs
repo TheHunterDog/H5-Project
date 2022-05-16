@@ -101,7 +101,7 @@ public class StudentBeleidContext : DbContext
         #region studentProblems
 
         modelBuilder.Entity<StudentProblem>()
-            .HasKey(sp => new {sp.Student, sp.Teacher});
+            .HasKey(sp => new {sp.StudentId, sp.TeacherId});
 
         modelBuilder.Entity<StudentProblem>()
             .HasOne(sp => sp.Student)
