@@ -32,7 +32,7 @@ public partial class ShowStudentLeerdoelenTable : Window
             }
             else
             {
-                List<int> match = SmartSearch.SmartSearchStudent(SearchInput.Text,App.context);
+                List<int> match = SmartSearch.SmartSearchStudentID(SearchInput.Text,App.context);
                 foreach (var student in match)
                 {
                     Leerdoelen = App.context.Leerdoelen.Where(s => s.Student.Id == student).ToList().Concat(Leerdoelen).ToList();

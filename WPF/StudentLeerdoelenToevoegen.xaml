@@ -21,6 +21,14 @@
         <Label Grid.Row="0" Margin="50,0,0,0">Leerdoel:</Label>
         <TextBox Grid.Row="0" Grid.ColumnSpan="1" Margin="50,25,50,0" Name="leerdoel"></TextBox>
         
+        <Label Grid.Row="0" Grid.Column="1" Margin="50,0,0,0">Student:</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Margin="50,25,50,0" Name="Student"></TextBox>
+        
+        <ComboBox Grid.Row="1" Name="Studentselection" ItemsSource="{Binding StudentSelection}">
+            
+        </ComboBox>
+        
+        <Button Height="30" Width="120" Name="Search" Grid.Row="1" Grid.Column="1" Click="Search_OnClick">Zoeken</Button>
         <Button Height="30" Width="120" Name="Submit" Grid.Row="2" Grid.Column="1" Click="Submit_Click">Bewaren</Button>
         
 
