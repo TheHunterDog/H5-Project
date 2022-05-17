@@ -79,5 +79,16 @@ namespace WPF
         {
 
         }
+
+        private void ProblemBtn(object sender, RoutedEventArgs e)
+        {
+            using (var context = new StudentBeleidContext())
+            {
+                Student st = context.Students.Where(x => x.Studentnummer == studentnr).First();
+                DetailscreenProblems detailscreenProblems = new(st);
+                detailscreenProblems.Show();
+            }
+        }
     }
 }
+ 

@@ -46,7 +46,7 @@
         <Label Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Name="isMessagePlanned" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32"></Label>
         <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Left" Margin="10" Click="meetingList">gesprekken</Button>
         <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Center" Click="planMeeting">gesprek inplannen</Button>
-        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Right" Margin="10">problemen</Button>
+        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Right" Margin="10" Click="ProblemBtn">problemen</Button>
         <Image Grid.ColumnSpan="2" Margin="0,0,1300,0" Source="/Images/HBO-ICT.jpg" Stretch="Fill"/>
         <Image Grid.Column="1" Margin="435,0,600,50" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
         <Image Grid.Column="1" Margin="435,46,600,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
