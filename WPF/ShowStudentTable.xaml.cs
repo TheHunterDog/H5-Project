@@ -21,6 +21,4 @@ public partial class ShowStudentTable : Window
 
 
     }
-
-     
 }
