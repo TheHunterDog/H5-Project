@@ -21,8 +21,7 @@ namespace WPF
 
         private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
         {
-            Inplannen popup = new Inplannen();
-            popup.ShowDialog();
+            
         }
 
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
