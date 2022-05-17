@@ -20,14 +20,13 @@ namespace WPF
             InitializeComponent();
         }
         
-        /**
-         * <summary>button click logic</summary> 
-         */
+        /// <summary>
+        /// Submit the <see cref="leerdoel"/> Binded to <see cref="Student"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-
-            
-            List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
             KeyValuePair<String,Student> s = (KeyValuePair<String,Student>) Studentselection.SelectedItem;
             Leerdoel leerdoel = new Leerdoel
                 {
@@ -41,6 +40,11 @@ namespace WPF
                 Close();
         }
 
+        /// <summary>
+        /// Search the student and place them in the combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Search_OnClick(object sender, RoutedEventArgs e)
         {
             List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
