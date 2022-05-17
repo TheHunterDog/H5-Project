@@ -25,22 +25,20 @@ public partial class ShowStudentLeerdoelenTable : Window
     private void Search_OnClick(object sender, RoutedEventArgs e)
     {
         Leerdoelen = new List<Leerdoel>();
-        using (StudentBeleidContext context = new StudentBeleidContext())// TODO: Change to App.Context
-        {
+
             if (SearchInput.Text.Length == 0)
             {
-                Leerdoelen = context.Leerdoelen.ToList();
+                Leerdoelen = App.context.Leerdoelen.ToList();
             }
             else
             {
-                List<int> match = SmartSearch.SmartSearchStudent(SearchInput.Text);
+                List<int> match = SmartSearch.SmartSearchStudent(SearchInput.Text,App.context);
                 foreach (var student in match)
                 {
-                    Leerdoelen = context.Leerdoelen.Where(s => s.Student.Id == student).ToList().Concat(Leerdoelen).ToList();
+                    Leerdoelen = App.context.Leerdoelen.Where(s => s.Student.Id == student).ToList().Concat(Leerdoelen).ToList();
 
-                } 
+                }
             }
-        }
         StudentLeerdoelen.ItemsSource = Leerdoelen;
     }
 }

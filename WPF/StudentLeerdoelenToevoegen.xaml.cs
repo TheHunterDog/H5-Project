@@ -23,19 +23,17 @@ namespace WPF
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             
-            using (var context = new StudentBeleidContext())
-            {
+            
                 Leerdoel leerdoel = new Leerdoel
                 {
                     Beschrijving = this.leerdoel.Text,
-                    StudentId = context.Students.First().Id,
-                    Student = context.Students.First()
+                    StudentId = App.context.Students.First().Id,
+                    Student = App.context.Students.First()
                 };
 
-                context.Leerdoelen.Add(leerdoel);
-                context.SaveChanges();
-            }
-            Close();
+                App.context.Leerdoelen.Add(leerdoel);
+                App.context.SaveChanges();
+                Close();
         }
     }
 }
