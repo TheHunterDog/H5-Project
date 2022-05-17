@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <None Remove="HBOICT.png" />
-    <None Remove="Images\bits.png" />
-    <None Remove="Images\HBOICT.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,12 +37,6 @@
 
   <ItemGroup>
     <Resource Include="HBOICT.png" />
-    <Resource Include="Images\bits.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\HBOICT.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 
