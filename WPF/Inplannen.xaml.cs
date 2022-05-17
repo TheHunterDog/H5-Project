@@ -29,7 +29,7 @@ namespace WPF
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
 
             // specify the database
-            using (var context = App.context)
+            using (StudentBeleidContext context = new StudentBeleidContext())
             {
                 // find the student
                 Student selectedstudent = context.Students.Where(x => x.Studentnummer == studentnr).First();
@@ -65,7 +65,7 @@ namespace WPF
         private void send_Mail(DateTime date, string notes, string studentnr)
         {
             //create the message
-            MailMessage message = new MailMessage("afspraakplanner123@gmail.com", $"@{studentnr}@student.windesheim.nl", $"afspraak op {date}", $"Er is een afspraak ingpepland op {date} met als opmerking:\n {notes}"); // TODO replace email with the students email
+            MailMessage message = new MailMessage("afspraakplanner123@gmail.com", $"{studentnr}@student.windesheim.nl", $"afspraak op {date}", $"Er is een afspraak ingpepland op {date} met als opmerking:\n {notes}"); // TODO replace email with the students email
             //config the mail service
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             client.Credentials = new System.Net.NetworkCredential("afspraakplanner123@gmail.com", "Mailtest123");

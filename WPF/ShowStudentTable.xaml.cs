@@ -7,7 +7,6 @@ using System.Diagnostics;
 
 namespace WPF;
 public partial class ShowStudentTable : Window
-
 {
     public List<Student> Students { get; set; }
     public ShowStudentTable()
