@@ -21,17 +21,17 @@ namespace WPF
     /// </summary>
     public partial class ProblemSubmitting : Window
     {
-        private Model.StudentProblem _problem;
+        private Model.StudentProblem _stagedProblem;
 
         // initialize problem on load window
         public ProblemSubmitting(int studentId = -1, int teacherId = -1)
         {
             InitializeComponent();
 
-            //PrintAllProblems();
+            PrintAllProblems();
 
             // initialize new problem
-            _problem = new Model.StudentProblem();
+            _stagedProblem = new Model.StudentProblem();
 
             // set student- and teacher id, first if no id is given, closes window if invalid id's are given
             using (var context = new StudentBeleidContext())
@@ -40,8 +40,10 @@ namespace WPF
                 else if (context.Students.Find(studentId) == null) CloseWindow();
                 if (teacherId == -1) teacherId = context.Teachers.First().Id;
                 else if (context.Teachers.Find(teacherId) == null) CloseWindow();
-                _problem.StudentId = studentId;
-                _problem.TeacherId = teacherId;
+                _stagedProblem.StudentId = studentId;
+                _stagedProblem.TeacherId = teacherId;
+
+                Title.Content = "Invoeren probleem met " + context.Students.Find(studentId).Studentnummer;
             }
 
         }
@@ -49,12 +51,11 @@ namespace WPF
         // submitting problem
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (_problem == null || Problem.Text == null) return;
+            if (_stagedProblem == null || Problem.Text == null) return;
 
-            Trace.WriteLine(_problem);
+            Trace.WriteLine(_stagedProblem);
 
             AddProblemToDatabase();
-
 
             CloseWindow();
         }
@@ -62,19 +63,19 @@ namespace WPF
         // updating problem description
         private void OnProblemDescriptionChanged(object sender, TextChangedEventArgs e)
         {
-            if (_problem == null) return;
+            if (_stagedProblem == null) return;
 
-            _problem.Description = Problem.Text;
+            _stagedProblem.Description = Problem.Text;
         }
 
         // updating problem priority
         private void OnPrioritySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_problem == null) return;
+            if (_stagedProblem == null) return;
 
             string? v = ((ComboBoxItem)Priority.SelectedItem).Tag.ToString();
             string tag = v;
-            _problem.Priority = PriorityTextToInt(tag);
+            _stagedProblem.Priority = PriorityTextToInt(tag);
         }
 
         // converting dropdown item tag to int value
@@ -104,7 +105,11 @@ namespace WPF
         {
             using (var context = new StudentBeleidContext())
             {
-                context.StudentProblems.Add(_problem);
+                if (_stagedProblem.Description.Equals("")) return;
+                if (context.Students.Find(_stagedProblem.StudentId) == null) return;
+                if (context.Teachers.Find(_stagedProblem.TeacherId) == null) return;
+
+                context.StudentProblems.Add(_stagedProblem);
                 // save changes to database
                 context.SaveChanges();
             }

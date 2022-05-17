@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HBOICT.png" />
+    <None Remove="Images\bits.png" />
+    <None Remove="Images\HBOICT.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="View" />
   </ItemGroup>
 
@@ -29,6 +35,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
     <ProjectReference Include="..\DataImporting\DataImporting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="HBOICT.png" />
+    <Resource Include="Images\bits.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\HBOICT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 

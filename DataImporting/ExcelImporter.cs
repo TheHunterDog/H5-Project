@@ -172,14 +172,14 @@ public class ExcelImporter
                 // add coach to database
                 if (coach != null)
                 {
-                    //Console.WriteLine(coach);
                     // get whether there is already a coach with the same code in the database
                     int count = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(coach.Docentcode)).Count();
                     // when yes, update coach with new name etc.
                     if (count > 0)
                     {
-                        //Console.WriteLine("Update");
+                        // get coach from database
                         var result = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(coach.Docentcode)).First();
+                        // update coach parameters
                         result.Naam = coach.Naam;
                         result.Docentcode = coach.Docentcode; // redundant
                     }
@@ -198,6 +198,8 @@ public class ExcelImporter
 
     public static DataTable GetDataTableFromFile(string fileLocation)
     {
+        if (!fileLocation.Contains(".xlsx")) return null;
+
         // create connection string
         var connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=Excel 12.0;";
 
@@ -214,6 +216,8 @@ public class ExcelImporter
             {
                 return null;
             }
+            if (dt.Rows.Count == 0) return null;
+            if (dt.Rows[0].Table == null) return null;
         }
         catch (Exception e)
         {
