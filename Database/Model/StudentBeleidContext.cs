@@ -68,6 +68,12 @@ public class StudentBeleidContext : DbContext
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(false);
 
+        modelBuilder.Entity<Student>()
+            .HasMany(s => s.StudentProblems)
+            .WithOne(s => s.Student)
+            .HasForeignKey(s => s.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         #endregion
 
         #region StudentBegeleider

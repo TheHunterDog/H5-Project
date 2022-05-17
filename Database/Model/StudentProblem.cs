@@ -7,6 +7,11 @@ public class StudentProblem
 {
     #region PrivateFields
     /// <summary>
+    /// StudentProblem has an ID
+    /// </summary>
+    private int _id;
+    
+    /// <summary>
     /// StudentProblem has an associated studentId
     /// </summary>
     private int _studentId;
@@ -39,6 +44,12 @@ public class StudentProblem
 
     #region Properties
 
+    public int Id
+    {
+        get => _id;
+        set => _id = value;
+    }
+    
     public int StudentId
     {
         get => _studentId;
