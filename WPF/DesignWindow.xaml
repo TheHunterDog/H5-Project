@@ -1,0 +1,61 @@
+﻿<Window x:Class="WPF.DesignWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="DesignWindow" Height="450" Width="800" Background="#113B69">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53*" />
+            <ColumnDefinition Width="747*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="113*" />
+            <RowDefinition Height="321*" />
+        </Grid.RowDefinitions>
+        <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="351" Margin="26,57,0,0" Grid.RowSpan="2"
+                   Stroke="Black" VerticalAlignment="Top" Width="744" Fill="#FFFFFF" />
+
+        <Rectangle HorizontalAlignment="Left" Height="271" Margin="38,2,0,0" Stroke="Black" VerticalAlignment="Top"
+                   Width="551" Grid.Row="1" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" >
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.102"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.498"/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Label Content="Studentenoverzicht&#xA;" HorizontalAlignment="Left" Margin="157,8,0,0" VerticalAlignment="Top"
+               Grid.Column="1" Grid.Row="1" />
+        <Button Content="Importeer" HorizontalAlignment="Left" Height="30" Margin="398,8,0,0" VerticalAlignment="Top"
+                Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="1" />
+        <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="46" Margin="26,57,0,0" Stroke="Black"
+                   VerticalAlignment="Top" Width="744" />
+        <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="46" Margin="31,57,0,0" Stroke="Black"
+                   VerticalAlignment="Top" Width="175" />
+        <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="46" Margin="206,57,0,0" Stroke="Black"
+                   VerticalAlignment="Top" Width="175" />
+        <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="46" Margin="381,57,0,0" Stroke="Black"
+                   VerticalAlignment="Top" Width="175" />
+        <Ellipse Grid.Column="1" HorizontalAlignment="Left" Height="40" Margin="563,60,0,0" Stroke="Black" VerticalAlignment="Top" Width="42"/>
+        <Image Grid.Column="1" Margin="573,67,152,20" Source="/images/person.png" Stretch="Fill" Width="21" Height="26"/>
+        <Label Grid.Column="1" Content="Naam" HorizontalAlignment="Left" Margin="610,57,0,0" VerticalAlignment="Top" Width="98" Height="25"/>
+        <Label Grid.Column="1" Content="Rol" HorizontalAlignment="Left" Margin="610,79,0,0" VerticalAlignment="Top" Width="98" Height="24" RenderTransformOrigin="0.418,1.922"/>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="187" Margin="540,2,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="173"/>
+        <Button Content="Bekijk meldingen" HorizontalAlignment="Left" Height="30" Margin="567,0,0,-10" VerticalAlignment="Center"
+            Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="1" />
+        <Image Margin="2,1,0,67" Source="/images/hbo-ict-header.jpg" Stretch="Fill" Grid.ColumnSpan="2"/>
+        <Button Grid.Column="1" Content="&#xD;&#xA;" HorizontalAlignment="Left" Height="46" Margin="31,57,0,0" VerticalAlignment="Top" Width="175" Background="#FFFFFF" Name="StudentButton"/>
+        <Button Grid.Column="1" Content="Afspraken" HorizontalAlignment="Left" Height="46" Margin="206,57,0,0" VerticalAlignment="Top" Width="175" Background="#FFFFFF" Name="MeetingButton"/>
+        <Image Grid.Column="1" Margin="42,62,673,14" Source="/Images/person.png" Stretch="Fill" Width="32" Height="37" RenderTransformOrigin="6.5,-1.215"/>
+        <Label Grid.Column="1" Content="Studenten&#xA;" HorizontalAlignment="Left" Margin="86,66,0,0" VerticalAlignment="Top"/>
+        <Image Grid.Column="1" Margin="221,62,494,14" Source="/Images/meeting.png" Stretch="Fill" Width="32" Height="37"/>
+        <Button Grid.Column="1" Content="Meldingen" HorizontalAlignment="Left" Height="46" Margin="381,57,0,0" VerticalAlignment="Top" Width="175" Background="#FFFFFF" x:Name="MeetingButton_Copy"/>
+        <Image Grid.Column="1" Margin="393,60,322,16" Source="/Images/Problem.png" Stretch="Fill" Width="32" Height="37"/>
+
+    </Grid>
+</Window>
