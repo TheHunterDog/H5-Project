@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows;
+using Database.Migrations;
 using Database.Model;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WPF.Util;
@@ -16,12 +17,11 @@ public partial class ShowStudentLeerdoelenTable : Window
     {
         InitializeComponent();
     }
-    
-    private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
-    
+/// <summary>
+/// Search student based on searchfield <see cref="SmartSearch.SmartSearchStudent"/>
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
     private void Search_OnClick(object sender, RoutedEventArgs e)
     {
         Leerdoelen = new List<Leerdoel>();
@@ -32,11 +32,10 @@ public partial class ShowStudentLeerdoelenTable : Window
             }
             else
             {
-                List<int> match = SmartSearch.SmartSearchStudentID(SearchInput.Text,App.context);
+                List<Student> match = SmartSearch.SmartSearchStudent(SearchInput.Text,App.context);
                 foreach (var student in match)
                 {
-                    Leerdoelen = App.context.Leerdoelen.Where(s => s.Student.Id == student).ToList().Concat(Leerdoelen).ToList();
-
+                    Leerdoelen = Leerdoelen.Concat(student.Leerdoelen) as List<Leerdoel>;
                 }
             }
         StudentLeerdoelen.ItemsSource = Leerdoelen;
