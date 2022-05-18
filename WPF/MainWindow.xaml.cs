@@ -13,9 +13,6 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
-            //ExcelImportWindow excelImportWindow = new ExcelImportWindow();
-            //excelImportWindow.Show();
-            //new ExcelImportWindow().Show();
         }
 
         private void Click(object sender, RoutedEventArgs e)
@@ -39,19 +36,6 @@ namespace WPF
         {
             ProblemSubmitting popup = new ProblemSubmitting();
             popup.ShowDialog();
-        }
-
-        private void ButtonImportStudents_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Excel Files(.xlsx)|*.xlsx";
-            openFileDialog.ShowDialog();
-
-            string directory = openFileDialog.FileName;
-            Trace.WriteLine(directory);
-
-            ExcelImporter.ImportStudentsFromFile(directory);
-            ExcelImporter.PrintStudents();
         }
     }
 }

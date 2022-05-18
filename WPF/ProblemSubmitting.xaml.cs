@@ -30,22 +30,14 @@ namespace WPF
 
             PrintAllProblems();
 
-            // initialize new problem
-            _stagedProblem = new Model.StudentProblem();
+            _stagedProblem = CreateStudentProblem(studentId, teacherId);
+            if (_stagedProblem == null) CloseWindow();
 
-            // set student- and teacher id, first if no id is given, closes window if invalid id's are given
+            // set title
             using (var context = new StudentBeleidContext())
             {
-                if (studentId == -1) studentId = context.Students.First().Id;
-                else if (context.Students.Find(studentId) == null) CloseWindow();
-                if (teacherId == -1) teacherId = context.Teachers.First().Id;
-                else if (context.Teachers.Find(teacherId) == null) CloseWindow();
-                _stagedProblem.StudentId = studentId;
-                _stagedProblem.TeacherId = teacherId;
-
-                Title.Content = "Invoeren probleem met " + context.Students.Find(studentId).Studentnummer;
+                Title.Content = "Invoeren probleem met " + GetStudentNumberFromStudentId(studentId);
             }
-
         }
 
         // submitting problem
@@ -53,9 +45,9 @@ namespace WPF
         {
             if (_stagedProblem == null || Problem.Text == null) return;
 
-            Trace.WriteLine(_stagedProblem);
+            // Trace.WriteLine(_stagedProblem);
 
-            AddProblemToDatabase();
+            AddProblemToDatabase(_stagedProblem);
 
             CloseWindow();
         }
@@ -79,7 +71,7 @@ namespace WPF
         }
 
         // converting dropdown item tag to int value
-        private int PriorityTextToInt(string text)
+        public int PriorityTextToInt(string text)
         {
             if (text.Equals("0"))
             {
@@ -101,15 +93,47 @@ namespace WPF
             Close();
         }
 
-        private void AddProblemToDatabase()
+        public Model.StudentProblem CreateStudentProblem(int studentId, int teacherId)
+        {
+            // initialize new problem
+            Model.StudentProblem studentProblem = new Model.StudentProblem();
+
+            // set student- and teacher id, first if no id is given, closes window if invalid id's are given
+            using (var context = new StudentBeleidContext())
+            {
+                if (studentId == -1) studentId = context.Students.First().Id;
+                else if (context.Students.Find(studentId) == null) return null;
+                if (teacherId == -1) teacherId = context.Teachers.First().Id;
+                else if (context.Teachers.Find(teacherId) == null) return null;
+                studentProblem.StudentId = studentId;
+                studentProblem.TeacherId = teacherId;
+            }
+
+            return studentProblem;
+        }
+
+        public string GetStudentNumberFromStudentId(int studentId)
         {
             using (var context = new StudentBeleidContext())
             {
-                if (_stagedProblem.Description.Equals("")) return;
-                if (context.Students.Find(_stagedProblem.StudentId) == null) return;
-                if (context.Teachers.Find(_stagedProblem.TeacherId) == null) return;
+                Student student = context.Students.Find(studentId);
+                if (student != null)
+                {
+                    return context.Students.Find(studentId).Studentnummer;
+                }
+                else return "";
+            }
+        }
 
-                context.StudentProblems.Add(_stagedProblem);
+        public void AddProblemToDatabase(Model.StudentProblem studentProblem)
+        {
+            using (var context = new StudentBeleidContext())
+            {
+                if (studentProblem.Description.Equals("")) return;
+                if (context.Students.Find(studentProblem.StudentId) == null) return;
+                if (context.Teachers.Find(studentProblem.TeacherId) == null) return;
+
+                context.StudentProblems.Add(studentProblem);
                 // save changes to database
                 context.SaveChanges();
             }
