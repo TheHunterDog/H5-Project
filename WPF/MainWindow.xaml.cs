@@ -6,27 +6,32 @@ namespace WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
+        // Keep track of open page
+        // 0 is studentList
+        // 1 is anotherPage
+        private int _screen = -1;
+        
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Click(object sender, RoutedEventArgs e)
+        private void OpenStudentListView(object sender, RoutedEventArgs e)
         {
-            ShowStudentTable win2 = new ShowStudentTable();
-            win2.Show();
+            if (_screen == 0) return;
+            MainFrame.Navigate(new Uri("Pages/StudentTable.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.NavigationService.RemoveBackEntry();
+            _screen = 0;
         }
 
-        private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
+        private void OpenMeetingListView(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Console.WriteLine("HELLO WORLD!");
+            if (_screen == 1) return;
+            MainFrame.Navigate(new Uri("Pages/AnotherPage.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.NavigationService.RemoveBackEntry();
+            _screen = 1;
         }
     }
 }

@@ -2,37 +2,32 @@
 using System.Linq;
 using System.Windows;
 using Database.Model;
-using System;
-using System.Diagnostics;
 
 namespace WPF;
-public partial class ShowStudentTable : Window
+public partial class ShowStudentTable
 
 {
-    public List<Student> Students { get; set; }
+    public List<Student> Students;
     public ShowStudentTable()
     {
         InitializeComponent();
 
-        using (var context = App.context)
+        using (var context = new StudentBeleidContext())
         {
             Students = context.Students.ToList();
         }
-
-        Student.ItemsSource = Students;
+        StudentsTable.ItemsSource = Students;
     }
 
     private void selectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         Detailscreen detailscreen = new Detailscreen();
-        Student selectedstudent = (Student)Student.SelectedItem;
+        Student selectedstudent = (Student)StudentsTable.SelectedItem;
         if (selectedstudent != null)
         {
             detailscreen.studentnr = selectedstudent.Studentnummer;
             detailscreen.addStudentInfo();
             detailscreen.Show();
         }
-        
-
     }
 }

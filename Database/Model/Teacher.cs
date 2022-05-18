@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WPF.Model;
+﻿namespace Database.Model;
 
 public class Teacher
 {
@@ -10,6 +7,11 @@ public class Teacher
     /// Teacher has an id
     /// </summary>
     private int _teacherId;
+    
+    /// <summary>
+    /// Teacher has a name
+    /// </summary>
+    private string _name;
     
     /// <summary>
     /// A teacher belongs to many or zero <see cref="StudentProblem"/>
@@ -25,8 +27,13 @@ public class Teacher
         get => _teacherId;
         set => _teacherId = value;
     }
-    
-    
+
+    public string Name
+    {
+        get => _name;
+        set => _name = value;
+    }
+
     public IEnumerable<StudentProblem> StudentProblems
     {
         get => _studentProblems;

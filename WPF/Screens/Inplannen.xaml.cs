@@ -29,7 +29,7 @@ namespace WPF
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
 
             // specify the database
-            using (var context = App.context)
+            using (var context = new StudentBeleidContext())
             {
                 // find the student
                 Student selectedstudent = context.Students.Where(x => x.Studentnummer == studentnr).First();

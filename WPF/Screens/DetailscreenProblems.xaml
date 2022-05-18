@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="detailscreen" Height="1080" Width="1920" 
+        Title="DetailScreen" Height="1080" Width="1920" 
         Background="#113B69"
         WindowState="Maximized">
     <Grid Background="White">
@@ -37,11 +37,13 @@
             VerticalAlignment="Top" 
             CanUserAddRows="FALSE" 
             AutoGenerateColumns="False"
+            IsReadOnly="True"
         >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="StudentId" Binding ="{Binding Student.Id}" Header="studentID" IsReadOnly="TRUE" />
-                <DataGridTextColumn x:Name="Priority" Binding ="{Binding Priority}" Header="studentID" IsReadOnly="TRUE" />
-                <DataGridTextColumn x:Name="StudentProbleem" Binding ="{Binding Description}" Header="beschrijving" IsReadOnly="TRUE" />
+                <DataGridTextColumn Binding ="{Binding Student.Id}" Header="StudentID" />
+                <DataGridTextColumn Binding ="{Binding Priority}" Header="Priority" />
+                <DataGridTextColumn Binding ="{Binding Teacher.Name}" Header="Docent Naam" />
+                <DataGridTextColumn Binding ="{Binding Description}" Header="Omschrijving" />
             </DataGrid.Columns>
         </DataGrid>
         

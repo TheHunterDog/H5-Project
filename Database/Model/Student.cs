@@ -1,6 +1,4 @@
-﻿using WPF.Model;
-
-namespace Database.Model;
+﻿namespace Database.Model;
 
 public class Student
 {
