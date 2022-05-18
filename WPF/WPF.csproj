@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\HBO-ICT-bin.png" />
-    <None Remove="Images\HBO-ICT.jpg" />
+    <None Remove="Images\Header.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Header.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,15 +38,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\HBO-ICT-bin.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\HBO-ICT.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 

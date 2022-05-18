@@ -10,7 +10,7 @@
         WindowState="Maximized">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*" />
+            <RowDefinition Height="128" />
             <RowDefinition Height="75*" />
             <RowDefinition Height="50*" />
             <RowDefinition Height="50*" />
@@ -47,10 +47,7 @@
         <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Left" Margin="10" Click="meetingList">gesprekken</Button>
         <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Center" Click="planMeeting">gesprek inplannen</Button>
         <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Right" Margin="10">problemen</Button>
-        <Image Grid.ColumnSpan="2" Margin="0,0,1300,0" Source="/Images/HBO-ICT.jpg" Stretch="Fill"/>
-        <Image Grid.Column="1" Margin="435,0,600,50" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
-        <Image Grid.Column="1" Margin="435,46,600,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
-        <Image Grid.Column="1" Grid.ColumnSpan="3" Margin="1130,0,0,50" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
-        <Image Grid.Column="1" Grid.ColumnSpan="3" Margin="1130,50,0,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
+        <Image Margin="0,0,0,114" Source="/Images/Header.png" Stretch="Fill" Height="128" Width="1920" Grid.ColumnSpan="4" Grid.RowSpan="2"/>
+
     </Grid>
 </Window>
