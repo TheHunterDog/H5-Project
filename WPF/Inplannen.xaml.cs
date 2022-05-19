@@ -24,17 +24,14 @@ namespace WPF
          */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            DateTime datumAfspraak;
+            
             // get time out of the DatePicker and combibox
-            if (DatePicked.SelectedDate != null && Hours.SelectedItem != null && Minutes.SelectedItem != null)
-            {
-                datumAfspraak = (DateTime)DatePicked.SelectedDate;
-                datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
-            }
-            else
+            if (DatePicked.SelectedDate == null || Hours.SelectedItem == null || Minutes.SelectedItem == null)
             {
                 return;
             }
+            DateTime datumAfspraak = (DateTime)DatePicked.SelectedDate;
+            datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
             // specify the database
             using (StudentBeleidContext context = new StudentBeleidContext())
             {
