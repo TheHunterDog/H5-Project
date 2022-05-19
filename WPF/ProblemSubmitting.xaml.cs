@@ -36,14 +36,14 @@ namespace WPF
             // set title
             using (var context = new StudentBeleidContext())
             {
-                Title.Content = "Invoeren probleem met " + GetStudentNumberFromStudentId(studentId);
+                Title.Content = "Invoeren probleem met " + GetStudentNumberFromStudentId(_stagedProblem.StudentId);
             }
         }
 
         // submitting problem
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (_stagedProblem == null || Problem.Text == null) return;
+            if (_stagedProblem == null || _stagedProblem.Description == "") return;
 
             // Trace.WriteLine(_stagedProblem);
 
@@ -107,6 +107,8 @@ namespace WPF
                 else if (context.Teachers.Find(teacherId) == null) return null;
                 studentProblem.StudentId = studentId;
                 studentProblem.TeacherId = teacherId;
+                studentProblem.Description = "";
+                studentProblem.Priority = 0;
             }
 
             return studentProblem;

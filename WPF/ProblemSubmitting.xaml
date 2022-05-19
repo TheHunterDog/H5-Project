@@ -7,12 +7,6 @@
         mc:Ignorable="d"
         Title="Probleem invoeren" Height="450" Width="800">
     <Grid Background="#FF133E69">
-        <Image Margin="0,0,532,384" Source="/Images/HBOICT.png" Stretch="Fill"/>
-        <Image Margin="270,0,265,410" Source="/Images/bits.png" Stretch="Fill"/>
-        <Image Margin="535,0,0,410" Source="/Images/bits.png" Stretch="Fill"/>
-        <Image Margin="270,25,265,385" Source="/Images/bits.png" Stretch="Fill"/>
-        <Image Margin="535,25,0,385" Source="/Images/bits.png" Stretch="Fill"/>
-
         <Grid Margin="35,50,35,35" Background="White">
 
             <Grid.ColumnDefinitions>
@@ -26,14 +20,15 @@
             <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Omschrijving van het probleem:</Label>
             <TextBox Margin="10,100,10,150" Name="Problem" Grid.Column="1" TextChanged="OnProblemDescriptionChanged"/>
 
-            <Label Margin="10,250,10,50" HorizontalContentAlignment="Right">Prioriteit:</Label>
-            <ComboBox Grid.Column="1" Name="Priority" HorizontalAlignment="Center" Margin="0,250,0,0" Width="421" Height="40" VerticalAlignment="Top" SelectionChanged="OnPrioritySelectionChanged">
+            <Label Margin="10,200,10,50" HorizontalContentAlignment="Right">Prioriteit:</Label>
+            <ComboBox Grid.Column="1" Name="Priority" HorizontalAlignment="Center" Margin="0,200,0,0" Width="421" Height="40" VerticalAlignment="Top" SelectionChanged="OnPrioritySelectionChanged">
                 <ComboBoxItem IsSelected="True" Content="Laag" Tag="0"></ComboBoxItem>
                 <ComboBoxItem Content="Gemiddeld" Tag="1"></ComboBoxItem>
                 <ComboBoxItem Content="Hoog" Tag="2"></ComboBoxItem>
             </ComboBox>
 
-        </Grid>
 
+        </Grid>
+        <Image Margin="0,0,0,366" Source="/Images/Header.png" Stretch="Fill"/>
     </Grid>
 </Window>

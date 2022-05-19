@@ -11,6 +11,7 @@
     <None Remove="HBOICT.png" />
     <None Remove="Images\bits.png" />
     <None Remove="Images\HBOICT.png" />
+    <None Remove="Images\Header.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\HBOICT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Header.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

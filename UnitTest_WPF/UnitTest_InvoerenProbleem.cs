@@ -12,7 +12,7 @@ namespace UnitTest_WPF_Inplannen
             problemSubmitting = new ProblemSubmitting();
         }
 
-        [TestCase("0", 0)]
+        [TestCase("0", 0), Apartment(System.Threading.ApartmentState.STA)]
         [TestCase("1", 1)]
         [TestCase("2", 2)]
         [TestCase("3", 2)]
