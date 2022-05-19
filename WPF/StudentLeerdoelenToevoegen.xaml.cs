@@ -18,6 +18,8 @@ namespace WPF
         public StudentLeerdoelenToevoegen()
         {
             InitializeComponent();
+            Studentselection.DisplayMemberPath = "Key";
+            Studentselection.SelectedValuePath = "Value";
         }
         
         /// <summary>
@@ -49,7 +51,7 @@ namespace WPF
         {
             List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
             Studentselection.ItemsSource =
-                student.Select(s => new KeyValuePair<String,Student>($"{s.Studentnummer}, {s.Voornaam}, {s.Tussenvoegsel}, {s.Achternaam}",s)).ToList();
+                student.Select(s => new KeyValuePair<String,Student>($"{s.Studentnummer}, {s.Voornaam}, {(s.Tussenvoegsel != null ? s.Tussenvoegsel + ", ": "")} {s.Achternaam}",s)).ToList();
             Studentselection.SelectedIndex= 0;
         }
     }
