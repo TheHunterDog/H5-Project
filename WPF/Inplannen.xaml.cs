@@ -24,10 +24,17 @@ namespace WPF
          */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            DateTime datumAfspraak;
             // get time out of the DatePicker and combibox
-            DateTime datumAfspraak = (DateTime)DatePicked.SelectedDate;
-            datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
-
+            if (DatePicked.SelectedDate != null && Hours.SelectedItem != null && Minutes.SelectedItem != null)
+            {
+                datumAfspraak = (DateTime)DatePicked.SelectedDate;
+                datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
+            }
+            else
+            {
+                return;
+            }
             // specify the database
             using (StudentBeleidContext context = new StudentBeleidContext())
             {
@@ -50,13 +57,13 @@ namespace WPF
                     MessageBox.Show("Afspraak bestaat al!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+                Close();
                 //send a mail to the student
                 send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.Studentnummer);
                 // save and add the meeting to the database
                 context.StudentBegeleiderGesprekken.Add(meeting);
                 context.SaveChanges();
             }
-            Close();
         }
 
         /**
