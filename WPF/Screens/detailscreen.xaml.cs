@@ -87,7 +87,12 @@ namespace WPF
 
         private void LeerdoelenList(object sender, RoutedEventArgs e)
         {
-
+            using (var context = new StudentBeleidContext())
+            {
+                Student st = context.Students.Where(x => x.Studentnummer == studentnr).First();
+                ShowStudentLeerdoelenTable StudentLeerdoelenTable = new(st);
+                StudentLeerdoelenTable.Show();
+            }
         }
     }
 }
