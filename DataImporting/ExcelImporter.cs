@@ -10,12 +10,6 @@ using WPF.Model;
 
 public class ExcelImporter
 {
-    // default file locations, for testing purposes only
-    public static string _defaultStudentFileLocation =
-        @"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Students1.xlsx";
-    public static string _defaultCoachFileLocation =
-        @"C:/Users/evert/source/repos/H5-Project/DataImporting/Files/Coaches1.xlsx";
-
     // ran from console, for testing purposes only
     static void Main(string[] args)
     {
@@ -86,8 +80,6 @@ public class ExcelImporter
 
     public static void ImportStudentsFromFile(string fileLocation = "")
     {
-        // set fileLocation
-        if (fileLocation.Equals("")) fileLocation = _defaultStudentFileLocation;
         // get data from file
         DataTable data = GetDataTableFromFile(fileLocation);//, "Students");
         // if data is null, file could not be found
@@ -154,8 +146,6 @@ public class ExcelImporter
 
     public static void ImportCoachesFromFile(string fileLocation = "")
     {
-        // set fileLocation
-        if (fileLocation.Equals("")) fileLocation = _defaultCoachFileLocation;
         // get data from file
         DataTable data = GetDataTableFromFile(fileLocation);//, "Coaches");
         // if data is null, file could not be found

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest_WPF", "UnitTest_WP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataImporting", "DataImporting\DataImporting.csproj", "{9879C519-378A-4BE6-A1AE-90DC6455AC72}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest_DataImporting_ExcelImporter", "UnityTest_DataImporting_ExcelImporter\UnitTest_DataImporting_ExcelImporter.csproj", "{AEABCE8D-E0E5-4468-A05D-4EC408774010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest_DataImporting_ExcelImporter", "UnitTest_DataImporting_ExcelImporter\UnitTest_DataImporting_ExcelImporter.csproj", "{A2EE708B-48C4-4B23-9BD4-442259203F98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{9879C519-378A-4BE6-A1AE-90DC6455AC72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9879C519-378A-4BE6-A1AE-90DC6455AC72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9879C519-378A-4BE6-A1AE-90DC6455AC72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEABCE8D-E0E5-4468-A05D-4EC408774010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEABCE8D-E0E5-4468-A05D-4EC408774010}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEABCE8D-E0E5-4468-A05D-4EC408774010}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEABCE8D-E0E5-4468-A05D-4EC408774010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2EE708B-48C4-4B23-9BD4-442259203F98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2EE708B-48C4-4B23-9BD4-442259203F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2EE708B-48C4-4B23-9BD4-442259203F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2EE708B-48C4-4B23-9BD4-442259203F98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
