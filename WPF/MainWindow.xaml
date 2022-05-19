@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="StudentBegeleider tool" 
         Height="1080" 
-        Width="1920" ResizeMode="CanResizeWithGrip">
+        Width="1920" 
+        ResizeMode="CanResizeWithGrip"
+        WindowState="Maximized">
     <Grid ShowGridLines="false">
         <!-- Grid definitions -->
         <Grid.RowDefinitions>

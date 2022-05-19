@@ -75,11 +75,6 @@ namespace WPF
             inplannen.ShowDialog();
         }
 
-        private void meetingList(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ProblemBtn(object sender, RoutedEventArgs e)
         {
             using (var context = new StudentBeleidContext())
@@ -88,6 +83,11 @@ namespace WPF
                 DetailscreenProblems detailscreenProblems = new(st);
                 detailscreenProblems.Show();
             }
+        }
+
+        private void LeerdoelenList(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
