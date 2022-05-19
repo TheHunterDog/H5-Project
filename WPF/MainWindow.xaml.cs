@@ -33,5 +33,15 @@ namespace WPF
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 1;
         }
+
+        private void Leerdoelen_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ShowStudentLeerdoelenTable().Show();
+        }
+
+        private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
+        {
+            new StudentLeerdoelenToevoegen().Show();
+        }
     }
 }
