@@ -1,0 +1,56 @@
+﻿<Window x:Class="WPF.Detailscreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="detailscreen" Height="1080" Width="1920" 
+        Background="#113B69"
+        WindowState="Maximized">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="75*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="75*" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Grid.Row="0" Fill="#113B69" Grid.ColumnSpan="4"/>
+        <Rectangle Grid.Row="8" Fill="#113B69" Grid.ColumnSpan="4"/>
+        <Rectangle Grid.Column="0" Fill="#113B69" Grid.RowSpan="9"/>
+        <Rectangle Grid.Column="3" Fill="#113B69" Grid.RowSpan="9"/>
+
+        <Button Grid.Row="1" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Left" Margin="10,22,0,0" Click="backButton" VerticalAlignment="Top">Terug</Button>
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="information" HorizontalAlignment="Center"  FontSize="24" VerticalAlignment="Center" ></Label>
+        <Line Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Name="naam" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32" FontFamily="Helvetica" />
+        <Line Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Name="studentnum" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32" />
+        <Line Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Name="klas" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32" />
+        <Line Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Name="SBer" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32" />
+        <Line Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Name="isMessagePlanned" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32"></Label>
+        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Left" Margin="10" Click="meetingList">gesprekken</Button>
+        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Center" Click="planMeeting">gesprek inplannen</Button>
+        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Width="120" Height="50" HorizontalAlignment="Right" Margin="10" Click="ProblemBtn">problemen</Button>
+        <Image Grid.ColumnSpan="2" Margin="0,0,1300,0" Source="/Images/HBO-ICT.jpg" Stretch="Fill"/>
+        <Image Grid.Column="1" Margin="435,0,600,50" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
+        <Image Grid.Column="1" Margin="435,46,600,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
+        <Image Grid.Column="1" Grid.ColumnSpan="3" Margin="1130,0,0,50" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
+        <Image Grid.Column="1" Grid.ColumnSpan="3" Margin="1130,50,0,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill"/>
+    </Grid>
+</Window>

@@ -12,6 +12,7 @@ namespace WPF
     /// </summary>
     public partial class Inplannen : Window
     {
+        public string studentnr = "";
         public Inplannen()
         {
             InitializeComponent();
@@ -28,13 +29,17 @@ namespace WPF
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
 
             // specify the database
-            using (var context = App.context)
+            using (var context = new StudentBeleidContext())
             {
+                // find the student
+                Student selectedstudent = context.Students.Where(x => x.Studentnummer == studentnr).First();
                 // make the meeting
                 StudentBegeleiderGesprekken meeting = new StudentBegeleiderGesprekken
                 {
-                    StudentId = context.Students.First().Id,
-                    StudentBegeleiderId = context.Students.First().StudentbegeleiderId,
+                    StudentId = selectedstudent.Id,
+                    Student = selectedstudent,
+                    StudentBegeleiderId = selectedstudent.StudentbegeleiderId,
+                    StudentBegeleider = context.StudentBegeleiders.Where(x => x.Id == selectedstudent.StudentbegeleiderId).First(),
                     GesprekDatum = datumAfspraak,
                     Opmerkingen = $"{opmerkingen.Text}"
                 };
@@ -46,7 +51,7 @@ namespace WPF
                     return;
                 }
                 //send a mail to the student
-                send_Mail(datumAfspraak, opmerkingen.Text);
+                send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.Studentnummer);
                 // save and add the meeting to the database
                 context.StudentBegeleiderGesprekken.Add(meeting);
                 context.SaveChanges();
@@ -57,10 +62,10 @@ namespace WPF
         /**
          * <summary>  </summary> 
          */
-        private void send_Mail(DateTime date, string notes)
+        private void send_Mail(DateTime date, string notes, string studentnr)
         {
             //create the message
-            MailMessage message = new MailMessage("afspraakplanner123@gmail.com", "s1147577@student.windesheim.nl", $"afspraak op {date}", $"Er is een afspraak ingpepland op {date} met als opmerking:\n {notes}"); // TODO replace email with the students email
+            MailMessage message = new MailMessage("afspraakplanner123@gmail.com", $"@{studentnr}@student.windesheim.nl", $"afspraak op {date}", $"Er is een afspraak ingpepland op {date} met als opmerking:\n {notes}"); // TODO replace email with the students email
             //config the mail service
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             client.Credentials = new System.Net.NetworkCredential("afspraakplanner123@gmail.com", "Mailtest123");

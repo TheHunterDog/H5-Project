@@ -5,27 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="MainWindow" 
-        Height="450" 
-        Width="800"
-        SizeChanged="FrameworkElement_OnSizeChanged">
-    <Grid Height="450" Width="800">
-        <Button 
-            Width="100" 
-            Height="20" 
-            HorizontalAlignment="Left"
-            Margin="20,0,0 0"
-            x:Name="Button1"
-            Content="Open Window" 
-            Click="Click"/>
+        Title="StudentBegeleider tool" 
+        Height="1080" 
+        Width="1920" ResizeMode="CanResizeWithGrip">
+    <Grid ShowGridLines="false">
+        <!-- Grid definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="85" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="42" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="42" />
+        </Grid.ColumnDefinitions>
         
-        <Button 
-            Width="150" 
-            Height="20" 
-            HorizontalAlignment="Right"
-            Margin="0,0,20 0"
-            x:Name="BtnPlan" 
-            Content="Gesprek inplannen"
-            Click="ButtonPlanIn_Click"/>
+        <!-- Application Borders -->
+        <Rectangle Grid.Row="0" Fill="#113B69" Grid.ColumnSpan="3" Grid.Column="0" />
+        <Rectangle Grid.Row="2" Fill="#113B69" Grid.ColumnSpan="3" Grid.Column="0" />
+        <Rectangle Grid.Column="0" Fill="#113B69" Grid.Row="1" />
+        <Rectangle Grid.Column="2" Fill="#113B69" Grid.Row="1" />
+        
+        <!-- Application Images -->
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="/Images/HBO-ICT.jpg" Stretch="Uniform" HorizontalAlignment="Left" />
+        
+            <Grid Grid.Row="1" Grid.Column="1" ShowGridLines="false">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="459"/>
+                    <ColumnDefinition Width="459"/>
+                    <ColumnDefinition Width="459"/>
+                    <ColumnDefinition Width="459"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Row="0" Grid.Column="0" Height="70" VerticalAlignment="Center" FontSize="24" Click="OpenStudentListView">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/person.png" Width="32"/>
+                            <TextBlock Margin="10 0 0 0">Studenten</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="1" Height="70" VerticalAlignment="Center" FontSize="24" Click="OpenMeetingListView">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/menu.png" Width="32"/>
+                            <TextBlock Margin="10 0 0 0">Afspraken</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="2" Height="70" VerticalAlignment="Center" FontSize="24">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/warning.png" Width="32"/>
+                            <TextBlock Margin="10 0 0 0">Meldingen</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="3" Height="70" VerticalAlignment="Center" FontSize="24">
+                    Ingelogde Docent.
+                </Button>
+                
+                <Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Name="MainFrame" NavigationUIVisibility="Hidden" Source="/Pages/StudentTable.xaml"/>
+            </Grid>
+            
+            <!-- <UserControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="Students" Background="Aquamarine"></UserControl> -->
+            <!-- <UserControl Grid.Row="1" Grid.Column="1" Name="Meetings" Background="Chocolate"></UserControl> -->
+            <!-- <UserControl Grid.Row="1" Grid.Column="1" Name="Notifications" Background="Khaki"></UserControl> -->
+            
     </Grid>
 </Window>

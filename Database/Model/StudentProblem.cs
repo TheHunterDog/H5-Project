@@ -1,7 +1,4 @@
-﻿using System;
-using Database.Model;
-
-namespace WPF.Model;
+﻿namespace Database.Model;
 
 public class StudentProblem
 {
