@@ -10,22 +10,8 @@ using WPF.Model;
 
 public class ExcelImporter
 {
-    // ran from console, for testing purposes only
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-/*        // print coaches and students
-        PrintStudents();
-        PrintCoaches();
-        // remove all students and coaches
-        RemoveStudentsAndCoaches();
-        Console.WriteLine("Removed All:");
-        PrintStudents();
-        PrintCoaches();
-        ImportCoachesFromFile();
-        ImportStudentsFromFile();
-        Console.WriteLine("New:");
-        PrintStudents();
-        PrintCoaches();*/
 
     }
 
@@ -41,8 +27,6 @@ public class ExcelImporter
             context.SaveChanges(); 
         }
     }
-
-    // TEST
     public static void PrintStudents()
     {
         Trace.WriteLine("\n All Students in database:");
@@ -76,12 +60,11 @@ public class ExcelImporter
             }
         }
     }
-    // TEST
 
     public static void ImportStudentsFromFile(string fileLocation = "")
     {
         // get data from file
-        DataTable data = GetDataTableFromFile(fileLocation);//, "Students");
+        DataTable? data = GetDataTableFromFile(fileLocation);//, "Students");
         // if data is null, file could not be found
         if(data == null) return;
         // get strings with student data
@@ -92,7 +75,7 @@ public class ExcelImporter
             for (int i = 0; i < studentStrings.Length; i++)
             {
                 // convert string to object of type Student
-                Student student = CreateStudentFromDataString(studentStrings[i]);
+                Student? student = CreateStudentFromDataString(studentStrings[i]);
                 // add student to database
                 if (student != null)
                 {
@@ -108,11 +91,16 @@ public class ExcelImporter
                         // create datastring
                         string newStudentBegeleiderDataString = $"{defaultStudentCoachName}, {docentCode}";
                         // create new coach from datastring
-                        StudentBegeleider newStudentBegeleider = CreateCoachFromDataString(newStudentBegeleiderDataString);
-                        // add coach to database
-                        context.StudentBegeleiders.Add(newStudentBegeleider);
-                        // savve changes to database
-                        context.SaveChanges();
+                        StudentBegeleider? newStudentBegeleider = CreateCoachFromDataString(newStudentBegeleiderDataString);
+
+                        if (newStudentBegeleider != null)
+                        {
+                            // add coach to database
+                            context.StudentBegeleiders.Add(newStudentBegeleider);
+                            // savve changes to database
+                            context.SaveChanges();
+                        }
+                        else return;
                     }
                     StudentBegeleider begeleider = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(docentCode)).First();
                     student.StudentbegeleiderId = begeleider.Id;
@@ -128,8 +116,6 @@ public class ExcelImporter
                         if (student.Achternaam != null) result.Achternaam = student.Achternaam;
                         if (student.Tussenvoegsel != null) result.Tussenvoegsel = student.Tussenvoegsel;
                         if (student.Klasscode != null) result.Klasscode = student.Klasscode;
-                        if (student.StudentbegeleiderId != null) result.StudentbegeleiderId = student.StudentbegeleiderId;
-                        if (student.Studentnummer != null) result.Studentnummer = student.Studentnummer; // redundant
                     }
                     // when no, add the student to the database
                     else
@@ -143,11 +129,10 @@ public class ExcelImporter
             context.SaveChanges();
         }
     }
-
     public static void ImportCoachesFromFile(string fileLocation = "")
     {
         // get data from file
-        DataTable data = GetDataTableFromFile(fileLocation);//, "Coaches");
+        DataTable? data = GetDataTableFromFile(fileLocation);//, "Coaches");
         // if data is null, file could not be found
         if (data == null) return;
         // get strings with coach data
@@ -158,7 +143,7 @@ public class ExcelImporter
             for (int i = 0; i < coachStrings.Length; i++)
             {
                 // convert string to object of type Coach
-                StudentBegeleider coach = CreateCoachFromDataString(coachStrings[i]);
+                StudentBegeleider? coach = CreateCoachFromDataString(coachStrings[i]);
                 // add coach to database
                 if (coach != null)
                 {
@@ -186,7 +171,7 @@ public class ExcelImporter
         }
     }
 
-    public static DataTable GetDataTableFromFile(string fileLocation)
+    public static DataTable? GetDataTableFromFile(string fileLocation)
     {
         if (!fileLocation.Contains(".xlsx")) return null;
 
@@ -194,7 +179,7 @@ public class ExcelImporter
         var connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=Excel 12.0;";
 
         OleDbConnection objConn;
-        DataTable dt;
+        DataTable? dt;
         try
         {
             // create connection
@@ -214,7 +199,8 @@ public class ExcelImporter
             return null;
         }
 
-        string sheetName = dt.Rows[0]["TABLE_NAME"].ToString();
+        string? sheetName = dt.Rows[0]["TABLE_NAME"].ToString();
+        if (sheetName == null) return null;
         sheetName = sheetName.Replace("$", "");
 
         // dispose and close connection
@@ -267,7 +253,7 @@ public class ExcelImporter
         return dataStrings;
     }
 
-    public static Student CreateStudentFromDataString(string data)
+    public static Student? CreateStudentFromDataString(string data)
     {
         // create string array with split items from string
         string[] dataStrings = data.Split(",");
@@ -298,7 +284,7 @@ public class ExcelImporter
         return null;
     }
 
-    public static StudentBegeleider CreateCoachFromDataString(string data)
+    public static StudentBegeleider? CreateCoachFromDataString(string data)
     {
         // create string array with split items from string
         string[] dataStrings = data.Split(",");

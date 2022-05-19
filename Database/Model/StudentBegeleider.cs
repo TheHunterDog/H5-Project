@@ -64,11 +64,14 @@ public class StudentBegeleider
     }
     #endregion
 
-    public StudentBegeleider(string docentcode = "", string naam = "")
+    public StudentBegeleider()
     {
-        this.Docentcode = docentcode;
-        this.Naam = naam;
+        _naam = "";
+        _docentcode = "";
+        this.Naam = "";
+        this.Docentcode = "";
     }
+
     public override string ToString()
     {
         return $"{Id}, {Naam}, {Docentcode}";
