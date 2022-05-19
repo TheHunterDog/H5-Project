@@ -24,7 +24,7 @@
                 
                 <Button Height="50" Width="115" Name="Search" Grid.Row="1" Grid.Column="0" Click="Search_OnClick">Search</Button>
                 
-                <DataGrid Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" x:Name = "StudentLeerdoelen" MinHeight="80" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" CanUserAddRows="FALSE">
+                <DataGrid AutoGenerateColumns="False" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" x:Name = "StudentLeerdoelen" MinHeight="80" HorizontalAlignment="Left" Margin="12, 21, 0, 0" VerticalAlignment="Top" CanUserAddRows="FALSE">
                         <DataGrid.Columns> 
                                 <DataGridTextColumn x:Name="Leerdoelid" Binding ="{Binding Id}" Header="id" IsReadOnly="TRUE" />
                                 <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Beschrijving}" Header="Leerdoel" IsReadOnly="TRUE" />
