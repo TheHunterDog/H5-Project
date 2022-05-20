@@ -21,7 +21,7 @@ namespace WPF
     /// </summary>
     public partial class ProblemSubmitting : Window
     {
-        private Model.StudentProblem _stagedProblem;
+        private StudentProblem _stagedProblem;
 
         // initialize problem on load window
         public ProblemSubmitting(int studentId = -1, int teacherId = -1)
@@ -93,10 +93,10 @@ namespace WPF
             Close();
         }
 
-        public Model.StudentProblem CreateStudentProblem(int studentId, int teacherId)
+        public StudentProblem CreateStudentProblem(int studentId, int teacherId)
         {
             // initialize new problem
-            Model.StudentProblem studentProblem = new Model.StudentProblem();
+            StudentProblem studentProblem = new StudentProblem();
 
             // set student- and teacher id, first if no id is given, closes window if invalid id's are given
             using (var context = new StudentBeleidContext())
@@ -127,7 +127,7 @@ namespace WPF
             }
         }
 
-        public void AddProblemToDatabase(Model.StudentProblem studentProblem)
+        public void AddProblemToDatabase(StudentProblem studentProblem)
         {
             using (var context = new StudentBeleidContext())
             {
@@ -149,11 +149,11 @@ namespace WPF
                 using (var context = new StudentBeleidContext())
                 {
                     // obtain students from database
-                    List<Model.StudentProblem> problems = context.StudentProblems.ToList();
+                    List<StudentProblem> problems = context.StudentProblems.ToList();
                     for (int i = 0; i < problems.Count; i++)
                     {
                         // get student from list
-                        Model.StudentProblem problem = problems.ElementAt(i);
+                        StudentProblem problem = problems.ElementAt(i);
                         // print student data
                         Trace.WriteLine(problem);
                     }

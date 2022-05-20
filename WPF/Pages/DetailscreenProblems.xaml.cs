@@ -30,4 +30,10 @@ public partial class DetailscreenProblems : Page
             studentproblemslbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";
         }
     }
+
+    private void ProbleemMeldenbtn(object sender, RoutedEventArgs e)
+    {
+        ProblemSubmitting popup = new ProblemSubmitting();
+        popup.ShowDialog();
+    }
 }

@@ -21,7 +21,7 @@
             Grid.Column="0"
             x:Name="studentproblemslbl"
             FontSize="24"/>
-            <Button Grid.Column="1" Width="140" Height="40" HorizontalAlignment="Right" Content="Probleem melden" Margin="5"/>
+            <Button Grid.Column="1" Width="140" Height="40" HorizontalAlignment="Right" Content="Probleem melden" Margin="5" Click="ProbleemMeldenbtn"/>
 
             <DataGrid
             Grid.Row="1" 
