@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace WPF
@@ -32,6 +34,12 @@ namespace WPF
             MainFrame.Navigate(new Uri("Pages/AnotherPage.xaml", UriKind.RelativeOrAbsolute));
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 1;
+        }
+
+        private void ButtonProblemSubmitting_Click(object sender, RoutedEventArgs e)
+        {
+            ProblemSubmitting popup = new ProblemSubmitting();
+            popup.ShowDialog();
         }
     }
 }

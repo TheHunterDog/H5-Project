@@ -82,6 +82,11 @@ public class StudentProblem
         get => _description;
         set => _description = value;
     }
-    
+
     #endregion
+
+    public override string ToString()
+    {
+        return $"{StudentId}, {Description}, {Priority}, {TeacherId}";
+    }
 }
