@@ -15,9 +15,11 @@ namespace WPF
     /// </summary>
     public partial class StudentLeerdoelenToevoegen : Window
     {
-        public StudentLeerdoelenToevoegen()
+        Student selectedstudent;
+        public StudentLeerdoelenToevoegen(Student st)
         {
             InitializeComponent();
+            selectedstudent = st;
         }
         
         /// <summary>
@@ -27,30 +29,32 @@ namespace WPF
         /// <param name="e"></param>
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            KeyValuePair<String,Student> s = (KeyValuePair<String,Student>) Studentselection.SelectedItem;
-            Leerdoel leerdoel = new Leerdoel
+            using (var context = new StudentBeleidContext())
+            {
+                Leerdoel leerdoel = new Leerdoel
                 {
                     Beschrijving = this.leerdoel.Text,
-                    StudentId = s.Value.Id,
-                    Student = s.Value
+                    StudentId = selectedstudent.Id,
                 };
+                context.Leerdoelen.Add(leerdoel);
+                context.SaveChanges();
+            }
 
-                App.context.Leerdoelen.Add(leerdoel);
-                App.context.SaveChanges();
-                Close();
+
+
         }
 
-        /// <summary>
-        /// Search the student and place them in the combobox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Search_OnClick(object sender, RoutedEventArgs e)
-        {
-            List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
-            Studentselection.ItemsSource =
-                student.Select(s => new KeyValuePair<String,Student>($"{s.Studentnummer}, {s.Voornaam}, {s.Tussenvoegsel}, {s.Achternaam}",s)).ToList();
-            Studentselection.SelectedIndex= 0;
-        }
+        /*        /// <summary>
+                /// Search the student and place them in the combobox
+                /// </summary>
+                /// <param name="sender"></param>
+                /// <param name="e"></param>
+                private void Search_OnClick(object sender, RoutedEventArgs e)
+                {
+                    List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
+                    Studentselection.ItemsSource =
+                        student.Select(s => new KeyValuePair<String,Student>($"{s.Studentnummer}, {s.Voornaam}, {s.Tussenvoegsel}, {s.Achternaam}",s)).ToList();
+                    Studentselection.SelectedIndex= 0;
+                }*/
     }
 }

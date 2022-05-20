@@ -21,13 +21,11 @@ public partial class ShowStudentTable
 
     private void selectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        Detailscreen detailscreen = new Detailscreen();
-        Student selectedstudent = (Student)StudentsTable.SelectedItem;
-        if (selectedstudent != null)
+        Student selectedStudent = (Student)StudentsTable.SelectedItem;
+        if (selectedStudent != null)
         {
-            detailscreen.studentnr = selectedstudent.Studentnummer;
-            detailscreen.addStudentInfo();
-            detailscreen.Show();
+            Detailscreen detailScreen = new Detailscreen(selectedStudent);
+            detailScreen.Show();
         }
     }
 }

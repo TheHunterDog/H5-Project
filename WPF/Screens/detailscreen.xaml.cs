@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using WPF.Pages;
 
 namespace WPF
 {
@@ -23,77 +24,59 @@ namespace WPF
     {
         public string studentnr;
         Student selectedStudent;
-        public Detailscreen()
+        // Keep track of open page
+        // 0 is details page
+        // 1 is problem page
+        // 2 is leerdoelen page
+        private int screen = 0;
+        public Detailscreen(Student st)
         {
             InitializeComponent();
-        }
-
-        public void addStudentInfo()
-        {
-            using (StudentBeleidContext context = new StudentBeleidContext())
-            {
-                // find the students
-                selectedStudent = context.Students.Where(x => x.Studentnummer == studentnr).First();
-                // fill the labels with the student's info
-                information.Content = $"informatie student: {studentnr}";
-                naam.Content = $"Naam: {selectedStudent.Voornaam}{(" " + selectedStudent.Tussenvoegsel).TrimEnd()} {selectedStudent.Achternaam}";
-                studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
-                klas.Content = $"Klas: {selectedStudent.Klasscode}";
-                SBer.Content = $"studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
-                isMessagePlanned.Content = meetingIsPlanned(selectedStudent.Studentnummer);
-            }
-            
-        }
-
-        /**<summary>function to check if there is a meeting planned</summary> */
-        string meetingIsPlanned(string studentid)
-        {
-            string message = "";
-            using (StudentBeleidContext context = new StudentBeleidContext())
-            {
-                if (context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id && x.GesprekDatum >= DateTime.Now).FirstOrDefault() == null)
-                {
-                    message = "op dit moment is er geen gesprek ingepland";
-                }
-                else
-                {
-                    message = $"er is een gesprek geplanned voor: {context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id).First().GesprekDatum}";
-                }
-                return message;
-            }
+            selectedStudent = st;
+            StudentdetailsPage pg = new StudentdetailsPage(selectedStudent);
+            pg.addStudentInfo();
+            DetailFrame.NavigationService.Navigate(pg);
         }
 
         private void backButton(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
-
+        private void Overzichtscreen(object sender, RoutedEventArgs e)
+        {
+            if (screen == 0) return;
+            screen = 0;
+            StudentdetailsPage pg = new StudentdetailsPage(selectedStudent);
+            pg.addStudentInfo();
+            DetailFrame.NavigationService.Navigate(pg);
+        }
         private void planMeeting(object sender, RoutedEventArgs e)
         {
-            Inplannen inplannen = new Inplannen();
+
+            Inplannen inplannen = new Inplannen(selectedStudent);
             inplannen.studentnr = studentnr;
             inplannen.ShowDialog();
         }
 
         private void ProblemBtn(object sender, RoutedEventArgs e)
         {
-            using (var context = new StudentBeleidContext())
-            {
-                Student st = context.Students.Where(x => x.Studentnummer == studentnr).First();
-                DetailscreenProblems detailscreenProblems = new(st);
-                detailscreenProblems.Show();
-            }
+            if (screen == 1) return;
+            screen = 1;
+            DetailscreenProblems detailscreenProblems = new(selectedStudent);
+            DetailFrame.NavigationService.Navigate(detailscreenProblems);
+
+
         }
 
         private void LeerdoelenList(object sender, RoutedEventArgs e)
-        {
-            using (var context = new StudentBeleidContext())
-            {
-                Student st = context.Students.Where(x => x.Studentnummer == studentnr).First();
-                ShowStudentLeerdoelenTable StudentLeerdoelenTable = new(st);
-                StudentLeerdoelenTable.Show();
-            }
+        { 
+            if(screen == 2) return;
+            screen = 2;
+            ShowStudentLeerdoelenTable StudentLeerdoelenTable = new(selectedStudent);
+            DetailFrame.NavigationService.Navigate(StudentLeerdoelenTable);
         }
+
+        
     }
 }
  
