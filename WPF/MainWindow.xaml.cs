@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace WPF
@@ -11,6 +13,9 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
+            //ExcelImportWindow excelImportWindow = new ExcelImportWindow();
+            //excelImportWindow.Show();
+            //new ExcelImportWindow().Show();
         }
 
         private void Click(object sender, RoutedEventArgs e)
@@ -28,6 +33,18 @@ namespace WPF
         {
             Console.WriteLine("HELLO WORLD!");
         }
+
+        private void ButtonImportStudents_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files(.xlsx)|*.xlsx";
+            openFileDialog.ShowDialog();
+
+            string directory = openFileDialog.FileName;
+            Trace.WriteLine(directory);
+
+            ExcelImporter.ImportStudentsFromFile(directory);
+            ExcelImporter.PrintStudents();
 
         private void Leerdoelen_OnClick(object sender, RoutedEventArgs e)
         {

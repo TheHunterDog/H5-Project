@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HBOICT.png" />
     <None Remove="Images\Header.png" />
   </ItemGroup>
 
@@ -38,6 +39,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\DataImporting\DataImporting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="HBOICT.png" />
   </ItemGroup>
 
 

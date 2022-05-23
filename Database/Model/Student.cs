@@ -136,5 +136,9 @@ public class Student
     }
 
     #endregion
-    
+
+    public override string ToString()
+    {
+        return $"{Id}, {Studentnummer}, {Voornaam}, {Achternaam}, {Tussenvoegsel}, {StudentbegeleiderId}, {Klasscode}";
+    }
 }
