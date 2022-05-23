@@ -6,6 +6,14 @@
       mc:Ignorable="d"
       Title="StudentTable" Height="auto" Width="auto">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
         <DataGrid
             x:Name="StudentsTable"
             HorizontalAlignment="Stretch"
@@ -24,5 +32,6 @@
                 <DataGridTextColumn Binding="{Binding StudentbegeleiderId}" Header="Studentbegeleider" />
             </DataGrid.Columns>
         </DataGrid>
+        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Height="50" Width="150" Click="ImportExcelBtn" Content="Import studenten"/>
     </Grid>
 </Page>
