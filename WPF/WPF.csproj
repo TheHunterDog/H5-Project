@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Header.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Header.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="View" />
   </ItemGroup>
 
