@@ -64,29 +64,7 @@ public class Model_Should_Property_Changed
     #region Teacher
 
     private Teacher _teacher = new Teacher();
-
-    // private List<StudentProblem> _knownProblems =
-    //  new List<StudentProblem>(){
-    //     new StudentProblem()
-    //     {
-    //         Description = "Veel leren kan oorzaken tot problemen", Id = 456, Priority = 10, Student = new Student()
-    //         {
-    //             Achternaam = "jaap",
-    //             Id = 231,
-    //             Klasscode = "oossdHKM",
-    //             Studentbegeleider = new StudentBegeleider()
-    //             {
-    //                 Docentcode = "OOCD123",
-    //                 Id = 3566, Naam = "Karen brakband", StudentBegeleiderGesprekken = null, Students = null
-    //             },
-    //             StudentBegeleiderGesprekken = null,
-    //             StudentbegeleiderId = 3566,
-    //             Studentnummer = "S321452", StudentProblems = null, Tussenvoegsel = null, Voornaam = "Jap"
-    //
-    //         }
-    //     }
-    // };
-
+    
     #endregion
 
     [SetUp]
@@ -155,15 +133,6 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_student.Id,_id);
         Assert.AreEqual(_student.Studentnummer,_studentnummer);
     }
-    
-    [Test]
-    public void StudentProblem_Change_Property_Changed_Should_Throw_Exception_When_NULL()
-    {
-       
-        // Assert.Throws<ArgumentNullException>(() => _studentProblem.Description = null); 
-        // Assert.Throws<ArgumentNullException>(() => _studentProblem.Student = null); 
-        // Assert.Throws<ArgumentNullException>(() => _studentProblem.Teacher = null); 
-    }
 
     [Test]
     public void StudentProblem_Change_Property_changed_Should_Change()
@@ -208,9 +177,7 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_teacher.StudentProblems,null);
         
         _teacher.Id = _id;
-        // _teacher.StudentProblems  _studentProblem;
 
-        
         Assert.AreEqual(_teacher.Id,_id);
     }
 }
