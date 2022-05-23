@@ -22,6 +22,7 @@
             <RowDefinition Height="75*" />
             <RowDefinition Height="100*" />
         </Grid.RowDefinitions>
+        
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="information" HorizontalAlignment="Center"  FontSize="24" VerticalAlignment="Center" ></Label>
         <Line Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
         <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="naam" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32" FontFamily="Helvetica" />
@@ -33,6 +34,7 @@
         <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Name="SBer" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32" />
         <Line Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
         <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="isMessagePlanned" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="32"></Label>
+        <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="lastMeeting" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="32"></Label>
         
     </Grid>
 </Page>

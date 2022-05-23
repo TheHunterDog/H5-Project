@@ -40,6 +40,7 @@ namespace WPF.Pages
                 klas.Content = $"Klas: {selectedStudent.Klasscode}";
                 SBer.Content = $"studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
                 isMessagePlanned.Content = meetingIsPlanned(selectedStudent.Studentnummer);
+                lastMeeting.Content = $"Laatste gesprek was op: {context.StudentBegeleiderGesprekken.Where(x => x.GesprekDatum < DateTime.Now).First().GesprekDatum}";
             }
 
         }
