@@ -39,26 +39,38 @@ namespace WPF.Pages
                 studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
                 klas.Content = $"Klas: {selectedStudent.Klasscode}";
                 SBer.Content = $"studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
-                isMessagePlanned.Content = meetingIsPlanned(selectedStudent.Studentnummer);
-                lastMeeting.Content = $"Laatste gesprek was op: {context.StudentBegeleiderGesprekken.Where(x => x.GesprekDatum < DateTime.Now).First().GesprekDatum}";
+                isMessagePlanned.Content = meetingIsPlanned();
+                lastMeeting.Content = lastMeetingCheck();
             }
 
         }
 
         /**<summary>function to check if there is a meeting planned</summary> */
-        string meetingIsPlanned(string studentid)
+        string meetingIsPlanned()
         {
             string message = "";
             using (StudentBeleidContext context = new StudentBeleidContext())
             {
-                if (context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id && x.GesprekDatum >= DateTime.Now).FirstOrDefault() == null)
-                {
+                var gesprek = context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id && x.GesprekDatum >= DateTime.Now).FirstOrDefault();
+
+                if (gesprek == null)
                     message = "op dit moment is er geen gesprek ingepland";
-                }
                 else
-                {
-                    message = $"er is een gesprek geplanned voor: {context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id).First().GesprekDatum}";
-                }
+                    message = $"er is een gesprek geplanned voor: {gesprek.GesprekDatum}";
+                return message;
+            }
+        }
+
+        string lastMeetingCheck()
+        {
+            string message = "";
+            using (var context = new StudentBeleidContext())
+            {
+                var gesprek = context.StudentBegeleiderGesprekken.Where(x => x.GesprekDatum < DateTime.Now && x.StudentId == selectedStudent.Id).FirstOrDefault();
+                if (gesprek != null && !gesprek.Voltooid )
+                    message = $"Laatste gesprek was op: {gesprek.GesprekDatum}";
+                else
+                    message = "Er is nog geen gesprek geweest";
                 return message;
             }
         }
