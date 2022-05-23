@@ -27,11 +27,11 @@ public partial class DetailscreenProblems : Page
             }*/
 
             StudentProbleen.ItemsSource = problems;
-            studentproblemslbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";
+            studentproblemsLbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";
         }
     }
 
-    private void ProbleemMeldenbtn(object sender, RoutedEventArgs e)
+    private void CreateNewProblemBtn(object sender, RoutedEventArgs e)
     {
         ProblemSubmitting popup = new ProblemSubmitting();
         popup.ShowDialog();

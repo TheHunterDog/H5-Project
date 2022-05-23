@@ -19,9 +19,9 @@
             <Label 
             Grid.Row="0" 
             Grid.Column="0"
-            x:Name="studentproblemslbl"
+            x:Name="studentproblemsLbl"
             FontSize="24"/>
-            <Button Grid.Column="1" Width="140" Height="40" HorizontalAlignment="Right" Content="Probleem melden" Margin="5" Click="ProbleemMeldenbtn"/>
+            <Button Grid.Column="1" Width="140" Height="40" HorizontalAlignment="Right" Content="Probleem melden" Margin="5" Click="CreateNewProblemBtn"/>
 
             <DataGrid
             Grid.Row="1" 
