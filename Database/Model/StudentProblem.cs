@@ -53,7 +53,7 @@ public class StudentProblem
         set => _studentId = value;
     }
     
-    public Student Student
+    public virtual Student Student
     {
         get => _student;
         set => _student = _student = value ?? throw new ArgumentNullException(nameof(value));
@@ -65,7 +65,7 @@ public class StudentProblem
         set => _teacherId = value;
     }
     
-    public Teacher Teacher
+    public virtual Teacher Teacher
     {
         get => _teacher;
         set => _teacher = _teacher = value ?? throw new ArgumentNullException(nameof(value));
