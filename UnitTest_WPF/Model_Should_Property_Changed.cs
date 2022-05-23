@@ -66,28 +66,6 @@ public class Model_Should_Property_Changed
 
     private Teacher _teacher = new Teacher();
 
-    // private List<StudentProblem> _knownProblems =
-    //  new List<StudentProblem>(){
-    //     new StudentProblem()
-    //     {
-    //         Description = "Veel leren kan oorzaken tot problemen", Id = 456, Priority = 10, Student = new Student()
-    //         {
-    //             Achternaam = "jaap",
-    //             Id = 231,
-    //             Klasscode = "oossdHKM",
-    //             Studentbegeleider = new StudentBegeleider()
-    //             {
-    //                 Docentcode = "OOCD123",
-    //                 Id = 3566, Naam = "Karen brakband", StudentBegeleiderGesprekken = null, Students = null
-    //             },
-    //             StudentBegeleiderGesprekken = null,
-    //             StudentbegeleiderId = 3566,
-    //             Studentnummer = "S321452", StudentProblems = null, Tussenvoegsel = null, Voornaam = "Jap"
-    //
-    //         }
-    //     }
-    // };
-
     #endregion
 
     #region StudentBegeleiderGesprekken
@@ -102,12 +80,6 @@ public class Model_Should_Property_Changed
     public void SetUp()
     {
         _student = new Student();
-        // {
-        //     Achternaam = _lastname, Id = _id, Klasscode = _klassencode,Studentbegeleider = new StudentBegeleider(),StudentBegeleiderGesprekken = new StudentBegeleiderGesprekken[]{new StudentBegeleiderGesprekken()},StudentbegeleiderId = _id,Studentnummer = _studentnummer,StudentProblems = new StudentProblem[]{new StudentProblem()} ,Tussenvoegsel = _lastnameprefix,Voornaam = _firstname
-        // };
-        // StudentBegeleiderGesprekken.Student = _student;
-        // _student.Studentbegeleider = studentBegeleider;
-        // _student.StudentProblems = new List<StudentProblem>() {_studentProblem};
     }
 
     [Test]
@@ -236,9 +208,7 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_teacher.StudentProblems,null);
         
         _teacher.Id = _id;
-        // _teacher.StudentProblems  _studentProblem;
 
-        
         Assert.AreEqual(_teacher.Id,_id);
     }
     [Test]
