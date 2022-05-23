@@ -33,7 +33,7 @@ public partial class DetailscreenProblems : Page
 
     private void ProbleemMeldenbtn(object sender, RoutedEventArgs e)
     {
-        ProblemSubmitting popup = new ProblemSubmitting();
+        ProblemSubmitting popup = new ProblemSubmitting(SelectedStudent.Id);
         popup.ShowDialog();
     }
 }

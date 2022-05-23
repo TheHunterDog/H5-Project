@@ -134,14 +134,14 @@ public class StudentBeleidContext : DbContext
         #region studentProblems
 
         modelBuilder.Entity<StudentProblem>()
-            .HasKey(sp => new {sp.StudentId, sp.TeacherId});
-        
+            .HasKey(sp => new { sp.Id });
+
         modelBuilder.Entity<StudentProblem>()
             .HasOne(sp => sp.Student)
             .WithMany(s => s.StudentProblems)
             .HasForeignKey(sp => sp.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         modelBuilder.Entity<StudentProblem>()
             .HasOne(sp => sp.Teacher)
             .WithMany(s => s.StudentProblems)
