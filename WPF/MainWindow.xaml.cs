@@ -31,7 +31,7 @@ namespace WPF
         private void OpenMeetingListView(object sender, RoutedEventArgs e)
         {
             if (_screen == 1) return;
-            MainFrame.Navigate(new Uri("Pages/AnotherPage.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.Navigate(new Uri("Pages/MeetingList.xaml", UriKind.RelativeOrAbsolute));
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 1;
         }

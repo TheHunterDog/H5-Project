@@ -52,7 +52,6 @@ namespace WPF.Pages
             using (StudentBeleidContext context = new StudentBeleidContext())
             {
                 var gesprek = context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id && x.GesprekDatum >= DateTime.Now).FirstOrDefault();
-
                 if (gesprek == null)
                     message = "op dit moment is er geen gesprek ingepland";
                 else
