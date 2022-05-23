@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Probleem invoeren" Height="450" Width="800">
     <Grid Background="#FF133E69">
+
         <Grid Margin="35,50,35,35" Background="White">
 
             <Grid.ColumnDefinitions>
@@ -15,17 +16,20 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="Title" Content="Invoeren Probleem S1234567" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
-            <Button Name="Verzenden" Margin="11,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Grid.Column="1">Submit</Button>
+
 
             <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Omschrijving van het probleem:</Label>
             <TextBox Margin="10,100,10,150" Name="Problem" Grid.Column="1" TextChanged="OnProblemDescriptionChanged"/>
 
-            <Label Margin="10,200,10,50" HorizontalContentAlignment="Right">Prioriteit:</Label>
-            <ComboBox Grid.Column="1" Name="Priority" HorizontalAlignment="Center" Margin="0,200,0,0" Width="421" Height="40" VerticalAlignment="Top" SelectionChanged="OnPrioritySelectionChanged">
+            <Label Margin="10,220,10,50" HorizontalContentAlignment="Right">Prioriteit:</Label>
+            <ComboBox Grid.Column="1" Name="Priority" HorizontalAlignment="Center" Margin="0,220,0,0" Width="421" Height="40" VerticalAlignment="Top" SelectionChanged="OnPrioritySelectionChanged">
                 <ComboBoxItem IsSelected="True" Content="Laag" Tag="0"></ComboBoxItem>
                 <ComboBoxItem Content="Gemiddeld" Tag="1"></ComboBoxItem>
                 <ComboBoxItem Content="Hoog" Tag="2"></ComboBoxItem>
             </ComboBox>
+            <Button x:Name="Terug" Margin="215,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Return_Click" Content="Terug" Grid.ColumnSpan="2"/>
+            <Button x:Name="Verzenden" Margin="121,0,215,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="20" Click="Submit_Click" Content="Opslaan" Grid.Column="1"/>
+
 
 
         </Grid>

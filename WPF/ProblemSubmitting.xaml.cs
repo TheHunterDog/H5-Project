@@ -30,43 +30,58 @@ namespace WPF
 
             PrintAllProblems();
 
+            // create staged problem
             _stagedProblem = CreateStudentProblem(studentId, teacherId);
             if (_stagedProblem == null) CloseWindow();
 
-            // set title
+            // set window title
             using (var context = new StudentBeleidContext())
             {
                 Title.Content = "Invoeren probleem met " + GetStudentNumberFromStudentId(_stagedProblem.StudentId);
             }
+
+            Trace.WriteLine(_stagedProblem);
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            // close window
+            CloseWindow();
         }
 
         // submitting problem
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            // check
             if (_stagedProblem == null || _stagedProblem.Description == "") return;
 
-            // Trace.WriteLine(_stagedProblem);
-
+            // add problem to database
             AddProblemToDatabase(_stagedProblem);
 
+            // close window
             CloseWindow();
         }
 
         // updating problem description
         private void OnProblemDescriptionChanged(object sender, TextChangedEventArgs e)
         {
+            // check
             if (_stagedProblem == null) return;
 
+            // set description to empty string
             _stagedProblem.Description = Problem.Text;
         }
 
         // updating problem priority
         private void OnPrioritySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // check
             if (_stagedProblem == null) return;
 
+            // create string from tag
             string? v = ((ComboBoxItem)Priority.SelectedItem).Tag.ToString();
             string tag = v;
+            // set priority to int from string
             _stagedProblem.Priority = PriorityTextToInt(tag);
         }
 
@@ -101,10 +116,15 @@ namespace WPF
             // set student- and teacher id, first if no id is given, closes window if invalid id's are given
             using (var context = new StudentBeleidContext())
             {
+                // check for valid student id, if not, set to first
                 if (studentId == -1) studentId = context.Students.First().Id;
+                // check if there are students, else return null
                 else if (context.Students.Find(studentId) == null) return null;
+                // check for valid teacher id, if not, set to first
                 if (teacherId == -1) teacherId = context.Teachers.First().Id;
+                // check if there are teachers, else return null
                 else if (context.Teachers.Find(teacherId) == null) return null;
+                // initialize problem parameters
                 studentProblem.StudentId = studentId;
                 studentProblem.TeacherId = teacherId;
                 studentProblem.Description = "";
@@ -118,11 +138,14 @@ namespace WPF
         {
             using (var context = new StudentBeleidContext())
             {
+                // find student
                 Student student = context.Students.Find(studentId);
                 if (student != null)
                 {
+                    // return studentnumber
                     return context.Students.Find(studentId).Studentnummer;
                 }
+                // return empty string
                 else return "";
             }
         }
@@ -131,13 +154,23 @@ namespace WPF
         {
             using (var context = new StudentBeleidContext())
             {
+                // check if description is empty
                 if (studentProblem.Description.Equals("")) return;
+                // check for valid student id
                 if (context.Students.Find(studentProblem.StudentId) == null) return;
+                // check for valid teacher id
                 if (context.Teachers.Find(studentProblem.TeacherId) == null) return;
 
+                // add to database
                 context.StudentProblems.Add(studentProblem);
                 // save changes to database
+
+                Trace.WriteLine(_stagedProblem);
+
+                //save changes to database
                 context.SaveChanges();
+
+                Trace.WriteLine(_stagedProblem);
             }
         }
 
@@ -163,22 +196,6 @@ namespace WPF
             {
                 Trace.WriteLine(ex.Message);
             }
-
-
         }
     }
-/*
-    public class Problem
-    {
-        public int StudentID;
-        public string Description = "Description";
-        public int Priority = 0;
-        public int TeacherID;
-
-        public override string ToString()
-        {
-            return $"{StudentID}, {Description}, {Priority}, {TeacherID}";
-        }
-    }*/
-
 }

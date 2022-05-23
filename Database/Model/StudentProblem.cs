@@ -90,6 +90,6 @@ public class StudentProblem
 
     public override string ToString()
     {
-        return $"{StudentId}, {Description}, {Priority}, {TeacherId}";
+        return $"{StudentId}, {Description}, {Priority}, {TeacherId}, {Id}";
     }
 }
