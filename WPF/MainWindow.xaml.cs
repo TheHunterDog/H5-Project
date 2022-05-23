@@ -26,8 +26,7 @@ namespace WPF
 
         private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
         {
-            Inplannen popup = new Inplannen();
-            popup.ShowDialog();
+            
         }
 
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -46,6 +45,15 @@ namespace WPF
 
             ExcelImporter.ImportStudentsFromFile(directory);
             ExcelImporter.PrintStudents();
+
+        private void Leerdoelen_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ShowStudentLeerdoelenTable().Show();
+        }
+
+        private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
+        {
+            new StudentLeerdoelenToevoegen().Show();
         }
     }
 }

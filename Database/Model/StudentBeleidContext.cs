@@ -5,15 +5,17 @@ namespace Database.Model;
 
 public class StudentBeleidContext : DbContext
 {
-    /// <summary>
-    /// DbSets required for OnModelCreating
-    /// </summary>
-    public DbSet<Student> Students { get; set; }
 
-    public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
-    public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
-    public DbSet<StudentProblem> StudentProblems { get; set; }
-    public DbSet<Teacher> Teachers { get; set; }
+  /// <summary>
+  /// Dbsets required for OnModelCreating
+  /// </summary>
+  public DbSet<Student> Students { get; set; }
+  public DbSet<Leerdoel> Leerdoelen { get; set; }
+  public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
+  public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
+  public DbSet<StudentProblem> StudentProblems { get; set; }
+  public DbSet<Teacher> Teachers { get; set; }
+
 
     #region Constructors
     
@@ -104,10 +106,36 @@ public class StudentBeleidContext : DbContext
 
         #endregion
 
+        #region Leerdoel
+
+        modelBuilder.Entity<Leerdoel>()
+           .HasKey(s => new {s.Id});
+        modelBuilder.Entity<Leerdoel>()
+           .Property(s => s.Id)
+           .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Leerdoel>()
+           .HasIndex(s => s.Beschrijving).IsUnique();
+
+        modelBuilder.Entity<Student>()
+           .HasOne(s => s.Studentbegeleider)
+           .WithMany(sb => sb.Students)
+           .HasForeignKey(s => s.StudentbegeleiderId)
+           .OnDelete(DeleteBehavior.NoAction)
+           .IsRequired(false);
+
+        modelBuilder.Entity<Leerdoel>()
+           .HasOne(s => s.Student)
+           .WithMany(sb => sb.Leerdoelen)
+           .HasForeignKey(s => s.StudentId)
+           .OnDelete(DeleteBehavior.NoAction)
+           .IsRequired(false);
+
+        #endregion
+
         #region studentProblems
 
         modelBuilder.Entity<StudentProblem>()
-            .HasKey(sp => new {sp.Id });
+            .HasKey(sp => new {sp.StudentId, sp.TeacherId});
         
         modelBuilder.Entity<StudentProblem>()
             .HasOne(sp => sp.Student)
@@ -134,4 +162,5 @@ public class StudentBeleidContext : DbContext
 
         #endregion
     }
+
 }
