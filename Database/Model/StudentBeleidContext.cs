@@ -14,6 +14,7 @@ public class StudentBeleidContext : DbContext
     public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
     public DbSet<StudentProblem> StudentProblems { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
 
     #region Constructors
     
@@ -133,5 +134,19 @@ public class StudentBeleidContext : DbContext
             .ValueGeneratedOnAdd();
 
         #endregion
+        
+        #region Subject
+
+        modelBuilder.Entity<Subject>()
+            .HasKey(s => new {s.Id});
+        modelBuilder.Entity<Subject>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Subject>()
+            .Property(s => s.Name).IsRequired();
+        modelBuilder.Entity<Subject>()
+            .Property(s => s.Description).IsRequired(false);
+        #endregion
+
     }
 }
