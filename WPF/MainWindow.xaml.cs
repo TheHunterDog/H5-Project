@@ -8,52 +8,32 @@ namespace WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
+        // Keep track of open page
+        // 0 is studentList
+        // 1 is anotherPage
+        private int _screen = -1;
+        
         public MainWindow()
         {
             InitializeComponent();
-            //ExcelImportWindow excelImportWindow = new ExcelImportWindow();
-            //excelImportWindow.Show();
-            //new ExcelImportWindow().Show();
         }
 
-        private void Click(object sender, RoutedEventArgs e)
+        private void OpenStudentListView(object sender, RoutedEventArgs e)
         {
-            ShowStudentTable win2 = new ShowStudentTable();
-            win2.Show();
+            if (_screen == 0) return;
+            MainFrame.Navigate(new Uri("Pages/StudentTable.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.NavigationService.RemoveBackEntry();
+            _screen = 0;
         }
 
-        private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
+        private void OpenMeetingListView(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Console.WriteLine("HELLO WORLD!");
-        }
-
-        private void ButtonImportStudents_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Excel Files(.xlsx)|*.xlsx";
-            openFileDialog.ShowDialog();
-
-            string directory = openFileDialog.FileName;
-            Trace.WriteLine(directory);
-
-            ExcelImporter.ImportStudentsFromFile(directory);
-            ExcelImporter.PrintStudents();
-
-        private void Leerdoelen_OnClick(object sender, RoutedEventArgs e)
-        {
-            new ShowStudentLeerdoelenTable().Show();
-        }
-
-        private void LeerdoelenToevoegen_OnClick(object sender, RoutedEventArgs e)
-        {
-            new StudentLeerdoelenToevoegen().Show();
+            if (_screen == 1) return;
+            MainFrame.Navigate(new Uri("Pages/MeetingList.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.NavigationService.RemoveBackEntry();
+            _screen = 1;
         }
     }
 }

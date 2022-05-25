@@ -1,6 +1,4 @@
-﻿using WPF.Model;
-
-namespace Database.Model;
+﻿namespace Database.Model;
 
 public class Student
 {
@@ -99,7 +97,7 @@ public class Student
         set => _klasscode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public StudentBegeleider Studentbegeleider
+    public virtual StudentBegeleider Studentbegeleider
     {
         get => _studentBegeleider;
         set => _studentBegeleider = value;
@@ -111,25 +109,25 @@ public class Student
         set => _studentbegeleiderId = value;
     }
     
-    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
+    public virtual IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
     {
         get => _studentBegeleiderGesprekken;
         set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
     }
     
-    public IEnumerable<StudentProblem> StudentProblems
+    public virtual IEnumerable<StudentProblem> StudentProblems
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public StudentBegeleider StudentBegeleider
+    public virtual StudentBegeleider StudentBegeleider
     {
         get => _studentBegeleider;
         set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public IEnumerable<Leerdoel> Leerdoelen
+    public virtual IEnumerable<Leerdoel> Leerdoelen
     {
         get => _leerdoelen;
         set => _leerdoelen = value ?? throw new ArgumentNullException(nameof(value));

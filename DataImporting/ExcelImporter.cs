@@ -5,8 +5,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using Database.Model;
 using Microsoft.EntityFrameworkCore.Internal;
-using WPF;
-using WPF.Model;
 
 public class ExcelImporter
 {

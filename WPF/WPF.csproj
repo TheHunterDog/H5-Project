@@ -8,18 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="HBOICT.png" />
-    <None Remove="Images\Header.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\Header.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="View" />
+    <None Remove="Images\HBO-ICT-bin.png" />
+    <None Remove="Images\HBO-ICT.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="HBOICT.png" />
+    <Resource Include="Images\HBO-ICT-bin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\HBO-ICT.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 

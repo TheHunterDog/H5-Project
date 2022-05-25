@@ -6,7 +6,6 @@ using Database.Model;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WPF.Interfaces;
-using WPF.Model;
 
 namespace WPF.Repositories;
 
