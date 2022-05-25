@@ -8,5 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Open Window" Click="Click" Height="25" HorizontalAlignment="Left" Margin="379,264,0,0" Name="button1" VerticalAlignment="Top" Width="100" />
+        <Button Content="Open begeleiders window" Click="ClickB" Height="25" HorizontalAlignment="Left" Margin="379,320,0,0" Name="button2" VerticalAlignment="Top" Width="100" />
     </Grid>
 </Window>

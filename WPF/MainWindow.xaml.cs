@@ -30,5 +30,11 @@ namespace WPF
             ShowStudentTable win2 = new ShowStudentTable();
             win2.Show();
         }
+        
+        private void ClickB(object sender, RoutedEventArgs e)
+        {
+            ShowStudentTableBegeleider win3 = new ShowStudentTableBegeleider();
+            win3.Show();
+        }
     }
 }
