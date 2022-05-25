@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Database.Model;
+using Microsoft.Win32;
 
 namespace WPF.Screens;
 
@@ -33,13 +34,14 @@ public partial class StudentTable : Page
 
     private void ImportExcelBtn(object sender, System.Windows.RoutedEventArgs e)
     {
-        Dispatcher.BeginInvoke(
-                DispatcherPriority.Render,
-                new Action(() =>
-                {
-                    //ExcelImporter.ImportStudentsFromFile();
-                    //Number.Content = Importer.students.Length;
-                }
-                ));
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "Excel Files(.xlsx)|*.xlsx";
+        openFileDialog.ShowDialog();
+
+        string directory = openFileDialog.FileName;
+        /*Trace.WriteLine(directory);*/
+
+        ExcelImporter.ImportStudentsFromFile(directory);
+        ExcelImporter.PrintStudents();
     }
 }
