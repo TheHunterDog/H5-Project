@@ -15,6 +15,8 @@ public class StudentBeleidContext : DbContext
     public DbSet<StudentProblem> StudentProblems { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
     public DbSet<Subject> Subjects { get; set; }
+    public DbSet<Presence> Presences { get; set; }
+    
 
     #region Constructors
     
@@ -147,6 +149,33 @@ public class StudentBeleidContext : DbContext
         modelBuilder.Entity<Subject>()
             .Property(s => s.Description).IsRequired(false);
         #endregion
+        
+        #region Presence   
+        
+        modelBuilder.Entity<Presence>()
+            .HasKey(s => new {s.Id});
+        modelBuilder.Entity<Presence>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Presence>()
+            .Property(s => s.Present).IsRequired();
+        
+        modelBuilder.Entity<Presence>()
+            .HasOne(p => p.Subject)
+            .WithMany(s => s.Presences)
+            .HasForeignKey(p => p.SubjectId)
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired();
+
+        modelBuilder.Entity<Presence>()
+            .HasOne(p => p.Student)
+            .WithMany(s => s.Presences)
+            .HasForeignKey(p => p.StudentId)
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired();
+
+        #endregion
+
 
     }
 }

@@ -54,6 +54,9 @@ public class Student
     /// </summary>
     private IEnumerable<StudentProblem> _studentProblems;
     
+    private Presence[] _presences;
+
+    
     #endregion
 
     #region Properties
@@ -116,6 +119,18 @@ public class Student
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public StudentBegeleider StudentBegeleider
+    {
+        get => _studentBegeleider;
+        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public Presence[] Presences
+    {
+        get => _presences;
+        set => _presences = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion

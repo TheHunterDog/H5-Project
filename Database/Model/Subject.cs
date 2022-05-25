@@ -19,6 +19,9 @@ public class Subject
     /// Student has a firstname
     /// </summary>
     private string _description;
+    
+    private Presence[] _presences;
+
     #endregion
 
     #region Properties
@@ -39,6 +42,12 @@ public class Subject
     {
         get => _description;
         set => _description = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public Presence[] Presences
+    {
+        get => _presences;
+        set => _presences = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion
