@@ -160,6 +160,23 @@ public class StudentBeleidContext : DbContext
             .ValueGeneratedOnAdd();
 
         #endregion
+
+        #region IAuthenticatable
+
+        modelBuilder.Entity<StudentBegeleider>()
+            .Property(s => s.Username).IsRequired();
+        modelBuilder.Entity<StudentBegeleider>()
+            .Property(s => s.Password).IsRequired();
+        modelBuilder.Entity<StudentBegeleider>()
+            .HasIndex(s => s.Username).IsUnique();
+        
+        modelBuilder.Entity<Teacher>()
+            .Property(s => s.Username).IsRequired();
+        modelBuilder.Entity<Teacher>()
+            .HasIndex(s => s.Username).IsUnique();
+        modelBuilder.Entity<Teacher>()
+            .Property(s => s.Password).IsRequired();
+        #endregion
     }
 
 }

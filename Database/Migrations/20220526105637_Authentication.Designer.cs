@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(StudentBeleidContext))]
-    [Migration("20220512130103_Leerdoelen")]
-    partial class Leerdoelen
+    [Migration("20220526105637_Authentication")]
+    partial class Authentication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,7 +106,18 @@ namespace Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Naam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -141,6 +152,67 @@ namespace Database.Migrations
                     b.HasIndex("StudentBegeleiderId");
 
                     b.ToTable("StudentBegeleiderGesprekken");
+                });
+
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("StudentProblems");
+                });
+
+            modelBuilder.Entity("Database.Model.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("Database.Model.Leerdoel", b =>
@@ -190,11 +262,32 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleider");
                 });
 
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
+                {
+                    b.HasOne("Database.Model.Student", "Student")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Model.Teacher", "Teacher")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
                     b.Navigation("Leerdoelen");
 
                     b.Navigation("StudentBegeleiderGesprekken");
+
+                    b.Navigation("StudentProblems");
                 });
 
             modelBuilder.Entity("Database.Model.StudentBegeleider", b =>
@@ -202,6 +295,11 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleiderGesprekken");
 
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("Database.Model.Teacher", b =>
+                {
+                    b.Navigation("StudentProblems");
                 });
 #pragma warning restore 612, 618
         }

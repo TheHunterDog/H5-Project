@@ -1,6 +1,6 @@
 ﻿namespace Database.Model;
 
-public class StudentBegeleider
+public class StudentBegeleider: IAuthenticatable
 {
     
     #region PrivateFields
@@ -28,6 +28,10 @@ public class StudentBegeleider
     /// Studentbegeleider belongs to many meetings
     /// </summary>
     private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
+    
+    private String _username;
+    private string _password;
+    private bool _isAdmin;
     
     #endregion
 
@@ -62,6 +66,24 @@ public class StudentBegeleider
         get => _students;
         set => _students = value ?? throw new ArgumentNullException(nameof(value));
     }
+    public string Username
+    {
+        get => _username;
+        set => _username = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string Password
+    {
+        get => _password;
+        set => _password = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public bool IsAdmin
+    {
+        get => _isAdmin;
+        set => _isAdmin = value;
+    }
+
     #endregion
 
     public StudentBegeleider()
