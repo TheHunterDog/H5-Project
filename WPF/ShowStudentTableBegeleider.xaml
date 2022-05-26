@@ -46,10 +46,10 @@
                 <DataGridTextColumn x:Name="Lastname" Binding="{Binding Voornaam}" Header="Voornaam" IsReadOnly="TRUE"
                                     Width="86" />
 
-                <DataGridTextColumn x:Name="Classname" Binding="{Binding Klascode}" Header="Klas" IsReadOnly="TRUE"
+                <DataGridTextColumn x:Name="Classname" Binding="{Binding Klasscode}" Header="Klas" IsReadOnly="TRUE"
                                     Width="100" />
 
-                <DataGridTextColumn x:Name="Lastseen" Binding="{Binding LaatstGesproken}"
+                <DataGridTextColumn x:Name="Lastseen" Binding="{Binding StudentBegeleiderGesprekken/GesprekDatum}"
                                     Header="Laatst gezien" IsReadOnly="TRUE" Width="130" />
 
             </DataGrid.Columns>

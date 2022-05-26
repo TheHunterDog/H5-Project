@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 using WPF.Model;
 
 namespace WPF;
@@ -12,20 +13,9 @@ public partial class ShowStudentTableBegeleider : Window
         
         using (StudentBeleidContext context = new StudentBeleidContext())
         {
-            var data = context.StudentBegeleiderGesprekken.Join(
-                context.Students,
-                StudentBegeleiderGesprekken => StudentBegeleiderGesprekken.StudentId,
-                Students => Students.Id, ((gesprekken, student) => new
-                {
-                    Id = student.Id,
-                    StudentNummer = student.Studentnummer,
-                    Voornaam = student.Voornaam,
-                    Achternaam = student.Achternaam,
-                    Klascode = student.Klasscode,
-                    LaatstGesproken = gesprekken.GesprekDatum,
-                })).ToList();
+            var data = context.Students.Include(g => g.StudentBegeleiderGesprekken).ToList();
+
             StudentListB.ItemsSource = data;
-            
         }
         
         
