@@ -7,6 +7,8 @@ namespace WPF.Util;
 
 public class Authentication
 {
+    //TODO:Make unique
+    public static readonly string Salt = "APP";
     public static bool CheckAdmin<T>(T user) where T :IAuthenticatable
     {
         return user.IsAdmin;
@@ -17,7 +19,7 @@ public class Authentication
                (IAuthenticatable) ctx.StudentBegeleiders.First(s=>s.Username.Equals(username));
     }
 
-    public static Byte[] HashPasswordWithSalt(byte[] password,byte[] salt)
+    public static byte[] HashPasswordWithSalt(byte[] password,byte[] salt)
     {
         HashAlgorithm algorithm = new SHA256Managed();
 
@@ -42,4 +44,14 @@ public class Authentication
         return hashedPassword == passwordRemote;
     }
     
+    public static bool CheckPassword(byte[] passwordInput, string passwordRemote, byte[] salt)
+    {
+        byte[] hashedPassword = HashPasswordWithSalt(passwordInput, salt);
+        return System.Text.Encoding.Default.GetString(hashedPassword) == passwordRemote;
+    }
+    
+    public static bool CheckPassword(string PasswordHashed, string passwordRemote)
+    {
+        return PasswordHashed == passwordRemote;
+    }
 }

@@ -44,12 +44,6 @@ public class Teacher : IAuthenticatable
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public int TeacherId
-    {
-        get => _teacherId;
-        set => _teacherId = value;
-    }
-
     public string Username
     {
         get => _username;
