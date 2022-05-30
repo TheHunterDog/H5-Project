@@ -8,4 +8,15 @@ public partial class AanwezigheidScherm : Window
     {
         InitializeComponent();
     }
+
+    private void SavePresenceBtn(object sender, RoutedEventArgs e)
+    {
+        
+    }
+    
+    private void ClosePresenceBtn(object sender, RoutedEventArgs e)
+    {
+        
+    }
+    
 }

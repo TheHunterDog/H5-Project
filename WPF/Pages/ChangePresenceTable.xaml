@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="PresenceTable" Height="auto" Width="auto">
     <Grid>
+        <Button Content="Opslaan" HorizontalAlignment="Left" Height="30" Margin="0,73,0,0" VerticalAlignment="Top"
+                Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="5" />
+        <Button Content="Sluiten" HorizontalAlignment="Left" Height="30" Margin="321,73,0,0" VerticalAlignment="Top"
+                Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="5"  />
         <DataGrid
             x:Name="MeetingTable"
             HorizontalAlignment="Stretch"
