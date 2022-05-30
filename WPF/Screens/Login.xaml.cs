@@ -51,7 +51,7 @@ namespace WPF.Screens
          */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (username.Text.Length > 0 && password.Text.Length > 0)
+            if ((username.Text.Length > 0 && password.Text.Length > 0 ) && (password.Text != password.Name && username.Text != username.Name))
             {
                 IAuthenticatable? suspect = Authentication.GetUserWithCredentials(password.Text, username.Text, App.context);
                 if (suspect != null &&Authentication.CheckPassword(Encoding.UTF8.GetBytes(password.Text), suspect.Password,Encoding.ASCII.GetBytes(Authentication.Salt)))
@@ -75,7 +75,7 @@ namespace WPF.Screens
             else
             {
                 _failedBecaouseEmpty++;
-                if (_failedLogins > 3)
+                if (_failedBecaouseEmpty > 3)
                 {
                     MessageBox.Show("You need to fill both input fields", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
 
