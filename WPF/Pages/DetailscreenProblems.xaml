@@ -1,0 +1,47 @@
+﻿<Page x:Class="WPF.DetailscreenProblems"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="DetailScreen" Height="auto" Width="auto" >
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+            Grid.Row="0" 
+            Grid.Column="0"
+            x:Name="studentproblemsLbl"
+            FontSize="24"/>
+            <Button Grid.Column="1" Width="140" Height="40" HorizontalAlignment="Right" Content="Probleem melden" Margin="5" Click="CreateNewProblemBtn"/>
+
+            <DataGrid
+            Grid.Row="1" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2" 
+            x:Name = "StudentProbleen" 
+            MinHeight="80"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top" 
+            CanUserAddRows="FALSE" 
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+        >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding ="{Binding Student.Id}" Header="StudentID" Width="*"/>
+                    <DataGridTextColumn Binding ="{Binding Priority}" Header="Priority" Width="*"/>
+                    <DataGridTextColumn Binding ="{Binding Teacher.Name}" Header="Docent Naam" Width="*"/>
+                    <DataGridTextColumn Binding ="{Binding Description}" Header="Omschrijving" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>

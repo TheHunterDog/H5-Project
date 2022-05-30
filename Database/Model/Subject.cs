@@ -42,5 +42,10 @@ public class Subject
     }
 
     #endregion
-    
+
+/*    public override string ToString()
+    {
+        return $"{Name}, {Code}, {Description}, {Ec}, {Lessen}";
+    }*/
+
 }
