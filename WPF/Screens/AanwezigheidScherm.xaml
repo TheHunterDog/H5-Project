@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <DataGrid
-            x:Name="StudentsTable"
+            x:Name="PresenceTable"
             MinHeight="720"
             Width="1720"
             HorizontalAlignment="Left"
@@ -44,6 +44,7 @@
                 <DataGridTextColumn Binding="{Binding Teachers.name}" Header="Docent" />
                 <DataGridTextColumn Binding="{Binding Present}" Header="Aanwezig" />
             </DataGrid.Columns>
+            <CheckBox Name="AanwezigBox" Checked="PresenceboxChecked"></CheckBox>
         </DataGrid>
 
 
