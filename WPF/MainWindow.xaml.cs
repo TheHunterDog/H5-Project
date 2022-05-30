@@ -21,7 +21,7 @@ namespace WPF
 
         private void ButtonPlanIn_Click(object sender, RoutedEventArgs e)
         {
-            Inplannen popup = new Inplannen();
+            Inplannen popup = new Inplannen(new Database.Model.Student());
             popup.ShowDialog();
         }
 

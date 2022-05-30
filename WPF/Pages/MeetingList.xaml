@@ -1,0 +1,25 @@
+﻿<Page x:Class="WPF.Pages.AnotherPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WPF.Pages"
+      mc:Ignorable="d"
+      Title="AnotherPage" Height="auto" Width="auto">
+    <Grid>
+        <DataGrid
+            x:Name="MeetingTable"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            CanUserAddRows="false"
+            AutoGenerateColumns="False"
+            IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding GesprekDatum}" Header="Gesprek datum" />
+                <DataGridTextColumn Binding="{Binding StudentId}" Header="studentID" />
+                <DataGridTextColumn Binding="{Binding Voornaam}" Header="Naam" />
+                <DataGridTextColumn Binding="{Binding Opmerkingen}" Header="Opmerking" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
