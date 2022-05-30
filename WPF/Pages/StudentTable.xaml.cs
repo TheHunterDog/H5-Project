@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Database.Model;
 using Microsoft.Win32;
+//using DataImporting;
 
 namespace WPF.Screens;
 
@@ -41,7 +42,7 @@ public partial class StudentTable : Page
         string directory = openFileDialog.FileName;
         /*Trace.WriteLine(directory);*/
 
-        ExcelImporter.ImportStudentsFromFile(directory);
-        ExcelImporter.PrintStudents();
+        //ExcelImporter.ImportStudentsFromFile(directory);
+        //ExcelImporter.PrintStudents();
     }
 }

@@ -27,5 +27,14 @@
             x:Name="BtnPlan" 
             Content="Gesprek inplannen"
             Click="ButtonPlanIn_Click"/>
+
+        <Button 
+            Width="150" 
+            Height="20" 
+            HorizontalAlignment="Center"
+            Margin="0,0,20 0"
+            x:Name="BtnSub" 
+            Content="Vak Toevoegen"
+            Click="ButtonAddSubject_Click"/>
     </Grid>
 </Window>

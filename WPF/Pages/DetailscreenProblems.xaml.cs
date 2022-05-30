@@ -19,7 +19,7 @@ public partial class DetailscreenProblems : Page
         using (var context = new StudentBeleidContext())
         {
 
-            List<StudentProblem> problems = context.StudentProblems.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+            List<Model.StudentProblem> problems = context.StudentProblems.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             /*foreach (StudentProblem studentProblem in problems)
             {
                 studentProblem.Teacher = context.Teachers.Find(studentProblem.TeacherId);
@@ -33,7 +33,7 @@ public partial class DetailscreenProblems : Page
 
     private void CreateNewProblemBtn(object sender, RoutedEventArgs e)
     {
-        ProblemSubmitting popup = new ProblemSubmitting(SelectedStudent.Id);
-        popup.ShowDialog();
+        //ProblemSubmitting popup = new ProblemSubmitting(SelectedStudent.Id);
+       // popup.ShowDialog();
     }
 }

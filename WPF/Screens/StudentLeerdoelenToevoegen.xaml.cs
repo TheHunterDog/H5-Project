@@ -31,12 +31,12 @@ namespace WPF
         {
             using (var context = new StudentBeleidContext())
             {
-                Leerdoel leerdoel = new Leerdoel
+/*                Leerdoel leerdoel = new Leerdoel
                 {
                     Beschrijving = this.leerdoel.Text,
                     StudentId = selectedstudent.Id,
                 };
-                context.Leerdoelen.Add(leerdoel);
+                context.Leerdoelen.Add(leerdoel);*/
                 context.SaveChanges();
             }
 

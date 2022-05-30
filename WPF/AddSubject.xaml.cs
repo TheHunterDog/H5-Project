@@ -46,19 +46,19 @@ namespace WPF
             // checks if value is valid, if not return false
             if (Name.Text != null && Name.Text != "") subject.Name = Name.Text;
             else return false;
-/*            // checks if value is valid, if not return false
-            if (Code.Text != null && Code.Text != "") subject.Code = Code.Text;
-            else return false;*/
+            // checks if value is valid, if not return false
+            if (Code.Text != null && Code.Text != "") subject.SubjectCode = Code.Text;
+            else return false;
             // checks if value is valid, if not return false
             if (Description.Text != null && Description.Text != "") subject.Description = Description.Text;
             else return false;
-/*            // checks if value is valid, if not return false
+            // checks if value is valid, if not return false
             if (EC.Text != null && EC.Text != "")
             {
                 try
                 {
-                    int value = Int32.Parse(EC.Text);
-                    subject.Ec = value;
+                    //int value = Int32.Parse(EC.Text);
+                    subject.Ec = EC.Text;
                 }
                 catch (FormatException ex)
                 {
@@ -72,14 +72,14 @@ namespace WPF
                 try
                 {
                     int value = Int32.Parse(Lessons.Text);
-                    subject.Lessen = value;
+                    subject.Lessons = value;
                 }
                 catch (FormatException ex)
                 {
                     return false;
                 }
             }
-            else return false;*/
+            else return false;
 
             return true;
         }

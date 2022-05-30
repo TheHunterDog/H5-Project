@@ -22,9 +22,9 @@ public partial class ShowStudentLeerdoelenTable : Page
         using (var context = new StudentBeleidContext())
         {
 
-            List<Leerdoel> leerdoelen = context.Leerdoelen.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+            /*List<Leerdoel> leerdoelen = context.Leerdoelen.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             StudentLeerdoelen.ItemsSource = leerdoelen;
-            studentnrlbl.Content = $"Leerdoelen van Student: {SelectedStudent.Studentnummer}";
+            studentnrlbl.Content = $"Leerdoelen van Student: {SelectedStudent.Studentnummer}";*/
         }
     }
 

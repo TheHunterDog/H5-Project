@@ -29,5 +29,11 @@ namespace WPF
         {
             Console.WriteLine("HELLO WORLD!");
         }
+
+        private void ButtonAddSubject_Click(object sender, RoutedEventArgs e)
+        {
+            AddSubject win = new AddSubject();
+            win.Show();
+        }
     }
 }
