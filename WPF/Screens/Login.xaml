@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="Inplannen" Height="450" Width="800">
+        Title="Inplannen" Height="500" Width="300"
+        MinHeight="500" MinWidth="350">
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -18,14 +21,21 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+
         </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="3">
+            <Label  Grid.Column="1" Grid.Row="0" Content="Username" Grid.ColumnSpan="2"/>
+            <TextBox  Grid.Column="1" Grid.Row="0" Name="username" Grid.ColumnSpan="2" Grid.RowSpan="2" Padding="15,15,15,15" Height="50" Text="username" />
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <Label Grid.Column="1" Grid.Row="3" Content="Password" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="password"   Padding="15,15,15,15" Height="50" Text="password"/>
+        </StackPanel>
 
-        <Label Margin="220,50,220,50" Content="Username" Grid.ColumnSpan="3"/>
-        <TextBox Margin="225,93,225,127" Name="username" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
-        <Label Margin="225,26,215,74" Content="Password" Grid.ColumnSpan="3" Grid.Row="1"/>
-        <TextBox Margin="225,69,225,13" x:Name="password" Grid.ColumnSpan="3" Grid.Row="1"/>
+        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
 
-        <Button Height="50" Name="Submit" Grid.Row="2" Click="Submit_Click" Grid.ColumnSpan="2" Margin="225,44,148,44">Login</Button>
-        <Button Grid.Column="2" Content="FILL DATABASE" Click="FILLDATABASE_Click" HorizontalAlignment="Left" Margin="0,69,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <Button Height="50" Name="Submit" Grid.Row="4" Click="Submit_Click" Grid.ColumnSpan="2">Login</Button>
+            <Button Height="20" Content="FILL DATABASE" Click="FILLDATABASE_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

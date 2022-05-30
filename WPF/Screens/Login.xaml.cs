@@ -14,13 +14,36 @@ namespace WPF.Screens
     /// </summary>
     public partial class Login : Window
     {
+        private int _failedBecaouseEmpty = 0;
         private int _failedLogins = 0;
         private Timer _timer = new Timer();
+        
+        
         
         public Login()
         {
             InitializeComponent();
             _timer.Elapsed += delegate(object? sender, ElapsedEventArgs args) { OnTimedEvent(sender, args, Submit); };
+            username.GotFocus += RemoveText;
+            username.LostFocus += AddText;
+            password.GotFocus += RemoveText;
+            password.LostFocus += AddText;
+        }
+        
+        public void RemoveText(object sender, EventArgs e)
+        {
+            TextBox btn = (TextBox) sender;
+            if (btn.Text == btn.Name) 
+            {
+                btn.Text = "";
+            }
+        }
+
+        public void AddText(object sender, EventArgs e)
+        {
+            TextBox btn = (TextBox) sender;
+            if (string.IsNullOrWhiteSpace(btn.Text))
+                btn.Text = btn.Name;
         }
         
         /**
@@ -30,7 +53,7 @@ namespace WPF.Screens
         {
             if (username.Text.Length > 0 && password.Text.Length > 0)
             {
-                IAuthenticatable suspect = Authentication.GetUserWithCredentials(password.Text, username.Text, App.context);
+                IAuthenticatable? suspect = Authentication.GetUserWithCredentials(password.Text, username.Text, App.context);
                 if (suspect != null &&Authentication.CheckPassword(Encoding.UTF8.GetBytes(password.Text), suspect.Password,Encoding.ASCII.GetBytes(Authentication.Salt)))
                 {
                     MainWindow m = new MainWindow(suspect);
@@ -47,6 +70,15 @@ namespace WPF.Screens
                         _timer.Enabled = true;
                         Submit.IsEnabled = false;
                     }
+                }
+            }
+            else
+            {
+                _failedBecaouseEmpty++;
+                if (_failedLogins > 3)
+                {
+                    MessageBox.Show("You need to fill both input fields", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 }
             }
         }

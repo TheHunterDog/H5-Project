@@ -17,13 +17,13 @@ namespace WPF
         // 0 is studentList
         // 1 is anotherPage
         private int _screen = -1;
-        private IAuthenticatable user;
+        private IAuthenticatable? user;
 
         public MainWindow()
         {
             InitializeComponent();
         }
-        public MainWindow(IAuthenticatable user)
+        public MainWindow(IAuthenticatable? user)
         {
             InitializeComponent();
             this.user = user;
