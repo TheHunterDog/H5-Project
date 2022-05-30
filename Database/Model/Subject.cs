@@ -30,6 +30,8 @@ public class Subject
     /// </summary>
     private int _lessons;
 
+    private string _subjectCode;
+    
     private IEnumerable<Student> _students;
     #endregion
 
@@ -69,6 +71,12 @@ public class Subject
     {
         get => _students;
         set => _students = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string SubjectCode
+    {
+        get => _subjectCode;
+        set => _subjectCode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion
