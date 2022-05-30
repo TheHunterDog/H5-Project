@@ -4,8 +4,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:WPF"
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="ShowStudentTableBegeleider" Height="450" Width="800">
+    <Window.Resources>
+        <CollectionViewSource x:Key="cvs">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Date" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53*" />
@@ -35,9 +43,9 @@
                 Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="1" />
         <DataGrid x:Name="StudentListB" Height="196" HorizontalAlignment="Left" Margin="38,43,0,0"
                   VerticalAlignment="Top" Width="548" CanUserAddRows="FALSE" Grid.ColumnSpan="2" Grid.Row="1">
+          
             <DataGrid.Columns>
-
-                <DataGridTextColumn x:Name="StudentNummer" Binding="{Binding StudentNummer}" Header="Studentnummer"
+                <DataGridTextColumn x:Name="StudentNummer" Binding="{Binding Studentnummer}" Header="Studentnummer"
                                     IsReadOnly="TRUE" Width="114" />
 
                 <DataGridTextColumn x:Name="Firstname" Binding="{Binding  Achternaam}" Header="Achternaam"
@@ -49,7 +57,7 @@
                 <DataGridTextColumn x:Name="Classname" Binding="{Binding Klasscode}" Header="Klas" IsReadOnly="TRUE"
                                     Width="100" />
 
-                <DataGridTextColumn x:Name="Lastseen" Binding="{Binding StudentBegeleiderGesprekken/GesprekDatum}"
+                <DataGridTextColumn x:Name="Lastseen" Binding="{Binding StudentBegeleiderGesprekken/GesprekDatum , StringFormat='{}{0:dd.MM.yyyy}'}"
                                     Header="Laatst gezien" IsReadOnly="TRUE" Width="130" />
 
             </DataGrid.Columns>
