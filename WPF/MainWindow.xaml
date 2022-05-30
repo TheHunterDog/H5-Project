@@ -66,19 +66,20 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="2" Height="70" VerticalAlignment="Center" FontSize="24">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Images/warning.png" Width="32"/>
-                            <TextBlock Margin="10 0 0 0">Meldingen</TextBlock>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <Button Grid.Row="0" Grid.Column="3" Height="70" VerticalAlignment="Center" FontSize="24">
-                    Ingelogde Docent.
-                </Button>
-                
-                <Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Name="MainFrame" NavigationUIVisibility="Hidden" Source="/Pages/StudentTable.xaml"/>
+            <Button Grid.Row="0" Grid.Column="2" Height="70" VerticalAlignment="Center" FontSize="24">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/warning.png" Width="32"/>
+                        <TextBlock Margin="10 0 0 0">Meldingen</TextBlock>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Menu Grid.Row="0" Grid.Column="3">
+                <MenuItem Header="Ingelogde Docent" Height="70" Width="459" FontSize="24">
+                    <MenuItem Header="Manage Coaches" Click="ManageCoachesBtn"/>
+                </MenuItem>
+            </Menu>
+            <Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Name="MainFrame" NavigationUIVisibility="Hidden" Source="/Pages/StudentTable.xaml"/>
             </Grid>
             
             <!-- <UserControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="Students" Background="Aquamarine"></UserControl> -->

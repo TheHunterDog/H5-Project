@@ -5,9 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF.Screens"
         mc:Ignorable="d"
-        Title="SBerToevoegen" Height="1080" Width="1920"
-        WindowState="Maximized">
+        Title="SBerToevoegen"
+        Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label 
+            Content="naam: "
+            FontSize="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="10"/>
+        <TextBox
+            x:Name="name"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="10"
+            Width="150"
+            Grid.Column="1"/>
+        <Label
+            Content="DocentCode: "
+            FontSize="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="10"
+            Grid.Row="1"/>
+        <TextBox
+            x:Name="Docentcode"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="10"
+            Width="150"
+            Grid.Column="1"
+            Grid.Row="1"/>
+        <Label
+            Content="Is Sber? "
+            FontSize="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="10"
+            Grid.Row="2"/>
+        <CheckBox
+            x:Name="IsSber"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="10"
+            Grid.Column="1"
+            Grid.Row="2"/>
+        <Button 
+            Content="submit"
+            Click="SubmitBtn"
+            Height="50"
+            Width="150"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

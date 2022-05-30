@@ -12,7 +12,9 @@ namespace WPF
     {
         // Keep track of open page
         // 0 is studentList
-        // 1 is anotherPage
+        // 1 is Meeting List
+        // 2 is 
+        // 3 is manage coaches screen
         private int _screen = -1;
         
         public MainWindow()
@@ -34,6 +36,14 @@ namespace WPF
             MainFrame.Navigate(new Uri("Pages/MeetingList.xaml", UriKind.RelativeOrAbsolute));
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 1;
+        }
+
+        private void ManageCoachesBtn(object sender, RoutedEventArgs e)
+        {
+            if (_screen == 3) return;
+            MainFrame.Navigate(new Uri("Pages/ManageCoaches.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.NavigationService.RemoveBackEntry();
+            _screen = 3;
         }
     }
 }
