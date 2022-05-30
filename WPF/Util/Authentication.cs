@@ -13,10 +13,17 @@ public class Authentication
     {
         return user.IsAdmin;
     }
-    public static IAuthenticatable GetUserWithCredentials(string password, string username,StudentBeleidContext ctx)
+    public static IAuthenticatable? GetUserWithCredentials(string password, string username,StudentBeleidContext ctx)
     {
-        return (IAuthenticatable) ctx.Teachers.First(s => s.Username.Equals(username)) ??
-               (IAuthenticatable) ctx.StudentBegeleiders.First(s=>s.Username.Equals(username));
+        try
+        {
+            return (IAuthenticatable) ctx.Teachers.First(s => s.Username.Equals(username)) ??
+                   (IAuthenticatable) ctx.StudentBegeleiders.First(s => s.Username.Equals(username)) ?? null;
+        }
+        catch (InvalidOperationException e)
+        {
+            return null;
+        }
     }
 
     public static byte[] HashPasswordWithSalt(byte[] password,byte[] salt)
