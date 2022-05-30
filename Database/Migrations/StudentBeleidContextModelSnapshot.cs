@@ -38,6 +38,9 @@ namespace Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StudentBegeleiderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentbegeleiderId")
                         .HasColumnType("int");
 
@@ -53,6 +56,8 @@ namespace Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentBegeleiderId");
 
                     b.HasIndex("StudentbegeleiderId");
 
@@ -122,13 +127,35 @@ namespace Database.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Ec")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Lessons")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("StudentSubject", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentsId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("StudentSubjects", (string)null);
                 });
 
             modelBuilder.Entity("WPF.Model.StudentProblem", b =>
@@ -176,10 +203,18 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
+                    b.HasOne("Database.Model.StudentBegeleider", "StudentBegeleider")
+                        .WithMany()
+                        .HasForeignKey("StudentBegeleiderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Database.Model.StudentBegeleider", "Studentbegeleider")
                         .WithMany("Students")
                         .HasForeignKey("StudentbegeleiderId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("StudentBegeleider");
 
                     b.Navigation("Studentbegeleider");
                 });
@@ -201,6 +236,21 @@ namespace Database.Migrations
                     b.Navigation("Student");
 
                     b.Navigation("StudentBegeleider");
+                });
+
+            modelBuilder.Entity("StudentSubject", b =>
+                {
+                    b.HasOne("Database.Model.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Model.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WPF.Model.StudentProblem", b =>

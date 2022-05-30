@@ -73,6 +73,10 @@ public class StudentBeleidContext : DbContext
             .HasForeignKey(s => s.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Student>()
+            .HasMany(s => s.Subjects)
+            .WithMany(s => s.Students)
+            .UsingEntity(j => j.ToTable("StudentSubjects"));
         #endregion
 
         #region StudentBegeleider

@@ -54,6 +54,12 @@ public class Student
     /// </summary>
     private IEnumerable<StudentProblem> _studentProblems;
     
+    /// <summary>
+    /// A student belongs to many or zero <see cref="Subject"/>
+    /// </summary>
+    private IEnumerable<Subject> _subjects;
+
+    
     #endregion
 
     #region Properties
@@ -116,6 +122,18 @@ public class Student
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public StudentBegeleider StudentBegeleider
+    {
+        get => _studentBegeleider;
+        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public IEnumerable<Subject> Subjects
+    {
+        get => _subjects;
+        set => _subjects = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion

@@ -6,19 +6,31 @@ public class Subject
 {
     #region PrivateFields
     /// <summary>
-    /// subject has an id
+    /// Subject has an id
     /// </summary>
     private int _id;
     
     /// <summary>
-    /// student has an studentnumber
+    /// Subject has an name
     /// </summary>
     private string _name;
     
     /// <summary>
-    /// Student has a firstname
+    /// Subject has a description
     /// </summary>
     private string _description;
+    
+    /// <summary>
+    /// Subject has ec
+    /// </summary>
+    private string _ec;
+
+    /// <summary>
+    /// Subject has amount of lessons
+    /// </summary>
+    private int _lessons;
+
+    private IEnumerable<Student> _students;
     #endregion
 
     #region Properties
@@ -39,6 +51,24 @@ public class Subject
     {
         get => _description;
         set => _description = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string Ec
+    {
+        get => _ec;
+        set => _ec = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public int Lessons
+    {
+        get => _lessons;
+        set => _lessons = value;
+    }
+
+    public IEnumerable<Student> Students
+    {
+        get => _students;
+        set => _students = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion
