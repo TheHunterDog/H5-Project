@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using Database.Model;
+using WPF.Screens;
 
 namespace WPF
 {
@@ -44,6 +45,18 @@ namespace WPF
             MainFrame.Navigate(new Uri("Pages/MeetingList.xaml", UriKind.RelativeOrAbsolute));
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 1;
+        }
+
+        public void Logout()
+        {
+            if (user != null)
+            {
+                user = null;
+                this.Close();
+                Login l = new Login();
+                l.Show();
+                this.Close();
+            }
         }
     }
 }
