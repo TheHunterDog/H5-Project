@@ -52,7 +52,6 @@ namespace WPF
             if (user != null)
             {
                 user = null;
-                this.Close();
                 Login l = new Login();
                 l.Show();
                 this.Close();
