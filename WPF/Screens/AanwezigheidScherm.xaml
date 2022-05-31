@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <DataGrid
-            x:Name="StudentsTable"
+            x:Name="PresenceTable"
             MinHeight="720"
             Width="1720"
             HorizontalAlignment="Left"
@@ -39,12 +39,14 @@
             CanUserAddRows="false"
             AutoGenerateColumns="False"
             IsReadOnly="True">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding SubjectId}" Header="Vak" />
-            <DataGridTextColumn Binding="{Binding Teachers.name}" Header="Docent" />
-            <DataGridTextColumn Binding="{Binding Present}" Header="Aanwezig" />
-        </DataGrid.Columns>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding SubjectId}" Header="Vak" />
+                <DataGridTextColumn Binding="{Binding Teachers.name}" Header="Docent" />
+                <DataGridTextColumn Binding="{Binding Present}" Header="Aanwezig" />
+            </DataGrid.Columns>
+            <CheckBox Name="AanwezigBox" Checked="PresenceboxChecked"></CheckBox>
         </DataGrid>
+
 
         <Rectangle Grid.Row="0" Fill="#113B69" Grid.ColumnSpan="4" Grid.Column="0" />
         <Rectangle Grid.Row="8" Fill="#113B69" Grid.ColumnSpan="4" Grid.Column="0" />
@@ -55,6 +57,11 @@
         <Image Grid.Row="0" Grid.Column="1" Margin="435,46,600,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill" />
         <Image Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Margin="1130,0,0,50" Source="/Images/HBO-ICT-bin.png" Stretch="Fill" />
         <Image Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Margin="1130,50,0,0" Source="/Images/HBO-ICT-bin.png" Stretch="Fill" />
+
+        <Button Content="Opslaan" HorizontalAlignment="Left" Height="30" Margin="1076,73,0,0" VerticalAlignment="Top"
+                Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="5" Click="SavePresenceBtn"/>
+        <Button Content="Sluiten" HorizontalAlignment="Left" Height="30" Margin="321,73,0,0" VerticalAlignment="Top"
+            Width="120" Background="#113B69" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="5" Click="ClosePresenceBtn"  />
     </Grid>
 </Window>
 
