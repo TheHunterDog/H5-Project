@@ -10,6 +10,10 @@
   <ItemGroup>
     <None Remove="Images\HBO-ICT-bin.png" />
     <None Remove="Images\HBO-ICT.jpg" />
+    <None Remove="Images\Header.png" />
+    <None Remove="Images\menu.png" />
+    <None Remove="Images\person.png" />
+    <None Remove="Images\warning.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +41,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\HBO-ICT.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Header.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\person.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\warning.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

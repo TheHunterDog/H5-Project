@@ -21,7 +21,6 @@ namespace WPF.Pages
     /// </summary>
     public partial class StudentdetailsPage : Page
     {
-        public string studentnr;
         Student selectedStudent;
         public StudentdetailsPage(Student st)
         {
@@ -34,11 +33,11 @@ namespace WPF.Pages
             using (var context = new StudentBeleidContext())
             {
                 // fill the labels with the student's info
-                information.Content = $"informatie student: {studentnr}";
+                information.Content = $"Informatie student: {selectedStudent.Studentnummer}";
                 naam.Content = $"Naam: {selectedStudent.Voornaam}{(" " + selectedStudent.Tussenvoegsel).TrimEnd()} {selectedStudent.Achternaam}";
                 studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
                 klas.Content = $"Klas: {selectedStudent.Klasscode}";
-                SBer.Content = $"studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
+                SBer.Content = $"Studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
                 isMessagePlanned.Content = meetingIsPlanned();
                 lastMeeting.Content = lastMeetingCheck();
             }
@@ -53,9 +52,9 @@ namespace WPF.Pages
             {
                 var gesprek = context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id && x.GesprekDatum >= DateTime.Now).FirstOrDefault();
                 if (gesprek == null)
-                    message = "op dit moment is er geen gesprek ingepland";
+                    message = "Op dit moment is er geen gesprek ingepland";
                 else
-                    message = $"er is een gesprek geplanned voor: {gesprek.GesprekDatum}";
+                    message = $"Er is een gesprek geplanned voor: {gesprek.GesprekDatum}";
                 return message;
             }
         }

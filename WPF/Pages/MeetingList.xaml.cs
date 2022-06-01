@@ -5,18 +5,27 @@ using Database.Model;
 
 namespace WPF.Pages;
 
-public partial class AnotherPage : Page
+public partial class MeetingList : Page
 {
-    public List<StudentBegeleiderGesprekken> Meetings;
-    StudentBegeleider test;
-    public AnotherPage()
+    public MeetingList()
     {
         InitializeComponent();
         using (StudentBeleidContext context = new StudentBeleidContext())
         {
-            test = context.StudentBegeleiders.First();
-            Meetings = context.StudentBegeleiderGesprekken.Where(x => x.StudentBegeleiderId == 81).ToList();
+            var lijst = context.StudentBegeleiderGesprekken.Where(x => x.StudentBegeleiderId == 81).Join(
+                context.Students,
+                begeleider => begeleider.StudentId, 
+                student => student.Id, 
+                (begeleider, student) => new
+                {
+                    GesprekDatum = begeleider.GesprekDatum,
+                    StudentId = begeleider.StudentId,
+                    Student = student,
+                    Opmerkingen= begeleider.Opmerkingen,
+                    Voornaam = student.Voornaam
+                }).ToList();
+            MeetingTable.ItemsSource = lijst;
         }
-        MeetingTable.ItemsSource = Meetings;
+        
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
         Title="Probleem invoeren" Height="450" Width="800">
-    <Grid Background="#FF133E69">
+    <Grid Background="#113B69">
         <Grid Margin="35,50,35,35" Background="White">
 
             <Grid.ColumnDefinitions>
