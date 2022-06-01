@@ -18,12 +18,32 @@
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <Label
-            Content="Beheer Docenten:"
+            x:Name="TitelLbl"
+            Content="Beheer Student Begeleiders:"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
+            VerticalAlignment="Top"
             FontSize="24"/>
+        <Button
+            Content="Student begeleiders"
+            Click="ShowCoaches"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="100,0,0,0"
+            Height="50"
+            Width="150"
+            />
+        <Button
+            Content="Docenten"
+            Click="ShowTeachers"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="250,0,0,0"
+            Height="50"
+            Width="150"
+            />
         <DataGrid 
             x:Name="CoachesList"
             HorizontalAlignment="Stretch"
@@ -35,8 +55,22 @@
             Grid.Row="1"
             Margin="100,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Naam}" Header="Naam" Width="*" FontSize="24"/>
+                <DataGridTextColumn Binding="{Binding Naam}" Header="Naam" Width="*" FontSize="24" x:Name="name"/>
                 <DataGridTextColumn Binding="{Binding Docentcode}" Header="Docent code" Width="*" FontSize="24"/>
+                <DataGridTemplateColumn x:Name="DemoteCol">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Demoveren" Click="DemoteTeacher"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="PromoteCol">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Promoveren" Click="PromoteTeacher"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button 
@@ -49,8 +83,5 @@
             Background="#113B69"
             Foreground="White"
             />
-
     </Grid> 
-
-    
 </Page>

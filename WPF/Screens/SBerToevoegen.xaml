@@ -67,6 +67,8 @@
             Height="50"
             Width="150"
             Grid.Row="3"
-            Grid.ColumnSpan="2"/>
+            Grid.ColumnSpan="2"
+            Background="#113B69"
+            Foreground="White"/>
     </Grid>
 </Window>

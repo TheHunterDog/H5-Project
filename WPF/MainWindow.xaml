@@ -74,8 +74,8 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Menu Grid.Row="0" Grid.Column="3">
-                <MenuItem Header="Ingelogde Docent" Height="70" Width="459" FontSize="24">
+            <Menu Grid.Row="0" Grid.Column="3" Background="#FFDDDDDD">
+                <MenuItem Header="Ingelogde Docent" Height="70" Width="459" FontSize="24" >
                     <MenuItem Header="Manage Coaches" Click="ManageCoachesBtn"/>
                 </MenuItem>
             </Menu>
