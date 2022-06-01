@@ -17,20 +17,20 @@
             <Label Content="Toevoegen Vak" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
             <Button Name="Verzenden" Margin="11,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Grid.Column="1">Submit</Button>
 
-            <Label Margin="10,100,10,220" HorizontalContentAlignment="Right">Naam vak:</Label>
-            <TextBox Margin="10,100,10,220" Name="Name" Grid.Column="1" Text="Nieuw vak"/>
+            <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Naam vak:</Label>
+            <TextBox Margin="10,100,10,200" Name="Name" Grid.Column="1" Text="Nieuw vak"/>
 
-            <Label Margin="10,130,10,190" HorizontalContentAlignment="Right">Vak code:</Label>
-            <TextBox Margin="10,130,10,190" Name="Code" Grid.Column="1" Text="Code"/>
+            <Label Margin="10,130,10,170" HorizontalContentAlignment="Right">Vak code:</Label>
+            <TextBox Margin="10,130,10,170" Name="Code" Grid.Column="1" Text="Code"/>
 
-            <Label Margin="10,160,10,160" HorizontalContentAlignment="Right">Descriptie:</Label>
-            <TextBox Margin="10,160,10,160" Name="Description" Grid.Column="1" Text="Leuk vak"/>
+            <Label Margin="10,160,10,140" HorizontalContentAlignment="Right">Omschrijving:</Label>
+            <TextBox Margin="10,160,10,140" Name="Description" Grid.Column="1" Text="Leuk vak"/>
 
-            <Label Margin="10,190,10,130" HorizontalContentAlignment="Right">EC's:</Label>
-            <TextBox Margin="10,190,10,130" Name="EC" Grid.Column="1" Text="3"/>
+            <Label Margin="10,190,10,110" HorizontalContentAlignment="Right">EC's:</Label>
+            <TextBox Margin="10,190,10,110" Name="EC" Grid.Column="1" Text="3"/>
 
-            <Label Margin="10,220,10,100" HorizontalContentAlignment="Right">Aantal lessen:</Label>
-            <TextBox Margin="10,220,10,100" Name="Lessons" Grid.Column="1" Text="6"/>
+            <Label Margin="10,220,10,80" HorizontalContentAlignment="Right">Aantal lessen:</Label>
+            <TextBox Margin="10,220,10,80" Name="Lessons" Grid.Column="1" Text="6"/>
 
 
         </Grid>

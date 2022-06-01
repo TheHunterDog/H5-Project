@@ -1,0 +1,29 @@
+﻿<Window x:Class="WPF.SubjectAssigning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="Probleem invoeren" Height="450" Width="800">
+    <Grid Background="#FF133E69">
+        <Grid Margin="35,50,35,35" Background="White">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="79*" />
+                <ColumnDefinition Width="121*" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="Title" Content="Invoeren Probleem S1234567" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
+            <Button Name="Verzenden" Margin="11,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Grid.Column="1">Submit</Button>
+
+            <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Klas of student:</Label>
+            <TextBox Margin="10,100,10,150" Name="ClassName" Grid.Column="1" TextChanged="OnClassChanged"/>
+
+            <Label Margin="10,200,10,50" Name="ClassResult" Grid.Column="1" >Prioriteit:</Label>
+
+
+        </Grid>
+        <Image Margin="0,0,0,366" Source="/Images/Header.png" Stretch="Fill"/>
+    </Grid>
+</Window>

@@ -42,7 +42,7 @@ public partial class StudentTable : Page
         string directory = openFileDialog.FileName;
         /*Trace.WriteLine(directory);*/
 
-        //ExcelImporter.ImportStudentsFromFile(directory);
-        //ExcelImporter.PrintStudents();
+        ExcelImporter.ImportStudentsFromFile(directory);
+        ExcelImporter.PrintStudents();
     }
 }

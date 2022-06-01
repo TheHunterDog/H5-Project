@@ -1,6 +1,4 @@
-﻿using WPF.Model;
-
-namespace Database.Model;
+﻿namespace Database.Model;
 
 public class Student
 {
@@ -137,5 +135,14 @@ public class Student
     }
 
     #endregion
-    
+
+    public override bool Equals(object? obj)
+    {
+        return ((Student)obj).Id == Id;
+    }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
 }

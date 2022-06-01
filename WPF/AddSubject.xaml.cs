@@ -27,6 +27,8 @@ namespace WPF
         {
             InitializeComponent();
 
+            PrintAllSubjects();
+
             stagedSubject = CreateSubject();
         }
 
@@ -110,6 +112,23 @@ namespace WPF
             }
             // close window
             CloseWindow();
+        }
+
+        public void PrintAllSubjects()
+        {
+            Trace.WriteLine("\n All Subjects in database:");
+            using (var context = new StudentBeleidContext())
+            {
+                // obtain students from database
+                List<Subject> subjects = context.Subjects.ToList();
+                for (int i = 0; i < subjects.Count; i++)
+                {
+                    // get student from list
+                    Subject subject = subjects.ElementAt(i);
+                    // print student data
+                    Trace.WriteLine(subject);
+                }
+            }
         }
 
         // close problem submitting window

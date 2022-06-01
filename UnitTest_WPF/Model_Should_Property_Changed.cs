@@ -5,7 +5,6 @@ using System.Windows.Documents;
 using Database.Model;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using WPF.Model;
 
 namespace UnitTest_WPF_Inplannen;
 

@@ -1,7 +1,6 @@
-﻿using Database.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace WPF.Model;
+namespace Database.Model;
 
 public class StudentenLijst : StudentBeleidContext
 {

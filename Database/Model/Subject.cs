@@ -1,6 +1,4 @@
-﻿using WPF.Model;
-
-namespace Database.Model;
+﻿namespace Database.Model;
 
 public class Subject
 {
@@ -80,5 +78,10 @@ public class Subject
     }
 
     #endregion
-    
+
+
+    public override string ToString()
+    {
+        return $"{Id}, {Name}, {Description}, {SubjectCode}, {Ec}, {Lessons}";
+    }
 }

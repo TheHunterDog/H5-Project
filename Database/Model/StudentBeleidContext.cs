@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using WPF.Model;
 
 namespace Database.Model;
 
@@ -20,6 +19,7 @@ public class StudentBeleidContext : DbContext
     
     public StudentBeleidContext()
     {
+
     }
 
     #endregion

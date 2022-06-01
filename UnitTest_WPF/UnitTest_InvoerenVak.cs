@@ -13,7 +13,7 @@ namespace UnitTest_WPF_Inplannen
             addSubject = new AddSubject();
         }
 
-        [Test]
+        [Test, Apartment(System.Threading.ApartmentState.STA)]
         public void CreateSubject()
         {
             Subject subject = addSubject.CreateSubject();

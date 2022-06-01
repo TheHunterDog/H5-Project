@@ -19,15 +19,15 @@ public partial class DetailscreenProblems : Page
         using (var context = new StudentBeleidContext())
         {
 
-            List<Model.StudentProblem> problems = context.StudentProblems.Where(x => x.StudentId == SelectedStudent.Id).ToList();
-            /*foreach (StudentProblem studentProblem in problems)
+/*            List<Model.StudentProblem> problems = context.StudentProblems.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+            *//*foreach (StudentProblem studentProblem in problems)
             {
                 studentProblem.Teacher = context.Teachers.Find(studentProblem.TeacherId);
                 // studentProblem.Teacher = new Teacher({Id = 1, Name = "Johan"});
-            }*/
+            }*//*
 
             StudentProbleen.ItemsSource = problems;
-            studentproblemsLbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";
+            studentproblemsLbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";*/
         }
     }
 

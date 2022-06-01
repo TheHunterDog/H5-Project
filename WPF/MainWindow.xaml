@@ -18,7 +18,7 @@
             x:Name="Button1"
             Content="Open Window" 
             Click="Click"/>
-        
+
         <Button 
             Width="150" 
             Height="20" 
@@ -36,5 +36,13 @@
             x:Name="BtnSub" 
             Content="Vak Toevoegen"
             Click="ButtonAddSubject_Click"/>
+        <Button 
+            Width="150" 
+            Height="20" 
+            HorizontalAlignment="Left"
+            Margin="315,290,0,140"
+            x:Name="BtnSubCon" 
+            Content="Vak Koppelen"
+            Click="ButtonCoupleSubject_Click"/>
     </Grid>
 </Window>
