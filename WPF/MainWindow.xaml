@@ -66,7 +66,7 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="2" Height="70" VerticalAlignment="Center" FontSize="24">
+                <Button Grid.Row="0" Grid.Column="2" Height="70" VerticalAlignment="Center" FontSize="24" Click="OpenMeldingListView">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Images/warning.png" Width="32"/>

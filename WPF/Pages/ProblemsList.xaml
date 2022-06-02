@@ -1,0 +1,45 @@
+﻿<Page x:Class="WPF.Pages.ProblemsList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF.Pages"
+      mc:Ignorable="d" 
+      Height="auto" Width="auto"
+      Title="DetailscreenMeldingen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Label 
+            Grid.Row="0" 
+            Grid.Column="0"
+            x:Name="studentmeldingenLbl"
+            Content="Meldingenoverzicht"
+            FontSize="24"
+            Margin="100,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+        <DataGrid
+            Grid.Row="1" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2" 
+            FontSize="24"
+            x:Name = "MeldingenTable" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top" 
+            CanUserAddRows="FALSE" 
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            Margin="100,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding ="{Binding StudentNr}" Header="Student nummer" Width="*"/>
+                <DataGridTextColumn Binding ="{Binding Naam}" Header="Naam" Width="*"/>
+                <DataGridTextColumn Binding ="{Binding Description}" Header="omschrijving" Width="*"/>
+                <DataGridTextColumn Binding ="{Binding Notifyer}" Header="Melder" Width="*"/>
+                <DataGridTextColumn Binding ="{Binding Prioriteit}" Header="Prioriteit" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
