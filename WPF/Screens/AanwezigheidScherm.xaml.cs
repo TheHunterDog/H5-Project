@@ -7,6 +7,7 @@ namespace WPF.Screens;
 
 public partial class AanwezigheidScherm : Window
 {
+    public Presence SelectedPresence;
     public AanwezigheidScherm()
     {
         InitializeComponent();
@@ -16,7 +17,7 @@ public partial class AanwezigheidScherm : Window
     {
         using (var context = new StudentBeleidContext())
         {
-            var presence = context.Students.ToList();
+            var presence = context.Presences.ToList();
             PresenceTable.ItemsSource = presence;
             
         }
@@ -31,25 +32,41 @@ public partial class AanwezigheidScherm : Window
         {
             // Zet de kolom Present van 0 naar 1 in de database
 
+            Presence p = new Presence { Present = true };
             using (var context = new StudentBeleidContext())
             {
+                context.Add(p);
             }
         }
 
         if (!aanwezig)
         {
             // Zet de kolom Present van 1 naar 0 in de database
+
+            using (var context = new StudentBeleidContext())
+            {
+              var result = context.Presences.SingleOrDefault(i => i.Id == SelectedPresence.Id);
+
+              if (result == null)
+              {
+                  Presence p = new Presence { Present = false };
+                  context.Add(p);
+              }
+            }
         }
     }
 
     private void SavePresenceBtn(object sender, RoutedEventArgs e)
     {
-        
+        using (var context = new StudentBeleidContext())
+        {
+            context.SaveChanges();
+        }
     }
     
     private void ClosePresenceBtn(object sender, RoutedEventArgs e)
     {
-        
+        Close();
     }
     
 }
