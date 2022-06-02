@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(StudentBeleidContext))]
-    [Migration("20220530094319_MissingSubjectCode")]
-    partial class MissingSubjectCode
+    [Migration("20220602222952_Fixmm")]
+    partial class Fixmm
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,6 +118,36 @@ namespace Database.Migrations
                     b.ToTable("StudentBegeleiderGesprekken");
                 });
 
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("StudentProblems");
+                });
+
             modelBuilder.Entity("Database.Model.Subject", b =>
                 {
                     b.Property<int>("Id")
@@ -149,6 +179,23 @@ namespace Database.Migrations
                     b.ToTable("Subjects");
                 });
 
+            modelBuilder.Entity("Database.Model.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
+                });
+
             modelBuilder.Entity("StudentSubject", b =>
                 {
                     b.Property<int>("StudentsId")
@@ -161,50 +208,7 @@ namespace Database.Migrations
 
                     b.HasIndex("SubjectsId");
 
-                    b.ToTable("StudentSubjects", (string)null);
-                });
-
-            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("StudentProblems");
-                });
-
-            modelBuilder.Entity("WPF.Model.Teacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teachers");
+                    b.ToTable("StudentSubject");
                 });
 
             modelBuilder.Entity("Database.Model.Student", b =>
@@ -244,6 +248,25 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleider");
                 });
 
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
+                {
+                    b.HasOne("Database.Model.Student", "Student")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Model.Teacher", "Teacher")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("StudentSubject", b =>
                 {
                     b.HasOne("Database.Model.Student", null)
@@ -257,25 +280,6 @@ namespace Database.Migrations
                         .HasForeignKey("SubjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
-                {
-                    b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("StudentProblems")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WPF.Model.Teacher", "Teacher")
-                        .WithMany("StudentProblems")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Database.Model.Student", b =>
@@ -292,7 +296,7 @@ namespace Database.Migrations
                     b.Navigation("Students");
                 });
 
-            modelBuilder.Entity("WPF.Model.Teacher", b =>
+            modelBuilder.Entity("Database.Model.Teacher", b =>
                 {
                     b.Navigation("StudentProblems");
                 });

@@ -55,7 +55,7 @@ public class Student
     /// <summary>
     /// A student belongs to many or zero <see cref="Subject"/>
     /// </summary>
-    private List<Subject> _subjects;
+    private IEnumerable<Subject> _subjects;
 
     
     #endregion
@@ -128,7 +128,7 @@ public class Student
         set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public List<Subject> Subjects
+    public IEnumerable<Subject> Subjects
     {
         get => _subjects;
         set => _subjects = value ?? throw new ArgumentNullException(nameof(value));

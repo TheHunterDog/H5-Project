@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Database.Model;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace WPF
 {
@@ -297,10 +298,11 @@ namespace WPF
                 for (int i = 0; i < _stagedStudents.Count; i++)
                 {
                     // find student in database which has the same id as the selected student
-                    Student? dbStudent = context.Students.Where(s => s.Id == _stagedStudents[i].Id).First();
+                    Student dbStudent = context.Students.Include(s => s.Subjects).First(s => s.Id == _stagedStudents[i].Id);
                     // debug student
                     Trace.WriteLine(dbStudent);
-                    if (dbStudent != null)
+                    dbStudent.Subjects = new[] {context.Subjects.First()};
+                     if (dbStudent != null)
                     {
                         // loop through all selected subjects
                         for (int j = 0; j < _stagedSubjects.Count; j++)
@@ -315,10 +317,10 @@ namespace WPF
                                 if (dbStudent.Subjects == null) dbStudent.Subjects = new List<Subject>();
 
                                 /*dbStudent.Subjects = new List<Subject>();*/
-                                Trace.WriteLine(dbStudent.Subjects.Count);
+                                //Trace.WriteLine(dbStudent.Subjects.Count);
 
                                 // add subject to list
-                                if (!dbStudent.Subjects.Any(s => s.Id == dbSubject.Id) && !dbStudent.Subjects.Contains(dbSubject)) dbStudent.Subjects.Add(dbSubject);
+                                //if (!dbStudent.Subjects.Any(s => s.Id == dbSubject.Id) && !dbStudent.Subjects.Contains(dbSubject)) dbStudent.Subjects.Add(dbSubject);
                             }
                         }
                     }

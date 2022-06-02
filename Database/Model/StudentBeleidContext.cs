@@ -75,8 +75,7 @@ public class StudentBeleidContext : DbContext
 
         modelBuilder.Entity<Student>()
             .HasMany(s => s.Subjects)
-            .WithMany(s => s.Students)
-            .UsingEntity(j => j.ToTable("StudentSubjects"));
+            .WithMany(s => s.Students);
         #endregion
 
         #region StudentBegeleider
