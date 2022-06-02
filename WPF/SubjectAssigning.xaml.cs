@@ -17,191 +17,200 @@ using System.Diagnostics;
 namespace WPF
 {
     /// <summary>
-    /// Interaction logic for ProblemSubmitting.xaml
+    /// Interaction logic for SubjectAssigning.xaml
     /// </summary>
     public partial class SubjectAssigning : Window
     {
-        private List<Student> _studentsInClass;
+        private List<Student> _stagedStudents;
+        private List<Subject> _stagedSubjects;
+
 
         // initialize problem on load window
         public SubjectAssigning()
         {
             InitializeComponent();
+
+            _stagedStudents = new List<Student>();
+            _stagedSubjects = new List<Subject>();
         }
 
+        // finds students by query
+        public void FindStudents(string query)
+        {
+            // reset student list
+            _stagedStudents = new List<Student>();
+
+            // split string by commas
+            List<String> entries = query.Split(",").ToList();
+            // filter entries
+            for (int j = 0; j < entries.Count; j++)
+            {
+                // remove spaces
+                entries[j].Trim();
+
+                if (entries[j].Equals(""))
+                {
+                    // remove emtpy entries
+                    entries.RemoveAt(j);
+                    j--;
+                }
+            }
+            // find for each entry
+            for (int j = 0; j < entries.Count; j++)
+            {
+                // find classes, with count
+                int count = FindClass(entries[j]);
+                // if count is 0, check value as student info
+                if (count == 0)
+                {
+                    // find students
+                    FindStudent(entries[j]);
+                }
+            }
+            // remove double found students
+            RemoveDoubleStudents();
+            // update text on button to be consistent with staged student(s) and subject(s)
+            UpdateButtonText();
+        }
+
+        // finds all students in a class
         public int FindClass(string className)
         {
+            // set string to lowercase, and remove spaces
             className = className.ToLower().Trim();
-            int count = _studentsInClass.Count;
+            // retrieve count of found students before finding more students
+            int count = _stagedStudents.Count;
             using (var context = new StudentBeleidContext())
             {
-                /*students = context.Students.ToList();
-                for (int i = 0; i < students.Count; i++)
-                {
-                    if (students[i].Klasscode.ToLower().Equals(className)) AddStudentToStagedList(students[i]);
-                    else if (className.Length > 1 && students[i].Klasscode.ToLower().Contains(className)) AddStudentToStagedList(students[i]);
-                }*/
-
-                _studentsInClass.AddRange(
+                // add students to list who are in the exact class, or a class that contains the string, if the string is more than 1 letter
+                _stagedStudents.AddRange(
                     context.Students.Where(
                         s => (
                         s.Klasscode.ToLower().Equals(className) || 
-                        (className.Length > 1 && s.Klasscode.ToLower().Contains(className))
-                        ) && !_studentsInClass.Contains(s)
+                        (className.Length > 5 && s.Klasscode.ToLower().Contains(className))
+                        ) && !_stagedStudents.Contains(s)
                     ).ToList());
             }
-            return _studentsInClass.Count - count;
+            // return new amount of students found minus old count
+            return _stagedStudents.Count - count;
         }
 
+        // finds all students by name or number
         public void FindStudent(string studentName)
         {
+            // set string to lowercase
             studentName = studentName.ToLower();
-            //List<Student> students = new List<Student>();
-            //_studentsInClass = new List<Student>();
             using (var context = new StudentBeleidContext())
             {
-/*                students = context.Students.ToList();
-                for (int i = 0; i < students.Count; i++)
-                {*/
-                    List<String> name = studentName.Split(" ").ToList();
-                    for (int j = 0; j < name.Count; j++)
-                    {
-                        name[j].Trim();
-                        if (name[j].Equals(""))
-                        {
-                            name.RemoveAt(j);
-                            j--;
-                        }
+                // split string by commas
+                List<String> entries = studentName.Split(" ").ToList();
+                // filter entries
+                for (int j = 0; j < entries.Count; j++)
+                {
+                    // remove spaces
+                    entries[j].Trim();
+                    if (entries[j].Equals(""))
+                    {                    
+                        // remove emtpy entries
+                        entries.RemoveAt(j);
+                        j--;
                     }
-
-                    if(name.Count > 0)
+                }
+                // check if the amount of entries is more than 0
+                if (entries.Count > 0)
+                {
+                    // check if there is one entry
+                    if (entries.Count == 1)
                     {
-                        if (name.Count == 1)
+                        int number;
+                        // check if entry is a number, if so set number to that number
+                        bool isNumeric = int.TryParse(entries[0], out number);
+                        if (isNumeric)
                         {
-                            int number;
-                            bool isNumeric = int.TryParse(name[0], out number);
-                            if (isNumeric)
-                            {
-                                name[0] = "s" + name[0];
-/*
-                                if (students[i].Studentnummer.ToLower().Equals(name[0])) AddStudentToStagedList(students[i]);*/
-
-                                _studentsInClass.AddRange(
-                                    context.Students.Where(
-                                        s => s.Studentnummer.ToLower().Equals(name[0])
-                                    ).ToList());
-                            }
-                            else
-                            {
-                                _studentsInClass.AddRange(
-                                    context.Students.Where(
-                                        s => (
-                                        s.Voornaam.ToLower().Equals(name[0]) ||
-                                        s.Achternaam.ToLower().Equals(name[0])
-                                        ) && !_studentsInClass.Contains(s)
-                                    ).ToList());
-                            }
-/*                            else if (students[i].Voornaam.ToLower().Equals(name[0])) AddStudentToStagedList(students[i]);
-                            else if (students[i].Achternaam.ToLower().Equals(name[0])) AddStudentToStagedList(students[i]);*/
+                            // add an 's' to the front of the entry
+                            entries[0] = "s" + entries[0];
                         }
-                        else if (name.Count == 2)
-                        {
-                            _studentsInClass.AddRange(
-                                context.Students.Where(
-                                    s => (
-                                    s.Voornaam.ToLower().Equals(name[0]) ||
-                                    s.Voornaam.ToLower().Equals(name[1])
-                                    ) && (
-                                    s.Achternaam.ToLower().Equals(name[0]) ||
-                                    s.Achternaam.ToLower().Equals(name[1])
-                                    ) && !_studentsInClass.Contains(s)
-                                ).ToList());
-
-/*                            if (students[i].Voornaam.ToLower().Equals(name[0]) || students[i].Voornaam.ToLower().Equals(name[1]))
-                            {
-                                if (students[i].Achternaam.ToLower().Equals(name[0]) || students[i].Achternaam.ToLower().Equals(name[1]))
-                                {
-                                    AddStudentToStagedList(students[i]);
-                                }
-                            }*/
-                        }
-                        else if (name.Count == 3)
-                        {
-                            _studentsInClass.AddRange(
-                                context.Students.Where(
-                                    s => (
-                                    s.Voornaam.ToLower().Equals(name[0]) ||
-                                    s.Voornaam.ToLower().Equals(name[1]) ||
-                                    s.Voornaam.ToLower().Equals(name[2])
-                                    ) && (
-                                    s.Achternaam.ToLower().Equals(name[0]) ||
-                                    s.Achternaam.ToLower().Equals(name[1]) ||
-                                    s.Achternaam.ToLower().Equals(name[2])
-                                    ) && (
-                                    s.Tussenvoegsel.ToLower().Equals(name[0]) ||
-                                    s.Tussenvoegsel.ToLower().Equals(name[1]) ||
-                                    s.Tussenvoegsel.ToLower().Equals(name[2])
-                                    ) && !_studentsInClass.Contains(s)
-                                ).ToList());
-
-/*                            if (students[i].Voornaam.ToLower().Equals(name[0]) || students[i].Voornaam.ToLower().Equals(name[1]) || students[i].Voornaam.ToLower().Equals(name[2]))
-                            {
-                                if (students[i].Achternaam.ToLower().Equals(name[0]) || students[i].Achternaam.ToLower().Equals(name[1]) || students[i].Achternaam.ToLower().Equals(name[2]))
-                                {
-                                    if (students[i].Tussenvoegsel.ToLower().Equals(name[0]) || students[i].Tussenvoegsel.ToLower().Equals(name[1]) || students[i].Tussenvoegsel.ToLower().Equals(name[2]))
-                                    {
-                                        AddStudentToStagedList(students[i]);
-                                    }
-                                }
-                            }*/
-                        }
+                        // add students that have the entry as number or name
+                        _stagedStudents.AddRange(
+                            context.Students.Where(
+                                s => (
+                                s.Studentnummer.ToLower().Equals(entries[0]) || 
+                                s.Voornaam.ToLower().Equals(entries[0]) ||
+                                s.Achternaam.ToLower().Equals(entries[0])
+                                ) && !_stagedStudents.Contains(s)
+                            ).ToList());
                     }
-                //}
+                    // check if there are two entries
+                    else if (entries.Count == 2)
+                    {
+                        // add students that have the entries as first name and last name
+                        _stagedStudents.AddRange(
+                            context.Students.Where(
+                                s => (
+                                s.Voornaam.ToLower().Equals(entries[0]) ||
+                                s.Voornaam.ToLower().Equals(entries[1])
+                                ) && (
+                                s.Achternaam.ToLower().Equals(entries[0]) ||
+                                s.Achternaam.ToLower().Equals(entries[1])
+                                ) && !_stagedStudents.Contains(s)
+                            ).ToList());
+                    }
+                    // check if there are three entries
+                    else if (entries.Count == 3)
+                    {
+                        // add students that have the entries as first name, last name and surname
+                        _stagedStudents.AddRange(
+                            context.Students.Where(
+                                s => (
+                                s.Voornaam.ToLower().Equals(entries[0]) ||
+                                s.Voornaam.ToLower().Equals(entries[1]) ||
+                                s.Voornaam.ToLower().Equals(entries[2])
+                                ) && (
+                                s.Achternaam.ToLower().Equals(entries[0]) ||
+                                s.Achternaam.ToLower().Equals(entries[1]) ||
+                                s.Achternaam.ToLower().Equals(entries[2])
+                                ) && (
+                                s.Tussenvoegsel.ToLower().Equals(entries[0]) ||
+                                s.Tussenvoegsel.ToLower().Equals(entries[1]) ||
+                                s.Tussenvoegsel.ToLower().Equals(entries[2])
+                                ) && !_stagedStudents.Contains(s)
+                            ).ToList());
+                    }
+                }
             }
         }
 
-        public void AddStudentToStagedList(Student student)
-        {
-            if(!_studentsInClass.Contains(student)) _studentsInClass.Add(student);
-        }
-
+        // removes double found students
         public void RemoveDoubleStudents()
         {
-            //_studentsInClass = _studentsInClass.Distinct().ToList();
-
-            _studentsInClass.ToHashSet();
+            // finds unique students by override void ToHashSet in Student, which hashes the id of the student
+            _stagedStudents.ToHashSet();
         }
 
-        public void AddSubjectToStudents(Subject subject)
+        public void DisplayStudentsResult()
         {
-            for (int i = 0; i < _studentsInClass.Count; i++)
+            using (var context = new StudentBeleidContext())
             {
-                if (!_studentsInClass[i].Subjects.Contains(subject)) _studentsInClass[i].Subjects.Append(subject);
+                // check if students are found
+                if (_stagedStudents.Count > 0)
+                {
+                    // display studentcount + "student(en) gevonden"
+                    ClassResult.Content = _stagedStudents.Count + " Student" + ((_stagedStudents.Count > 1) ? "en" : "") + " gevonden";
+                }
+                else
+                {
+                    // display "Geen student(en) gevonden"
+                    ClassResult.Content = "Geen student(en) gevonden";
+                }
             }
         }
 
-        // submitting problem
-        private void Submit_Click(object sender, RoutedEventArgs e)
+
+        public void FindSubjects(string query)
         {
-/*            if (_stagedProblem == null || _stagedProblem.Description == "") return;
+            _stagedSubjects = new List<Subject>();
 
-            // Trace.WriteLine(_stagedProblem);
-
-            AddProblemToDatabase(_stagedProblem);
-
-            CloseWindow();*/
-        }
-
-        // updating problem description
-        private void OnClassChanged(object sender, TextChangedEventArgs e)
-        {
-            // find students
-
-            bool isClass = true;
-
-            _studentsInClass = new List<Student>();
-
-            List<String> entries = ClassName.Text.Split(",").ToList();
+            List<String> entries = query.Split(",").ToList();
             for (int j = 0; j < entries.Count; j++)
             {
                 entries[j].Trim();
@@ -211,70 +220,156 @@ namespace WPF
                     entries.RemoveAt(j);
                     j--;
                 }
-/*                else
-                {
-                    Trace.WriteLine(classEntries[j]);
-                }*/
             }
 
             for (int j = 0; j < entries.Count; j++)
             {
-                int count = FindClass(entries[j]);
-                if (count == 0)
-                {
-                    FindStudent(entries[j]);
-                }
+                FindSubject(entries[j]);
             }
+            // remove double found subjects
+            RemoveDoubleSubjects();
+            // update text on button to be consistent with staged student(s) and subject(s)
+            UpdateButtonText();
+        }
 
-            //FindClass(ClassName.Text);
-/*
-            if (_studentsInClass.Count == 0)
-            {
-                isClass = false;
-
-                List<String> studentEntries = ClassName.Text.Split(",").ToList();
-                for (int j = 0; j < studentEntries.Count; j++)
-                {
-                    studentEntries[j].Trim();
-
-                    if (studentEntries[j].Equals(""))
-                    {
-                        studentEntries.RemoveAt(j);
-                        j--;
-                    }
-*//*                    else
-                    {
-                        Trace.WriteLine(studentEntries[j]);
-                    }*//*
-                }
-
-                for (int j = 0; j < studentEntries.Count; j++)
-                {
-                    FindStudent(studentEntries[j]);
-                }
-            }*/
-
-            RemoveDoubleStudents();
-
-            // show result on screen
+        // finds all subjects by name
+        public void FindSubject(string subjectName)
+        {
+            subjectName = subjectName.ToLower().Trim();
             using (var context = new StudentBeleidContext())
             {
-                if (_studentsInClass.Count > 0 && isClass)
-                {
-                    ClassResult.Content = "Klas gevonden(" + _studentsInClass.Count + ")";
-                }
-                else if (_studentsInClass.Count > 0 && !isClass)
-                {
-                    ClassResult.Content = "Student" + ((_studentsInClass.Count > 1) ? "en" : "") + " gevonden(" + _studentsInClass.Count + ")";
-                }
-                else
-                {
-                    ClassResult.Content = "Geen klas of student gevonden";
-                }
-
+                _stagedSubjects.AddRange(
+                    context.Subjects.Where(
+                        s => (
+                        s.Name.ToLower().Equals(subjectName) ||
+                        s.SubjectCode.ToLower().Equals(subjectName)
+                        ) && !_stagedSubjects.Contains(s)
+                    ).ToList());
             }
         }
 
+        // removes double found subjects
+        public void RemoveDoubleSubjects()
+        {
+            _stagedSubjects.ToHashSet();
+        }
+
+        public void DisplaySubjectsResult()
+        {
+            using (var context = new StudentBeleidContext())
+            {
+                if (_stagedSubjects.Count > 0)
+                {
+                    SubjectResult.Content = _stagedSubjects.Count + " vak" + ((_stagedSubjects.Count > 1) ? "ken" : "") + " gevonden";
+                }
+                else
+                {
+                    SubjectResult.Content = "Geen vak(ken) gevonden";
+                }
+            }
+        }
+
+        public void UpdateButtonText()
+        {
+            if (_stagedSubjects.Count == 0 || _stagedStudents.Count == 0)
+            {
+                Verzenden.Content = "Voeg vak(ken) toe aan student(en)";
+            }
+            else Verzenden.Content = "Voeg vak" + (_stagedSubjects.Count > 1 ? "ken" : "") + " toe aan student" + (_stagedStudents.Count > 1 ? "en" : "");
+        }
+
+
+        public void AddSubjectToStudents(Subject subject)
+        {
+            for (int i = 0; i < _stagedStudents.Count; i++)
+            {
+                if (!_stagedStudents[i].Subjects.Contains(subject)) _stagedStudents[i].Subjects.Append(subject);
+            }
+        }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            if (_stagedStudents.Count == 0 || _stagedSubjects.Count == 0) return;
+
+            using (var context = new StudentBeleidContext())
+            {
+                // loop through all selected students
+                for (int i = 0; i < _stagedStudents.Count; i++)
+                {
+                    // find student in database which has the same id as the selected student
+                    Student? dbStudent = context.Students.Where(s => s.Id == _stagedStudents[i].Id).First();
+                    // debug student
+                    Trace.WriteLine(dbStudent);
+                    if (dbStudent != null)
+                    {
+                        // loop through all selected subjects
+                        for (int j = 0; j < _stagedSubjects.Count; j++)
+                        {
+                            // find subject
+                            Subject? dbSubject = context.Subjects.Where(s => s.Id == _stagedSubjects[j].Id).First();
+                            // debug subject
+                            Trace.WriteLine(dbSubject);
+                            if (dbSubject != null)
+                            {
+
+
+                                // create new list of subjects if list is null
+                                if (dbStudent.Subjects == null) dbStudent.Subjects = new List<Subject>();
+                                // add subject to list
+                                dbStudent.Subjects.Append(dbSubject);
+                            }
+                        }
+                    }
+                }
+                // save changes to database
+                context.SaveChanges();
+            }
+
+            using (var context = new StudentBeleidContext())
+            {
+                // loop through all selected students
+                for (int i = 0; i < _stagedStudents.Count; i++)
+                {
+                    // find subject
+                    Student? dbStudent = context.Students.Where(s => s.Id == _stagedStudents[i].Id).First();
+                    if (dbStudent != null)
+                    {
+                        // create new list of subjects if list is null
+                        if (dbStudent.Subjects == null) dbStudent.Subjects = new List<Subject>();
+                        // loop through all selected subjects
+                        Trace.WriteLine(dbStudent.Subjects.Count()); // ALWAYS 0
+                        for (int j = 0; j < dbStudent.Subjects.Count(); j++)
+                        {
+                            // debug subject + student
+                            string text = dbStudent.ToString() + dbStudent.Subjects.ElementAt(j).ToString();
+                            Trace.WriteLine(text);
+                        }
+                    }
+
+                }
+            }
+
+            CloseWindow();
+        }
+
+        // updating problem description
+        private void OnClassChanged(object sender, TextChangedEventArgs e)
+        {
+            // find students
+            FindStudents(ClassName.Text);
+
+            // show result on screen
+            DisplayStudentsResult();
+        }
+
+        private void OnSubjectChanged(object sender, TextChangedEventArgs e)
+        {
+            // find subjects
+            FindSubjects(SubjectName.Text); 
+
+            // show result on screen
+            DisplaySubjectsResult();
+        }
 
         // close problem submitting window
         private void CloseWindow()
@@ -282,18 +377,4 @@ namespace WPF
             Close();
         }
     }
-/*
-    public class Problem
-    {
-        public int StudentID;
-        public string Description = "Description";
-        public int Priority = 0;
-        public int TeacherID;
-
-        public override string ToString()
-        {
-            return $"{StudentID}, {Description}, {Priority}, {TeacherID}";
-        }
-    }*/
-
 }

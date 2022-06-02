@@ -84,4 +84,9 @@ public class Subject
     {
         return $"{Id}, {Name}, {Description}, {SubjectCode}, {Ec}, {Lessons}";
     }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
 }

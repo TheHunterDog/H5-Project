@@ -14,13 +14,18 @@
                 <ColumnDefinition Width="121*" />
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="Title" Content="Invoeren Probleem S1234567" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
-            <Button Name="Verzenden" Margin="11,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Grid.Column="1">Submit</Button>
+            <Label x:Name="Title" Content="Toewijzen vakken aan studenten" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
+            <Button x:Name="Verzenden" Margin="265,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Height="30" Click="Submit_Click" Content="Voeg vak(ken) toe aan student(en)" Grid.ColumnSpan="2"/>
 
-            <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Klas of student:</Label>
-            <TextBox Margin="10,100,10,150" Name="ClassName" Grid.Column="1" TextChanged="OnClassChanged"/>
+            <Label Margin="10,90,10,210" HorizontalContentAlignment="Right">Vak(ken):</Label>
+            <TextBox Margin="10,90,10,200" Name="SubjectName" Grid.Column="1" TextChanged="OnSubjectChanged"/>
 
-            <Label Margin="10,200,10,50" Name="ClassResult" Grid.Column="1" >Prioriteit:</Label>
+            <Label Margin="11,130,9,170" Name="SubjectResult" Grid.Column="1" >Geen vak(ken) gevonden</Label>
+
+            <Label Margin="10,190,10,90" HorizontalContentAlignment="Right">Klas(sen) en/of student(en):</Label>
+            <TextBox Margin="10,190,10,90" Name="ClassName" Grid.Column="1" TextChanged="OnClassChanged"/>
+
+            <Label Margin="10,240,10,40" Name="ClassResult" Grid.Column="1" >Geen student(en) gevonden</Label>
 
 
         </Grid>

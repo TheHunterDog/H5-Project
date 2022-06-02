@@ -15,7 +15,7 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="Title" Content="Invoeren Probleem S1234567" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
-            <Button Name="Verzenden" Margin="11,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Grid.Column="1">Submit</Button>
+            <Button x:Name="Verzenden" Margin="27,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Content="Submit" Grid.Column="1"/>
 
             <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Omschrijving van het probleem:</Label>
             <TextBox Margin="10,100,10,150" Name="Problem" Grid.Column="1" TextChanged="OnProblemDescriptionChanged"/>

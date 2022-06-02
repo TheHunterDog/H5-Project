@@ -136,6 +136,11 @@ public class Student
 
     #endregion
 
+    public override string ToString()
+    {
+        return $"{Id}, {Voornaam}, {Achternaam}, {Studentnummer}, {StudentBegeleider}";
+    }
+
     public override bool Equals(object? obj)
     {
         return ((Student)obj).Id == Id;
