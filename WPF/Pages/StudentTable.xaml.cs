@@ -17,9 +17,26 @@ public partial class StudentTable : Page
 
         using (var context = new StudentBeleidContext())
         {
-            Students = context.Students.ToList();
+            var query = from s in context.Students
+                        join g in context.StudentBegeleiderGesprekken
+                        on s.Id equals g.StudentId
+                        into studentgesprekGroup
+                        from t in studentgesprekGroup.DefaultIfEmpty()
+                        select new
+                        {
+                            Id = s.Id,
+                            Studentnummer = s.Studentnummer,
+                            Voornaam = s.Voornaam,
+                            Tussenvoegsel = s.Tussenvoegsel,
+                            Achternaam = s.Achternaam,
+                            Klasscode = s.Klasscode,
+                            StudentbegeleiderId = s.StudentbegeleiderId,
+                            LaatstGesproken = (t.GesprekDatum == null ? DateTime.MaxValue : t.GesprekDatum)
+                        };
+            var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);
+            StudentsTable.ItemsSource = List;
         }
-        StudentsTable.ItemsSource = Students;
+        
     }
 
     private void SelectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
