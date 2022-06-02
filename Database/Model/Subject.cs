@@ -85,6 +85,11 @@ public class Subject
         return $"{Id}, {Name}, {Description}, {SubjectCode}, {Ec}, {Lessons}";
     }
 
+    public override bool Equals(object? obj)
+    {
+        return ((Subject)obj).Id == Id;
+    }
+
     public override int GetHashCode()
     {
         return Id.GetHashCode();

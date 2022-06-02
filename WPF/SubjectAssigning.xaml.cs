@@ -21,8 +21,8 @@ namespace WPF
     /// </summary>
     public partial class SubjectAssigning : Window
     {
-        private List<Student> _stagedStudents;
-        private List<Subject> _stagedSubjects;
+        public List<Student> _stagedStudents;
+        public List<Subject> _stagedSubjects;
 
 
         // initialize problem on load window
@@ -277,7 +277,7 @@ namespace WPF
             }
             else Verzenden.Content = "Voeg vak" + (_stagedSubjects.Count > 1 ? "ken" : "") + " toe aan student" + (_stagedStudents.Count > 1 ? "en" : "");
         }
-
+/*
 
         public void AddSubjectToStudents(Subject subject)
         {
@@ -285,7 +285,7 @@ namespace WPF
             {
                 if (!_stagedStudents[i].Subjects.Contains(subject)) _stagedStudents[i].Subjects.Append(subject);
             }
-        }
+        }*/
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
@@ -311,12 +311,14 @@ namespace WPF
                             Trace.WriteLine(dbSubject);
                             if (dbSubject != null)
                             {
-
-
                                 // create new list of subjects if list is null
                                 if (dbStudent.Subjects == null) dbStudent.Subjects = new List<Subject>();
+
+                                /*dbStudent.Subjects = new List<Subject>();*/
+                                Trace.WriteLine(dbStudent.Subjects.Count);
+
                                 // add subject to list
-                                dbStudent.Subjects.Append(dbSubject);
+                                if (!dbStudent.Subjects.Any(s => s.Id == dbSubject.Id) && !dbStudent.Subjects.Contains(dbSubject)) dbStudent.Subjects.Add(dbSubject);
                             }
                         }
                     }
