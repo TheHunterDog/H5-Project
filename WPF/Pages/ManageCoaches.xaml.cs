@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using WPF.Screens;
 
 namespace WPF.Pages
@@ -30,6 +31,7 @@ namespace WPF.Pages
             }
             CoachesList.ItemsSource = coaches;
             PromoteCol.Visibility = Visibility.Collapsed;
+            
         }
 
         private void AddCoachBtn(object sender, RoutedEventArgs e)
@@ -44,6 +46,8 @@ namespace WPF.Pages
             CoachesList.ItemsSource = teachers;
             PromoteCol.Visibility = Visibility.Visible;
             DemoteCol.Visibility = Visibility.Collapsed;
+            name.Binding = new Binding("Name");
+            Docentcode.Binding = new Binding("DocentCode");
         }
 
         private void ShowCoaches(object sender, RoutedEventArgs e)
@@ -52,7 +56,9 @@ namespace WPF.Pages
             CoachesList.ItemsSource = coaches;
             DemoteCol.Visibility = Visibility.Visible;
             PromoteCol.Visibility = Visibility.Collapsed;
-            
+            name.Binding = new Binding("Naam");
+            Docentcode.Binding = new Binding("Docentcode");
+
         }
 
         private void PromoteTeacher(object sender, RoutedEventArgs e)

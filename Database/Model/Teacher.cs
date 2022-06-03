@@ -17,6 +17,8 @@ public class Teacher
     /// A teacher belongs to many or zero <see cref="StudentProblem"/>
     /// </summary>
     private IEnumerable<StudentProblem> _studentProblems;
+
+    private string _docentCode;
     
     #endregion
 
@@ -38,6 +40,12 @@ public class Teacher
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string DocentCode
+    {
+        get => _docentCode;
+        set => _docentCode = value;
     }
     
     #endregion

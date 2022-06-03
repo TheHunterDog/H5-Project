@@ -44,8 +44,8 @@ namespace WPF.Screens
                 {
                     Teacher teacher = new Teacher
                     {
-                        Name = name.Text
-                        //Docentcode = Docentcode.Text          Docentcode bestaat nog niet bij teacher
+                        Name = name.Text,
+                        DocentCode = Docentcode.Text
                     };
                     context.Teachers.Add(teacher);
                 }

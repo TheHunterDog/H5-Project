@@ -48,7 +48,7 @@ namespace WPF.Screens
                     StudentBegeleider studentBegeleider = new StudentBegeleider
                     {
                         Naam = SelectedTeacher.Name,
-                        Docentcode = "testtest2"
+                        Docentcode = SelectedTeacher.DocentCode
                     };
                     context.StudentBegeleiders.Add(studentBegeleider);
                     context.Teachers.Remove(SelectedTeacher);
@@ -62,13 +62,14 @@ namespace WPF.Screens
                     Teacher teacher = new Teacher
                     {
                         Name = SelectedSber.Naam,
-                        //Docentcode = SelectedSber.Docentcode;
+                        DocentCode = SelectedSber.Docentcode
                     };
                     context.Teachers.Add(teacher);
                     context.StudentBegeleiders.Remove(SelectedSber);
                     context.SaveChanges();
                 }
             }
+            Close();
         }
         private void CancelBtn(object sender, RoutedEventArgs e)
         {
