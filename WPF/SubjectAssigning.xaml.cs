@@ -298,31 +298,27 @@ namespace WPF
                 for (int i = 0; i < _stagedStudents.Count; i++)
                 {
                     // find student in database which has the same id as the selected student
-                    Student dbStudent = context.Students.Include(s => s.Subjects).First(s => s.Id == _stagedStudents[i].Id);
+/*                    List<Student> allStudents = context.Students.Include(s => s.Subjects).ToList();
+                    allStudents = allStudents.Where();*/
+                    Student dbStudent = context.Students.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
                     // debug student
                     Trace.WriteLine(dbStudent);
-                    dbStudent.Subjects = new[] {context.Subjects.First()};
-                     if (dbStudent != null)
+                    Trace.WriteLine(dbStudent.Subjects.Count()); // 1
+                    //dbStudent.Subjects = new[] {context.Subjects.First()};
+
+                    for (int j = 0; j < _stagedSubjects.Count; j++)
                     {
-                        // loop through all selected subjects
-                        for (int j = 0; j < _stagedSubjects.Count; j++)
+                        Subject s = context.Subjects.Where(s => s.Id == _stagedSubjects[j].Id).First();
+                        Trace.WriteLine(s);
+                        if (!dbStudent.Subjects.Contains(s))
                         {
-                            // find subject
-                            Subject? dbSubject = context.Subjects.Where(s => s.Id == _stagedSubjects[j].Id).First();
-                            // debug subject
-                            Trace.WriteLine(dbSubject);
-                            if (dbSubject != null)
-                            {
-                                // create new list of subjects if list is null
-                                if (dbStudent.Subjects == null) dbStudent.Subjects = new List<Subject>();
-
-                                /*dbStudent.Subjects = new List<Subject>();*/
-                                //Trace.WriteLine(dbStudent.Subjects.Count);
-
-                                // add subject to list
-                                //if (!dbStudent.Subjects.Any(s => s.Id == dbSubject.Id) && !dbStudent.Subjects.Contains(dbSubject)) dbStudent.Subjects.Add(dbSubject);
-                            }
+                            dbStudent.Subjects.Append(s);
                         }
+                        else
+                        {
+                            Trace.WriteLine("The Fuck!?!!?!?!?!"); // komt hier niet
+                        }
+                        Trace.WriteLine(dbStudent.Subjects.Count()); // nog steeds 1
                     }
                 }
                 // save changes to database
@@ -335,7 +331,7 @@ namespace WPF
                 for (int i = 0; i < _stagedStudents.Count; i++)
                 {
                     // find subject
-                    Student? dbStudent = context.Students.Where(s => s.Id == _stagedStudents[i].Id).First();
+                    Student dbStudent = context.Students.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
                     if (dbStudent != null)
                     {
                         // create new list of subjects if list is null
@@ -349,10 +345,8 @@ namespace WPF
                             Trace.WriteLine(text);
                         }
                     }
-
                 }
             }
-
             CloseWindow();
         }
 
