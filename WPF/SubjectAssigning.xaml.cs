@@ -312,7 +312,7 @@ namespace WPF
                         Trace.WriteLine(s);
                         if (!dbStudent.Subjects.Contains(s))
                         {
-                            dbStudent.Subjects.Append(s);
+                            dbStudent.Subjects.Add(s);
                         }
                         else
                         {
@@ -330,7 +330,7 @@ namespace WPF
                 // loop through all selected students
                 for (int i = 0; i < _stagedStudents.Count; i++)
                 {
-                    // find subject
+                    // find student
                     Student dbStudent = context.Students.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
                     if (dbStudent != null)
                     {
