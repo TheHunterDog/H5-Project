@@ -74,8 +74,14 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="3" Height="70" VerticalAlignment="Center" FontSize="24">
-                    Ingelogde Docent.
+                <Button 
+                    x:Name="UsernameBtn"
+                    Grid.Row="0" 
+                    Grid.Column="3" 
+                    Height="70" 
+                    VerticalAlignment="Center" 
+                    FontSize="24"
+                    Content="{Binding Username}">
                 </Button>
                 
                 <Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Name="MainFrame" NavigationUIVisibility="Hidden" Source="/Pages/StudentTable.xaml"/>

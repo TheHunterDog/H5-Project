@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using Database.Model;
 
 namespace WPF
 {
@@ -10,15 +12,23 @@ namespace WPF
     /// </summary>
     public partial class MainWindow
     {
+
         // Keep track of open page
         // 0 is studentList
         // 1 is MeetingList
         // 2 is ProblemList
         private int _screen = -1;
-        
+        private IAuthenticatable? user;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public MainWindow(IAuthenticatable? user)
+        {
+            InitializeComponent();
+            this.user = user;
+             UsernameBtn.Content = user.Username;
         }
 
         private void OpenStudentListView(object sender, RoutedEventArgs e)
