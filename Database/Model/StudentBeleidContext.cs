@@ -108,6 +108,7 @@ public class StudentBeleidContext : DbContext
 
         #region Leerdoel
 
+        /*
         modelBuilder.Entity<Leerdoel>()
            .HasKey(s => new {s.Id});
         modelBuilder.Entity<Leerdoel>()
@@ -128,7 +129,7 @@ public class StudentBeleidContext : DbContext
            .WithMany(sb => sb.Leerdoelen)
            .HasForeignKey(s => s.StudentId)
            .OnDelete(DeleteBehavior.NoAction)
-           .IsRequired(false);
+           .IsRequired(false); */
 
         #endregion
 

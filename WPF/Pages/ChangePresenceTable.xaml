@@ -20,7 +20,7 @@
             IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding SubjectId}" Header="Vak" />
-                <DataGridTextColumn Binding="{Binding Teachers.name}" Header="Docent" />
+                <DataGridTextColumn Binding="{Binding Teachers/name}" Header="Docent" />
                 <DataGridTextColumn Binding="{Binding Present}" Header="Aanwezig" />
             </DataGrid.Columns>
         </DataGrid>

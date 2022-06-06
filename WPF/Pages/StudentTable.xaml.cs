@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Database.Model;
@@ -43,5 +44,10 @@ public partial class StudentTable : Page
 
         ExcelImporter.ImportStudentsFromFile(directory);
         ExcelImporter.PrintStudents();
+    }
+    private void OpenPresence(object sender, RoutedEventArgs e)
+    {
+        AanwezigheidScherm win3 = new AanwezigheidScherm();
+        win3.Show();
     }
 }

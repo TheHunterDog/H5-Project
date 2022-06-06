@@ -2,6 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
+using Database.Model;
+using WPF.Screens;
 
 namespace WPF
 {
@@ -35,5 +37,6 @@ namespace WPF
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 1;
         }
+
     }
 }

@@ -123,10 +123,10 @@ public class Student
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    {
+    /*{
         get => _studentBegeleider;
         set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
-    }
+    }*/
 
     public Presence[] Presences
     {

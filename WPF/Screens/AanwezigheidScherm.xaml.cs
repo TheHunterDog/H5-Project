@@ -11,6 +11,8 @@ public partial class AanwezigheidScherm : Window
     public AanwezigheidScherm()
     {
         InitializeComponent();
+        
+        showPresenceTable();
     }
 
     private void showPresenceTable()
