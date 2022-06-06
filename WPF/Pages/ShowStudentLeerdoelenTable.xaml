@@ -7,21 +7,14 @@
     xmlns:local="clr-namespace:WPF"
     mc:Ignorable="d"
     Title="ShowStudentTable" Height="auto" Width="auto">
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="150"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
-        <Label 
-            Grid.Row="0" 
-            Grid.Column="0"
+        <Label
             x:Name="studentnrlbl"
             FontSize="24"
             Margin="100,0"
@@ -39,10 +32,7 @@
         <DataGrid 
             AutoGenerateColumns="False" 
             Grid.Row="1" 
-            Grid.Column="0" 
-            Grid.ColumnSpan="2" 
             x:Name = "StudentLeerdoelen" 
-            MinHeight="80" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             CanUserAddRows="FALSE"
@@ -54,6 +44,6 @@
                 <DataGridTextColumn x:Name="studentId" Binding ="{Binding StudentId}" Header="StudentId" IsReadOnly="TRUE" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-        
+
     </Grid>
 </Page>
