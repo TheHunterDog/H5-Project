@@ -1,0 +1,87 @@
+﻿<Page x:Class="WPF.Pages.ManageCoaches"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF.Pages"
+      mc:Ignorable="d" 
+      Title="ManageCoaches" Height="auto" Width="auto">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Label
+            x:Name="TitelLbl"
+            Content="Beheer Student Begeleiders:"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontSize="24"/>
+        <Button
+            Content="Student begeleiders"
+            Click="ShowCoaches"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="100,0,0,0"
+            Height="50"
+            Width="150"
+            />
+        <Button
+            Content="Docenten"
+            Click="ShowTeachers"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="250,0,0,0"
+            Height="50"
+            Width="150"
+            />
+        <DataGrid 
+            x:Name="CoachesList"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            CanUserAddRows="false"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            Grid.ColumnSpan="3"
+            Grid.Row="1"
+            Margin="100,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Naam}" Header="Naam" Width="*" FontSize="24" x:Name="name"/>
+                <DataGridTextColumn Binding="{Binding Docentcode}" Header="Docent code" Width="*" FontSize="24" x:Name="Docentcode"/>
+                <DataGridTemplateColumn x:Name="DemoteCol">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Demoveren" Click="DemoteTeacher"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="PromoteCol">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Promoveren" Click="PromoteTeacher"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button 
+            Grid.Column="1"
+            Grid.Row="2"
+            Width="150"
+            Height="50"
+            Content="Toevoegen coach"
+            Click="AddCoachBtn"
+            Background="#113B69"
+            Foreground="White"
+            />
+    </Grid> 
+</Page>

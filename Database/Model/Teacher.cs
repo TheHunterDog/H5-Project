@@ -22,6 +22,9 @@ public class Teacher : IAuthenticatable
     private string _password;
     private bool _isAdmin;
 
+
+    private string _docentCode;
+    
     #endregion
 
     #region Properties
@@ -62,5 +65,12 @@ public class Teacher : IAuthenticatable
         set => _isAdmin = value;
     }
 
+
+    public string DocentCode
+    {
+        get => _docentCode;
+        set => _docentCode = value;
+    }
+    
     #endregion
 }

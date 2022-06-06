@@ -1,0 +1,74 @@
+﻿<Window x:Class="WPF.Screens.SBerToevoegen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.Screens"
+        mc:Ignorable="d"
+        Title="SBerToevoegen"
+        Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label 
+            Content="naam: "
+            FontSize="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="10"/>
+        <TextBox
+            x:Name="name"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="10"
+            Width="150"
+            Grid.Column="1"/>
+        <Label
+            Content="DocentCode: "
+            FontSize="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="10"
+            Grid.Row="1"/>
+        <TextBox
+            x:Name="Docentcode"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="10"
+            Width="150"
+            Grid.Column="1"
+            Grid.Row="1"/>
+        <Label
+            Content="Is Sber? "
+            FontSize="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="10"
+            Grid.Row="2"/>
+        <CheckBox
+            x:Name="IsSber"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="10"
+            Grid.Column="1"
+            Grid.Row="2"/>
+        <Button 
+            Content="submit"
+            Click="SubmitBtn"
+            Height="50"
+            Width="150"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Background="#113B69"
+            Foreground="White"/>
+    </Grid>
+</Window>

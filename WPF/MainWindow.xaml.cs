@@ -15,8 +15,9 @@ namespace WPF
 
         // Keep track of open page
         // 0 is studentList
-        // 1 is MeetingList
-        // 2 is ProblemList
+        // 1 is Meeting List
+        // 2 is 
+        // 3 is manage coaches screen
         private int _screen = -1;
         private IAuthenticatable? user;
 
@@ -28,7 +29,7 @@ namespace WPF
         {
             InitializeComponent();
             this.user = user;
-             UsernameBtn.Content = user.Username;
+             UsernameBtn.Header = user.Username;
         }
 
         private void OpenStudentListView(object sender, RoutedEventArgs e)
@@ -53,6 +54,14 @@ namespace WPF
             MainFrame.Navigate(new Uri("Pages/ProblemsList.xaml", UriKind.RelativeOrAbsolute));
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 2;
+        }
+
+        private void ManageCoachesBtn(object sender, RoutedEventArgs e)
+        {
+            if (_screen == 3) return;
+            MainFrame.Navigate(new Uri("Pages/ManageCoaches.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.NavigationService.RemoveBackEntry();
+            _screen = 3;
         }
     }
 }
