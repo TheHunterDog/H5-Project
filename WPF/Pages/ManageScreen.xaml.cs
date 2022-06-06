@@ -74,5 +74,16 @@ namespace WPF.Pages
             promoteDemoteTeacher promoteDemoteTeacher = new promoteDemoteTeacher(false, sber: selectedSber);
             promoteDemoteTeacher.Show();
         }
+        private void ButtonAddSubject_Click(object sender, RoutedEventArgs e)
+        {
+            AddSubject win = new AddSubject();
+            win.Show();
+        }
+
+        private void ButtonCoupleSubject_Click(object sender, RoutedEventArgs e)
+        {
+            SubjectAssigning win = new SubjectAssigning();
+            win.Show();
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace WPF
         // Keep track of open page
         // 0 is studentList
         // 1 is Meeting List
-        // 2 is 
-        // 3 is manage coaches screen
+        // 2 is Meldingen List
+        // 3 is manage screen
         private int _screen = -1;
         private IAuthenticatable? user;
 
@@ -59,22 +59,12 @@ namespace WPF
         private void ManageCoachesBtn(object sender, RoutedEventArgs e)
         {
             if (_screen == 3) return;
-            MainFrame.Navigate(new Uri("Pages/ManageCoaches.xaml", UriKind.RelativeOrAbsolute));
+            MainFrame.Navigate(new Uri("Pages/ManageScreen.xaml", UriKind.RelativeOrAbsolute));
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 3;
         }
 
-        private void ButtonAddSubject_Click(object sender, RoutedEventArgs e)
-        {
-            AddSubject win = new AddSubject();
-            win.Show();
-        }
 
-        private void ButtonCoupleSubject_Click(object sender, RoutedEventArgs e)
-        {
-            SubjectAssigning win = new SubjectAssigning();
-            win.Show();
-        }
 
         
     }

@@ -20,7 +20,7 @@ namespace WPF
             DatePicked.BlackoutDates.AddDatesInPast();
             selectedstudent = st;
         }
-        
+
         /**
          * <summary>button click logic</summary> 
          */

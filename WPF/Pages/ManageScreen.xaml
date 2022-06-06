@@ -74,12 +74,32 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button 
-            Grid.Column="1"
+            Grid.Column="0"
             Grid.Row="2"
             Width="150"
             Height="50"
             Content="Toevoegen coach"
             Click="AddCoachBtn"
+            Background="#113B69"
+            Foreground="White"
+            />
+        <Button 
+            Grid.Column="1"
+            Grid.Row="2"
+            Width="150"
+            Height="50"
+            Content="Toevoegen vak"
+            Click="ButtonAddSubject_Click"
+            Background="#113B69"
+            Foreground="White"
+            />
+        <Button 
+            Grid.Column="2"
+            Grid.Row="2"
+            Width="150"
+            Height="50"
+            Content="Toevoegen student aan vak"
+            Click="ButtonCoupleSubject_Click"
             Background="#113B69"
             Foreground="White"
             />

@@ -138,12 +138,6 @@ public class Student
         set => _leerdoelen = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public StudentBegeleider StudentBegeleider
-    {
-        get => _studentBegeleider;
-        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
     public ICollection<Subject> Subjects
     {
         get => _subjects;
