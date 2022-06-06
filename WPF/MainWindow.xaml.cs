@@ -63,5 +63,19 @@ namespace WPF
             MainFrame.NavigationService.RemoveBackEntry();
             _screen = 3;
         }
+
+        private void ButtonAddSubject_Click(object sender, RoutedEventArgs e)
+        {
+            AddSubject win = new AddSubject();
+            win.Show();
+        }
+
+        private void ButtonCoupleSubject_Click(object sender, RoutedEventArgs e)
+        {
+            SubjectAssigning win = new SubjectAssigning();
+            win.Show();
+        }
+
+        
     }
 }

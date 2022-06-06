@@ -21,6 +21,7 @@ namespace WPF.Pages
     /// </summary>
     public partial class StudentdetailsPage : Page
     {
+        public string studentnr;
         Student selectedStudent;
         public StudentdetailsPage(Student st)
         {

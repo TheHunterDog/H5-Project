@@ -25,8 +25,8 @@
         <Rectangle Grid.Row="2" Fill="#113B69" Grid.ColumnSpan="3" Grid.Column="0" />
         <Rectangle Grid.Column="0" Fill="#113B69" Grid.Row="1" />
         <Rectangle Grid.Column="2" Fill="#113B69" Grid.Row="1" />
-
-
+        
+        
         <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Right" VerticalAlignment="Bottom"/>

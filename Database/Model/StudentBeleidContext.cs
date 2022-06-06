@@ -14,12 +14,13 @@ public class StudentBeleidContext : DbContext
   public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
   public DbSet<StudentProblem> StudentProblems { get; set; }
   public DbSet<Teacher> Teachers { get; set; }
-
+  public DbSet<Subject> Subjects { get; set; }
 
     #region Constructors
-    
+
     public StudentBeleidContext()
     {
+
     }
 
     #endregion
@@ -73,6 +74,9 @@ public class StudentBeleidContext : DbContext
             .HasForeignKey(s => s.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Student>()
+            .HasMany(s => s.Subjects)
+            .WithMany(s => s.Students);
         #endregion
 
         #region StudentBegeleider
@@ -177,6 +181,20 @@ public class StudentBeleidContext : DbContext
         modelBuilder.Entity<Teacher>()
             .Property(s => s.Password).IsRequired();
         #endregion
+        
+        #region Subject
+
+        modelBuilder.Entity<Subject>()
+            .HasKey(s => new {s.Id});
+        modelBuilder.Entity<Subject>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Subject>()
+            .Property(s => s.Name).IsRequired();
+        modelBuilder.Entity<Subject>()
+            .Property(s => s.Description).IsRequired(false);
+        #endregion
+
     }
 
 }

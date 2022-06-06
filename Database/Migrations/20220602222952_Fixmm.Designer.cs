@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(StudentBeleidContext))]
-    [Migration("20220426134145_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220602222952_Fixmm")]
+    partial class Fixmm
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,9 @@ namespace Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StudentBegeleiderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentbegeleiderId")
                         .HasColumnType("int");
 
@@ -55,6 +58,8 @@ namespace Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentBegeleiderId");
 
                     b.HasIndex("StudentbegeleiderId");
 
@@ -113,12 +118,113 @@ namespace Database.Migrations
                     b.ToTable("StudentBegeleiderGesprekken");
                 });
 
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("StudentProblems");
+                });
+
+            modelBuilder.Entity("Database.Model.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ec")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Lessons")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubjectCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("Database.Model.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("StudentSubject", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentsId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("StudentSubject");
+                });
+
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
+                    b.HasOne("Database.Model.StudentBegeleider", "StudentBegeleider")
+                        .WithMany()
+                        .HasForeignKey("StudentBegeleiderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Database.Model.StudentBegeleider", "Studentbegeleider")
                         .WithMany("Students")
                         .HasForeignKey("StudentbegeleiderId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("StudentBegeleider");
 
                     b.Navigation("Studentbegeleider");
                 });
@@ -142,9 +248,45 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleider");
                 });
 
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
+                {
+                    b.HasOne("Database.Model.Student", "Student")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Model.Teacher", "Teacher")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("StudentSubject", b =>
+                {
+                    b.HasOne("Database.Model.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Model.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
                     b.Navigation("StudentBegeleiderGesprekken");
+
+                    b.Navigation("StudentProblems");
                 });
 
             modelBuilder.Entity("Database.Model.StudentBegeleider", b =>
@@ -152,6 +294,11 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleiderGesprekken");
 
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("Database.Model.Teacher", b =>
+                {
+                    b.Navigation("StudentProblems");
                 });
 #pragma warning restore 612, 618
         }

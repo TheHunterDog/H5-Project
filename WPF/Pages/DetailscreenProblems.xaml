@@ -6,11 +6,18 @@
         mc:Ignorable="d"
         Title="DetailScreen" Height="auto" Width="auto" >
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
             <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-        <Label 
+            </Grid.RowDefinitions>
+
+            <Label 
             Grid.Row="0" 
             Grid.Column="0"
             x:Name="studentproblemsLbl"
@@ -28,25 +35,27 @@
             Background="#113B69"
             Foreground="White"/>
 
-        <DataGrid
+            <DataGrid
             Grid.Row="1" 
             Grid.Column="0" 
             Grid.ColumnSpan="2" 
             FontSize="24"
             x:Name = "StudentProbleen" 
+            MinHeight="80"
             HorizontalAlignment="Center"
             VerticalAlignment="Top" 
             CanUserAddRows="FALSE" 
             AutoGenerateColumns="False"
             IsReadOnly="True"
             Margin="100,0"
-                >
-            <DataGrid.Columns>
+        >
+                <DataGrid.Columns>
                 <DataGridTextColumn Binding ="{Binding StudentId}" Header="StudentID" Width="*"/>
-                <DataGridTextColumn Binding ="{Binding Priority}" Header="Priority" Width="*"/>
+                    <DataGridTextColumn Binding ="{Binding Priority}" Header="Priority" Width="*"/>
                 <DataGridTextColumn Binding ="{Binding Name}" Header="Docent Naam" Width="*"/>
-                <DataGridTextColumn Binding ="{Binding Description}" Header="Omschrijving" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                    <DataGridTextColumn Binding ="{Binding Description}" Header="Omschrijving" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Page>
