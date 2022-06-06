@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -41,7 +42,13 @@ public partial class StudentTable : Page
 
     private void SelectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        Student selectedStudent = (Student) StudentsTable.SelectedItem;
+        var SelectedItem = StudentsTable.SelectedItem;
+        var SelectedStudentID = int.Parse(SelectedItem.GetType().GetProperty("Id").GetValue(SelectedItem).ToString());
+        Student selectedStudent;
+        using (var context = new StudentBeleidContext())
+        {
+            selectedStudent = context.Students.Where(x => x.Id == SelectedStudentID).First();
+        }
         if (selectedStudent != null)
         {
             Detailscreen detailScreen = new Detailscreen(selectedStudent);
