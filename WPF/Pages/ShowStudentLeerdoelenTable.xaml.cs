@@ -21,7 +21,6 @@ public partial class ShowStudentLeerdoelenTable : Page
         SelectedStudent = st;
         using (var context = new StudentBeleidContext())
         {
-
             List<Leerdoel> leerdoelen = context.Leerdoelen.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             StudentLeerdoelen.ItemsSource = leerdoelen;
             studentnrlbl.Content = $"Leerdoelen van Student: {SelectedStudent.Studentnummer}";
