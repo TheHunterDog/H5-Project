@@ -11,12 +11,12 @@ namespace WPF.Pages;
 
 public partial class ChangePresenceTable : Page
 {
-    public Presence SelectedPresence;
+
     public ChangePresenceTable()
     {
         InitializeComponent();
-        
     }
+
     public void showPresenceTable()
     {
         using (var context = new StudentBeleidContext())
@@ -24,52 +24,46 @@ public partial class ChangePresenceTable : Page
             var presence = context.Presences.ToList();
             PresenceTable.ItemsSource = presence;
         }
-        
     }
 
     private void AanwezigBox_Checked(object sender, RoutedEventArgs e)
     {
         using (var context = new StudentBeleidContext())
         {
-            SelectedPresence = (Presence)PresenceTable.SelectedItem;
+           
+            // checks the id & selects the row of the datagrid
+            var id = context.Presences.First();
+            var result = context.Presences.FirstOrDefault(x => x.StudentId == id.StudentId);
 
-            // if the id doesn't exist make a new object
-            if (context.Presences.Any(x => x.StudentId == SelectedPresence.StudentId))
+            // if the row exists change it 
+            if (result != null )
             {
-                Presence p = new Presence {StudentId = SelectedPresence.StudentId, SubjectId = SelectedPresence.SubjectId ,Present = false};
-                context.Add(p);
+                result.StudentId = id.StudentId;
+                result.SubjectId = id.SubjectId;
+                result.Present = true;
                 
-            }
-                // Searches for the correct id in the table if it exists
-            var IdSearch = context.Presences.FirstOrDefault(x => x.StudentId == SelectedPresence.StudentId);
-
-            if (IdSearch != null)
-            {
-                context.Presences.Update(SelectedPresence);
+                context.Presences.Update(result);
             }
             context.SaveChanges();
         }
-        
     }
-
+    
     private void AanwezigBox_Unchecked(object sender, RoutedEventArgs e)
     {
         using (var context = new StudentBeleidContext())
         {
-            SelectedPresence = (Presence)PresenceTable.SelectedItem;
+            // checks the id & selects the row of the datagrid
+            var id = context.Presences.First();
+            var result = context.Presences.FirstOrDefault(x => x.StudentId == id.StudentId);
 
-            if (context.Presences.Any(x => x.StudentId == SelectedPresence.StudentId))
+            // if the row exists change it 
+            if (result != null)
             {
-                Presence p = new Presence {StudentId = SelectedPresence.StudentId, SubjectId = SelectedPresence.SubjectId ,Present = false};
-                context.Add(p);
-                context.SaveChanges();
-            }
-
-            var IdSearch = context.Presences.FirstOrDefault(x => x.StudentId == SelectedPresence.StudentId);
-
-            if (IdSearch != null)
-            {
-                context.Presences.Update(SelectedPresence);
+                result.StudentId = id.StudentId;
+                result.SubjectId = id.SubjectId;
+                result.Present = false;
+                
+                context.Presences.Update(result);
             }
             context.SaveChanges();
         }
