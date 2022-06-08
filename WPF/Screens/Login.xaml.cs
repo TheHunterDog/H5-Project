@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using System.Timers;
 using System.Windows;
@@ -9,12 +8,12 @@ using WPF.Util;
 
 namespace WPF.Screens
 {
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for Login.xaml</summary>
+     */
     public partial class Login : Window
     {
-        private int _failedBecaouseEmpty = 0;
+        private int _failedBecauseEmpty = 0;
         private int _failedLogins = 0;
         private Timer _timer = new Timer();
         
@@ -30,6 +29,9 @@ namespace WPF.Screens
             password.LostFocus += AddText;
         }
         
+        /**
+         * <summary>Remove the text from the textbox</summary>
+         */
         public void RemoveText(object sender, EventArgs e)
         {
             TextBox btn = (TextBox) sender;
@@ -38,7 +40,9 @@ namespace WPF.Screens
                 btn.Text = "";
             }
         }
-
+        /**
+         * <summary>Add the text to a textbox</summary>
+         */
         public void AddText(object sender, EventArgs e)
         {
             TextBox btn = (TextBox) sender;
@@ -47,25 +51,30 @@ namespace WPF.Screens
         }
         
         /**
-         * <summary>button click logic</summary> 
+         * <summary>Button click logic</summary> 
          */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            // check if there is an input
             if ((username.Text.Length > 0 && password.Text.Length > 0 ) && (password.Text != password.Name && username.Text != username.Name))
             {
+                // check if the user has the correct password
                 IAuthenticatable? suspect = Authentication.GetUserWithCredentials(password.Text, username.Text, App.context);
                 if (suspect != null &&Authentication.CheckPassword(Encoding.UTF8.GetBytes(password.Text), suspect.Password,Encoding.ASCII.GetBytes(Authentication.Salt)))
                 {
+                    // if all things match, open the main window
                     MainWindow m = new MainWindow(suspect);
                     m.Show();
                     Close();
                 }
                 else
                 {
+                    // password and username are incorrect
                     MessageBox.Show("Password or username are incorrect", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
                     _failedLogins++;
                     if (_failedLogins > 5)
                     {
+                        // disable the login button
                         _timer.Interval = 1000 * _failedLogins;
                         _timer.Enabled = true;
                         Submit.IsEnabled = false;
@@ -74,8 +83,9 @@ namespace WPF.Screens
             }
             else
             {
-                _failedBecaouseEmpty++;
-                if (_failedBecaouseEmpty > 3)
+                // show message if the fields are empty
+                _failedBecauseEmpty++;
+                if (_failedBecauseEmpty > 3)
                 {
                     MessageBox.Show("You need to fill both input fields", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -83,22 +93,9 @@ namespace WPF.Screens
             }
         }
 
-        private void FILLDATABASE_Click(object sender, RoutedEventArgs e)
-        {
-            String a = "admin";
-            string salt = "APP";
-            
-            Teacher t = App.context.Teachers.First();
-            t.Username = a;
-            t.Password = System.Text.Encoding.Default.GetString(Authentication.HashPasswordWithSalt(Encoding.ASCII.GetBytes(a), Encoding.ASCII.GetBytes(salt)));
-            App.context.SaveChanges();
-
-           IAuthenticatable b = Authentication.GetUserWithCredentials("admin", "admin", App.context);
-           bool check = Authentication.CheckPassword(Encoding.UTF8.GetBytes(a), b.Password,
-                Encoding.ASCII.GetBytes(salt));
-        }
-
-
+        /**
+         * <summary>Function to stop submit spam</summary>
+         */
         private void OnTimedEvent(object source, ElapsedEventArgs e,Button submit)
         {
             this._timer.Enabled = false;

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Net.Mail;
-using System.Windows.Controls;
+﻿using System.Windows;
 using Database.Model;
-using WPF.Util;
 
 
 namespace WPF
@@ -39,22 +33,6 @@ namespace WPF
                 context.Leerdoelen.Add(leerdoel);
                 context.SaveChanges();
             }
-
-
-
         }
-
-        /*        /// <summary>
-                /// Search the student and place them in the combobox
-                /// </summary>
-                /// <param name="sender"></param>
-                /// <param name="e"></param>
-                private void Search_OnClick(object sender, RoutedEventArgs e)
-                {
-                    List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
-                    Studentselection.ItemsSource =
-                        student.Select(s => new KeyValuePair<String,Student>($"{s.Studentnummer}, {s.Voornaam}, {s.Tussenvoegsel}, {s.Achternaam}",s)).ToList();
-                    Studentselection.SelectedIndex= 0;
-                }*/
     }
 }

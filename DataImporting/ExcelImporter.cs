@@ -1,10 +1,7 @@
 ﻿using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Windows;
 using Database.Model;
-using Microsoft.EntityFrameworkCore.Internal;
 
 public class ExcelImporter
 {
@@ -59,6 +56,9 @@ public class ExcelImporter
         }
     }
 
+    /**
+     * <summary>Imports students from excel file</summary>
+     */
     public static void ImportStudentsFromFile(string fileLocation = "")
     {
         // get data from file
@@ -127,6 +127,10 @@ public class ExcelImporter
             context.SaveChanges();
         }
     }
+
+    /**
+     * <summary>Import coaches from excel file</summary>
+     */
     public static void ImportCoachesFromFile(string fileLocation = "")
     {
         // get data from file
@@ -169,6 +173,9 @@ public class ExcelImporter
         }
     }
 
+    /**
+     * <summary>Get datatable from the excel file</summary>
+     */
     public static DataTable? GetDataTableFromFile(string fileLocation)
     {
         if (!fileLocation.Contains(".xlsx")) return null;
@@ -237,6 +244,9 @@ public class ExcelImporter
 
     }
 
+    /**
+     * <summary>read the data from the datatable</summary>
+     */
     public static string[] ReadDataFromDataTable(DataTable data)
     {
         // create string array
@@ -251,6 +261,9 @@ public class ExcelImporter
         return dataStrings;
     }
 
+    /**
+     * <summary>Create a student from the data in the excel file</summary>
+     */
     public static Student? CreateStudentFromDataString(string data)
     {
         // create string array with split items from string
@@ -282,6 +295,9 @@ public class ExcelImporter
         return null;
     }
 
+    /**
+     * <summary>Create coach from the data in the excel file</summary>
+     */
     public static StudentBegeleider? CreateCoachFromDataString(string data)
     {
         // create string array with split items from string

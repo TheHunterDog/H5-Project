@@ -1,13 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Database.Migrations;
 using Database.Model;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using WPF.Util;
 
 namespace WPF;
 
@@ -21,15 +16,19 @@ public partial class ShowStudentLeerdoelenTable : Page
         SelectedStudent = st;
         using (var context = new StudentBeleidContext())
         {
-
+            // get all leerdoelen and put them in the table
             List<Leerdoel> leerdoelen = context.Leerdoelen.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             StudentLeerdoelen.ItemsSource = leerdoelen;
             studentnrlbl.Content = $"Leerdoelen van Student: {SelectedStudent.Studentnummer}";
         }
     }
 
+    /**
+     * <summary>Opens the window to add leerdoelen</summary>
+     */
     private void AddLeerdoelbtn(object sender, RoutedEventArgs e)
     {
+        // open window to add leerdoelen
         StudentLeerdoelenToevoegen toevoegen = new StudentLeerdoelenToevoegen(SelectedStudent);
         toevoegen.Show();
     }

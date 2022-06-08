@@ -12,6 +12,7 @@ public partial class MeetingList : Page
         InitializeComponent();
         using (StudentBeleidContext context = new StudentBeleidContext())
         {
+            // join the tables so all the information van be shown in the grid
             var lijst = context.StudentBegeleiderGesprekken.Where(x => x.StudentBegeleiderId == 81).Join(
                 context.Students,
                 begeleider => begeleider.StudentId, 
@@ -24,6 +25,7 @@ public partial class MeetingList : Page
                     Opmerkingen= begeleider.Opmerkingen,
                     Voornaam = student.Voornaam
                 }).ToList();
+            // add the list to the table
             MeetingTable.ItemsSource = lijst;
         }
         

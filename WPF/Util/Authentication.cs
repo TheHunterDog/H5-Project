@@ -7,12 +7,15 @@ namespace WPF.Util;
 
 public class Authentication
 {
-    //TODO:Make unique
     public static readonly string Salt = "APP";
     public static bool CheckAdmin<T>(T user) where T :IAuthenticatable
     {
         return user.IsAdmin;
     }
+
+    /**
+     * <summary>get the user with the password and username</summary>
+     */
     public static IAuthenticatable? GetUserWithCredentials(string password, string username,StudentBeleidContext ctx)
     {
         try
@@ -26,6 +29,9 @@ public class Authentication
         }
     }
 
+    /**
+     * <summary>Hash the password for storage</summary>
+     */
     public static byte[] HashPasswordWithSalt(byte[] password,byte[] salt)
     {
         HashAlgorithm algorithm = new SHA256Managed();
@@ -45,20 +51,12 @@ public class Authentication
         return algorithm.ComputeHash(plainwithSalt);
     }
 
-    public static bool CheckPassword(byte[] passwordInput, byte[] passwordRemote, byte[] salt)
-    {
-        byte[] hashedPassword = HashPasswordWithSalt(passwordInput, salt);
-        return hashedPassword == passwordRemote;
-    }
-    
+    /**
+     * <summary>check if the passwords match</summary>
+     */
     public static bool CheckPassword(byte[] passwordInput, string passwordRemote, byte[] salt)
     {
         byte[] hashedPassword = HashPasswordWithSalt(passwordInput, salt);
         return System.Text.Encoding.Default.GetString(hashedPassword) == passwordRemote;
-    }
-    
-    public static bool CheckPassword(string PasswordHashed, string passwordRemote)
-    {
-        return PasswordHashed == passwordRemote;
     }
 }

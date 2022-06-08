@@ -1,17 +1,7 @@
 ﻿using Database.Model;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPF.Screens
 {
@@ -31,6 +21,7 @@ namespace WPF.Screens
             InitializeComponent();
             using (var context = new StudentBeleidContext())
             {
+                //create a teacher and coaches list
                 coaches = context.StudentBegeleiders.ToList();
                 teachers = context.Teachers.ToList();
             }
@@ -39,12 +30,17 @@ namespace WPF.Screens
             promotion = promote;
             setHeader();
         }
+        /**
+         * <summary>Submites the Sber or Teacher to the database when submit button is pressed</summary>
+         */
         private void SubmitBtn(object sender, RoutedEventArgs e)
         {
+            // check to promote or demote
             if (promotion)
             {
                 using (var context = new StudentBeleidContext())
                 {
+                    // create new sber
                     StudentBegeleider studentBegeleider = new StudentBegeleider
                     {
                         Naam = SelectedTeacher.Name,
@@ -52,7 +48,7 @@ namespace WPF.Screens
                         Password = SelectedTeacher.Password,
                         Username = SelectedTeacher.Username
                     };
-
+                    // add sber to database and save
                     context.StudentBegeleiders.Add(studentBegeleider);
                     context.SaveChanges();
                 }
@@ -61,6 +57,7 @@ namespace WPF.Screens
             {
                 using (var context = new StudentBeleidContext())
                 {
+                    // create new teacher
                     Teacher teacher = new Teacher
                     {
                         Name = SelectedSber.Naam,
@@ -68,22 +65,30 @@ namespace WPF.Screens
                         Password = SelectedSber.Password,
                         Username = SelectedSber.Username
                     };
+                    // add teacher to database and save
                     context.Teachers.Add(teacher);
-                    context.StudentBegeleiders.Remove(SelectedSber);
                     context.SaveChanges();
                 }
             }
             Close();
         }
+        /**
+         * <summary>Closes current window</summary>
+         */
         private void CancelBtn(object sender, RoutedEventArgs e)
         {
             Close();
         }
+        /**
+         * <summary>Sets the header with the correct name</summary>
+         */
         void setHeader()
         {
             if (promotion)
+                // set header to display teacher name
                 Confirmation.Content = $"Weet u zeker dat u: {SelectedTeacher.Name} wilt veranderen naar SBer?";
             else
+                // set header to display sber name
                 Confirmation.Content = $"Weet u zeker dat u: {SelectedSber.Naam} wilt veranderen naar docent?";
         }
 

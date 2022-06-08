@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Database.Model;
 
 namespace WPF.Pages
 {
-    /// <summary>
-    /// Interaction logic for DetailscreenMeldingen.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for DetailscreenMeldingen.xaml</summary>
+     */
     public partial class ProblemsList : Page
     {
         public ProblemsList()
@@ -26,6 +15,7 @@ namespace WPF.Pages
             InitializeComponent();
             using (var context = new StudentBeleidContext())
             {
+                // join the tables so all the information van be shown in the grid
                 var lijst = context.StudentProblems.Join(
                 context.Students,
                 problem => problem.StudentId,
@@ -38,6 +28,7 @@ namespace WPF.Pages
                    Notifyer = problem.Teacher.Name,
                    Prioriteit = problem.Priority
                 }).ToList().OrderBy(x=> x.StudentNr).OrderByDescending(x => x.Prioriteit);
+                // add the list to the table
                 MeldingenTable.ItemsSource = lijst;
             }
         }

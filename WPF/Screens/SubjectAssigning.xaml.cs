@@ -1,32 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Database.Model;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace WPF
 {
-    /// <summary>
-    /// Interaction logic for SubjectAssigning.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for SubjectAssigning.xaml</summary>
+     */
     public partial class SubjectAssigning : Window
     {
         public List<Student> _stagedStudents;
         public List<Subject> _stagedSubjects;
 
 
-        // initialize problem on load window
+        /**
+        * <summary>Initialize problem on load window</summary>
+        */
         public SubjectAssigning()
         {
             InitializeComponent();
@@ -35,7 +29,9 @@ namespace WPF
             _stagedSubjects = new List<Subject>();
         }
 
-        // finds students by query
+        /**
+        * <summary>Finds students by query</summary>
+        */
         public void FindStudents(string query)
         {
             // reset student list
@@ -74,7 +70,9 @@ namespace WPF
             UpdateButtonText();
         }
 
-        // finds all students in a class
+        /**
+         * <summary>Finds all students in a class</summary>
+         */
         public int FindClass(string className)
         {
             // set string to lowercase, and remove spaces
@@ -96,7 +94,9 @@ namespace WPF
             return _stagedStudents.Count - count;
         }
 
-        // finds all students by name or number
+        /**
+         * <summary>Finds all students by name or number</summary>
+         */
         public void FindStudent(string studentName)
         {
             // set string to lowercase
@@ -181,13 +181,18 @@ namespace WPF
             }
         }
 
-        // removes double found students
+        /**
+         * <summary>Removes double found students</summary>
+         */
         public void RemoveDoubleStudents()
         {
             // finds unique students by override void ToHashSet in Student, which hashes the id of the student
             _stagedStudents.ToHashSet();
         }
 
+        /**
+         * <summary>Displays the found studetns</summary>
+         */
         public void DisplayStudentsResult()
         {
             using (var context = new StudentBeleidContext())
@@ -206,7 +211,9 @@ namespace WPF
             }
         }
 
-
+        /**
+         * <summary>Find the subject</summary>
+         */
         public void FindSubjects(string query)
         {
             _stagedSubjects = new List<Subject>();
@@ -233,7 +240,9 @@ namespace WPF
             UpdateButtonText();
         }
 
-        // finds all subjects by name
+        /**
+         * <summary>Find the subject</summary>
+         */
         public void FindSubject(string subjectName)
         {
             subjectName = subjectName.ToLower().Trim();
@@ -249,12 +258,17 @@ namespace WPF
             }
         }
 
-        // removes double found subjects
+        /**
+         * <summary>Removes double found subjects</summary>
+         */
         public void RemoveDoubleSubjects()
         {
             _stagedSubjects.ToHashSet();
         }
 
+        /**
+         * <summary>Displays the amount of found subjects</summary>
+         */
         public void DisplaySubjectsResult()
         {
             using (var context = new StudentBeleidContext())
@@ -270,6 +284,9 @@ namespace WPF
             }
         }
 
+        /**
+         * <summary>Update the text on the buttons</summary>
+         */
         public void UpdateButtonText()
         {
             if (_stagedSubjects.Count == 0 || _stagedStudents.Count == 0)
@@ -278,16 +295,11 @@ namespace WPF
             }
             else Verzenden.Content = "Voeg vak" + (_stagedSubjects.Count > 1 ? "ken" : "") + " toe aan student" + (_stagedStudents.Count > 1 ? "en" : "");
         }
-/*
 
-        public void AddSubjectToStudents(Subject subject)
-        {
-            for (int i = 0; i < _stagedStudents.Count; i++)
-            {
-                if (!_stagedStudents[i].Subjects.Contains(subject)) _stagedStudents[i].Subjects.Append(subject);
-            }
-        }*/
 
+        /**
+         * <summary>Logic for submit click</summary>
+         */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             if (_stagedStudents.Count == 0 || _stagedSubjects.Count == 0) return;
@@ -350,7 +362,9 @@ namespace WPF
             CloseWindow();
         }
 
-        // updating problem description
+        /**
+         * <summary>Updating students search</summary>
+         */
         private void OnClassChanged(object sender, TextChangedEventArgs e)
         {
             // find students
@@ -360,6 +374,9 @@ namespace WPF
             DisplayStudentsResult();
         }
 
+        /**
+         * <summary>Updating subject search</summary>
+         */
         private void OnSubjectChanged(object sender, TextChangedEventArgs e)
         {
             // find subjects
@@ -369,7 +386,9 @@ namespace WPF
             DisplaySubjectsResult();
         }
 
-        // close problem submitting window
+        /**
+         * <summary>Closes window</summary>
+         */
         private void CloseWindow()
         {
             Close();

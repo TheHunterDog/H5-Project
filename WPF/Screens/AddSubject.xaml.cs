@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Database.Model;
-using System.Diagnostics;
 
 namespace WPF
 {
-    /// <summary>
-    /// Interaction logic for AddSubject.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for AddSubject.xaml</summary>
+     */
     public partial class AddSubject : Window
     {
         private Subject stagedSubject;
@@ -27,11 +15,12 @@ namespace WPF
         {
             InitializeComponent();
 
-            PrintAllSubjects();
-
             stagedSubject = CreateSubject();
         }
 
+        /**
+         * <summary>Create a blank subject</summary>
+         */
         public Subject CreateSubject()
         {
             // initialize new problem
@@ -40,6 +29,9 @@ namespace WPF
             return subject;
         }
 
+        /**
+         * <summary>Fill the subject with the information</summary>
+         */
         public bool FillSubject(Subject subject)
         {
             // check if subject is null, if so creates a new one
@@ -86,70 +78,36 @@ namespace WPF
             return true;
         }
 
+        /**
+         * <summary>Add the subject to database</summary>
+         */
         public void AddSubjectToDatabase(Subject subject)
         {
             using (var context = App.context)
             {
+                // add and save the subject
                 context.Subjects.Add(subject);
                 context.SaveChanges();
             }
         }
 
-        // submitting problem
+        /**
+         * <summary>Submit a problem to database</summary>
+         */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             // checks if filling subject parameters was successfull, if not returns without saving or closing window
             if (FillSubject(stagedSubject))
             {
-                Trace.WriteLine(stagedSubject);
                 // save subject to database
                 AddSubjectToDatabase(stagedSubject);
             }
             else
             {
-                Trace.WriteLine(stagedSubject);
                 return;
             }
             // close window
-            CloseWindow();
-        }
-
-        public void PrintAllSubjects()
-        {
-            Trace.WriteLine("\n All Subjects in database:");
-            using (var context = new StudentBeleidContext())
-            {
-                // obtain students from database
-                List<Subject> subjects = context.Subjects.ToList();
-                for (int i = 0; i < subjects.Count; i++)
-                {
-                    // get student from list
-                    Subject subject = subjects.ElementAt(i);
-                    // print student data
-                    Trace.WriteLine(subject);
-                }
-            }
-        }
-
-        // close problem submitting window
-        private void CloseWindow()
-        {
             Close();
         }
     }
-/*
-    public class Subject
-    {
-        public string Naam = "";
-        public string Code = "";
-        public string Description = "";
-        public int Ec = 0;
-        public int Lessen = 0;
-
-        public override string ToString()
-        {
-            return $"{Naam}, {Code}, {Description}, {Ec}, {Lessen}";
-        }
-    }*/
-
 }

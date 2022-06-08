@@ -7,9 +7,9 @@ using Database.Model;
 
 namespace WPF
 {
-    /// <summary>
-    /// Interaction logic for Inplannen.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for Inplannen.xaml</summary>
+     */
     public partial class Inplannen : Window
     {
         public string studentnr = "";
@@ -17,12 +17,13 @@ namespace WPF
         public Inplannen(Student st)
         {
             InitializeComponent();
+            // make the dates before today unselectable
             DatePicked.BlackoutDates.AddDatesInPast();
             selectedstudent = st;
         }
 
         /**
-         * <summary>button click logic</summary> 
+         * <summary>Button click logic</summary> 
          */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +65,7 @@ namespace WPF
         }
 
         /**
-         * <summary>  </summary> 
+         * <summary>Send an email to the student</summary> 
          */
         private void send_Mail(DateTime date, string notes, string studentnr)
         {

@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Database.Model;
 
 namespace WPF.Screens
 {
-    /// <summary>
-    /// Interaction logic for SBerToevoegen.xaml
-    /// </summary>
+    /** 
+     * <summary>Interaction logic for StudentLeerdoelenToevoegen.xaml </summary>
+     */
     public partial class SBerToevoegen : Window
     {
         public SBerToevoegen()
@@ -25,14 +13,20 @@ namespace WPF.Screens
             InitializeComponent();
         }
 
+        /**
+         * <summary>Submites the Sber or Teacher to the database when submit button is pressed</summary>
+         */
         private void SubmitBtn(object sender, RoutedEventArgs e)
         {
+            // if name or docentcode is empty, do nothing
             if (name.Text == "") return;
             if (Docentcode.Text == "") return;
             using (var context = new StudentBeleidContext())
             {
+                // if it is an sber
                 if (IsSber.IsChecked == true)
                 {
+                    //create new sber
                     StudentBegeleider begeleider = new StudentBegeleider
                     {
                         Naam = name.Text,
@@ -42,6 +36,7 @@ namespace WPF.Screens
                 }
                 else
                 {
+                    // create new teacher
                     Teacher teacher = new Teacher
                     {
                         Name = name.Text,
@@ -51,6 +46,7 @@ namespace WPF.Screens
                 }
                 context.SaveChanges();
             }
+            // close the window
             Close();
         }
     }
