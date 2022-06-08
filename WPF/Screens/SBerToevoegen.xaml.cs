@@ -30,7 +30,9 @@ namespace WPF.Screens
                     StudentBegeleider begeleider = new StudentBegeleider
                     {
                         Naam = name.Text,
-                        Docentcode = Docentcode.Text
+                        Docentcode = Docentcode.Text,
+                        Username = name.Text,
+                        Password = "geheim lol"
                     };
                     context.StudentBegeleiders.Add(begeleider);
                 }
@@ -40,7 +42,9 @@ namespace WPF.Screens
                     Teacher teacher = new Teacher
                     {
                         Name = name.Text,
-                        DocentCode = Docentcode.Text
+                        DocentCode = Docentcode.Text,
+                        Username = name.Text,
+                        Password = "geheim lol"
                     };
                     context.Teachers.Add(teacher);
                 }

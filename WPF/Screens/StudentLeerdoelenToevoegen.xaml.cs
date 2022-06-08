@@ -33,6 +33,7 @@ namespace WPF
                 context.Leerdoelen.Add(leerdoel);
                 context.SaveChanges();
             }
+            Close();
         }
     }
 }
