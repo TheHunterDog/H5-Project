@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Database.Model;
 
+
 namespace WPF.Pages;
 
 public partial class ChangePresenceTable : Page
@@ -16,8 +17,6 @@ public partial class ChangePresenceTable : Page
         InitializeComponent();
         
     }
-    
-    
     public void showPresenceTable()
     {
         using (var context = new StudentBeleidContext())
@@ -46,7 +45,7 @@ public partial class ChangePresenceTable : Page
 
             if (IdSearch != null)
             {
-                IdSearch.Present = SelectedPresence.Present;
+                context.Presences.Update(SelectedPresence);
             }
             context.SaveChanges();
         }
@@ -70,7 +69,7 @@ public partial class ChangePresenceTable : Page
 
             if (IdSearch != null)
             {
-                IdSearch.Present = SelectedPresence.Present;
+                context.Presences.Update(SelectedPresence);
             }
             context.SaveChanges();
         }

@@ -23,10 +23,10 @@
                 <DataGridTextColumn Binding="{Binding StudentId}" Header="Docent" IsReadOnly="TRUE"/>
                 <DataGridTemplateColumn Header="Aanwezig" Width="60" x:Name="PresenceColumn">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:Name="BoxTemplate">
+                        <DataTemplate>
                             <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="AanwezigBox_Checked" Unchecked="AanwezigBox_Unchecked" x:Name="PrecenseBox" />
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
