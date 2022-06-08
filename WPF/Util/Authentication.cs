@@ -1,7 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using Database.Model;
+
+#endregion
 
 namespace WPF.Util;
 
@@ -57,6 +62,6 @@ public class Authentication
     public static bool CheckPassword(byte[] passwordInput, string passwordRemote, byte[] salt)
     {
         byte[] hashedPassword = HashPasswordWithSalt(passwordInput, salt);
-        return System.Text.Encoding.Default.GetString(hashedPassword) == passwordRemote;
+        return Encoding.Default.GetString(hashedPassword) == passwordRemote;
     }
 }

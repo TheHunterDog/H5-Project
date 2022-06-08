@@ -1,6 +1,10 @@
-using Database.Model;
+#region
+
+using System.Threading;
 using NUnit.Framework;
-using WPF;
+using WPF.Screens;
+
+#endregion
 
 namespace UnitTest_WPF_Inplannen
 {
@@ -13,7 +17,7 @@ namespace UnitTest_WPF_Inplannen
             subjectAssigning = new SubjectAssigning();
         }
 
-        [Test, Apartment(System.Threading.ApartmentState.STA)]
+        [Test, Apartment(ApartmentState.STA)]
         public void InitializationNotNull()
         {
             Assert.IsNotNull(subjectAssigning);

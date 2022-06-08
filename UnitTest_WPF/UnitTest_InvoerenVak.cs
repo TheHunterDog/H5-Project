@@ -1,6 +1,11 @@
+#region
+
+using System.Threading;
 using Database.Model;
 using NUnit.Framework;
-using WPF;
+using WPF.Screens;
+
+#endregion
 
 namespace UnitTest_WPF_Inplannen
 {
@@ -13,7 +18,7 @@ namespace UnitTest_WPF_Inplannen
             addSubject = new AddSubject();
         }
 
-        [Test, Apartment(System.Threading.ApartmentState.STA)]
+        [Test, Apartment(ApartmentState.STA)]
         public void CreateSubject()
         {
             Subject subject = addSubject.CreateSubject();

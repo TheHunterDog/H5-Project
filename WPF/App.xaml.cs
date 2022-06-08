@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿#region
+
+using System.Windows;
 using Database.Model;
+
+#endregion
 
 namespace WPF
 {

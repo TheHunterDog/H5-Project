@@ -1,11 +1,15 @@
-﻿
+﻿#region
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
+using WPF.Screens;
 
-namespace WPF;
+#endregion
+
+namespace WPF.Pages;
 
 public partial class DetailscreenProblems : Page
 {

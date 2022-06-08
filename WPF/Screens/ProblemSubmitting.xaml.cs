@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿#region
+
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
 
-namespace WPF
+#endregion
+
+namespace WPF.Screens
 {
     /// <summary>
     /// Interaction logic for ProblemSubmitting.xaml

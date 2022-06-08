@@ -1,9 +1,10 @@
-﻿using Microsoft.Win32;
+﻿#region
+
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using Database.Model;
+
+#endregion
 
 namespace WPF
 {

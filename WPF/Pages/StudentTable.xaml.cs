@@ -1,12 +1,21 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Database.Model;
+using DataImporting;
 using Microsoft.Win32;
+using WPF.Screens;
+
+#endregion
+
 //using DataImporting;
 
-namespace WPF.Screens;
+namespace WPF.Pages;
 
 public partial class StudentTable : Page
 {
@@ -45,7 +54,7 @@ public partial class StudentTable : Page
     /**
      * <summary>Select a row and open the detailscreen</summary>
      */
-    private void SelectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void SelectRow(object sender, MouseButtonEventArgs e)
     {
         
         var SelectedItem = StudentsTable.SelectedItem;
@@ -69,7 +78,7 @@ public partial class StudentTable : Page
     /**
      * <summary>Import an excel file and store in students</summary>
      */
-    private void ImportExcelBtn(object sender, System.Windows.RoutedEventArgs e)
+    private void ImportExcelBtn(object sender, RoutedEventArgs e)
     {
         // select the excel file to import
         OpenFileDialog openFileDialog = new OpenFileDialog();

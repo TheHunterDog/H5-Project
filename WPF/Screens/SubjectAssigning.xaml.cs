@@ -1,13 +1,17 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-namespace WPF
+#endregion
+
+namespace WPF.Screens
 {
     /**
      * <summary>Interaction logic for SubjectAssigning.xaml</summary>

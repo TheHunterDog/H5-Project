@@ -1,8 +1,12 @@
-﻿using Database.Model;
+﻿#region
+
 using System.Windows;
+using Database.Model;
 using WPF.Pages;
 
-namespace WPF
+#endregion
+
+namespace WPF.Screens
 {
     /**
      * <summary>Interaction logic for detailscreen.xaml</summary>

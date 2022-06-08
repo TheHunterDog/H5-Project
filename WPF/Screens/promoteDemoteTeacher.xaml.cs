@@ -1,7 +1,11 @@
-﻿using Database.Model;
+﻿#region
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using Database.Model;
+
+#endregion
 
 namespace WPF.Screens
 {

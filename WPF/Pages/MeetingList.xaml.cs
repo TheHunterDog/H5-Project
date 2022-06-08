@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#region
+
 using System.Linq;
 using System.Windows.Controls;
 using Database.Model;
+
+#endregion
 
 namespace WPF.Pages;
 

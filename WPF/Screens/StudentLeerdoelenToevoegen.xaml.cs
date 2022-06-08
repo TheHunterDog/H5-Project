@@ -1,8 +1,11 @@
-﻿using System.Windows;
+﻿#region
+
+using System.Windows;
 using Database.Model;
 
+#endregion
 
-namespace WPF
+namespace WPF.Screens
 {
     /// <summary>
     /// Interaction logic for StudentLeerdoelenToevoegen.xaml

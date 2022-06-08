@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Text;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
 using WPF.Util;
+
+#endregion
 
 namespace WPF.Screens
 {

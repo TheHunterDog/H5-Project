@@ -1,4 +1,8 @@
+#region
+
 using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 namespace Database.Model;
 

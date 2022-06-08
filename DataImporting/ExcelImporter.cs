@@ -1,7 +1,13 @@
-﻿using System.Data;
+﻿#region
+
+using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using Database.Model;
+
+#endregion
+
+namespace DataImporting;
 
 public class ExcelImporter
 {

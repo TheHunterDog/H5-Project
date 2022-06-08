@@ -1,10 +1,14 @@
-﻿using Database.Model;
+﻿#region
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Database.Model;
 using WPF.Screens;
+
+#endregion
 
 namespace WPF.Pages
 {

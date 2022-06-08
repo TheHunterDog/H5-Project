@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows;
 using Database.Model;
 
-namespace WPF
+#endregion
+
+namespace WPF.Screens
 {
     /**
      * <summary>Interaction logic for AddSubject.xaml</summary>

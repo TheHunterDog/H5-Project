@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Database.Model;
 
-namespace WPF;
+#endregion
+
+namespace WPF.Screens;
 /// <summary>
 /// Interaction logic for ShowStudentTable.xaml
 /// </summary>
@@ -25,7 +30,7 @@ public partial class ShowStudentTable
     /**
      * <summary>Select the row in the student table </summary>
      */
-    private void selectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void selectRow(object sender, MouseButtonEventArgs e)
     {
         // get the selected student
         Student selectedStudent = (Student)StudentsTable.SelectedItem;
