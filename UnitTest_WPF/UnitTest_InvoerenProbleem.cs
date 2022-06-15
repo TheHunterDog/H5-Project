@@ -1,5 +1,10 @@
-﻿using NUnit.Framework;
-using WPF;
+﻿#region
+
+using System.Threading;
+using NUnit.Framework;
+using WPF.Screens;
+
+#endregion
 
 namespace UnitTest_WPF_Inplannen
 {
@@ -12,7 +17,7 @@ namespace UnitTest_WPF_Inplannen
             problemSubmitting = new ProblemSubmitting();
         }
 
-        [TestCase("0", 0), Apartment(System.Threading.ApartmentState.STA)]
+        [TestCase("0", 0), Apartment(ApartmentState.STA)]
         [TestCase("1", 1)]
         [TestCase("2", 2)]
         [TestCase("3", 2)]

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#region
+
 using System.Windows;
-using System.Net.Mail;
-using System.Windows.Controls;
 using Database.Model;
-using WPF.Util;
 
+#endregion
 
-namespace WPF
+namespace WPF.Screens
 {
     /// <summary>
     /// Interaction logic for StudentLeerdoelenToevoegen.xaml
@@ -39,22 +36,7 @@ namespace WPF
                 context.Leerdoelen.Add(leerdoel);
                 context.SaveChanges();
             }
-
-
-
+            Close();
         }
-
-        /*        /// <summary>
-                /// Search the student and place them in the combobox
-                /// </summary>
-                /// <param name="sender"></param>
-                /// <param name="e"></param>
-                private void Search_OnClick(object sender, RoutedEventArgs e)
-                {
-                    List<Student> student = SmartSearch.SmartSearchStudent(Student.Text, App.context);
-                    Studentselection.ItemsSource =
-                        student.Select(s => new KeyValuePair<String,Student>($"{s.Studentnummer}, {s.Voornaam}, {s.Tussenvoegsel}, {s.Achternaam}",s)).ToList();
-                    Studentselection.SelectedIndex= 0;
-                }*/
     }
 }

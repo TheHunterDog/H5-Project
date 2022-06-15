@@ -1,25 +1,16 @@
-﻿using Database.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Diagnostics;
+using Database.Model;
 using WPF.Pages;
 
-namespace WPF
+#endregion
+
+namespace WPF.Screens
 {
-    /// <summary>
-    /// Interaction logic for detailscreen.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for detailscreen.xaml</summary>
+     */
     public partial class Detailscreen : Window
     {
         public string studentnr;
@@ -38,40 +29,63 @@ namespace WPF
             DetailFrame.NavigationService.Navigate(pg);
         }
 
+        /**
+         * <summary>Button to go back to the detailscherm</summary>
+         */
         private void backButton(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+        
+        /**
+         * <summary>Show the overzicht screen</summary>
+         */
         private void Overzichtscreen(object sender, RoutedEventArgs e)
         {
+            // check if not already on this screen
             if (screen == 0) return;
             screen = 0;
-            StudentdetailsPage pg = new StudentdetailsPage(selectedStudent);
+            // create and goto page
+            StudentdetailsPage pg = new(selectedStudent);
             pg.addStudentInfo();
             DetailFrame.NavigationService.Navigate(pg);
         }
+
+        /**
+         * <summary>Plan a meeting</summary>
+         */
         private void planMeeting(object sender, RoutedEventArgs e)
         {
-
-            Inplannen inplannen = new Inplannen(selectedStudent);
+            //open screen to plan a meeting
+            Inplannen inplannen = new(selectedStudent);
             inplannen.studentnr = studentnr;
             inplannen.ShowDialog();
         }
 
+        /**
+         * <summary>Show the problems screen</summary>
+         */
         private void ProblemBtn(object sender, RoutedEventArgs e)
         {
+            // check if not already on this screen
             if (screen == 1) return;
             screen = 1;
+            // create and goto page
             DetailscreenProblems detailscreenProblems = new(selectedStudent);
             DetailFrame.NavigationService.Navigate(detailscreenProblems);
 
 
         }
 
+        /**
+         * <summary>Show the leerdoelen screen</summary>
+         */
         private void LeerdoelenList(object sender, RoutedEventArgs e)
-        { 
-            if(screen == 2) return;
+        {
+            // check if not already on this screen
+            if (screen == 2) return;
             screen = 2;
+            // create and goto page
             ShowStudentLeerdoelenTable StudentLeerdoelenTable = new(selectedStudent);
             DetailFrame.NavigationService.Navigate(StudentLeerdoelenTable);
         }

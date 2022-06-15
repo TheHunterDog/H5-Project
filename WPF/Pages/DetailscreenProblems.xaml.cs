@@ -1,11 +1,15 @@
-﻿
+﻿#region
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
+using WPF.Screens;
 
-namespace WPF;
+#endregion
+
+namespace WPF.Pages;
 
 public partial class DetailscreenProblems : Page
 {
@@ -18,21 +22,21 @@ public partial class DetailscreenProblems : Page
         
         using (var context = new StudentBeleidContext())
         {
-
+            // create the problems list
             List<StudentProblem> problems = context.StudentProblems.Where(x => x.StudentId == SelectedStudent.Id).ToList();
-            /*foreach (StudentProblem studentProblem in problems)
-            {
-                studentProblem.Teacher = context.Teachers.Find(studentProblem.TeacherId);
-                // studentProblem.Teacher = new Teacher({Id = 1, Name = "Johan"});
-            }*/
-
+            // add the problems to the table
             StudentProbleen.ItemsSource = problems;
+            // set the header to match the student
             studentproblemsLbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";
         }
     }
 
+    /**
+     * <summary>Open new window to create problem</summary>
+     */
     private void CreateNewProblemBtn(object sender, RoutedEventArgs e)
     {
+        //Open new window to create problem
         ProblemSubmitting popup = new ProblemSubmitting(SelectedStudent.Id);
         popup.ShowDialog();
     }

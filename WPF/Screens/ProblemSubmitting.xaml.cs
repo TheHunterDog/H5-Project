@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Database.Model;
-using System.Diagnostics;
 
-namespace WPF
+#endregion
+
+namespace WPF.Screens
 {
     /// <summary>
     /// Interaction logic for ProblemSubmitting.xaml
@@ -23,13 +16,14 @@ namespace WPF
     {
         private StudentProblem _stagedProblem;
 
-        // initialize problem on load window
+        /**
+         * <summary>Initialize problem on load window</summary>
+         */
         public ProblemSubmitting(int studentId = -1, int teacherId = -1)
         {
             InitializeComponent();
 
-            PrintAllProblems();
-
+            // create new studentproblem
             _stagedProblem = CreateStudentProblem(studentId, teacherId);
             if (_stagedProblem == null) CloseWindow();
 
@@ -40,7 +34,9 @@ namespace WPF
             }
         }
 
-        // submitting problem
+        /**
+         * <summary>Submitting problem</summary>
+         */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             if (_stagedProblem == null || _stagedProblem.Description == "") return;
@@ -52,25 +48,34 @@ namespace WPF
             CloseWindow();
         }
 
-        // updating problem description
+        /**
+         * <summary>Updating problem description</summary>
+         */
         private void OnProblemDescriptionChanged(object sender, TextChangedEventArgs e)
         {
+            // do nothing if the staged problem is empty
             if (_stagedProblem == null) return;
-
+            //change staged problem description to the selected description
             _stagedProblem.Description = Problem.Text;
         }
 
-        // updating problem priority
+        /**
+         * <summary>Updating problem priority</summary>
+         */
         private void OnPrioritySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // do nothing if the staged problem is empty
             if (_stagedProblem == null) return;
 
+            //change staged problems priority to the selected priority
             string? v = ((ComboBoxItem)Priority.SelectedItem).Tag.ToString();
             string tag = v;
             _stagedProblem.Priority = PriorityTextToInt(tag);
         }
 
-        // converting dropdown item tag to int value
+        /**
+         * <summary>converting dropdown item tag to int value</summary>
+         */
         public int PriorityTextToInt(string text)
         {
             if (text.Equals("0"))
@@ -87,12 +92,17 @@ namespace WPF
             }
         }
 
-        // close problem submitting window
+        /**
+         * <summary>close problem submitting window</summary>
+         */
         private void CloseWindow()
         {
             Close();
         }
 
+        /**
+         * <summary>creates a blank student problem</summary>
+         */
         public StudentProblem CreateStudentProblem(int studentId, int teacherId)
         {
             // initialize new problem
@@ -113,12 +123,16 @@ namespace WPF
 
             return studentProblem;
         }
-
+        /**
+         * <summary>gets the student from the student Id</summary>
+         */
         public string GetStudentNumberFromStudentId(int studentId)
         {
             using (var context = new StudentBeleidContext())
             {
+                // find the student with the Id
                 Student student = context.Students.Find(studentId);
+                // if there is no student do nothing else return the student
                 if (student != null)
                 {
                     return context.Students.Find(studentId).Studentnummer;
@@ -127,10 +141,14 @@ namespace WPF
             }
         }
 
+        /**
+         * <summary>add problem to database</summary>
+         */
         public void AddProblemToDatabase(StudentProblem studentProblem)
         {
             using (var context = new StudentBeleidContext())
             {
+                // if not a  problem, do nothing
                 if (studentProblem.Description.Equals("")) return;
                 if (context.Students.Find(studentProblem.StudentId) == null) return;
                 if (context.Teachers.Find(studentProblem.TeacherId) == null) return;
@@ -140,45 +158,5 @@ namespace WPF
                 context.SaveChanges();
             }
         }
-
-        private void PrintAllProblems()
-        {
-            Trace.WriteLine("\n All Problems in database:");
-            try
-            {
-                using (var context = new StudentBeleidContext())
-                {
-                    // obtain students from database
-                    List<StudentProblem> problems = context.StudentProblems.ToList();
-                    for (int i = 0; i < problems.Count; i++)
-                    {
-                        // get student from list
-                        StudentProblem problem = problems.ElementAt(i);
-                        // print student data
-                        Trace.WriteLine(problem);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex.Message);
-            }
-
-
-        }
     }
-/*
-    public class Problem
-    {
-        public int StudentID;
-        public string Description = "Description";
-        public int Priority = 0;
-        public int TeacherID;
-
-        public override string ToString()
-        {
-            return $"{StudentID}, {Description}, {Priority}, {TeacherID}";
-        }
-    }*/
-
 }

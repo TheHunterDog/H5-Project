@@ -1,6 +1,6 @@
 ﻿namespace Database.Model;
 
-public class Teacher
+public class Teacher : IAuthenticatable
 {
     #region PrivateFields
     /// <summary>
@@ -17,6 +17,13 @@ public class Teacher
     /// A teacher belongs to many or zero <see cref="StudentProblem"/>
     /// </summary>
     private IEnumerable<StudentProblem> _studentProblems;
+
+    private String _username;
+    private string _password;
+    private bool _isAdmin;
+
+
+    private string _docentCode;
     
     #endregion
 
@@ -38,6 +45,31 @@ public class Teacher
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string Username
+    {
+        get => _username;
+        set => _username = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public string Password
+    {
+        get => _password;
+        set => _password = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public bool IsAdmin
+    {
+        get => _isAdmin;
+        set => _isAdmin = value;
+    }
+
+
+    public string DocentCode
+    {
+        get => _docentCode;
+        set => _docentCode = value;
     }
     
     #endregion

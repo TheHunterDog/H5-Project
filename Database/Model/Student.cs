@@ -56,7 +56,12 @@ public class Student
     /// </summary>
     private IEnumerable<StudentProblem> _studentProblems;
     
+    /// <summary>
+    /// A student belongs to many or zero <see cref="Subject"/>
+    /// </summary>
+    private ICollection<Subject> _subjects;
 
+    
     #endregion
 
     #region Properties
@@ -133,10 +138,26 @@ public class Student
         set => _leerdoelen = value ?? throw new ArgumentNullException(nameof(value));
     }
 
+    public ICollection<Subject> Subjects
+    {
+        get => _subjects;
+        set => _subjects = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
     #endregion
 
     public override string ToString()
     {
-        return $"{Id}, {Studentnummer}, {Voornaam}, {Achternaam}, {Tussenvoegsel}, {StudentbegeleiderId}, {Klasscode}";
+        return $"{Id}, {Voornaam}, {Achternaam}, {Studentnummer}, {StudentBegeleider}";
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return ((Student)obj).Id == Id;
+    }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
     }
 }

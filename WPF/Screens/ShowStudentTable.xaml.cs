@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
+using System.Windows.Input;
 using Database.Model;
 
-namespace WPF;
-public partial class ShowStudentTable
+#endregion
 
+namespace WPF.Screens;
+/// <summary>
+/// Interaction logic for ShowStudentTable.xaml
+/// </summary>
+public partial class ShowStudentTable
 {
     public List<Student> Students;
     public ShowStudentTable()
@@ -14,16 +20,23 @@ public partial class ShowStudentTable
 
         using (var context = new StudentBeleidContext())
         {
+            // put all the students in a list
             Students = context.Students.ToList();
         }
+        // insert the students into the table
         StudentsTable.ItemsSource = Students;
     }
 
-    private void selectRow(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    /**
+     * <summary>Select the row in the student table </summary>
+     */
+    private void selectRow(object sender, MouseButtonEventArgs e)
     {
+        // get the selected student
         Student selectedStudent = (Student)StudentsTable.SelectedItem;
         if (selectedStudent != null)
         {
+            // create new detailscreen
             Detailscreen detailScreen = new Detailscreen(selectedStudent);
             detailScreen.Show();
         }

@@ -1,15 +1,19 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Linq;
-using System.Windows;
+using System.Net;
 using System.Net.Mail;
+using System.Windows;
 using Database.Model;
 
+#endregion
 
-namespace WPF
+namespace WPF.Screens
 {
-    /// <summary>
-    /// Interaction logic for Inplannen.xaml
-    /// </summary>
+    /**
+     * <summary>Interaction logic for Inplannen.xaml</summary>
+     */
     public partial class Inplannen : Window
     {
         public string studentnr = "";
@@ -17,12 +21,13 @@ namespace WPF
         public Inplannen(Student st)
         {
             InitializeComponent();
+            // make the dates before today unselectable
             DatePicked.BlackoutDates.AddDatesInPast();
             selectedstudent = st;
         }
-        
+
         /**
-         * <summary>button click logic</summary> 
+         * <summary>Button click logic</summary> 
          */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +69,7 @@ namespace WPF
         }
 
         /**
-         * <summary>  </summary> 
+         * <summary>Send an email to the student</summary> 
          */
         private void send_Mail(DateTime date, string notes, string studentnr)
         {
@@ -72,7 +77,7 @@ namespace WPF
             MailMessage message = new MailMessage("afspraakplanner123@gmail.com", $"{studentnr}@student.windesheim.nl", $"afspraak op {date}", $"Er is een afspraak ingpepland op {date} met als opmerking:\n {notes}"); // TODO replace email with the students email
             //config the mail service
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-            client.Credentials = new System.Net.NetworkCredential("afspraakplanner123@gmail.com", "Mailtest123");
+            client.Credentials = new NetworkCredential("afspraakplanner123@gmail.com", "Mailtest123");
             client.EnableSsl = true;
             //send the email
             client.Send(message);

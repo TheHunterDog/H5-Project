@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Documents;
+﻿#region
+
+using System;
 using Database.Model;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using WPF.Model;
+
+#endregion
 
 namespace UnitTest_WPF_Inplannen;
 

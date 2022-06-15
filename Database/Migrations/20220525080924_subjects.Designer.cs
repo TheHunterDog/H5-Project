@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(StudentBeleidContext))]
-    [Migration("20220426134145_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220525080924_subjects")]
+    partial class subjects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,6 +113,69 @@ namespace Database.Migrations
                     b.ToTable("StudentBegeleiderGesprekken");
                 });
 
+            modelBuilder.Entity("Database.Model.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subject");
+                });
+
+            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("StudentProblems");
+                });
+
+            modelBuilder.Entity("WPF.Model.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
+                });
+
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
                     b.HasOne("Database.Model.StudentBegeleider", "Studentbegeleider")
@@ -142,9 +205,30 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleider");
                 });
 
+            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
+                {
+                    b.HasOne("Database.Model.Student", "Student")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WPF.Model.Teacher", "Teacher")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
                     b.Navigation("StudentBegeleiderGesprekken");
+
+                    b.Navigation("StudentProblems");
                 });
 
             modelBuilder.Entity("Database.Model.StudentBegeleider", b =>
@@ -152,6 +236,11 @@ namespace Database.Migrations
                     b.Navigation("StudentBegeleiderGesprekken");
 
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("WPF.Model.Teacher", b =>
+                {
+                    b.Navigation("StudentProblems");
                 });
 #pragma warning restore 612, 618
         }

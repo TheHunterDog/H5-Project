@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Database.Model;
+
+#endregion
 
 namespace WPF.Util;
 
