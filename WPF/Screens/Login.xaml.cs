@@ -108,5 +108,11 @@ namespace WPF.Screens
                 submit.IsEnabled = true;
             });
         }
+
+        private void Open_Map(object sender, RoutedEventArgs e)
+        {
+            MapWindow m = new MapWindow();
+            m.Show();
+        }
     }
 }

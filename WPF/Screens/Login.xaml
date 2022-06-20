@@ -35,6 +35,7 @@
         <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
 
             <Button Height="50" Name="Submit" Grid.Row="4" Click="Submit_Click" Grid.ColumnSpan="2">Login</Button>
+            <Button Height="50" Name="Map" Grid.Row="4" Click="Open_Map" Grid.ColumnSpan="2">Open Map</Button>
         </StackPanel>
     </Grid>
 </Window>
