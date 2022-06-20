@@ -6,6 +6,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
+using Microsoft.Toolkit.Uwp.Notifications;
 using WPF.Util;
 
 #endregion
@@ -107,6 +108,16 @@ namespace WPF.Screens
             {
                 submit.IsEnabled = true;
             });
+        }
+
+        private void NotificationTest_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ToastContentBuilder()
+                .AddArgument("action", "viewConversation")
+                .AddArgument("conversationId", 9813)
+                .AddText("Andrew sent you a picture")
+                .AddText("Check this out, The Enchantments in Washington!")
+                .Show();
         }
     }
 }
