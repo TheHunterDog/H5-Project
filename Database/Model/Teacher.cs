@@ -65,6 +65,8 @@ public class Teacher : IAuthenticatable
         set => _isAdmin = value;
     }
 
+    public IEnumerable<Notification> Notifications { get; set; }
+
 
     public string DocentCode
     {

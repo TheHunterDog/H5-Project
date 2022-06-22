@@ -11,12 +11,22 @@ public class Notification
     /// <summary>
     /// Notification has an sender
     /// </summary>
-    private IAuthenticatable _sender;
+    private StudentBegeleider _sender;
+
+    /// <summary>
+    /// Notification has a senderId
+    /// </summary>
+    private int _senderId;
     
     /// <summary>
     /// Notification has a receiver
     /// </summary>
-    private IAuthenticatable _receiver;
+    private StudentBegeleider _receiver;
+    
+    /// <summary>
+    /// Notification has a receiverId
+    /// </summary>
+    private int _receiverId;
     
     /// <summary>
     /// Notification has a Description
@@ -32,13 +42,14 @@ public class Notification
         set => _id = value;
     }
 
-    public IAuthenticatable Sender
+    public StudentBegeleider Sender
     {
         get => _sender;
         set => _sender = value ?? throw new ArgumentNullException(nameof(value));
     }
-
-    public IAuthenticatable Receiver
+    
+    
+    public StudentBegeleider Receiver
     {
         get => _receiver;
         set => _receiver = value ?? throw new ArgumentNullException(nameof(value));
@@ -48,6 +59,18 @@ public class Notification
     {
         get => _description;
         set => _description = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public int SenderId
+    {
+        get => _senderId;
+        set => _senderId = value;
+    }
+
+    public int ReceiverId
+    {
+        get => _receiverId;
+        set => _receiverId = value;
     }
 
     #endregion

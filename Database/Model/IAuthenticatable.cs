@@ -6,4 +6,6 @@ public interface IAuthenticatable
     public string Password { get; set; }
     public bool IsAdmin { get; set; }
     
+    public IEnumerable<Notification> Notifications { get; set; }
+    
 }
