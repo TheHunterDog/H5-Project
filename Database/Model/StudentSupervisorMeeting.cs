@@ -14,14 +14,14 @@ public class StudentBegeleiderGesprekken
     private Student _student;
     
     /// <summary>
-    /// A meeting has a StudentBegeleider Forgeinkey
+    /// A meeting has a StudentSupervisor Forgeinkey
     /// </summary>
     private int _studentBegeleiderId;
     
     /// <summary>
     /// A meeting has a studentbegeleider
     /// </summary>
-    private StudentBegeleider _studentBegeleider;
+    private StudentSupervisor _studentSupervisor;
     
     /// <summary>
     /// A meeting has a date
@@ -48,10 +48,10 @@ public class StudentBegeleiderGesprekken
         set => _studentBegeleiderId = value;
     }
 
-    public StudentBegeleider StudentBegeleider
+    public StudentSupervisor StudentSupervisor
     {
-        get => _studentBegeleider;
-        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentSupervisor;
+        set => _studentSupervisor = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public int StudentId
