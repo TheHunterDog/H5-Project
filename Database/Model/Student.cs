@@ -40,15 +40,15 @@ public class Student
     /// <summary>
     /// Student has a <see cref="Studentbegeleider"/>
     /// </summary>
-    private StudentBegeleider _studentBegeleider;
+    private StudentSupervisor _studentSupervisor;
     
     /// <summary>
     /// A student belongs to many or zero <see cref="StudentBegeleiderGesprekken"/>
     /// </summary>
-    private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
+    private IEnumerable<StudentSupervisorMeeting> _studentBegeleiderGesprekken;
 
 
-    private IEnumerable<Leerdoel> _leerdoelen;
+    private IEnumerable<LearningGoal> _leerdoelen;
 
     
     /// <summary>
@@ -102,10 +102,10 @@ public class Student
         set => _klasscode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public virtual StudentBegeleider Studentbegeleider
+    public virtual StudentSupervisor Studentbegeleider
     {
-        get => _studentBegeleider;
-        set => _studentBegeleider = value;
+        get => _studentSupervisor;
+        set => _studentSupervisor = value;
     }
 
     public int StudentbegeleiderId
@@ -114,7 +114,7 @@ public class Student
         set => _studentbegeleiderId = value;
     }
     
-    public virtual IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
+    public virtual IEnumerable<StudentSupervisorMeeting> StudentBegeleiderGesprekken
     {
         get => _studentBegeleiderGesprekken;
         set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
@@ -126,13 +126,13 @@ public class Student
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public virtual StudentBegeleider StudentBegeleider
+    public virtual StudentSupervisor StudentSupervisor
     {
-        get => _studentBegeleider;
-        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentSupervisor;
+        set => _studentSupervisor = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public virtual IEnumerable<Leerdoel> Leerdoelen
+    public virtual IEnumerable<LearningGoal> Leerdoelen
     {
         get => _leerdoelen;
         set => _leerdoelen = value ?? throw new ArgumentNullException(nameof(value));
@@ -148,7 +148,7 @@ public class Student
 
     public override string ToString()
     {
-        return $"{Id}, {Voornaam}, {Achternaam}, {Studentnummer}, {StudentBegeleider}";
+        return $"{Id}, {Voornaam}, {Achternaam}, {Studentnummer}, {StudentSupervisor}";
     }
 
     public override bool Equals(object? obj)

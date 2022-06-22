@@ -17,7 +17,7 @@ namespace WPF.Pages
      */
     public partial class ManageCoaches : Page
     {
-        public List<StudentBegeleider> coaches;
+        public List<StudentSupervisor> coaches;
         public List<Teacher> teachers;
         public ManageCoaches()
         {
@@ -26,7 +26,7 @@ namespace WPF.Pages
             using (var context = new StudentBeleidContext())
             {
                 // make a coaches and teachers list
-                coaches = context.StudentBegeleiders.ToList();
+                coaches = context.StudentSupervisors.ToList();
                 teachers = context.Teachers.ToList();
             }
             // set the table to display coaches at default
@@ -75,8 +75,8 @@ namespace WPF.Pages
             DemoteCol.Visibility = Visibility.Visible;
             PromoteCol.Visibility = Visibility.Collapsed;
             // change the binding to show to coach name and docentcode
-            name.Binding = new Binding("Naam");
-            Docentcode.Binding = new Binding("Docentcode");
+            name.Binding = new Binding("Name");
+            Docentcode.Binding = new Binding("TeacherCode");
 
         }
 
@@ -98,7 +98,7 @@ namespace WPF.Pages
         private void DemoteTeacher(object sender, RoutedEventArgs e)
         {
             // select coach to demote
-            StudentBegeleider selectedSber = (StudentBegeleider)CoachesList.SelectedItem;
+            StudentSupervisor selectedSber = (StudentSupervisor)CoachesList.SelectedItem;
             // open demote screen
             promoteDemoteTeacher promoteDemoteTeacher = new promoteDemoteTeacher(false, sber: selectedSber);
             promoteDemoteTeacher.Show();

@@ -9,7 +9,7 @@ namespace Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Leerdoelen",
+                name: "LearningGoals",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -36,7 +36,7 @@ namespace Database.Migrations
                 table: "Students");
 
             migrationBuilder.DropTable(
-                name: "Leerdoelen");
+                name: "LearningGoals");
 
             migrationBuilder.DropIndex(
                 name: "IX_Students_StudentBegeleiderId",

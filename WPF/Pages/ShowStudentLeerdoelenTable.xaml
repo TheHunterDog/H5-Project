@@ -24,7 +24,7 @@
             Grid.Column="1" 
             Width="140" Height="40" 
             HorizontalAlignment="Right" 
-            Content="Leerdoelen toevoegen" 
+            Content="LearningGoals toevoegen" 
             Click="AddLeerdoelbtn"
             Margin="100,0"
             Background="#113B69"
@@ -40,7 +40,7 @@
             FontSize="24">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Leerdoelid" Binding ="{Binding Id}" Header="id" IsReadOnly="TRUE" Width="*" />
-                <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Beschrijving}" Header="Leerdoel" IsReadOnly="TRUE" Width="*" />
+                <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Beschrijving}" Header="LearningGoal" IsReadOnly="TRUE" Width="*" />
                 <DataGridTextColumn x:Name="studentId" Binding ="{Binding StudentId}" Header="StudentId" IsReadOnly="TRUE" Width="*" />
             </DataGrid.Columns>
         </DataGrid>

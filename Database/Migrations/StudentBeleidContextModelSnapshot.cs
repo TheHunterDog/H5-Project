@@ -22,7 +22,7 @@ namespace Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Database.Model.Leerdoel", b =>
+            modelBuilder.Entity("Database.Model.LearningGoal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,7 +30,7 @@ namespace Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Beschrijving")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -39,12 +39,12 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Beschrijving")
+                    b.HasIndex("Description")
                         .IsUnique();
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Leerdoelen");
+                    b.ToTable("LearningGoals");
                 });
 
             modelBuilder.Entity("Database.Model.Student", b =>
@@ -92,7 +92,7 @@ namespace Database.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentBegeleider", b =>
+            modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,14 +100,14 @@ namespace Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Docentcode")
+                    b.Property<string>("TeacherCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Naam")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -121,13 +121,13 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Docentcode")
+                    b.HasIndex("TeacherCode")
                         .IsUnique();
 
-                    b.ToTable("StudentBegeleiders");
+                    b.ToTable("StudentSupervisors");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentBegeleiderGesprekken", b =>
+            modelBuilder.Entity("Database.Model.StudentSupervisorMeetings", b =>
                 {
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -135,21 +135,21 @@ namespace Database.Migrations
                     b.Property<int>("StudentBegeleiderId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("GesprekDatum")
+                    b.Property<DateTime>("MeetingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Opmerkingen")
+                    b.Property<string>("Comments")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Voltooid")
+                    b.Property<bool>("Done")
                         .HasColumnType("bit");
 
-                    b.HasKey("StudentId", "StudentBegeleiderId", "GesprekDatum");
+                    b.HasKey("StudentId", "StudentBegeleiderId", "MeetingDate");
 
                     b.HasIndex("StudentBegeleiderId");
 
-                    b.ToTable("StudentBegeleiderGesprekken");
+                    b.ToTable("StudentSupervisorMeetings");
                 });
 
             modelBuilder.Entity("Database.Model.Subject", b =>
@@ -302,10 +302,10 @@ namespace Database.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("Database.Model.Leerdoel", b =>
+            modelBuilder.Entity("Database.Model.LearningGoal", b =>
                 {
                     b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("Leerdoelen")
+                        .WithMany("LearningGoals")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -314,39 +314,39 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
-                    b.HasOne("Database.Model.StudentBegeleider", "StudentBegeleider")
+                    b.HasOne("Database.Model.StudentSupervisor", "StudentSupervisor")
                         .WithMany()
                         .HasForeignKey("StudentBegeleiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Database.Model.StudentBegeleider", "Studentbegeleider")
+                    b.HasOne("Database.Model.StudentSupervisor", "Studentbegeleider")
                         .WithMany("Students")
                         .HasForeignKey("StudentbegeleiderId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("StudentBegeleider");
+                    b.Navigation("StudentSupervisor");
 
                     b.Navigation("Studentbegeleider");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentBegeleiderGesprekken", b =>
+            modelBuilder.Entity("Database.Model.StudentSupervisorMeetings", b =>
                 {
-                    b.HasOne("Database.Model.StudentBegeleider", "StudentBegeleider")
-                        .WithMany("StudentBegeleiderGesprekken")
+                    b.HasOne("Database.Model.StudentSupervisor", "StudentSupervisor")
+                        .WithMany("StudentSupervisorMeetings")
                         .HasForeignKey("StudentBegeleiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("StudentBegeleiderGesprekken")
+                        .WithMany("StudentSupervisorMeetings")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Student");
 
-                    b.Navigation("StudentBegeleider");
+                    b.Navigation("StudentSupervisor");
                 });
 
             modelBuilder.Entity("StudentSubject", b =>
@@ -385,16 +385,16 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
-                    b.Navigation("Leerdoelen");
+                    b.Navigation("LearningGoals");
 
-                    b.Navigation("StudentBegeleiderGesprekken");
+                    b.Navigation("StudentSupervisorMeetings");
 
                     b.Navigation("StudentProblems");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentBegeleider", b =>
+            modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
                 {
-                    b.Navigation("StudentBegeleiderGesprekken");
+                    b.Navigation("StudentSupervisorMeetings");
 
                     b.Navigation("Students");
                 });

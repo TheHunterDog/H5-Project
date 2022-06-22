@@ -10,21 +10,21 @@ namespace Database.Migrations
         {
             migrationBuilder.AddColumn<bool>(
                 name: "IsAdmin",
-                table: "StudentBegeleiders",
+                table: "StudentSupervisors",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
                 name: "Password",
-                table: "StudentBegeleiders",
+                table: "StudentSupervisors",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "Username",
-                table: "StudentBegeleiders",
+                table: "StudentSupervisors",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
@@ -59,7 +59,7 @@ namespace Database.Migrations
                 table: "Students");
 
             migrationBuilder.DropTable(
-                name: "Leerdoelen");
+                name: "LearningGoals");
 
             migrationBuilder.DropTable(
                 name: "StudentProblems");
@@ -77,19 +77,19 @@ namespace Database.Migrations
 
             migrationBuilder.DropColumn(
                 name: "IsAdmin",
-                table: "StudentBegeleiders");
+                table: "StudentSupervisors");
 
             migrationBuilder.DropColumn(
                 name: "Password",
-                table: "StudentBegeleiders");
+                table: "StudentSupervisors");
 
             migrationBuilder.DropColumn(
                 name: "Username",
-                table: "StudentBegeleiders");
+                table: "StudentSupervisors");
 
             migrationBuilder.InsertData(
-                table: "StudentBegeleiders",
-                columns: new[] { "Id", "Docentcode", "Naam" },
+                table: "StudentSupervisors",
+                columns: new[] { "Id", "TeacherCode", "Name" },
                 values: new object[] { 964, "SA1234", "Karen brakband" });
 
             migrationBuilder.InsertData(

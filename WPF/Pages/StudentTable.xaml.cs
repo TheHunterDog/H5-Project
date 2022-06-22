@@ -29,7 +29,7 @@ public partial class StudentTable : Page
         {
             // a query to show to last seen date in the datagrid
             var query = from s in context.Students
-                        join g in context.StudentBegeleiderGesprekken
+                        join g in context.StudentSupervisorMeetings
                         on s.Id equals g.StudentId
                         into studentgesprekGroup
                         from t in studentgesprekGroup.DefaultIfEmpty()
@@ -42,7 +42,7 @@ public partial class StudentTable : Page
                             Achternaam = s.Achternaam,
                             Klasscode = s.Klasscode,
                             StudentbegeleiderId = s.StudentbegeleiderId,
-                            LaatstGesproken = (t.GesprekDatum == null ? DateTime.MaxValue : t.GesprekDatum)
+                            LaatstGesproken = (t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate)
                         };
             var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);
             // set the source of the datagrid to the list

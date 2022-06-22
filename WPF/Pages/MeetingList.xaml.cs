@@ -16,16 +16,16 @@ public partial class MeetingList : Page
         using (StudentBeleidContext context = new StudentBeleidContext())
         {
             // join the tables so all the information van be shown in the grid
-            var lijst = context.StudentBegeleiderGesprekken.Where(x => x.StudentBegeleiderId == 81).Join(
+            var lijst = context.StudentSupervisorMeetings.Where(x => x.StudentSupervisorId == 81).Join(
                 context.Students,
                 begeleider => begeleider.StudentId, 
                 student => student.Id, 
                 (begeleider, student) => new
                 {
-                    GesprekDatum = begeleider.GesprekDatum,
+                    GesprekDatum = begeleider.MeetingDate,
                     StudentId = begeleider.StudentId,
                     Student = student,
-                    Opmerkingen= begeleider.Opmerkingen,
+                    Opmerkingen= begeleider.Comments,
                     Voornaam = student.Voornaam
                 }).ToList();
             // add the list to the table

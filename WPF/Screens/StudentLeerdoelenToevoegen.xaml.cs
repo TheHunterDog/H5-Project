@@ -28,12 +28,12 @@ namespace WPF.Screens
         {
             using (var context = new StudentBeleidContext())
             {
-                Leerdoel leerdoel = new Leerdoel
+                LearningGoal learningGoal = new LearningGoal
                 {
-                    Beschrijving = this.leerdoel.Text,
+                    Description = this.leerdoel.Text,
                     StudentId = selectedstudent.Id,
                 };
-                context.Leerdoelen.Add(leerdoel);
+                context.LearningGoals.Add(learningGoal);
                 context.SaveChanges();
             }
             Close();

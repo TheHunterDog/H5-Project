@@ -21,7 +21,7 @@ public class ExcelImporter
         using (var context = new StudentBeleidContext())
         {
             // remove studentbegeleiders first to avoid relation conflicts
-            context.StudentBegeleiders.RemoveRange(context.StudentBegeleiders); 
+            context.StudentSupervisors.RemoveRange(context.StudentSupervisors); 
             // remove students
             context.Students.RemoveRange(context.Students); 
             // save changes to database
@@ -51,11 +51,11 @@ public class ExcelImporter
         using (var context = new StudentBeleidContext())
         {
             // obtain coaches from database
-            List<StudentBegeleider> coaches = context.StudentBegeleiders.ToList(); 
+            List<StudentSupervisor> coaches = context.StudentSupervisors.ToList(); 
             for (int i = 0; i < coaches.Count; i++)
             {
                 // get coach from list
-                StudentBegeleider coach = coaches.ElementAt(i); 
+                StudentSupervisor coach = coaches.ElementAt(i); 
                 // print coach data
                 Console.WriteLine(coach); 
             }
@@ -86,7 +86,7 @@ public class ExcelImporter
                     // obtain coach(docentcode) from datastring
                     string docentCode = (studentStrings.Length == 5) ? studentStrings[i].Split(",")[3].Trim() : studentStrings[i].Split(",")[4].Trim();
                     // get count of coaches which have a matching docentcode(max 1);
-                    int countBeg = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(docentCode)).Count();
+                    int countBeg = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(docentCode)).Count();
                     // if no matching coach is found, create a new one with an undefined name(can be overwritten when added to excel file with the same docentcode)
                     if (countBeg < 1) 
                     {
@@ -95,19 +95,19 @@ public class ExcelImporter
                         // create datastring
                         string newStudentBegeleiderDataString = $"{defaultStudentCoachName}, {docentCode}";
                         // create new coach from datastring
-                        StudentBegeleider? newStudentBegeleider = CreateCoachFromDataString(newStudentBegeleiderDataString);
+                        StudentSupervisor? newStudentBegeleider = CreateCoachFromDataString(newStudentBegeleiderDataString);
 
                         if (newStudentBegeleider != null)
                         {
                             // add coach to database
-                            context.StudentBegeleiders.Add(newStudentBegeleider);
+                            context.StudentSupervisors.Add(newStudentBegeleider);
                             // savve changes to database
                             context.SaveChanges();
                         }
                         else return;
                     }
-                    StudentBegeleider begeleider = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(docentCode)).First();
-                    student.StudentbegeleiderId = begeleider.Id;
+                    StudentSupervisor supervisor = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(docentCode)).First();
+                    student.StudentbegeleiderId = supervisor.Id;
                     // get whether there is already a student with the same code in the database
                     int count = context.Students.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
                     // when yes, update student with new name etc.
@@ -151,26 +151,26 @@ public class ExcelImporter
             for (int i = 0; i < coachStrings.Length; i++)
             {
                 // convert string to object of type Coach
-                StudentBegeleider? coach = CreateCoachFromDataString(coachStrings[i]);
+                StudentSupervisor? coach = CreateCoachFromDataString(coachStrings[i]);
                 // add coach to database
                 if (coach != null)
                 {
                     // get whether there is already a coach with the same code in the database
-                    int count = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(coach.Docentcode)).Count();
+                    int count = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).Count();
                     // when yes, update coach with new name etc.
                     if (count > 0)
                     {
                         // get coach from database
-                        var result = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(coach.Docentcode)).First();
+                        var result = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).First();
                         // update coach parameters
-                        result.Naam = coach.Naam;
-                        result.Docentcode = coach.Docentcode; // redundant
+                        result.Name = coach.Name;
+                        result.TeacherCode = coach.TeacherCode; // redundant
                     }
                     // when no, add the coach to the database
                     else
                     {
                         //Console.WriteLine("Add");
-                        context.StudentBegeleiders.Add(coach);
+                        context.StudentSupervisors.Add(coach);
                     }
                 }
             }
@@ -304,7 +304,7 @@ public class ExcelImporter
     /**
      * <summary>Create coach from the data in the excel file</summary>
      */
-    public static StudentBegeleider? CreateCoachFromDataString(string data)
+    public static StudentSupervisor? CreateCoachFromDataString(string data)
     {
         // create string array with split items from string
         string[] dataStrings = data.Split(",");
@@ -313,10 +313,10 @@ public class ExcelImporter
         if (dataStrings.Length > 1)
         {
             // create coach object
-            StudentBegeleider coach = new();
+            StudentSupervisor coach = new();
             // fill in info
-            coach.Naam = dataStrings[0].Trim();
-            coach.Docentcode = dataStrings[1].Trim();
+            coach.Name = dataStrings[0].Trim();
+            coach.TeacherCode = dataStrings[1].Trim();
             // return coach
             return coach;
         }

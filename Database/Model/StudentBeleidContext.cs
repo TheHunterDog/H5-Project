@@ -13,9 +13,9 @@ public class StudentBeleidContext : DbContext
   /// Dbsets required for OnModelCreating
   /// </summary>
   public DbSet<Student> Students { get; set; }
-  public DbSet<Leerdoel> Leerdoelen { get; set; }
-  public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
-  public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
+  public DbSet<LearningGoal> LearningGoals { get; set; }
+  public DbSet<StudentSupervisor> StudentSupervisors { get; set; }
+  public DbSet<StudentSupervisorMeeting> StudentSupervisorMeetings { get; set; }
   public DbSet<StudentProblem> StudentProblems { get; set; }
   public DbSet<Teacher> Teachers { get; set; }
   public DbSet<Subject> Subjects { get; set; }
@@ -83,45 +83,45 @@ public class StudentBeleidContext : DbContext
             .WithMany(s => s.Students);
         #endregion
 
-        #region StudentBegeleider
+        #region StudentSupervisor
 
-        modelBuilder.Entity<StudentBegeleider>()
+        modelBuilder.Entity<StudentSupervisor>()
             .HasKey(s => new {s.Id});
-        modelBuilder.Entity<StudentBegeleider>()
-            .HasIndex(s => s.Docentcode).IsUnique();
-        modelBuilder.Entity<StudentBegeleider>()
-            .Property(s => s.Docentcode).IsRequired();
+        modelBuilder.Entity<StudentSupervisor>()
+            .HasIndex(s => s.TeacherCode).IsUnique();
+        modelBuilder.Entity<StudentSupervisor>()
+            .Property(s => s.TeacherCode).IsRequired();
 
         #endregion
 
-        #region studentBegeleiderGesprekken
+        #region studentSupervisorMeeting
 
-        modelBuilder.Entity<StudentBegeleiderGesprekken>()
-            .HasKey(sbg => new {sbg.StudentId, sbg.StudentBegeleiderId, sbg.GesprekDatum});
+        modelBuilder.Entity<StudentSupervisorMeeting>()
+            .HasKey(sbg => new {sbg.StudentId, sbg.StudentSupervisorId, GesprekDatum = sbg.MeetingDate});
 
-        modelBuilder.Entity<StudentBegeleiderGesprekken>()
+        modelBuilder.Entity<StudentSupervisorMeeting>()
             .HasOne(sbg => sbg.Student)
             .WithMany(s => s.StudentBegeleiderGesprekken)
             .HasForeignKey(sbg => sbg.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<StudentBegeleiderGesprekken>()
-            .HasOne(sbg => sbg.StudentBegeleider)
-            .WithMany(sb => sb.StudentBegeleiderGesprekken)
-            .HasForeignKey(sbg => sbg.StudentBegeleiderId)
+        modelBuilder.Entity<StudentSupervisorMeeting>()
+            .HasOne(sbg => sbg.StudentSupervisor)
+            .WithMany(sb => sb.StudentSupervisorMeetings)
+            .HasForeignKey(sbg => sbg.StudentSupervisorId)
             .OnDelete(DeleteBehavior.Cascade);
 
         #endregion
 
-        #region Leerdoel
+        #region LearningGoal
 
-        modelBuilder.Entity<Leerdoel>()
+        modelBuilder.Entity<LearningGoal>()
            .HasKey(s => new {s.Id});
-        modelBuilder.Entity<Leerdoel>()
+        modelBuilder.Entity<LearningGoal>()
            .Property(s => s.Id)
            .ValueGeneratedOnAdd();
-        modelBuilder.Entity<Leerdoel>()
-           .HasIndex(s => s.Beschrijving).IsUnique();
+        modelBuilder.Entity<LearningGoal>()
+           .HasIndex(s => s.Description).IsUnique();
 
         modelBuilder.Entity<Student>()
            .HasOne(s => s.Studentbegeleider)
@@ -130,7 +130,7 @@ public class StudentBeleidContext : DbContext
            .OnDelete(DeleteBehavior.NoAction)
            .IsRequired(false);
 
-        modelBuilder.Entity<Leerdoel>()
+        modelBuilder.Entity<LearningGoal>()
            .HasOne(s => s.Student)
            .WithMany(sb => sb.Leerdoelen)
            .HasForeignKey(s => s.StudentId)
@@ -171,11 +171,11 @@ public class StudentBeleidContext : DbContext
 
         #region IAuthenticatable
 
-        modelBuilder.Entity<StudentBegeleider>()
+        modelBuilder.Entity<StudentSupervisor>()
             .Property(s => s.Username).IsRequired();
-        modelBuilder.Entity<StudentBegeleider>()
+        modelBuilder.Entity<StudentSupervisor>()
             .Property(s => s.Password).IsRequired();
-        modelBuilder.Entity<StudentBegeleider>()
+        modelBuilder.Entity<StudentSupervisor>()
             .HasIndex(s => s.Username).IsUnique();
         
         modelBuilder.Entity<Teacher>()

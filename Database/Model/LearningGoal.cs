@@ -1,20 +1,20 @@
 ﻿namespace Database.Model;
 
-public class Leerdoel
+public class LearningGoal
 {
     #region PrivateFields
     /// <summary>
-    /// Leerdoel has an id
+    /// LearningGoal has an id
     /// </summary>
     private int _id;
     
     /// <summary>
-    /// Student has a firstname
+    /// Student learninGoal has a description
     /// </summary>
-    private string _beschrijving;
+    private string _description;
     
     /// <summary>
-    /// A Leerdoel belongs to one student
+    /// A LearningGoal belongs to one student
     /// </summary>
     private Student _student;
 
@@ -29,10 +29,10 @@ public class Leerdoel
         set => _id = value;
     }
 
-    public string Beschrijving
+    public string Description
     {
-        get => _beschrijving;
-        set => _beschrijving = value ?? throw new ArgumentNullException(nameof(value));
+        get => _description;
+        set => _description = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public Student Student

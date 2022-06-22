@@ -26,7 +26,7 @@ public class Authentication
         try
         {
             return (IAuthenticatable) ctx.Teachers.First(s => s.Username.Equals(username)) ??
-                   (IAuthenticatable) ctx.StudentBegeleiders.First(s => s.Username.Equals(username)) ?? null;
+                   (IAuthenticatable) ctx.StudentSupervisors.First(s => s.Username.Equals(username)) ?? null;
         }
         catch (InvalidOperationException e)
         {

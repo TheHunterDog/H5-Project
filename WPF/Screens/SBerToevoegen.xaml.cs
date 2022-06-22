@@ -31,14 +31,14 @@ namespace WPF.Screens
                 if (IsSber.IsChecked == true)
                 {
                     //create new sber
-                    StudentBegeleider begeleider = new StudentBegeleider
+                    StudentSupervisor supervisor = new StudentSupervisor
                     {
-                        Naam = name.Text,
-                        Docentcode = Docentcode.Text,
+                        Name = name.Text,
+                        TeacherCode = Docentcode.Text,
                         Username = name.Text,
                         Password = "geheim lol"
                     };
-                    context.StudentBegeleiders.Add(begeleider);
+                    context.StudentSupervisors.Add(supervisor);
                 }
                 else
                 {

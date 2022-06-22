@@ -31,7 +31,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding GesprekDatum}" Header="Gesprek datum" Width="*"/>
                 <DataGridTextColumn Binding="{Binding StudentId}" Header="studentID" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Voornaam}" Header="Naam" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Voornaam}" Header="Name" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Opmerkingen}" Header="Opmerking" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -14,19 +14,19 @@ namespace WPF.Screens
     /// </summary>
     public partial class promoteDemoteTeacher : Window
     {
-        public List<StudentBegeleider> coaches;
+        public List<StudentSupervisor> coaches;
         public List<Teacher> teachers;
         public Teacher SelectedTeacher;
-        public StudentBegeleider SelectedSber;
+        public StudentSupervisor SelectedSber;
         public bool promotion;
-        public promoteDemoteTeacher(bool promote, StudentBegeleider sber = null, Teacher teacher = null)
+        public promoteDemoteTeacher(bool promote, StudentSupervisor sber = null, Teacher teacher = null)
         {
             
             InitializeComponent();
             using (var context = new StudentBeleidContext())
             {
                 //create a teacher and coaches list
-                coaches = context.StudentBegeleiders.ToList();
+                coaches = context.StudentSupervisors.ToList();
                 teachers = context.Teachers.ToList();
             }
             SelectedSber = sber;
@@ -45,15 +45,15 @@ namespace WPF.Screens
                 using (var context = new StudentBeleidContext())
                 {
                     // create new sber
-                    StudentBegeleider studentBegeleider = new StudentBegeleider
+                    StudentSupervisor studentSupervisor = new StudentSupervisor
                     {
-                        Naam = SelectedTeacher.Name,
-                        Docentcode = SelectedTeacher.DocentCode,
+                        Name = SelectedTeacher.Name,
+                        TeacherCode = SelectedTeacher.DocentCode,
                         Password = SelectedTeacher.Password,
                         Username = SelectedTeacher.Username
                     };
                     // add sber to database and save
-                    context.StudentBegeleiders.Add(studentBegeleider);
+                    context.StudentSupervisors.Add(studentSupervisor);
                     context.SaveChanges();
                 }
             }
@@ -64,8 +64,8 @@ namespace WPF.Screens
                     // create new teacher
                     Teacher teacher = new Teacher
                     {
-                        Name = SelectedSber.Naam,
-                        DocentCode = SelectedSber.Docentcode,
+                        Name = SelectedSber.Name,
+                        DocentCode = SelectedSber.TeacherCode,
                         Password = SelectedSber.Password,
                         Username = SelectedSber.Username
                     };
@@ -93,7 +93,7 @@ namespace WPF.Screens
                 Confirmation.Content = $"Weet u zeker dat u: {SelectedTeacher.Name} wilt veranderen naar SBer?";
             else
                 // set header to display sber name
-                Confirmation.Content = $"Weet u zeker dat u: {SelectedSber.Naam} wilt veranderen naar docent?";
+                Confirmation.Content = $"Weet u zeker dat u: {SelectedSber.Name} wilt veranderen naar docent?";
         }
 
     }
