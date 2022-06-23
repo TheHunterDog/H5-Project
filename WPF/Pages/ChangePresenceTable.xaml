@@ -25,7 +25,7 @@
                     <DataGridCheckBoxColumn.CellStyle>
                         <Style>
                             <EventSetter Event="CheckBox.Checked" Handler="AanwezigBox_Checked"/>
-                            <EventSetter Event="CheckBox.Checked" Handler="AanwezigBox_Unchecked"/>
+                            <EventSetter Event="CheckBox.Unchecked" Handler="AanwezigBox_Unchecked"/>
                         </Style>
                     </DataGridCheckBoxColumn.CellStyle>
                 </DataGridCheckBoxColumn>
