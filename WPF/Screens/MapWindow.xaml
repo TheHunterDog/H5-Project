@@ -9,21 +9,9 @@
     <Grid>
 
         <DockPanel>
+            <wpf:Map x:Name="Map" CredentialsProvider="Aur6GSfS0xzIxxkVCkJzrtu8OAvbVPl8Apfa1qQUvVEqt6Eufxd20mW4nCl0OWWm" ZoomLevel="17" Mode="AerialWithLabels" Center="52.500370, 6.079140">
             
 
-            <wpf:Map x:Name="Map" CredentialsProvider="Aur6GSfS0xzIxxkVCkJzrtu8OAvbVPl8Apfa1qQUvVEqt6Eufxd20mW4nCl0OWWm" ZoomLevel="17" Mode="AerialWithLabels" Center="52.500370, 6.079140">
-                <wpf:Pushpin Location="52.50107401581845, 6.079146517870714" Content="T"/>
-                <wpf:Pushpin Location="52.500923791962734, 6.080712958728256" Content="D"/>
-                <wpf:Pushpin Location="52.50035230568534, 6.078647631938577" Content="X"/>
-                <wpf:Pushpin Location="52.50001920899266, 6.080696842326544" Content="C"/>
-                <wpf:Pushpin Location="52.50069192111236, 6.081522991392552" Content="E"/>
-                <wpf:Pushpin Location="52.50046005144939, 6.082016512539299" Content="F"/>
-                <wpf:Pushpin Location="52.5005220814926, 6.082762179955078" Content="G"/>
-                <wpf:Pushpin Location="52.500682120525745, 6.083167147146193" Content="H"/>
-                <wpf:Pushpin Location="52.499773620755064, 6.078321891079488" Content="Z"/>
-                <wpf:Pushpin Location="52.49916731581769, 6.0789601186802456" Content="S"/>
-                <wpf:Pushpin Location="52.499071882476706, 6.080186480709502" Content="A"/>
-                <wpf:Pushpin Location="52.49956131951883, 6.080314542718152" Content="B"/>
             </wpf:Map>
         </DockPanel>
         

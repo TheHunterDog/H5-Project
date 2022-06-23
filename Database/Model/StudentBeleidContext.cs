@@ -19,6 +19,8 @@ public class StudentBeleidContext : DbContext
   public DbSet<StudentProblem> StudentProblems { get; set; }
   public DbSet<Teacher> Teachers { get; set; }
   public DbSet<Subject> Subjects { get; set; }
+  public DbSet<MapNode> MapNodes { get; set; }
+  
 
     #region Constructors
 
@@ -197,6 +199,18 @@ public class StudentBeleidContext : DbContext
             .Property(s => s.Name).IsRequired();
         modelBuilder.Entity<Subject>()
             .Property(s => s.Description).IsRequired(false);
+        #endregion
+
+        
+        #region MapNodes
+
+        modelBuilder.Entity<MapNode>()
+            .HasKey(s => new {s.Id});
+        modelBuilder.Entity<MapNode>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<MapNode>()
+            .HasIndex(s => s.Letter).IsUnique();
         #endregion
 
     }
