@@ -253,7 +253,7 @@ namespace WPF.Screens
             using (var context = new DatabaseContext())
             {
                 _stagedSubjects.AddRange(
-                    context.Subjects.Where(
+                    context.Subject.Where(
                         s => (
                         s.Name.ToLower().Equals(subjectName) ||
                         s.SubjectCode.ToLower().Equals(subjectName)
@@ -324,7 +324,7 @@ namespace WPF.Screens
 
                     for (int j = 0; j < _stagedSubjects.Count; j++)
                     {
-                        Subject s = context.Subjects.Where(s => s.Id == _stagedSubjects[j].Id).First();
+                        Subject s = context.Subject.Where(s => s.Id == _stagedSubjects[j].Id).First();
                         Trace.WriteLine(s);
                         if (!dbStudent.Subjects.Contains(s))
                         {
