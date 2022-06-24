@@ -59,7 +59,7 @@ namespace WPF.Pages
             DemoteCol.Visibility = Visibility.Collapsed;
             // change the binding to show to teacher name and docentcode
             name.Binding = new Binding("Name");
-            Docentcode.Binding = new Binding("DocentCode");
+            Docentcode.Binding = new Binding("TeacherCode");
         }
 
         /**

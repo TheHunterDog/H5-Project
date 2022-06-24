@@ -33,7 +33,7 @@
             Width="150"
             Grid.Column="1"/>
         <Label
-            Content="DocentCode: "
+            Content="TeacherCode: "
             FontSize="24"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"

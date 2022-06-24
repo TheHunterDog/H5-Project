@@ -19,12 +19,12 @@ public class Teacher : IAuthenticatable
 
     #endregion
 
-    public Teacher(string username = "", string password = "", string name = "", string docentCode = "")
+    public Teacher(string username = "", string password = "", string name = "", string teacherCode = "")
     {
         _username = username;
         _password = password;
         _name = name;
-        DocentCode = docentCode;
+        TeacherCode = teacherCode;
     }
     
     #region Properties
@@ -61,7 +61,7 @@ public class Teacher : IAuthenticatable
     public bool IsAdmin { get; set; }
 
 
-    public string DocentCode { get; init; }
+    public string TeacherCode { get; init; }
 
     #endregion
 }

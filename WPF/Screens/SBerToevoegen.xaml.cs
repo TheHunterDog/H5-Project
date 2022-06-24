@@ -46,7 +46,7 @@ namespace WPF.Screens
                     Teacher teacher = new Teacher
                     {
                         Name = name.Text,
-                        DocentCode = Docentcode.Text,
+                        TeacherCode = Docentcode.Text,
                         Username = name.Text,
                         Password = "geheim lol"
                     };

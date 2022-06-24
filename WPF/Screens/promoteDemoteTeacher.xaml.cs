@@ -48,7 +48,7 @@ namespace WPF.Screens
                     StudentSupervisor studentSupervisor = new StudentSupervisor
                     {
                         Name = SelectedTeacher.Name,
-                        TeacherCode = SelectedTeacher.DocentCode,
+                        TeacherCode = SelectedTeacher.TeacherCode,
                         Password = SelectedTeacher.Password,
                         Username = SelectedTeacher.Username
                     };
@@ -65,7 +65,7 @@ namespace WPF.Screens
                     Teacher teacher = new Teacher
                     {
                         Name = SelectedSber.Name,
-                        DocentCode = SelectedSber.TeacherCode,
+                        TeacherCode = SelectedSber.TeacherCode,
                         Password = SelectedSber.Password,
                         Username = SelectedSber.Username
                     };
