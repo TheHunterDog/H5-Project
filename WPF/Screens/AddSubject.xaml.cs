@@ -90,7 +90,7 @@ namespace WPF.Screens
             using (var context = App.context)
             {
                 // add and save the subject
-                context.Subjects.Add(subject);
+                context.Subject.Add(subject);
                 context.SaveChanges();
             }
         }
