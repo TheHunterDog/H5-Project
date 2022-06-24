@@ -22,7 +22,7 @@ public static class SmartSearch
             s.FirstName.Contains(query) ||
             s.LastName.Contains(query) ||
             s.ClassCode.Contains(query) ||
-            s.Studentnummer.Contains(query) ||
+            s.StudentNumber.Contains(query) ||
             s.MiddleName.Contains(query)).Select(student => student.Id).ToList();
     }
     
@@ -38,7 +38,7 @@ public static class SmartSearch
             s.FirstName.Contains(query) ||
             s.LastName.Contains(query) ||
             s.ClassCode.Contains(query) ||
-            s.Studentnummer.Contains(query) ||
+            s.StudentNumber.Contains(query) ||
             s.MiddleName.Contains(query)).ToList();
     }
 }

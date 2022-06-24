@@ -135,7 +135,7 @@ namespace WPF.Screens
                 // if there is no student do nothing else return the student
                 if (student != null)
                 {
-                    return context.Student.Find(studentId).Studentnummer;
+                    return context.Student.Find(studentId).StudentNumber;
                 }
                 else return "";
             }

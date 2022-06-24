@@ -27,7 +27,7 @@ public partial class DetailscreenProblems : Page
             // add the problems to the table
             StudentProbleen.ItemsSource = problems;
             // set the header to match the student
-            studentproblemsLbl.Content = $"problemen van student: {SelectedStudent.Studentnummer}";
+            studentproblemsLbl.Content = $"problemen van student: {SelectedStudent.StudentNumber}";
         }
     }
 

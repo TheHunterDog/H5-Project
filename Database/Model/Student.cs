@@ -11,7 +11,7 @@ public class Student
     /// <summary>
     /// student has an studentnumber
     /// </summary>
-    private string _studentnummer;
+    private string _studentNumber;
     
     /// <summary>
     /// Student has a firstname
@@ -72,10 +72,10 @@ public class Student
         set => _id = value;
     }
 
-    public string Studentnummer
+    public string StudentNumber
     {
-        get => _studentnummer;
-        set => _studentnummer = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentNumber;
+        set => _studentNumber = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string FirstName
@@ -142,7 +142,7 @@ public class Student
 
     public override string ToString()
     {
-        return $"{Id}, {FirstName}, {LastName}, {Studentnummer}, {StudentSupervisor}";
+        return $"{Id}, {FirstName}, {LastName}, {StudentNumber}, {StudentSupervisor}";
     }
 
     public override bool Equals(object? obj)

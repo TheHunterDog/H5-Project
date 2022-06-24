@@ -25,7 +25,7 @@ namespace WPF.Pages
                 student => student.Id,
                 (problem, student) => new
                 {
-                   StudentNr = student.Studentnummer,
+                   StudentNr = student.StudentNumber,
                    Naam = $"{student.FirstName}{(" " + student.MiddleName).TrimEnd()} {student.LastName}",
                    Description = problem.Description,
                    Notifyer = problem.Teacher.Name,

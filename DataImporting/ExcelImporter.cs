@@ -109,12 +109,12 @@ public class ExcelImporter
                     StudentSupervisor supervisor = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).First();
                     student.StudentSupervisor = supervisor.Id;
                     // get whether there is already a student with the same code in the database
-                    int count = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
+                    int count = context.Student.Where(x => x.StudentNumber.Equals(student.StudentNumber)).Count();
                     // when yes, update student with new name etc.
                     if (count > 0)
                     {
                         // get student from database
-                        var result = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).First();
+                        var result = context.Student.Where(x => x.StudentNumber.Equals(student.StudentNumber)).First();
                         // edit student parameters
                         if (student.FirstName != null) result.FirstName = student.FirstName;
                         if (student.LastName != null) result.LastName = student.LastName;
@@ -281,7 +281,7 @@ public class ExcelImporter
             // create student object
             Student student = new ();
             // fill in info
-            student.Studentnummer = dataStrings[0].Trim();
+            student.StudentNumber = dataStrings[0].Trim();
             student.FirstName = dataStrings[1].Trim();
             student.LastName = dataStrings[2].Trim();
             if (dataStrings.Length == 5)

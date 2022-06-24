@@ -36,7 +36,7 @@ public partial class StudentTable : Page
                         select new
                         {
                             Id = s.Id,
-                            Studentnummer = s.Studentnummer,
+                            Studentnummer = s.StudentNumber,
                             Voornaam = s.FirstName,
                             Tussenvoegsel = s.MiddleName,
                             Achternaam = s.LastName,

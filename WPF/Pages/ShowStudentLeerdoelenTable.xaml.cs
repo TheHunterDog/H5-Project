@@ -24,7 +24,7 @@ public partial class ShowStudentLeerdoelenTable : Page
             // get all leerdoelen and put them in the table
             List<LearningGoal> leerdoelen = context.LearningGoals.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             StudentLeerdoelen.ItemsSource = leerdoelen;
-            studentnrlbl.Content = $"LearningGoals van Student: {SelectedStudent.Studentnummer}";
+            studentnrlbl.Content = $"LearningGoals van Student: {SelectedStudent.StudentNumber}";
         }
     }
 

@@ -55,7 +55,7 @@ public class DatabaseContext : DbContext
             .Property(s => s.Id)
             .ValueGeneratedOnAdd();
         modelBuilder.Entity<Student>()
-            .HasIndex(s => s.Studentnummer).IsUnique();
+            .HasIndex(s => s.StudentNumber).IsUnique();
         modelBuilder.Entity<Student>()
             .Property(s => s.FirstName).IsRequired();
         modelBuilder.Entity<Student>()

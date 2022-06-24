@@ -139,7 +139,7 @@ namespace WPF.Screens
                         _stagedStudents.AddRange(
                             context.Student.Where(
                                 s => (
-                                s.Studentnummer.ToLower().Equals(entries[0]) || 
+                                s.StudentNumber.ToLower().Equals(entries[0]) || 
                                 s.FirstName.ToLower().Equals(entries[0]) ||
                                 s.LastName.ToLower().Equals(entries[0])
                                 ) && !_stagedStudents.Contains(s)

@@ -71,7 +71,7 @@ namespace Database.Migrations
                     b.Property<int>("StudentSupervisorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Studentnummer")
+                    b.Property<string>("StudentNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -88,7 +88,7 @@ namespace Database.Migrations
 
                     b.HasIndex("StudentSupervisorId");
 
-                    b.HasIndex("Studentnummer")
+                    b.HasIndex("StudentNumber")
                         .IsUnique();
 
                     b.ToTable("Student");

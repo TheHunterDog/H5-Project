@@ -30,9 +30,9 @@ namespace WPF.Pages
             using (var context = new DatabaseContext())
             {
                 // fill the labels with the student's info
-                information.Content = $"Informatie student: {selectedStudent.Studentnummer}";
+                information.Content = $"Informatie student: {selectedStudent.StudentNumber}";
                 naam.Content = $"Name: {selectedStudent.FirstName}{(" " + selectedStudent.MiddleName).TrimEnd()} {selectedStudent.LastName}";
-                studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
+                studentnum.Content = $"StudentNumber: {selectedStudent.StudentNumber}";
                 klas.Content = $"Klas: {selectedStudent.ClassCode}";
                 SBer.Content = $"Supervisor: {context.StudentSupervisor.Where(x => x.Id == selectedStudent.StudentSupervisor).First().Name}";
                 isMessagePlanned.Content = meetingIsPlanned();

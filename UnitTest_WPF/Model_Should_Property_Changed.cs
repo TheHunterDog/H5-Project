@@ -122,7 +122,7 @@ public class Model_Should_Property_Changed
         Assert.Throws<ArgumentNullException>(() => _student.LastName = null);
         Assert.Throws<ArgumentNullException>(() => _student.ClassCode = null);
         Assert.Throws<ArgumentNullException>(() => _student.MiddleName = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Studentnummer = null); 
+        Assert.Throws<ArgumentNullException>(() => _student.StudentNumber = null); 
         Assert.Throws<ArgumentNullException>(() => _student.SupervisorMeetings = null); 
         Assert.Throws<ArgumentNullException>(() => _student.StudentProblems = null); 
     }
@@ -135,7 +135,7 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_student.ClassCode,null);
         Assert.AreEqual(_student.MiddleName,null);
         Assert.AreEqual(_student.Id,0);
-        Assert.AreEqual(_student.Studentnummer,null);
+        Assert.AreEqual(_student.StudentNumber,null);
         Assert.AreEqual(_student.Supervisor,null);
         Assert.AreEqual(_student.SupervisorMeetings,null);
         Assert.AreEqual(_student.StudentProblems,null);
@@ -146,7 +146,7 @@ public class Model_Should_Property_Changed
         _student.ClassCode = _klassencode;
         _student.MiddleName = _lastnameprefix;
         _student.Id = _id;
-        _student.Studentnummer = _studentnummer;
+        _student.StudentNumber = _studentnummer;
         _student.Supervisor = _studentSupervisor;        
         _student.SupervisorMeetings = new []{StudentSupervisorMeeting};
         _student.StudentProblems = new []{_studentProblem};
@@ -157,7 +157,7 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_student.ClassCode,_klassencode);
         Assert.AreEqual(_student.MiddleName,_lastnameprefix);
         Assert.AreEqual(_student.Id,_id);
-        Assert.AreEqual(_student.Studentnummer,_studentnummer);
+        Assert.AreEqual(_student.StudentNumber,_studentnummer);
         Assert.AreEqual(_student.Supervisor,_studentSupervisor);
         Assert.AreEqual(_student.StudentSupervisor,_id);
         Assert.AreEqual(_student.SupervisorMeetings,new []{StudentSupervisorMeeting});
