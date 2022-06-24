@@ -89,8 +89,8 @@ namespace WPF.Screens
                 _stagedStudents.AddRange(
                     context.Student.Where(
                         s => (
-                        s.Klasscode.ToLower().Equals(className) || 
-                        (className.Length > 5 && s.Klasscode.ToLower().Contains(className))
+                        s.ClassCode.ToLower().Equals(className) || 
+                        (className.Length > 5 && s.ClassCode.ToLower().Contains(className))
                         ) && !_stagedStudents.Contains(s)
                     ).ToList());
             }
@@ -140,8 +140,8 @@ namespace WPF.Screens
                             context.Student.Where(
                                 s => (
                                 s.Studentnummer.ToLower().Equals(entries[0]) || 
-                                s.Voornaam.ToLower().Equals(entries[0]) ||
-                                s.Achternaam.ToLower().Equals(entries[0])
+                                s.FirstName.ToLower().Equals(entries[0]) ||
+                                s.LastName.ToLower().Equals(entries[0])
                                 ) && !_stagedStudents.Contains(s)
                             ).ToList());
                     }
@@ -152,11 +152,11 @@ namespace WPF.Screens
                         _stagedStudents.AddRange(
                             context.Student.Where(
                                 s => (
-                                s.Voornaam.ToLower().Equals(entries[0]) ||
-                                s.Voornaam.ToLower().Equals(entries[1])
+                                s.FirstName.ToLower().Equals(entries[0]) ||
+                                s.FirstName.ToLower().Equals(entries[1])
                                 ) && (
-                                s.Achternaam.ToLower().Equals(entries[0]) ||
-                                s.Achternaam.ToLower().Equals(entries[1])
+                                s.LastName.ToLower().Equals(entries[0]) ||
+                                s.LastName.ToLower().Equals(entries[1])
                                 ) && !_stagedStudents.Contains(s)
                             ).ToList());
                     }
@@ -167,17 +167,17 @@ namespace WPF.Screens
                         _stagedStudents.AddRange(
                             context.Student.Where(
                                 s => (
-                                s.Voornaam.ToLower().Equals(entries[0]) ||
-                                s.Voornaam.ToLower().Equals(entries[1]) ||
-                                s.Voornaam.ToLower().Equals(entries[2])
+                                s.FirstName.ToLower().Equals(entries[0]) ||
+                                s.FirstName.ToLower().Equals(entries[1]) ||
+                                s.FirstName.ToLower().Equals(entries[2])
                                 ) && (
-                                s.Achternaam.ToLower().Equals(entries[0]) ||
-                                s.Achternaam.ToLower().Equals(entries[1]) ||
-                                s.Achternaam.ToLower().Equals(entries[2])
+                                s.LastName.ToLower().Equals(entries[0]) ||
+                                s.LastName.ToLower().Equals(entries[1]) ||
+                                s.LastName.ToLower().Equals(entries[2])
                                 ) && (
-                                s.Tussenvoegsel.ToLower().Equals(entries[0]) ||
-                                s.Tussenvoegsel.ToLower().Equals(entries[1]) ||
-                                s.Tussenvoegsel.ToLower().Equals(entries[2])
+                                s.MiddleName.ToLower().Equals(entries[0]) ||
+                                s.MiddleName.ToLower().Equals(entries[1]) ||
+                                s.MiddleName.ToLower().Equals(entries[2])
                                 ) && !_stagedStudents.Contains(s)
                             ).ToList());
                     }

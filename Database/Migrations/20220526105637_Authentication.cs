@@ -94,7 +94,7 @@ namespace Database.Migrations
 
             migrationBuilder.InsertData(
                 table: "Student",
-                columns: new[] { "Id", "Achternaam", "Klasscode", "StudentbegeleiderId", "Studentnummer", "Tussenvoegsel", "Voornaam" },
+                columns: new[] { "Id", "LastName", "ClassCode", "StudentSupervisorId", "Studentnummer", "MiddleName", "FirstName" },
                 values: new object[,]
                 {
                     { 1147576, "Jaap", "OOSDDH2023", 0, "s1147576", "Jappie", "Jan" },

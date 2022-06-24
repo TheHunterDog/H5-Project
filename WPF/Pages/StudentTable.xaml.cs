@@ -37,11 +37,11 @@ public partial class StudentTable : Page
                         {
                             Id = s.Id,
                             Studentnummer = s.Studentnummer,
-                            Voornaam = s.Voornaam,
-                            Tussenvoegsel = s.Tussenvoegsel,
-                            Achternaam = s.Achternaam,
-                            Klasscode = s.Klasscode,
-                            StudentbegeleiderId = s.StudentbegeleiderId,
+                            Voornaam = s.FirstName,
+                            Tussenvoegsel = s.MiddleName,
+                            Achternaam = s.LastName,
+                            Klasscode = s.ClassCode,
+                            StudentbegeleiderId = s.StudentSupervisorId,
                             LaatstGesproken = (t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate)
                         };
             var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);

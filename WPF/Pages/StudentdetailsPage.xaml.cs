@@ -31,10 +31,10 @@ namespace WPF.Pages
             {
                 // fill the labels with the student's info
                 information.Content = $"Informatie student: {selectedStudent.Studentnummer}";
-                naam.Content = $"Name: {selectedStudent.Voornaam}{(" " + selectedStudent.Tussenvoegsel).TrimEnd()} {selectedStudent.Achternaam}";
+                naam.Content = $"Name: {selectedStudent.FirstName}{(" " + selectedStudent.MiddleName).TrimEnd()} {selectedStudent.LastName}";
                 studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
-                klas.Content = $"Klas: {selectedStudent.Klasscode}";
-                SBer.Content = $"Studentbegeleider: {context.StudentSupervisor.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Name}";
+                klas.Content = $"Klas: {selectedStudent.ClassCode}";
+                SBer.Content = $"Supervisor: {context.StudentSupervisor.Where(x => x.Id == selectedStudent.StudentSupervisorId).First().Name}";
                 isMessagePlanned.Content = meetingIsPlanned();
                 lastMeeting.Content = lastMeetingCheck();
             }

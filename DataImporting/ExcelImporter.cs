@@ -107,7 +107,7 @@ public class ExcelImporter
                         else return;
                     }
                     StudentSupervisor supervisor = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).First();
-                    student.StudentbegeleiderId = supervisor.Id;
+                    student.StudentSupervisorId = supervisor.Id;
                     // get whether there is already a student with the same code in the database
                     int count = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
                     // when yes, update student with new name etc.
@@ -116,10 +116,10 @@ public class ExcelImporter
                         // get student from database
                         var result = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).First();
                         // edit student parameters
-                        if (student.Voornaam != null) result.Voornaam = student.Voornaam;
-                        if (student.Achternaam != null) result.Achternaam = student.Achternaam;
-                        if (student.Tussenvoegsel != null) result.Tussenvoegsel = student.Tussenvoegsel;
-                        if (student.Klasscode != null) result.Klasscode = student.Klasscode;
+                        if (student.FirstName != null) result.FirstName = student.FirstName;
+                        if (student.LastName != null) result.LastName = student.LastName;
+                        if (student.MiddleName != null) result.MiddleName = student.MiddleName;
+                        if (student.ClassCode != null) result.ClassCode = student.ClassCode;
                     }
                     // when no, add the student to the database
                     else
@@ -282,16 +282,16 @@ public class ExcelImporter
             Student student = new ();
             // fill in info
             student.Studentnummer = dataStrings[0].Trim();
-            student.Voornaam = dataStrings[1].Trim();
-            student.Achternaam = dataStrings[2].Trim();
+            student.FirstName = dataStrings[1].Trim();
+            student.LastName = dataStrings[2].Trim();
             if (dataStrings.Length == 5)
             {
-                student.Klasscode = dataStrings[4].Trim();
+                student.ClassCode = dataStrings[4].Trim();
             }
             else if (dataStrings.Length == 6)
             {
-                student.Tussenvoegsel = dataStrings[3].Trim();
-                student.Klasscode = dataStrings[5].Trim();
+                student.MiddleName = dataStrings[3].Trim();
+                student.ClassCode = dataStrings[5].Trim();
 
             }
             // return student

@@ -118,49 +118,49 @@ public class Model_Should_Property_Changed
     [Test]
     public void Student_Change_Property_Changed_Should_Throw_Exception_When_NULL()
     {
-        Assert.Throws<ArgumentNullException>(() => _student.Voornaam = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Achternaam = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Klasscode = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Tussenvoegsel = null);
+        Assert.Throws<ArgumentNullException>(() => _student.FirstName = null);
+        Assert.Throws<ArgumentNullException>(() => _student.LastName = null);
+        Assert.Throws<ArgumentNullException>(() => _student.ClassCode = null);
+        Assert.Throws<ArgumentNullException>(() => _student.MiddleName = null);
         Assert.Throws<ArgumentNullException>(() => _student.Studentnummer = null); 
-        Assert.Throws<ArgumentNullException>(() => _student.StudentBegeleiderGesprekken = null); 
+        Assert.Throws<ArgumentNullException>(() => _student.SupervisorMeetings = null); 
         Assert.Throws<ArgumentNullException>(() => _student.StudentProblems = null); 
     }
 
     [Test]
     public void Student_Change_Property_changed_Should_Change()
     {
-        Assert.AreEqual(_student.Achternaam,null);
-        Assert.AreEqual(_student.Voornaam,null);
-        Assert.AreEqual(_student.Klasscode,null);
-        Assert.AreEqual(_student.Tussenvoegsel,null);
+        Assert.AreEqual(_student.LastName,null);
+        Assert.AreEqual(_student.FirstName,null);
+        Assert.AreEqual(_student.ClassCode,null);
+        Assert.AreEqual(_student.MiddleName,null);
         Assert.AreEqual(_student.Id,0);
         Assert.AreEqual(_student.Studentnummer,null);
-        Assert.AreEqual(_student.Studentbegeleider,null);
-        Assert.AreEqual(_student.StudentBegeleiderGesprekken,null);
+        Assert.AreEqual(_student.Supervisor,null);
+        Assert.AreEqual(_student.SupervisorMeetings,null);
         Assert.AreEqual(_student.StudentProblems,null);
-        Assert.AreEqual(_student.StudentbegeleiderId,0);
+        Assert.AreEqual(_student.StudentSupervisorId,0);
 
-        _student.Achternaam = _lastname;
-        _student.Voornaam = _firstname;
-        _student.Klasscode = _klassencode;
-        _student.Tussenvoegsel = _lastnameprefix;
+        _student.LastName = _lastname;
+        _student.FirstName = _firstname;
+        _student.ClassCode = _klassencode;
+        _student.MiddleName = _lastnameprefix;
         _student.Id = _id;
         _student.Studentnummer = _studentnummer;
-        _student.Studentbegeleider = _studentSupervisor;        
-        _student.StudentBegeleiderGesprekken = new []{StudentSupervisorMeeting};
+        _student.Supervisor = _studentSupervisor;        
+        _student.SupervisorMeetings = new []{StudentSupervisorMeeting};
         _student.StudentProblems = new []{_studentProblem};
-        _student.StudentbegeleiderId = _id;
+        _student.StudentSupervisorId = _id;
         
-        Assert.AreEqual(_student.Achternaam,_lastname);
-        Assert.AreEqual(_student.Voornaam,_firstname);
-        Assert.AreEqual(_student.Klasscode,_klassencode);
-        Assert.AreEqual(_student.Tussenvoegsel,_lastnameprefix);
+        Assert.AreEqual(_student.LastName,_lastname);
+        Assert.AreEqual(_student.FirstName,_firstname);
+        Assert.AreEqual(_student.ClassCode,_klassencode);
+        Assert.AreEqual(_student.MiddleName,_lastnameprefix);
         Assert.AreEqual(_student.Id,_id);
         Assert.AreEqual(_student.Studentnummer,_studentnummer);
-        Assert.AreEqual(_student.Studentbegeleider,_studentSupervisor);
-        Assert.AreEqual(_student.StudentbegeleiderId,_id);
-        Assert.AreEqual(_student.StudentBegeleiderGesprekken,new []{StudentSupervisorMeeting});
+        Assert.AreEqual(_student.Supervisor,_studentSupervisor);
+        Assert.AreEqual(_student.StudentSupervisorId,_id);
+        Assert.AreEqual(_student.SupervisorMeetings,new []{StudentSupervisorMeeting});
         Assert.AreEqual(_student.StudentProblems, new []{_studentProblem});
     }
 

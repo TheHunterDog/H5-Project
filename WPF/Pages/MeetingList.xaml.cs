@@ -26,7 +26,7 @@ public partial class MeetingList : Page
                     StudentId = begeleider.StudentId,
                     Student = student,
                     Opmerkingen= begeleider.Comments,
-                    Voornaam = student.Voornaam
+                    Voornaam = student.FirstName
                 }).ToList();
             // add the list to the table
             MeetingTable.ItemsSource = lijst;

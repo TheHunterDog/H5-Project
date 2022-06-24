@@ -32,31 +32,31 @@ namespace Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Achternaam")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Klasscode")
+                    b.Property<string>("ClassCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentbegeleiderId")
+                    b.Property<int>("StudentSupervisorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Studentnummer")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Tussenvoegsel")
+                    b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Voornaam")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentbegeleiderId");
+                    b.HasIndex("StudentSupervisorId");
 
                     b.HasIndex("Studentnummer")
                         .IsUnique();
@@ -178,12 +178,12 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
-                    b.HasOne("Database.Model.StudentSupervisor", "Studentbegeleider")
+                    b.HasOne("Database.Model.StudentSupervisor", "Supervisor")
                         .WithMany("Student")
-                        .HasForeignKey("StudentbegeleiderId")
+                        .HasForeignKey("StudentSupervisorId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Studentbegeleider");
+                    b.Navigation("Supervisor");
                 });
 
             modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>

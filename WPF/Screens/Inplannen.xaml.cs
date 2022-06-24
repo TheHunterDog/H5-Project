@@ -47,7 +47,7 @@ namespace WPF.Screens
                 StudentSupervisorMeeting meeting = new StudentSupervisorMeeting
                 {
                     StudentId = selectedstudent.Id,
-                    StudentSupervisorId = selectedstudent.StudentbegeleiderId,
+                    StudentSupervisorId = selectedstudent.StudentSupervisorId,
                     MeetingDate = datumAfspraak,
                     Comments = $"{opmerkingen.Text}",
                     Done = false

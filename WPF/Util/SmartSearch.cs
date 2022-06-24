@@ -19,11 +19,11 @@ public static class SmartSearch
     public static List<int> SmartSearchStudentID(string query, DatabaseContext context)
     {
         return context.Student.Where(s =>
-            s.Voornaam.Contains(query) ||
-            s.Achternaam.Contains(query) ||
-            s.Klasscode.Contains(query) ||
+            s.FirstName.Contains(query) ||
+            s.LastName.Contains(query) ||
+            s.ClassCode.Contains(query) ||
             s.Studentnummer.Contains(query) ||
-            s.Tussenvoegsel.Contains(query)).Select(student => student.Id).ToList();
+            s.MiddleName.Contains(query)).Select(student => student.Id).ToList();
     }
     
     /// <summary>
@@ -35,10 +35,10 @@ public static class SmartSearch
     public static List<Student> SmartSearchStudent(string query, DatabaseContext context)
     {
         return context.Student.Where(s =>
-            s.Voornaam.Contains(query) ||
-            s.Achternaam.Contains(query) ||
-            s.Klasscode.Contains(query) ||
+            s.FirstName.Contains(query) ||
+            s.LastName.Contains(query) ||
+            s.ClassCode.Contains(query) ||
             s.Studentnummer.Contains(query) ||
-            s.Tussenvoegsel.Contains(query)).ToList();
+            s.MiddleName.Contains(query)).ToList();
     }
 }

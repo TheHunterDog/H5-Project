@@ -47,7 +47,7 @@
                 <DataGridTextColumn Binding="{Binding Tussenvoegsel}" Header="Midname" />
                 <DataGridTextColumn Binding="{Binding Achternaam}" Header="Lastname" />
                 <DataGridTextColumn Binding="{Binding Klasscode}" Header="Classname" />
-                <DataGridTextColumn Binding="{Binding StudentbegeleiderId}" Header="Studentbegeleider" />
+                <DataGridTextColumn Binding="{Binding StudentbegeleiderId}" Header="Supervisor" />
             </DataGrid.Columns>
         </DataGrid>
 

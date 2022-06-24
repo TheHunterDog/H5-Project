@@ -16,39 +16,39 @@ public class Student
     /// <summary>
     /// Student has a firstname
     /// </summary>
-    private string _voornaam;
+    private string _firstName;
     
     /// <summary>
     /// student might have a surname prefix
     /// </summary>
-    private string _tussenvoegsel;
+    private string _middleName;
     
     /// <summary>
     /// Student has a lastname
     /// </summary>
-    private string _achternaam;
+    private string _lastName;
     
     /// <summary>
     /// student has a class code
     /// </summary>
-    private string _klasscode;
+    private string _classCode;
     
     /// <summary>
-    /// Student has a Studentbegeleider forgein-key
+    /// Student has a Supervisor forgein-key
     /// </summary>
-    private int _studentbegeleiderId;
+    private int _studentSupervisorId;
     /// <summary>
-    /// Student has a <see cref="Studentbegeleider"/>
+    /// Student has a <see cref="Supervisor"/>
     /// </summary>
     private StudentSupervisor _studentSupervisor;
     
     /// <summary>
-    /// A student belongs to many or zero <see cref="StudentBegeleiderGesprekken"/>
+    /// A student belongs to many or zero <see cref="SupervisorMeetings"/>
     /// </summary>
-    private IEnumerable<StudentSupervisorMeeting> _studentBegeleiderGesprekken;
+    private IEnumerable<StudentSupervisorMeeting> _supervisorMeetings;
 
 
-    private IEnumerable<LearningGoal> _leerdoelen;
+    private IEnumerable<LearningGoal> _learningGoals;
 
     
     /// <summary>
@@ -78,46 +78,46 @@ public class Student
         set => _studentnummer = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public string Voornaam
+    public string FirstName
     {
-        get => _voornaam;
-        set => _voornaam = value ?? throw new ArgumentNullException(nameof(value));
+        get => _firstName;
+        set => _firstName = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public string Tussenvoegsel
+    public string? MiddleName
     {
-        get => _tussenvoegsel;
-        set => _tussenvoegsel = value ?? throw new ArgumentNullException(nameof(value));
+        get => _middleName;
+        set => _middleName = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public string Achternaam
+    public string LastName
     {
-        get => _achternaam;
-        set => _achternaam = value ?? throw new ArgumentNullException(nameof(value));
+        get => _lastName;
+        set => _lastName = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public string Klasscode
+    public string ClassCode
     {
-        get => _klasscode;
-        set => _klasscode = value ?? throw new ArgumentNullException(nameof(value));
+        get => _classCode;
+        set => _classCode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public virtual StudentSupervisor Studentbegeleider
+    public virtual StudentSupervisor Supervisor
     {
         get => _studentSupervisor;
         set => _studentSupervisor = value;
     }
 
-    public int StudentbegeleiderId
+    public int StudentSupervisorId
     {
-        get => _studentbegeleiderId;
-        set => _studentbegeleiderId = value;
+        get => _studentSupervisorId;
+        set => _studentSupervisorId = value;
     }
     
-    public virtual IEnumerable<StudentSupervisorMeeting> StudentBegeleiderGesprekken
+    public virtual IEnumerable<StudentSupervisorMeeting> SupervisorMeetings
     {
-        get => _studentBegeleiderGesprekken;
-        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
+        get => _supervisorMeetings;
+        set => _supervisorMeetings = value ?? throw new ArgumentNullException(nameof(value));
     }
     
     public virtual IEnumerable<StudentProblem> StudentProblems
@@ -132,10 +132,10 @@ public class Student
         set => _studentSupervisor = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public virtual IEnumerable<LearningGoal> Leerdoelen
+    public virtual IEnumerable<LearningGoal> LearningGoals
     {
-        get => _leerdoelen;
-        set => _leerdoelen = value ?? throw new ArgumentNullException(nameof(value));
+        get => _learningGoals;
+        set => _learningGoals = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public ICollection<Subject> Subjects
@@ -148,7 +148,7 @@ public class Student
 
     public override string ToString()
     {
-        return $"{Id}, {Voornaam}, {Achternaam}, {Studentnummer}, {StudentSupervisor}";
+        return $"{Id}, {FirstName}, {LastName}, {Studentnummer}, {StudentSupervisor}";
     }
 
     public override bool Equals(object? obj)

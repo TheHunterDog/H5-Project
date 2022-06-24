@@ -57,18 +57,18 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Student>()
             .HasIndex(s => s.Studentnummer).IsUnique();
         modelBuilder.Entity<Student>()
-            .Property(s => s.Voornaam).IsRequired();
+            .Property(s => s.FirstName).IsRequired();
         modelBuilder.Entity<Student>()
-            .Property(s => s.Tussenvoegsel).IsRequired(false);
+            .Property(s => s.MiddleName).IsRequired(false);
         modelBuilder.Entity<Student>()
-            .Property(s => s.Achternaam).IsRequired();
+            .Property(s => s.LastName).IsRequired();
         modelBuilder.Entity<Student>()
-            .Property(s => s.Klasscode).IsRequired();
+            .Property(s => s.ClassCode).IsRequired();
         
         modelBuilder.Entity<Student>()
-            .HasOne(s => s.Studentbegeleider)
+            .HasOne(s => s.Supervisor)
             .WithMany(sb => sb.Students)
-            .HasForeignKey(s => s.StudentbegeleiderId)
+            .HasForeignKey(s => s.StudentSupervisorId)
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(false);
 
@@ -101,7 +101,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<StudentSupervisorMeeting>()
             .HasOne(sbg => sbg.Student)
-            .WithMany(s => s.StudentBegeleiderGesprekken)
+            .WithMany(s => s.SupervisorMeetings)
             .HasForeignKey(sbg => sbg.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
 
@@ -124,15 +124,15 @@ public class DatabaseContext : DbContext
            .HasIndex(s => s.Description).IsUnique();
 
         modelBuilder.Entity<Student>()
-           .HasOne(s => s.Studentbegeleider)
+           .HasOne(s => s.Supervisor)
            .WithMany(sb => sb.Students)
-           .HasForeignKey(s => s.StudentbegeleiderId)
+           .HasForeignKey(s => s.StudentSupervisorId)
            .OnDelete(DeleteBehavior.NoAction)
            .IsRequired(false);
 
         modelBuilder.Entity<LearningGoal>()
            .HasOne(s => s.Student)
-           .WithMany(sb => sb.Leerdoelen)
+           .WithMany(sb => sb.LearningGoals)
            .HasForeignKey(s => s.StudentId)
            .OnDelete(DeleteBehavior.NoAction)
            .IsRequired(false);

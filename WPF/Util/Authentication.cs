@@ -13,6 +13,8 @@ namespace WPF.Util;
 public class Authentication
 {
     public static readonly string Salt = "APP";
+
+
     public static bool CheckAdmin<T>(T user) where T :IAuthenticatable
     {
         return user.IsAdmin;
