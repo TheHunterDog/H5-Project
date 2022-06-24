@@ -139,7 +139,7 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_student.Supervisor,null);
         Assert.AreEqual(_student.SupervisorMeetings,null);
         Assert.AreEqual(_student.StudentProblems,null);
-        Assert.AreEqual(_student.StudentSupervisorId,0);
+        Assert.AreEqual(_student.StudentSupervisor,0);
 
         _student.LastName = _lastname;
         _student.FirstName = _firstname;
@@ -150,7 +150,7 @@ public class Model_Should_Property_Changed
         _student.Supervisor = _studentSupervisor;        
         _student.SupervisorMeetings = new []{StudentSupervisorMeeting};
         _student.StudentProblems = new []{_studentProblem};
-        _student.StudentSupervisorId = _id;
+        _student.StudentSupervisor = _id;
         
         Assert.AreEqual(_student.LastName,_lastname);
         Assert.AreEqual(_student.FirstName,_firstname);
@@ -159,7 +159,7 @@ public class Model_Should_Property_Changed
         Assert.AreEqual(_student.Id,_id);
         Assert.AreEqual(_student.Studentnummer,_studentnummer);
         Assert.AreEqual(_student.Supervisor,_studentSupervisor);
-        Assert.AreEqual(_student.StudentSupervisorId,_id);
+        Assert.AreEqual(_student.StudentSupervisor,_id);
         Assert.AreEqual(_student.SupervisorMeetings,new []{StudentSupervisorMeeting});
         Assert.AreEqual(_student.StudentProblems, new []{_studentProblem});
     }

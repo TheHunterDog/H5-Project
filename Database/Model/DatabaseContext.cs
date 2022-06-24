@@ -68,7 +68,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Student>()
             .HasOne(s => s.Supervisor)
             .WithMany(sb => sb.Students)
-            .HasForeignKey(s => s.StudentSupervisorId)
+            .HasForeignKey(s => s.StudentSupervisor)
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(false);
 
@@ -126,7 +126,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Student>()
            .HasOne(s => s.Supervisor)
            .WithMany(sb => sb.Students)
-           .HasForeignKey(s => s.StudentSupervisorId)
+           .HasForeignKey(s => s.StudentSupervisor)
            .OnDelete(DeleteBehavior.NoAction)
            .IsRequired(false);
 

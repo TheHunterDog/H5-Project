@@ -107,7 +107,7 @@ public class ExcelImporter
                         else return;
                     }
                     StudentSupervisor supervisor = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).First();
-                    student.StudentSupervisorId = supervisor.Id;
+                    student.StudentSupervisor = supervisor.Id;
                     // get whether there is already a student with the same code in the database
                     int count = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
                     // when yes, update student with new name etc.

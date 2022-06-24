@@ -41,7 +41,7 @@ public partial class StudentTable : Page
                             Tussenvoegsel = s.MiddleName,
                             Achternaam = s.LastName,
                             Klasscode = s.ClassCode,
-                            StudentbegeleiderId = s.StudentSupervisorId,
+                            StudentbegeleiderId = s.StudentSupervisor,
                             LaatstGesproken = (t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate)
                         };
             var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);

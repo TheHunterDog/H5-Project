@@ -108,7 +108,7 @@ public class Student
         set => _studentSupervisor = value;
     }
 
-    public int StudentSupervisorId
+    public int StudentSupervisor
     {
         get => _studentSupervisorId;
         set => _studentSupervisorId = value;
@@ -124,12 +124,6 @@ public class Student
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public virtual StudentSupervisor StudentSupervisor
-    {
-        get => _studentSupervisor;
-        set => _studentSupervisor = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public virtual IEnumerable<LearningGoal> LearningGoals
