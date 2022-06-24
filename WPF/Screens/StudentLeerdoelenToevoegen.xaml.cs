@@ -26,7 +26,7 @@ namespace WPF.Screens
         /// <param name="e"></param>
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 LearningGoal learningGoal = new LearningGoal
                 {

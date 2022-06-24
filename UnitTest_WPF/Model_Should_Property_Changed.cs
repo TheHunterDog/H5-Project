@@ -26,7 +26,7 @@ public class Model_Should_Property_Changed
     #region studentbegeleider
 
     private StudentSupervisor _studentSupervisor = new StudentSupervisor();
-    private string _name = "randy bonenwaag";
+    private string? _name = "randy bonenwaag";
     private string _docentcode = "DOC345563";
 
     #endregion
@@ -67,7 +67,7 @@ public class Model_Should_Property_Changed
 
     #endregion
 
-    #region StudentSupervisorMeetings
+    #region StudentSupervisorMeeting
 
     private StudentSupervisorMeeting _studentSupervisorMeeting = new StudentSupervisorMeeting();
     private bool _completed = true;

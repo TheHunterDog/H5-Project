@@ -6,23 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database.Model;
 
-public class StudentBeleidContext : DbContext
+public class DatabaseContext : DbContext
 {
 
   /// <summary>
   /// Dbsets required for OnModelCreating
   /// </summary>
-  public DbSet<Student> Students { get; set; }
+  public DbSet<Student> Student { get; set; }
   public DbSet<LearningGoal> LearningGoals { get; set; }
-  public DbSet<StudentSupervisor> StudentSupervisors { get; set; }
-  public DbSet<StudentSupervisorMeeting> StudentSupervisorMeetings { get; set; }
-  public DbSet<StudentProblem> StudentProblems { get; set; }
-  public DbSet<Teacher> Teachers { get; set; }
-  public DbSet<Subject> Subjects { get; set; }
+  public DbSet<StudentSupervisor> StudentSupervisor { get; set; }
+  public DbSet<StudentSupervisorMeeting> StudentSupervisorMeeting { get; set; }
+  public DbSet<StudentProblem> StudentProblem { get; set; }
+  public DbSet<Teacher> Teacher { get; set; }
+  public DbSet<Subject> Subject { get; set; }
 
     #region Constructors
 
-    public StudentBeleidContext()
+    public DatabaseContext()
     {
 
     }

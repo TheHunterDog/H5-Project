@@ -16,9 +16,9 @@ public static class SmartSearch
     /// <param name="query"></param>
     /// <param name="context"></param>
     /// <returns>int</returns>
-    public static List<int> SmartSearchStudentID(string query, StudentBeleidContext context)
+    public static List<int> SmartSearchStudentID(string query, DatabaseContext context)
     {
-        return context.Students.Where(s =>
+        return context.Student.Where(s =>
             s.Voornaam.Contains(query) ||
             s.Achternaam.Contains(query) ||
             s.Klasscode.Contains(query) ||
@@ -32,9 +32,9 @@ public static class SmartSearch
     /// <param name="query"></param>
     /// <param name="context"></param>
     /// <returns><see cref="Student"/></returns>
-    public static List<Student> SmartSearchStudent(string query, StudentBeleidContext context)
+    public static List<Student> SmartSearchStudent(string query, DatabaseContext context)
     {
-        return context.Students.Where(s =>
+        return context.Student.Where(s =>
             s.Voornaam.Contains(query) ||
             s.Achternaam.Contains(query) ||
             s.Klasscode.Contains(query) ||

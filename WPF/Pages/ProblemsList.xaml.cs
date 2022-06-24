@@ -16,11 +16,11 @@ namespace WPF.Pages
         public ProblemsList()
         {
             InitializeComponent();
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // join the tables so all the information van be shown in the grid
-                var lijst = context.StudentProblems.Join(
-                context.Students,
+                var lijst = context.StudentProblem.Join(
+                context.Student,
                 problem => problem.StudentId,
                 student => student.Id,
                 (problem, student) => new

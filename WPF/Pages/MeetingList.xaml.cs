@@ -13,11 +13,11 @@ public partial class MeetingList : Page
     public MeetingList()
     {
         InitializeComponent();
-        using (StudentBeleidContext context = new StudentBeleidContext())
+        using (DatabaseContext context = new DatabaseContext())
         {
             // join the tables so all the information van be shown in the grid
-            var lijst = context.StudentSupervisorMeetings.Where(x => x.StudentSupervisorId == 81).Join(
-                context.Students,
+            var lijst = context.StudentSupervisorMeeting.Where(x => x.StudentSupervisorId == 81).Join(
+                context.Student,
                 begeleider => begeleider.StudentId, 
                 student => student.Id, 
                 (begeleider, student) => new

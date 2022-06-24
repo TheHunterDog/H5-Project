@@ -21,7 +21,7 @@ namespace Database.Migrations
                     table.ForeignKey(
                         name: "FK_StudentSubject_Students_StudentsId",
                         column: x => x.StudentsId,
-                        principalTable: "Students",
+                        principalTable: "Student",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

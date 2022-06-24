@@ -23,7 +23,7 @@ namespace Database.Migrations
                     table.ForeignKey(
                         name: "FK_Leerdoelen_Students_StudentId",
                         column: x => x.StudentId,
-                        principalTable: "Students",
+                        principalTable: "Student",
                         principalColumn: "Id");
                 });
             
@@ -33,18 +33,18 @@ namespace Database.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Students_StudentBegeleiders_StudentBegeleiderId",
-                table: "Students");
+                table: "Student");
 
             migrationBuilder.DropTable(
                 name: "LearningGoals");
 
             migrationBuilder.DropIndex(
                 name: "IX_Students_StudentBegeleiderId",
-                table: "Students");
+                table: "Student");
 
             migrationBuilder.DropColumn(
                 name: "StudentBegeleiderId",
-                table: "Students");
+                table: "Student");
         }
     }
 }

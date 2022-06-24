@@ -23,11 +23,11 @@ namespace WPF.Pages
         {
             InitializeComponent();
 
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // make a coaches and teachers list
-                coaches = context.StudentSupervisors.ToList();
-                teachers = context.Teachers.ToList();
+                coaches = context.StudentSupervisor.ToList();
+                teachers = context.Teacher.ToList();
             }
             // set the table to display coaches at default
             CoachesList.ItemsSource = coaches;

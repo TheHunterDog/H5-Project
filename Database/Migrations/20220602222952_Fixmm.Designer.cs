@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Database.Migrations
 {
-    [DbContext(typeof(StudentBeleidContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20220602222952_Fixmm")]
     partial class Fixmm
     {
@@ -66,7 +66,7 @@ namespace Database.Migrations
                     b.HasIndex("Studentnummer")
                         .IsUnique();
 
-                    b.ToTable("Students");
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
@@ -90,10 +90,10 @@ namespace Database.Migrations
                     b.HasIndex("TeacherCode")
                         .IsUnique();
 
-                    b.ToTable("StudentSupervisors");
+                    b.ToTable("StudentSupervisor");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentSupervisorMeetings", b =>
+            modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>
                 {
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -115,7 +115,7 @@ namespace Database.Migrations
 
                     b.HasIndex("StudentBegeleiderId");
 
-                    b.ToTable("StudentSupervisorMeetings");
+                    b.ToTable("StudentSupervisorMeeting");
                 });
 
             modelBuilder.Entity("Database.Model.StudentProblem", b =>
@@ -145,7 +145,7 @@ namespace Database.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("StudentProblems");
+                    b.ToTable("StudentProblem");
                 });
 
             modelBuilder.Entity("Database.Model.Subject", b =>
@@ -193,7 +193,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teacher");
                 });
 
             modelBuilder.Entity("StudentSubject", b =>
@@ -220,7 +220,7 @@ namespace Database.Migrations
                         .IsRequired();
 
                     b.HasOne("Database.Model.StudentSupervisor", "Studentbegeleider")
-                        .WithMany("Students")
+                        .WithMany("Student")
                         .HasForeignKey("StudentbegeleiderId")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -229,16 +229,16 @@ namespace Database.Migrations
                     b.Navigation("Studentbegeleider");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentSupervisorMeetings", b =>
+            modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>
                 {
                     b.HasOne("Database.Model.StudentSupervisor", "StudentSupervisor")
-                        .WithMany("StudentSupervisorMeetings")
+                        .WithMany("StudentSupervisorMeeting")
                         .HasForeignKey("StudentBegeleiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("StudentSupervisorMeetings")
+                        .WithMany("StudentSupervisorMeeting")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -251,13 +251,13 @@ namespace Database.Migrations
             modelBuilder.Entity("Database.Model.StudentProblem", b =>
                 {
                     b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("StudentProblems")
+                        .WithMany("StudentProblem")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Database.Model.Teacher", "Teacher")
-                        .WithMany("StudentProblems")
+                        .WithMany("StudentProblem")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -284,21 +284,21 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
-                    b.Navigation("StudentSupervisorMeetings");
+                    b.Navigation("StudentSupervisorMeeting");
 
-                    b.Navigation("StudentProblems");
+                    b.Navigation("StudentProblem");
                 });
 
             modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
                 {
-                    b.Navigation("StudentSupervisorMeetings");
+                    b.Navigation("StudentSupervisorMeeting");
 
-                    b.Navigation("Students");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Database.Model.Teacher", b =>
                 {
-                    b.Navigation("StudentProblems");
+                    b.Navigation("StudentProblem");
                 });
 #pragma warning restore 612, 618
         }

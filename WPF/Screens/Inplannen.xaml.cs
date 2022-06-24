@@ -41,7 +41,7 @@ namespace WPF.Screens
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
 
             // specify the database
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // make the meeting
                 StudentSupervisorMeeting meeting = new StudentSupervisorMeeting
@@ -54,7 +54,7 @@ namespace WPF.Screens
                 };
 
                 // check if the meeting already exists
-                if (context.StudentSupervisorMeetings.Any(a => a.MeetingDate == datumAfspraak && a.StudentId == meeting.StudentId))
+                if (context.StudentSupervisorMeeting.Any(a => a.MeetingDate == datumAfspraak && a.StudentId == meeting.StudentId))
                 {
                     MessageBox.Show("Afspraak bestaat al!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -62,7 +62,7 @@ namespace WPF.Screens
                 //send a mail to the student
                 send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.Studentnummer);
                 // save and add the meeting to the database
-                context.StudentSupervisorMeetings.Add(meeting);
+                context.StudentSupervisorMeeting.Add(meeting);
                 context.SaveChanges();
             }
             Close();

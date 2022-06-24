@@ -23,11 +23,11 @@ namespace WPF.Screens
         {
             
             InitializeComponent();
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 //create a teacher and coaches list
-                coaches = context.StudentSupervisors.ToList();
-                teachers = context.Teachers.ToList();
+                coaches = context.StudentSupervisor.ToList();
+                teachers = context.Teacher.ToList();
             }
             SelectedSber = sber;
             SelectedTeacher = teacher;
@@ -42,7 +42,7 @@ namespace WPF.Screens
             // check to promote or demote
             if (promotion)
             {
-                using (var context = new StudentBeleidContext())
+                using (var context = new DatabaseContext())
                 {
                     // create new sber
                     StudentSupervisor studentSupervisor = new StudentSupervisor
@@ -53,13 +53,13 @@ namespace WPF.Screens
                         Username = SelectedTeacher.Username
                     };
                     // add sber to database and save
-                    context.StudentSupervisors.Add(studentSupervisor);
+                    context.StudentSupervisor.Add(studentSupervisor);
                     context.SaveChanges();
                 }
             }
             else
             {
-                using (var context = new StudentBeleidContext())
+                using (var context = new DatabaseContext())
                 {
                     // create new teacher
                     Teacher teacher = new Teacher
@@ -70,7 +70,7 @@ namespace WPF.Screens
                         Username = SelectedSber.Username
                     };
                     // add teacher to database and save
-                    context.Teachers.Add(teacher);
+                    context.Teacher.Add(teacher);
                     context.SaveChanges();
                 }
             }

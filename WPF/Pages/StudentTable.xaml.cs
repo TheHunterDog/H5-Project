@@ -25,11 +25,11 @@ public partial class StudentTable : Page
     {
         InitializeComponent();
 
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // a query to show to last seen date in the datagrid
-            var query = from s in context.Students
-                        join g in context.StudentSupervisorMeetings
+            var query = from s in context.Student
+                        join g in context.StudentSupervisorMeeting
                         on s.Id equals g.StudentId
                         into studentgesprekGroup
                         from t in studentgesprekGroup.DefaultIfEmpty()
@@ -61,10 +61,10 @@ public partial class StudentTable : Page
         // get the studentID from the selected item 
         var SelectedStudentID = int.Parse(SelectedItem.GetType().GetProperty("Id").GetValue(SelectedItem).ToString());
         Student selectedStudent;
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // get the student from the selected ID
-            selectedStudent = context.Students.Where(x => x.Id == SelectedStudentID).First();
+            selectedStudent = context.Student.Where(x => x.Id == SelectedStudentID).First();
         }
         // check if there is a student selected
         if (selectedStudent != null)

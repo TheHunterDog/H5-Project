@@ -18,23 +18,23 @@ public class ExcelImporter
 
     public static void RemoveStudentsAndCoaches()
     {
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // remove studentbegeleiders first to avoid relation conflicts
-            context.StudentSupervisors.RemoveRange(context.StudentSupervisors); 
+            context.StudentSupervisor.RemoveRange(context.StudentSupervisor); 
             // remove students
-            context.Students.RemoveRange(context.Students); 
+            context.Student.RemoveRange(context.Student); 
             // save changes to database
             context.SaveChanges(); 
         }
     }
     public static void PrintStudents()
     {
-        Trace.WriteLine("\n All Students in database:");
-        using (var context = new StudentBeleidContext())
+        Trace.WriteLine("\n All Student in database:");
+        using (var context = new DatabaseContext())
         {
             // obtain students from database
-            List<Student> students = context.Students.ToList(); 
+            List<Student> students = context.Student.ToList(); 
             for (int i = 0; i < students.Count; i++)
             {
                 // get student from list
@@ -48,10 +48,10 @@ public class ExcelImporter
     public static void PrintCoaches()
     {
         Console.WriteLine("\n All Coaches in database:");
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // obtain coaches from database
-            List<StudentSupervisor> coaches = context.StudentSupervisors.ToList(); 
+            List<StudentSupervisor> coaches = context.StudentSupervisor.ToList(); 
             for (int i = 0; i < coaches.Count; i++)
             {
                 // get coach from list
@@ -68,13 +68,13 @@ public class ExcelImporter
     public static void ImportStudentsFromFile(string fileLocation = "")
     {
         // get data from file
-        DataTable? data = GetDataTableFromFile(fileLocation);//, "Students");
+        DataTable? data = GetDataTableFromFile(fileLocation);//, "Student");
         // if data is null, file could not be found
         if(data == null) return;
         // get strings with student data
         string[] studentStrings = ReadDataFromDataTable(data);
         // save data to database
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             for (int i = 0; i < studentStrings.Length; i++)
             {
@@ -86,7 +86,7 @@ public class ExcelImporter
                     // obtain coach(docentcode) from datastring
                     string docentCode = (studentStrings.Length == 5) ? studentStrings[i].Split(",")[3].Trim() : studentStrings[i].Split(",")[4].Trim();
                     // get count of coaches which have a matching docentcode(max 1);
-                    int countBeg = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(docentCode)).Count();
+                    int countBeg = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).Count();
                     // if no matching coach is found, create a new one with an undefined name(can be overwritten when added to excel file with the same docentcode)
                     if (countBeg < 1) 
                     {
@@ -100,21 +100,21 @@ public class ExcelImporter
                         if (newStudentBegeleider != null)
                         {
                             // add coach to database
-                            context.StudentSupervisors.Add(newStudentBegeleider);
+                            context.StudentSupervisor.Add(newStudentBegeleider);
                             // savve changes to database
                             context.SaveChanges();
                         }
                         else return;
                     }
-                    StudentSupervisor supervisor = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(docentCode)).First();
+                    StudentSupervisor supervisor = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).First();
                     student.StudentbegeleiderId = supervisor.Id;
                     // get whether there is already a student with the same code in the database
-                    int count = context.Students.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
+                    int count = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
                     // when yes, update student with new name etc.
                     if (count > 0)
                     {
                         // get student from database
-                        var result = context.Students.Where(x => x.Studentnummer.Equals(student.Studentnummer)).First();
+                        var result = context.Student.Where(x => x.Studentnummer.Equals(student.Studentnummer)).First();
                         // edit student parameters
                         if (student.Voornaam != null) result.Voornaam = student.Voornaam;
                         if (student.Achternaam != null) result.Achternaam = student.Achternaam;
@@ -125,7 +125,7 @@ public class ExcelImporter
                     else
                     {
                         // add student to database
-                        context.Students.Add(student);
+                        context.Student.Add(student);
                     }
                 }
             }
@@ -146,7 +146,7 @@ public class ExcelImporter
         // get strings with coach data
         string[] coachStrings = ReadDataFromDataTable(data);
         // save data to database
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             for (int i = 0; i < coachStrings.Length; i++)
             {
@@ -156,12 +156,12 @@ public class ExcelImporter
                 if (coach != null)
                 {
                     // get whether there is already a coach with the same code in the database
-                    int count = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).Count();
+                    int count = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).Count();
                     // when yes, update coach with new name etc.
                     if (count > 0)
                     {
                         // get coach from database
-                        var result = context.StudentSupervisors.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).First();
+                        var result = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).First();
                         // update coach parameters
                         result.Name = coach.Name;
                         result.TeacherCode = coach.TeacherCode; // redundant
@@ -170,7 +170,7 @@ public class ExcelImporter
                     else
                     {
                         //Console.WriteLine("Add");
-                        context.StudentSupervisors.Add(coach);
+                        context.StudentSupervisor.Add(coach);
                     }
                 }
             }

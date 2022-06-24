@@ -83,11 +83,11 @@ namespace WPF.Screens
             className = className.ToLower().Trim();
             // retrieve count of found students before finding more students
             int count = _stagedStudents.Count;
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // add students to list who are in the exact class, or a class that contains the string, if the string is more than 1 letter
                 _stagedStudents.AddRange(
-                    context.Students.Where(
+                    context.Student.Where(
                         s => (
                         s.Klasscode.ToLower().Equals(className) || 
                         (className.Length > 5 && s.Klasscode.ToLower().Contains(className))
@@ -105,7 +105,7 @@ namespace WPF.Screens
         {
             // set string to lowercase
             studentName = studentName.ToLower();
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // split string by commas
                 List<String> entries = studentName.Split(" ").ToList();
@@ -137,7 +137,7 @@ namespace WPF.Screens
                         }
                         // add students that have the entry as number or name
                         _stagedStudents.AddRange(
-                            context.Students.Where(
+                            context.Student.Where(
                                 s => (
                                 s.Studentnummer.ToLower().Equals(entries[0]) || 
                                 s.Voornaam.ToLower().Equals(entries[0]) ||
@@ -150,7 +150,7 @@ namespace WPF.Screens
                     {
                         // add students that have the entries as first name and last name
                         _stagedStudents.AddRange(
-                            context.Students.Where(
+                            context.Student.Where(
                                 s => (
                                 s.Voornaam.ToLower().Equals(entries[0]) ||
                                 s.Voornaam.ToLower().Equals(entries[1])
@@ -165,7 +165,7 @@ namespace WPF.Screens
                     {
                         // add students that have the entries as first name, last name and surname
                         _stagedStudents.AddRange(
-                            context.Students.Where(
+                            context.Student.Where(
                                 s => (
                                 s.Voornaam.ToLower().Equals(entries[0]) ||
                                 s.Voornaam.ToLower().Equals(entries[1]) ||
@@ -199,7 +199,7 @@ namespace WPF.Screens
          */
         public void DisplayStudentsResult()
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // check if students are found
                 if (_stagedStudents.Count > 0)
@@ -250,7 +250,7 @@ namespace WPF.Screens
         public void FindSubject(string subjectName)
         {
             subjectName = subjectName.ToLower().Trim();
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 _stagedSubjects.AddRange(
                     context.Subjects.Where(
@@ -275,7 +275,7 @@ namespace WPF.Screens
          */
         public void DisplaySubjectsResult()
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 if (_stagedSubjects.Count > 0)
                 {
@@ -308,15 +308,15 @@ namespace WPF.Screens
         {
             if (_stagedStudents.Count == 0 || _stagedSubjects.Count == 0) return;
 
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // loop through all selected students
                 for (int i = 0; i < _stagedStudents.Count; i++)
                 {
                     // find student in database which has the same id as the selected student
-/*                    List<Student> allStudents = context.Students.Include(s => s.Subjects).ToList();
+/*                    List<Student> allStudents = context.Student.Include(s => s.Subjects).ToList();
                     allStudents = allStudents.Where();*/
-                    Student dbStudent = context.Students.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
+                    Student dbStudent = context.Student.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
                     // debug student
                     Trace.WriteLine(dbStudent);
                     Trace.WriteLine(dbStudent.Subjects.Count()); // 1
@@ -341,13 +341,13 @@ namespace WPF.Screens
                 context.SaveChanges();
             }
 
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // loop through all selected students
                 for (int i = 0; i < _stagedStudents.Count; i++)
                 {
                     // find student
-                    Student dbStudent = context.Students.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
+                    Student dbStudent = context.Student.Include(s => s.Subjects).Where(s => s.Id == _stagedStudents[i].Id).First();
                     if (dbStudent != null)
                     {
                         // create new list of subjects if list is null

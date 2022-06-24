@@ -3,45 +3,44 @@
 public class Teacher : IAuthenticatable
 {
     #region PrivateFields
-    /// <summary>
-    /// Teacher has an id
-    /// </summary>
-    private int _teacherId;
-    
+
     /// <summary>
     /// Teacher has a name
     /// </summary>
-    private string _name;
+    private readonly string _name;
     
     /// <summary>
     /// A teacher belongs to many or zero <see cref="StudentProblem"/>
     /// </summary>
-    private IEnumerable<StudentProblem> _studentProblems;
+    private IEnumerable<StudentProblem>? _studentProblems;
 
-    private String _username;
+    private string _username;
     private string _password;
-    private bool _isAdmin;
 
-
-    private string _docentCode;
-    
     #endregion
 
+    public Teacher(string username = "", string password = "", string name = "", string docentCode = "")
+    {
+        _username = username;
+        _password = password;
+        _name = name;
+        DocentCode = docentCode;
+    }
+    
     #region Properties
 
-    public int Id
-    {
-        get => _teacherId;
-        set => _teacherId = value;
-    }
+    /// <summary>
+    /// Teacher has an id
+    /// </summary>
+    public int Id { get; set; }
 
-    public string Name
+    public string? Name
     {
         get => _name;
-        set => _name = value;
+        init => _name = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public IEnumerable<StudentProblem> StudentProblems
+    public IEnumerable<StudentProblem>? StudentProblems
     {
         get => _studentProblems;
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
@@ -59,18 +58,10 @@ public class Teacher : IAuthenticatable
         set => _password = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public bool IsAdmin
-    {
-        get => _isAdmin;
-        set => _isAdmin = value;
-    }
+    public bool IsAdmin { get; set; }
 
 
-    public string DocentCode
-    {
-        get => _docentCode;
-        set => _docentCode = value;
-    }
-    
+    public string DocentCode { get; init; }
+
     #endregion
 }

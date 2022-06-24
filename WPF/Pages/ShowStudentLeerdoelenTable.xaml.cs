@@ -19,7 +19,7 @@ public partial class ShowStudentLeerdoelenTable : Page
     {
         InitializeComponent();
         SelectedStudent = st;
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // get all leerdoelen and put them in the table
             List<LearningGoal> leerdoelen = context.LearningGoals.Where(x => x.StudentId == SelectedStudent.Id).ToList();

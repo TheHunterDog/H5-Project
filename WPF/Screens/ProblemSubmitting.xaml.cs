@@ -28,7 +28,7 @@ namespace WPF.Screens
             if (_stagedProblem == null) CloseWindow();
 
             // set title
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 Title.Content = "Invoeren probleem met " + GetStudentNumberFromStudentId(_stagedProblem.StudentId);
             }
@@ -109,12 +109,12 @@ namespace WPF.Screens
             StudentProblem studentProblem = new StudentProblem();
 
             // set student- and teacher id, first if no id is given, closes window if invalid id's are given
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
-                if (studentId == -1) studentId = context.Students.First().Id;
-                else if (context.Students.Find(studentId) == null) return null;
-                if (teacherId == -1) teacherId = context.Teachers.First().Id;
-                else if (context.Teachers.Find(teacherId) == null) return null;
+                if (studentId == -1) studentId = context.Student.First().Id;
+                else if (context.Student.Find(studentId) == null) return null;
+                if (teacherId == -1) teacherId = context.Teacher.First().Id;
+                else if (context.Teacher.Find(teacherId) == null) return null;
                 studentProblem.StudentId = studentId;
                 studentProblem.TeacherId = teacherId;
                 studentProblem.Description = "";
@@ -128,14 +128,14 @@ namespace WPF.Screens
          */
         public string GetStudentNumberFromStudentId(int studentId)
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // find the student with the Id
-                Student student = context.Students.Find(studentId);
+                Student student = context.Student.Find(studentId);
                 // if there is no student do nothing else return the student
                 if (student != null)
                 {
-                    return context.Students.Find(studentId).Studentnummer;
+                    return context.Student.Find(studentId).Studentnummer;
                 }
                 else return "";
             }
@@ -146,14 +146,14 @@ namespace WPF.Screens
          */
         public void AddProblemToDatabase(StudentProblem studentProblem)
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // if not a  problem, do nothing
                 if (studentProblem.Description.Equals("")) return;
-                if (context.Students.Find(studentProblem.StudentId) == null) return;
-                if (context.Teachers.Find(studentProblem.TeacherId) == null) return;
+                if (context.Student.Find(studentProblem.StudentId) == null) return;
+                if (context.Teacher.Find(studentProblem.TeacherId) == null) return;
 
-                context.StudentProblems.Add(studentProblem);
+                context.StudentProblem.Add(studentProblem);
                 // save changes to database
                 context.SaveChanges();
             }

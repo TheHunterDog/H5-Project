@@ -12,7 +12,7 @@ public class StudentSupervisor: IAuthenticatable
     /// <summary>
     /// StudentSupervisor has a name
     /// </summary>
-    private string _name;
+    private string? _name;
     
     /// <summary>
     /// StudentSupervisor has a docentcode
@@ -49,7 +49,7 @@ public class StudentSupervisor: IAuthenticatable
         set => _id = value;
     }
 
-    public string Name
+    public string? Name
     {
         get => _name;
         set => _name = value ?? throw new ArgumentNullException(nameof(value));

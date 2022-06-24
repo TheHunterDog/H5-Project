@@ -20,10 +20,10 @@ public partial class DetailscreenProblems : Page
         InitializeComponent();
         SelectedStudent = student;
         
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // create the problems list
-            List<StudentProblem> problems = context.StudentProblems.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+            List<StudentProblem> problems = context.StudentProblem.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             // add the problems to the table
             StudentProbleen.ItemsSource = problems;
             // set the header to match the student

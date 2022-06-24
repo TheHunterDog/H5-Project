@@ -25,7 +25,7 @@ namespace WPF.Screens
             // if name or docentcode is empty, do nothing
             if (name.Text == "") return;
             if (Docentcode.Text == "") return;
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // if it is an sber
                 if (IsSber.IsChecked == true)
@@ -38,7 +38,7 @@ namespace WPF.Screens
                         Username = name.Text,
                         Password = "geheim lol"
                     };
-                    context.StudentSupervisors.Add(supervisor);
+                    context.StudentSupervisor.Add(supervisor);
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace WPF.Screens
                         Username = name.Text,
                         Password = "geheim lol"
                     };
-                    context.Teachers.Add(teacher);
+                    context.Teacher.Add(teacher);
                 }
                 context.SaveChanges();
             }
