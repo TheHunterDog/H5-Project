@@ -33,14 +33,14 @@
             MouseDoubleClick="SelectRow"
             FontSize="24">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" Header="studentID" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Studentnummer}" Header="student nummer" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Voornaam}" Header="Firstname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Tussenvoegsel}" Header="Midname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Achternaam}" Header="Lastname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Klasscode}" Header="Classname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding StudentbegeleiderId}" Header="Supervisor" Width="*"/>
-                <DataGridTextColumn Binding="{Binding LaatstGesproken}" Header="Laatst gesproken" Width="*" x:Name="LastSeen"/>
+                <DataGridTextColumn Binding="{Binding Id}" Header="studentID" Width="*" />
+                <DataGridTextColumn Binding="{Binding StudentNumber}" Header="studentNumber" Width="*" />
+                <DataGridTextColumn Binding="{Binding FirstName}" Header="Firstname" Width="*" />
+                <DataGridTextColumn Binding="{Binding MiddelName}" Header="Midname" Width="*" />
+                <DataGridTextColumn Binding="{Binding LastName}" Header="Lastname" Width="*" />
+                <DataGridTextColumn Binding="{Binding ClassCode}" Header="Classname" Width="*" />
+                <DataGridTextColumn Binding="{Binding StudentSupervisor}" Header="Supervisor" Width="*" />
+                <DataGridTextColumn Binding="{Binding LastMeeting}" Header="Laatst gesproken" Width="*" x:Name="LastSeen"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button 

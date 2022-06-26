@@ -42,12 +42,12 @@
             MouseDoubleClick="selectRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="studentID" />
-                <DataGridTextColumn Binding="{Binding Studentnummer}" Header="studentID" />
-                <DataGridTextColumn Binding="{Binding Voornaam}" Header="Firstname" />
-                <DataGridTextColumn Binding="{Binding Tussenvoegsel}" Header="Midname" />
-                <DataGridTextColumn Binding="{Binding Achternaam}" Header="Lastname" />
-                <DataGridTextColumn Binding="{Binding Klasscode}" Header="Classname" />
-                <DataGridTextColumn Binding="{Binding StudentbegeleiderId}" Header="Supervisor" />
+                <DataGridTextColumn Binding="{Binding StudentNumber}" Header="studentID" />
+                <DataGridTextColumn Binding="{Binding FirstName}" Header="Firstname" />
+                <DataGridTextColumn Binding="{Binding MiddelName}" Header="Midname" />
+                <DataGridTextColumn Binding="{Binding LastName}" Header="Lastname" />
+                <DataGridTextColumn Binding="{Binding ClassCode}" Header="Classname" />
+                <DataGridTextColumn Binding="{Binding StudentSupervisor}" Header="Supervisor" />
             </DataGrid.Columns>
         </DataGrid>
 

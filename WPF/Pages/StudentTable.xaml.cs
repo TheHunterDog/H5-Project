@@ -36,15 +36,15 @@ public partial class StudentTable : Page
                         select new
                         {
                             Id = s.Id,
-                            Studentnummer = s.StudentNumber,
-                            Voornaam = s.FirstName,
-                            Tussenvoegsel = s.MiddleName,
-                            Achternaam = s.LastName,
-                            Klasscode = s.ClassCode,
-                            StudentbegeleiderId = s.StudentSupervisor,
-                            LaatstGesproken = (t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate)
+                            StudentNumber = s.StudentNumber,
+                            FirstName = s.FirstName,
+                            MiddleName = s.MiddleName,
+                            LastName = s.LastName,
+                            ClassCode = s.ClassCode,
+                            StudentSupervisor = s.StudentSupervisor,
+                            LastMeeting = t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate
                         };
-            var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);
+            var List = query.ToList().DistinctBy(x => x.Id)/*.OrderBy(x => x.LastMeeting);*/;
             // set the source of the datagrid to the list
             StudentsTable.ItemsSource = List;
         }
