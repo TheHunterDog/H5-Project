@@ -16,14 +16,14 @@ public static class SmartSearch
     /// <param name="query"></param>
     /// <param name="context"></param>
     /// <returns>int</returns>
-    public static List<int> SmartSearchStudentID(string query, StudentBeleidContext context)
+    public static List<int> SmartSearchStudentID(string query, DatabaseContext context)
     {
-        return context.Students.Where(s =>
-            s.Voornaam.Contains(query) ||
-            s.Achternaam.Contains(query) ||
-            s.Klasscode.Contains(query) ||
-            s.Studentnummer.Contains(query) ||
-            s.Tussenvoegsel.Contains(query)).Select(student => student.Id).ToList();
+        return context.Student.Where(s =>
+            s.FirstName.Contains(query) ||
+            s.LastName.Contains(query) ||
+            s.ClassCode.Contains(query) ||
+            s.StudentNumber.Contains(query) ||
+            s.MiddleName.Contains(query)).Select(student => student.Id).ToList();
     }
     
     /// <summary>
@@ -32,13 +32,13 @@ public static class SmartSearch
     /// <param name="query"></param>
     /// <param name="context"></param>
     /// <returns><see cref="Student"/></returns>
-    public static List<Student> SmartSearchStudent(string query, StudentBeleidContext context)
+    public static List<Student> SmartSearchStudent(string query, DatabaseContext context)
     {
-        return context.Students.Where(s =>
-            s.Voornaam.Contains(query) ||
-            s.Achternaam.Contains(query) ||
-            s.Klasscode.Contains(query) ||
-            s.Studentnummer.Contains(query) ||
-            s.Tussenvoegsel.Contains(query)).ToList();
+        return context.Student.Where(s =>
+            s.FirstName.Contains(query) ||
+            s.LastName.Contains(query) ||
+            s.ClassCode.Contains(query) ||
+            s.StudentNumber.Contains(query) ||
+            s.MiddleName.Contains(query)).ToList();
     }
 }

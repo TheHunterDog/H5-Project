@@ -18,23 +18,23 @@ public class ExcelImporter
 
     public static void RemoveStudentsAndCoaches()
     {
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // remove studentbegeleiders first to avoid relation conflicts
-            context.StudentBegeleiders.RemoveRange(context.StudentBegeleiders); 
+            context.StudentSupervisor.RemoveRange(context.StudentSupervisor); 
             // remove students
-            context.Students.RemoveRange(context.Students); 
+            context.Student.RemoveRange(context.Student); 
             // save changes to database
             context.SaveChanges(); 
         }
     }
     public static void PrintStudents()
     {
-        Trace.WriteLine("\n All Students in database:");
-        using (var context = new StudentBeleidContext())
+        Trace.WriteLine("\n All Student in database:");
+        using (var context = new DatabaseContext())
         {
             // obtain students from database
-            List<Student> students = context.Students.ToList(); 
+            List<Student> students = context.Student.ToList(); 
             for (int i = 0; i < students.Count; i++)
             {
                 // get student from list
@@ -48,14 +48,14 @@ public class ExcelImporter
     public static void PrintCoaches()
     {
         Console.WriteLine("\n All Coaches in database:");
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // obtain coaches from database
-            List<StudentBegeleider> coaches = context.StudentBegeleiders.ToList(); 
+            List<StudentSupervisor> coaches = context.StudentSupervisor.ToList(); 
             for (int i = 0; i < coaches.Count; i++)
             {
                 // get coach from list
-                StudentBegeleider coach = coaches.ElementAt(i); 
+                StudentSupervisor coach = coaches.ElementAt(i); 
                 // print coach data
                 Console.WriteLine(coach); 
             }
@@ -68,13 +68,13 @@ public class ExcelImporter
     public static void ImportStudentsFromFile(string fileLocation = "")
     {
         // get data from file
-        DataTable? data = GetDataTableFromFile(fileLocation);//, "Students");
+        DataTable? data = GetDataTableFromFile(fileLocation);//, "Student");
         // if data is null, file could not be found
         if(data == null) return;
         // get strings with student data
         string[] studentStrings = ReadDataFromDataTable(data);
         // save data to database
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             for (int i = 0; i < studentStrings.Length; i++)
             {
@@ -86,7 +86,7 @@ public class ExcelImporter
                     // obtain coach(docentcode) from datastring
                     string docentCode = (studentStrings.Length == 5) ? studentStrings[i].Split(",")[3].Trim() : studentStrings[i].Split(",")[4].Trim();
                     // get count of coaches which have a matching docentcode(max 1);
-                    int countBeg = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(docentCode)).Count();
+                    int countBeg = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).Count();
                     // if no matching coach is found, create a new one with an undefined name(can be overwritten when added to excel file with the same docentcode)
                     if (countBeg < 1) 
                     {
@@ -95,37 +95,37 @@ public class ExcelImporter
                         // create datastring
                         string newStudentBegeleiderDataString = $"{defaultStudentCoachName}, {docentCode}";
                         // create new coach from datastring
-                        StudentBegeleider? newStudentBegeleider = CreateCoachFromDataString(newStudentBegeleiderDataString);
+                        StudentSupervisor? newStudentBegeleider = CreateCoachFromDataString(newStudentBegeleiderDataString);
 
                         if (newStudentBegeleider != null)
                         {
                             // add coach to database
-                            context.StudentBegeleiders.Add(newStudentBegeleider);
+                            context.StudentSupervisor.Add(newStudentBegeleider);
                             // savve changes to database
                             context.SaveChanges();
                         }
                         else return;
                     }
-                    StudentBegeleider begeleider = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(docentCode)).First();
-                    student.StudentbegeleiderId = begeleider.Id;
+                    StudentSupervisor supervisor = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(docentCode)).First();
+                    student.StudentSupervisor = supervisor.Id;
                     // get whether there is already a student with the same code in the database
-                    int count = context.Students.Where(x => x.Studentnummer.Equals(student.Studentnummer)).Count();
+                    int count = context.Student.Where(x => x.StudentNumber.Equals(student.StudentNumber)).Count();
                     // when yes, update student with new name etc.
                     if (count > 0)
                     {
                         // get student from database
-                        var result = context.Students.Where(x => x.Studentnummer.Equals(student.Studentnummer)).First();
+                        var result = context.Student.Where(x => x.StudentNumber.Equals(student.StudentNumber)).First();
                         // edit student parameters
-                        if (student.Voornaam != null) result.Voornaam = student.Voornaam;
-                        if (student.Achternaam != null) result.Achternaam = student.Achternaam;
-                        if (student.Tussenvoegsel != null) result.Tussenvoegsel = student.Tussenvoegsel;
-                        if (student.Klasscode != null) result.Klasscode = student.Klasscode;
+                        if (student.FirstName != null) result.FirstName = student.FirstName;
+                        if (student.LastName != null) result.LastName = student.LastName;
+                        if (student.MiddleName != null) result.MiddleName = student.MiddleName;
+                        if (student.ClassCode != null) result.ClassCode = student.ClassCode;
                     }
                     // when no, add the student to the database
                     else
                     {
                         // add student to database
-                        context.Students.Add(student);
+                        context.Student.Add(student);
                     }
                 }
             }
@@ -146,31 +146,31 @@ public class ExcelImporter
         // get strings with coach data
         string[] coachStrings = ReadDataFromDataTable(data);
         // save data to database
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             for (int i = 0; i < coachStrings.Length; i++)
             {
                 // convert string to object of type Coach
-                StudentBegeleider? coach = CreateCoachFromDataString(coachStrings[i]);
+                StudentSupervisor? coach = CreateCoachFromDataString(coachStrings[i]);
                 // add coach to database
                 if (coach != null)
                 {
                     // get whether there is already a coach with the same code in the database
-                    int count = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(coach.Docentcode)).Count();
+                    int count = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).Count();
                     // when yes, update coach with new name etc.
                     if (count > 0)
                     {
                         // get coach from database
-                        var result = context.StudentBegeleiders.Where(x => x.Docentcode.Equals(coach.Docentcode)).First();
+                        var result = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).First();
                         // update coach parameters
-                        result.Naam = coach.Naam;
-                        result.Docentcode = coach.Docentcode; // redundant
+                        result.Name = coach.Name;
+                        result.TeacherCode = coach.TeacherCode; // redundant
                     }
                     // when no, add the coach to the database
                     else
                     {
                         //Console.WriteLine("Add");
-                        context.StudentBegeleiders.Add(coach);
+                        context.StudentSupervisor.Add(coach);
                     }
                 }
             }
@@ -281,17 +281,17 @@ public class ExcelImporter
             // create student object
             Student student = new ();
             // fill in info
-            student.Studentnummer = dataStrings[0].Trim();
-            student.Voornaam = dataStrings[1].Trim();
-            student.Achternaam = dataStrings[2].Trim();
+            student.StudentNumber = dataStrings[0].Trim();
+            student.FirstName = dataStrings[1].Trim();
+            student.LastName = dataStrings[2].Trim();
             if (dataStrings.Length == 5)
             {
-                student.Klasscode = dataStrings[4].Trim();
+                student.ClassCode = dataStrings[4].Trim();
             }
             else if (dataStrings.Length == 6)
             {
-                student.Tussenvoegsel = dataStrings[3].Trim();
-                student.Klasscode = dataStrings[5].Trim();
+                student.MiddleName = dataStrings[3].Trim();
+                student.ClassCode = dataStrings[5].Trim();
 
             }
             // return student
@@ -304,7 +304,7 @@ public class ExcelImporter
     /**
      * <summary>Create coach from the data in the excel file</summary>
      */
-    public static StudentBegeleider? CreateCoachFromDataString(string data)
+    public static StudentSupervisor? CreateCoachFromDataString(string data)
     {
         // create string array with split items from string
         string[] dataStrings = data.Split(",");
@@ -313,10 +313,10 @@ public class ExcelImporter
         if (dataStrings.Length > 1)
         {
             // create coach object
-            StudentBegeleider coach = new();
+            StudentSupervisor coach = new();
             // fill in info
-            coach.Naam = dataStrings[0].Trim();
-            coach.Docentcode = dataStrings[1].Trim();
+            coach.Name = dataStrings[0].Trim();
+            coach.TeacherCode = dataStrings[1].Trim();
             // return coach
             return coach;
         }

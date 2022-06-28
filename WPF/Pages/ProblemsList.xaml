@@ -35,7 +35,7 @@
             Margin="100,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding ="{Binding StudentNr}" Header="Student nummer" Width="*"/>
-                <DataGridTextColumn Binding ="{Binding Naam}" Header="Naam" Width="*"/>
+                <DataGridTextColumn Binding ="{Binding Naam}" Header="Name" Width="*"/>
                 <DataGridTextColumn Binding ="{Binding Description}" Header="omschrijving" Width="*"/>
                 <DataGridTextColumn Binding ="{Binding Notifyer}" Header="Melder" Width="*"/>
                 <DataGridTextColumn Binding ="{Binding Prioriteit}" Header="Prioriteit" Width="*"/>

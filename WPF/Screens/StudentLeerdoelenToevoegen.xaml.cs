@@ -26,14 +26,14 @@ namespace WPF.Screens
         /// <param name="e"></param>
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
-                Leerdoel leerdoel = new Leerdoel
+                LearningGoal learningGoal = new LearningGoal
                 {
-                    Beschrijving = this.leerdoel.Text,
+                    Description = this.leerdoel.Text,
                     StudentId = selectedstudent.Id,
                 };
-                context.Leerdoelen.Add(leerdoel);
+                context.LearningGoals.Add(learningGoal);
                 context.SaveChanges();
             }
             Close();

@@ -10,42 +10,42 @@ namespace Database.Migrations
         {
             migrationBuilder.AddColumn<bool>(
                 name: "IsAdmin",
-                table: "StudentBegeleiders",
+                table: "StudentSupervisor",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
                 name: "Password",
-                table: "StudentBegeleiders",
+                table: "StudentSupervisor",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "Username",
-                table: "StudentBegeleiders",
+                table: "StudentSupervisor",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
             
             migrationBuilder.AddColumn<bool>(
                 name: "IsAdmin",
-                table: "Teachers",
+                table: "Teacher",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
                 name: "Password",
-                table: "Teachers",
+                table: "Teacher",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "Username",
-                table: "Teachers",
+                table: "Teacher",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
@@ -56,45 +56,45 @@ namespace Database.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Students_StudentBegeleiders_StudentBegeleiderId",
-                table: "Students");
+                table: "Student");
 
             migrationBuilder.DropTable(
-                name: "Leerdoelen");
+                name: "LearningGoals");
 
             migrationBuilder.DropTable(
-                name: "StudentProblems");
+                name: "StudentProblem");
 
             migrationBuilder.DropTable(
-                name: "Teachers");
+                name: "Teacher");
 
             migrationBuilder.DropIndex(
                 name: "IX_Students_StudentBegeleiderId",
-                table: "Students");
+                table: "Student");
 
             migrationBuilder.DropColumn(
                 name: "StudentBegeleiderId",
-                table: "Students");
+                table: "Student");
 
             migrationBuilder.DropColumn(
                 name: "IsAdmin",
-                table: "StudentBegeleiders");
+                table: "StudentSupervisor");
 
             migrationBuilder.DropColumn(
                 name: "Password",
-                table: "StudentBegeleiders");
+                table: "StudentSupervisor");
 
             migrationBuilder.DropColumn(
                 name: "Username",
-                table: "StudentBegeleiders");
+                table: "StudentSupervisor");
 
             migrationBuilder.InsertData(
-                table: "StudentBegeleiders",
-                columns: new[] { "Id", "Docentcode", "Naam" },
+                table: "StudentSupervisor",
+                columns: new[] { "Id", "TeacherCode", "Name" },
                 values: new object[] { 964, "SA1234", "Karen brakband" });
 
             migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "Achternaam", "Klasscode", "StudentbegeleiderId", "Studentnummer", "Tussenvoegsel", "Voornaam" },
+                table: "Student",
+                columns: new[] { "Id", "LastName", "ClassCode", "StudentSupervisorId", "StudentNumber", "MiddleName", "FirstName" },
                 values: new object[,]
                 {
                     { 1147576, "Jaap", "OOSDDH2023", 0, "s1147576", "Jappie", "Jan" },

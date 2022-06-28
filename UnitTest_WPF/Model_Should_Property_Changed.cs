@@ -25,8 +25,8 @@ public class Model_Should_Property_Changed
 
     #region studentbegeleider
 
-    private StudentBegeleider _studentBegeleider = new StudentBegeleider();
-    private string _name = "randy bonenwaag";
+    private StudentSupervisor _studentSupervisor = new StudentSupervisor();
+    private string? _name = "randy bonenwaag";
     private string _docentcode = "DOC345563";
 
     #endregion
@@ -43,15 +43,15 @@ public class Model_Should_Property_Changed
 
     #region Completefilled models
     
-    public StudentBegeleiderGesprekken StudentBegeleiderGesprekken = new StudentBegeleiderGesprekken()
+    public StudentSupervisorMeeting StudentSupervisorMeeting = new StudentSupervisorMeeting()
     {
-        GesprekDatum = DateTime.Now, Opmerkingen = "Voortgang bespreken", Student = new Student(), StudentId = 0,
-        StudentBegeleider = new StudentBegeleider(), StudentBegeleiderId = 0, Voltooid = false
+        MeetingDate = DateTime.Now, Comments = "Voortgang bespreken", Student = new Student(), StudentId = 0,
+        StudentSupervisor = new StudentSupervisor(), StudentSupervisorId = 0, Done = false
     };
     
-    public StudentBegeleider studentBegeleider = new StudentBegeleider()
+    public StudentSupervisor StudentSupervisor = new StudentSupervisor()
     {
-        Docentcode = "DOC231253", Id = 1234, Naam = "karenBrakband", StudentBegeleiderGesprekken = new StudentBegeleiderGesprekken[]{new StudentBegeleiderGesprekken()}, Students = new Student[]{new Student()}
+        TeacherCode = "DOC231253", Id = 1234, Name = "karenBrakband", StudentSupervisorMeetings = new StudentSupervisorMeeting[]{new StudentSupervisorMeeting()}, Students = new Student[]{new Student()}
     };
     
     public StudentProblem StudentProblem = new StudentProblem()
@@ -67,9 +67,9 @@ public class Model_Should_Property_Changed
 
     #endregion
 
-    #region StudentBegeleiderGesprekken
+    #region StudentSupervisorMeeting
 
-    private StudentBegeleiderGesprekken _studentBegeleiderGesprekken = new StudentBegeleiderGesprekken();
+    private StudentSupervisorMeeting _studentSupervisorMeeting = new StudentSupervisorMeeting();
     private bool _completed = true;
     private DateTime _date = DateTime.Now;
 
@@ -84,33 +84,33 @@ public class Model_Should_Property_Changed
     [Test]
     public void StudentBegeleider_Change_Property_Changed_Should_Throw_Exception_When_NULL()
     {
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleider.Docentcode = null);
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleider.Naam = null);
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleider.Students = null);
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleider.StudentBegeleiderGesprekken = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisor.TeacherCode = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisor.Name = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisor.Students = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisor.StudentSupervisorMeetings = null);
     }
     
     [Test]
     public void StudentBegeleider_Change_Property_changed_Should_Change()
     {
-        Assert.AreEqual(_studentBegeleider.Naam,null);
-        Assert.AreEqual(_studentBegeleider.Docentcode,null);
-        Assert.AreEqual(_studentBegeleider.Id,0);
-        Assert.AreEqual(_studentBegeleider.Students,null);
-        Assert.AreEqual(_studentBegeleider.StudentBegeleiderGesprekken, null);
+        Assert.AreEqual(_studentSupervisor.Name,null);
+        Assert.AreEqual(_studentSupervisor.TeacherCode,null);
+        Assert.AreEqual(_studentSupervisor.Id,0);
+        Assert.AreEqual(_studentSupervisor.Students,null);
+        Assert.AreEqual(_studentSupervisor.StudentSupervisorMeetings, null);
 
 
-        _studentBegeleider.Naam = _name;
-        _studentBegeleider.Docentcode = _docentcode;
-        _studentBegeleider.Id = _id;
-        _studentBegeleider.Students = new[] {_student};
-        _studentBegeleider.StudentBegeleiderGesprekken = new[] {StudentBegeleiderGesprekken};
+        _studentSupervisor.Name = _name;
+        _studentSupervisor.TeacherCode = _docentcode;
+        _studentSupervisor.Id = _id;
+        _studentSupervisor.Students = new[] {_student};
+        _studentSupervisor.StudentSupervisorMeetings = new[] {StudentSupervisorMeeting};
         
-        Assert.AreEqual(_studentBegeleider.Naam,_name);
-        Assert.AreEqual(_studentBegeleider.Docentcode,_docentcode);
-        Assert.AreEqual(_studentBegeleider.Id,_id);
-        Assert.AreEqual(_studentBegeleider.Students,new [] {_student});
-        Assert.AreEqual(_studentBegeleider.StudentBegeleiderGesprekken, new[] {StudentBegeleiderGesprekken});
+        Assert.AreEqual(_studentSupervisor.Name,_name);
+        Assert.AreEqual(_studentSupervisor.TeacherCode,_docentcode);
+        Assert.AreEqual(_studentSupervisor.Id,_id);
+        Assert.AreEqual(_studentSupervisor.Students,new [] {_student});
+        Assert.AreEqual(_studentSupervisor.StudentSupervisorMeetings, new[] {StudentSupervisorMeeting});
         
     }
 
@@ -118,49 +118,49 @@ public class Model_Should_Property_Changed
     [Test]
     public void Student_Change_Property_Changed_Should_Throw_Exception_When_NULL()
     {
-        Assert.Throws<ArgumentNullException>(() => _student.Voornaam = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Achternaam = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Klasscode = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Tussenvoegsel = null);
-        Assert.Throws<ArgumentNullException>(() => _student.Studentnummer = null); 
-        Assert.Throws<ArgumentNullException>(() => _student.StudentBegeleiderGesprekken = null); 
+        Assert.Throws<ArgumentNullException>(() => _student.FirstName = null);
+        Assert.Throws<ArgumentNullException>(() => _student.LastName = null);
+        Assert.Throws<ArgumentNullException>(() => _student.ClassCode = null);
+        Assert.Throws<ArgumentNullException>(() => _student.MiddleName = null);
+        Assert.Throws<ArgumentNullException>(() => _student.StudentNumber = null); 
+        Assert.Throws<ArgumentNullException>(() => _student.SupervisorMeetings = null); 
         Assert.Throws<ArgumentNullException>(() => _student.StudentProblems = null); 
     }
 
     [Test]
     public void Student_Change_Property_changed_Should_Change()
     {
-        Assert.AreEqual(_student.Achternaam,null);
-        Assert.AreEqual(_student.Voornaam,null);
-        Assert.AreEqual(_student.Klasscode,null);
-        Assert.AreEqual(_student.Tussenvoegsel,null);
+        Assert.AreEqual(_student.LastName,null);
+        Assert.AreEqual(_student.FirstName,null);
+        Assert.AreEqual(_student.ClassCode,null);
+        Assert.AreEqual(_student.MiddleName,null);
         Assert.AreEqual(_student.Id,0);
-        Assert.AreEqual(_student.Studentnummer,null);
-        Assert.AreEqual(_student.Studentbegeleider,null);
-        Assert.AreEqual(_student.StudentBegeleiderGesprekken,null);
+        Assert.AreEqual(_student.StudentNumber,null);
+        Assert.AreEqual(_student.Supervisor,null);
+        Assert.AreEqual(_student.SupervisorMeetings,null);
         Assert.AreEqual(_student.StudentProblems,null);
-        Assert.AreEqual(_student.StudentbegeleiderId,0);
+        Assert.AreEqual(_student.StudentSupervisor,0);
 
-        _student.Achternaam = _lastname;
-        _student.Voornaam = _firstname;
-        _student.Klasscode = _klassencode;
-        _student.Tussenvoegsel = _lastnameprefix;
+        _student.LastName = _lastname;
+        _student.FirstName = _firstname;
+        _student.ClassCode = _klassencode;
+        _student.MiddleName = _lastnameprefix;
         _student.Id = _id;
-        _student.Studentnummer = _studentnummer;
-        _student.Studentbegeleider = _studentBegeleider;        
-        _student.StudentBegeleiderGesprekken = new []{StudentBegeleiderGesprekken};
+        _student.StudentNumber = _studentnummer;
+        _student.Supervisor = _studentSupervisor;        
+        _student.SupervisorMeetings = new []{StudentSupervisorMeeting};
         _student.StudentProblems = new []{_studentProblem};
-        _student.StudentbegeleiderId = _id;
+        _student.StudentSupervisor = _id;
         
-        Assert.AreEqual(_student.Achternaam,_lastname);
-        Assert.AreEqual(_student.Voornaam,_firstname);
-        Assert.AreEqual(_student.Klasscode,_klassencode);
-        Assert.AreEqual(_student.Tussenvoegsel,_lastnameprefix);
+        Assert.AreEqual(_student.LastName,_lastname);
+        Assert.AreEqual(_student.FirstName,_firstname);
+        Assert.AreEqual(_student.ClassCode,_klassencode);
+        Assert.AreEqual(_student.MiddleName,_lastnameprefix);
         Assert.AreEqual(_student.Id,_id);
-        Assert.AreEqual(_student.Studentnummer,_studentnummer);
-        Assert.AreEqual(_student.Studentbegeleider,_studentBegeleider);
-        Assert.AreEqual(_student.StudentbegeleiderId,_id);
-        Assert.AreEqual(_student.StudentBegeleiderGesprekken,new []{StudentBegeleiderGesprekken});
+        Assert.AreEqual(_student.StudentNumber,_studentnummer);
+        Assert.AreEqual(_student.Supervisor,_studentSupervisor);
+        Assert.AreEqual(_student.StudentSupervisor,_id);
+        Assert.AreEqual(_student.SupervisorMeetings,new []{StudentSupervisorMeeting});
         Assert.AreEqual(_student.StudentProblems, new []{_studentProblem});
     }
 
@@ -213,37 +213,37 @@ public class Model_Should_Property_Changed
     [Test]
     public void StudentBegeleiderGesprekken_Change_Property_Changed_Should_Throw_Exception_When_NULL()
     {
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleiderGesprekken.Opmerkingen = null);
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleiderGesprekken.Student = null);
-        Assert.Throws<ArgumentNullException>(() => _studentBegeleiderGesprekken.StudentBegeleider = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisorMeeting.Comments = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisorMeeting.Student = null);
+        Assert.Throws<ArgumentNullException>(() => _studentSupervisorMeeting.StudentSupervisor = null);
     }
 
     [Test]
     public void StudentBegeleiderGesprekken_Change_Property_changed_Should_Change()
     {
-        Assert.AreEqual(_studentBegeleiderGesprekken.Opmerkingen,null);
-        Assert.AreEqual(_studentBegeleiderGesprekken.Student,null);
-        Assert.AreEqual(_studentBegeleiderGesprekken.StudentBegeleider,null);
-        Assert.AreEqual(_studentBegeleiderGesprekken.Voltooid,false);
-        Assert.AreEqual(_studentBegeleiderGesprekken.GesprekDatum,new DateTime());
-        Assert.AreEqual(_studentBegeleiderGesprekken.StudentId,0);
-        Assert.AreEqual(_studentBegeleiderGesprekken.StudentBegeleiderId,0);
+        Assert.AreEqual(_studentSupervisorMeeting.Comments,null);
+        Assert.AreEqual(_studentSupervisorMeeting.Student,null);
+        Assert.AreEqual(_studentSupervisorMeeting.StudentSupervisor,null);
+        Assert.AreEqual(_studentSupervisorMeeting.Done,false);
+        Assert.AreEqual(_studentSupervisorMeeting.MeetingDate,new DateTime());
+        Assert.AreEqual(_studentSupervisorMeeting.StudentId,0);
+        Assert.AreEqual(_studentSupervisorMeeting.StudentSupervisorId,0);
 
-        _studentBegeleiderGesprekken.Opmerkingen = _description;
-        _studentBegeleiderGesprekken.Student = _student;
-        _studentBegeleiderGesprekken.Voltooid = _completed;
-        _studentBegeleiderGesprekken.GesprekDatum = _date;
-        _studentBegeleiderGesprekken.StudentBegeleider = _studentBegeleider;
-        _studentBegeleiderGesprekken.StudentId = _id;
-        _studentBegeleiderGesprekken.StudentBegeleiderId = _id;
+        _studentSupervisorMeeting.Comments = _description;
+        _studentSupervisorMeeting.Student = _student;
+        _studentSupervisorMeeting.Done = _completed;
+        _studentSupervisorMeeting.MeetingDate = _date;
+        _studentSupervisorMeeting.StudentSupervisor = _studentSupervisor;
+        _studentSupervisorMeeting.StudentId = _id;
+        _studentSupervisorMeeting.StudentSupervisorId = _id;
         
-        Assert.AreEqual(_studentBegeleiderGesprekken.Opmerkingen,_description);
-        Assert.AreEqual(_studentBegeleiderGesprekken.Student,_student);
-        Assert.AreEqual(_studentBegeleiderGesprekken.Voltooid,_completed);
-        Assert.AreEqual(_studentBegeleiderGesprekken.GesprekDatum,_date);
-        Assert.AreEqual(_studentBegeleiderGesprekken.StudentBegeleider,_studentBegeleider);
-        Assert.AreEqual(_studentBegeleiderGesprekken.StudentId,_id);
-        Assert.AreEqual(_studentBegeleiderGesprekken.StudentBegeleiderId,_id);
+        Assert.AreEqual(_studentSupervisorMeeting.Comments,_description);
+        Assert.AreEqual(_studentSupervisorMeeting.Student,_student);
+        Assert.AreEqual(_studentSupervisorMeeting.Done,_completed);
+        Assert.AreEqual(_studentSupervisorMeeting.MeetingDate,_date);
+        Assert.AreEqual(_studentSupervisorMeeting.StudentSupervisor,_studentSupervisor);
+        Assert.AreEqual(_studentSupervisorMeeting.StudentId,_id);
+        Assert.AreEqual(_studentSupervisorMeeting.StudentSupervisorId,_id);
 
     }
 

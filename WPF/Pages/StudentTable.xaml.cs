@@ -25,26 +25,26 @@ public partial class StudentTable : Page
     {
         InitializeComponent();
 
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // a query to show to last seen date in the datagrid
-            var query = from s in context.Students
-                        join g in context.StudentBegeleiderGesprekken
+            var query = from s in context.Student
+                        join g in context.StudentSupervisorMeeting
                         on s.Id equals g.StudentId
                         into studentgesprekGroup
                         from t in studentgesprekGroup.DefaultIfEmpty()
                         select new
                         {
                             Id = s.Id,
-                            Studentnummer = s.Studentnummer,
-                            Voornaam = s.Voornaam,
-                            Tussenvoegsel = s.Tussenvoegsel,
-                            Achternaam = s.Achternaam,
-                            Klasscode = s.Klasscode,
-                            StudentbegeleiderId = s.StudentbegeleiderId,
-                            LaatstGesproken = (t.GesprekDatum == null ? DateTime.MaxValue : t.GesprekDatum)
+                            StudentNumber = s.StudentNumber,
+                            FirstName = s.FirstName,
+                            MiddleName = s.MiddleName,
+                            LastName = s.LastName,
+                            ClassCode = s.ClassCode,
+                            StudentSupervisor = s.StudentSupervisor,
+                            LastMeeting = t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate
                         };
-            var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);
+            var List = query.ToList().DistinctBy(x => x.Id)/*.OrderBy(x => x.LastMeeting);*/;
             // set the source of the datagrid to the list
             StudentsTable.ItemsSource = List;
         }
@@ -61,10 +61,10 @@ public partial class StudentTable : Page
         // get the studentID from the selected item 
         var SelectedStudentID = int.Parse(SelectedItem.GetType().GetProperty("Id").GetValue(SelectedItem).ToString());
         Student selectedStudent;
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // get the student from the selected ID
-            selectedStudent = context.Students.Where(x => x.Id == SelectedStudentID).First();
+            selectedStudent = context.Student.Where(x => x.Id == SelectedStudentID).First();
         }
         // check if there is a student selected
         if (selectedStudent != null)

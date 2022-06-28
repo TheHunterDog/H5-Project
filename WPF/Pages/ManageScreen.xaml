@@ -55,7 +55,7 @@
             Grid.Row="1"
             Margin="100,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Naam}" Header="Naam" Width="*" FontSize="24" x:Name="name"/>
+                <DataGridTextColumn Binding="{Binding Naam}" Header="Name" Width="*" FontSize="24" x:Name="name"/>
                 <DataGridTextColumn Binding="{Binding Docentcode}" Header="Docent code" Width="*" FontSize="24" x:Name="Docentcode"/>
                 <DataGridTemplateColumn x:Name="DemoteCol">
                     <DataGridTemplateColumn.CellTemplate>

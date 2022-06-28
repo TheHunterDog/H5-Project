@@ -13,20 +13,20 @@ public partial class MeetingList : Page
     public MeetingList()
     {
         InitializeComponent();
-        using (StudentBeleidContext context = new StudentBeleidContext())
+        using (DatabaseContext context = new DatabaseContext())
         {
             // join the tables so all the information van be shown in the grid
-            var lijst = context.StudentBegeleiderGesprekken.Where(x => x.StudentBegeleiderId == 81).Join(
-                context.Students,
+            var lijst = context.StudentSupervisorMeeting.Where(x => x.StudentSupervisorId == 81).Join(
+                context.Student,
                 begeleider => begeleider.StudentId, 
                 student => student.Id, 
                 (begeleider, student) => new
                 {
-                    GesprekDatum = begeleider.GesprekDatum,
+                    GesprekDatum = begeleider.MeetingDate,
                     StudentId = begeleider.StudentId,
                     Student = student,
-                    Opmerkingen= begeleider.Opmerkingen,
-                    Voornaam = student.Voornaam
+                    Opmerkingen= begeleider.Comments,
+                    Voornaam = student.FirstName
                 }).ToList();
             // add the list to the table
             MeetingTable.ItemsSource = lijst;

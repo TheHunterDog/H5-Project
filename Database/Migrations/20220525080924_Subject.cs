@@ -27,13 +27,13 @@ namespace Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentProblems");
+                name: "StudentProblem");
 
             migrationBuilder.DropTable(
                 name: "Subject");
 
             migrationBuilder.DropTable(
-                name: "Teachers");
+                name: "Teacher");
 
            
         }

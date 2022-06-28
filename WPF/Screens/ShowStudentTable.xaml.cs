@@ -18,10 +18,10 @@ public partial class ShowStudentTable
     {
         InitializeComponent();
 
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // put all the students in a list
-            Students = context.Students.ToList();
+            Students = context.Student.ToList();
         }
         // insert the students into the table
         StudentsTable.ItemsSource = Students;

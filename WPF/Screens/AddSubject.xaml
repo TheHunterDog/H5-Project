@@ -17,7 +17,7 @@
             <Label Content="Toevoegen Vak" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" FontSize="20" Width="500" HorizontalContentAlignment="Center" Height="37" Background="{x:Null}" Grid.ColumnSpan="2"/>
             <Button Name="Verzenden" Margin="11,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Height="20" Click="Submit_Click" Grid.Column="1">Submit</Button>
 
-            <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Naam vak:</Label>
+            <Label Margin="10,100,10,200" HorizontalContentAlignment="Right">Name vak:</Label>
             <TextBox Margin="10,100,10,200" Name="Name" Grid.Column="1" Text="Nieuw vak"/>
 
             <Label Margin="10,130,10,170" HorizontalContentAlignment="Right">Vak code:</Label>
