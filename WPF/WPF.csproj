@@ -12,6 +12,10 @@
     <None Remove="Images\HBO-ICT.jpg" />
     <None Remove="Images\Header.png" />
     <None Remove="Images\menu.png" />
+    <None Remove="Images\Nodes_Coach.png" />
+    <None Remove="Images\Nodes_Meeting.png" />
+    <None Remove="Images\Nodes_MeetingDone.png" />
+    <None Remove="Images\Nodes_Student.png" />
     <None Remove="Images\person.png" />
     <None Remove="Images\warning.png" />
   </ItemGroup>
@@ -47,6 +51,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Nodes_Coach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Nodes_Meeting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Nodes_MeetingDone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Nodes_Student.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\person.png">

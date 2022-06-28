@@ -94,6 +94,15 @@ public class StudentSupervisor: IAuthenticatable
         TeacherCode = "";
     }
 
+    public StudentSupervisor(string name, string code, int id = 0)
+    {
+        Id = id;
+        _name = name;
+        _teacherCode = code;
+        Name = name;
+        TeacherCode = code;
+    }
+
     public override string ToString()
     {
         return $"{Id}, {Name}, {TeacherCode}";

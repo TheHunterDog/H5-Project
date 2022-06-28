@@ -84,4 +84,17 @@ public class StudentSupervisorMeeting
         set => _comments = value ?? throw new ArgumentNullException(nameof(value));
     }
     #endregion
+
+    public StudentSupervisorMeeting()
+    {
+
+    }
+
+    public StudentSupervisorMeeting(Student student, StudentSupervisor studentSupervisor, DateTime dateTime, bool done)
+    {
+        Student = student;
+        StudentSupervisor = studentSupervisor;
+        MeetingDate = dateTime;
+        Done = done;
+    }
 }

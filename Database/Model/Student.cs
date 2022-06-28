@@ -154,4 +154,18 @@ public class Student
     {
         return Id.GetHashCode();
     }
+
+    public Student()
+    {
+
+    }
+    public Student(string studentnumber, string firstName, string middleName, string lastName, string classCode, StudentSupervisor studentSupervisor)
+    {
+        StudentNumber = studentnumber;
+        FirstName = firstName;
+        MiddleName = middleName;
+        LastName = lastName;
+        ClassCode = classCode;
+        StudentSupervisor = studentSupervisor.Id;
+    }
 }
