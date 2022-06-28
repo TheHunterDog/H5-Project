@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Timers;
 using System.Windows;
@@ -23,6 +24,8 @@ namespace WPF.Screens
         private int _failedBecauseEmpty = 0;
         private int _failedLogins = 0;
         private Timer _timer = new Timer();
+        NotificationBroker b = new NotificationBroker(1);
+
         
         
         
@@ -112,14 +115,24 @@ namespace WPF.Screens
             });
         }
 
+        private void NotificationListen_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (b.IsActive)
+            {
+
+                b.StopNotification();
+            }
+            else
+            {
+                b.StartNotification();
+            }
+        }
+
         private void NotificationTest_OnClick(object sender, RoutedEventArgs e)
         {
-            new ToastContentBuilder()
-                .AddArgument("action", "viewConversation")
-                .AddArgument("conversationId", 9813)
-                .AddText("Andrew sent you a picture")
-                .AddText("Check this out, The Enchantments in Washington!")
-                .Show();
+            DatabaseContext d = new DatabaseContext();
+            d.Notifications.Add(new Notification() {Description = "TEST",Receiver = d.StudentSupervisor.First(),Sender = d.StudentSupervisor.First()});
+            d.SaveChanges();
         }
     }
 }

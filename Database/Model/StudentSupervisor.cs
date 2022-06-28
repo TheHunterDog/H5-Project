@@ -66,6 +66,9 @@ public class StudentSupervisor: IAuthenticatable
         get => _students;
         set => _students = value ?? throw new ArgumentNullException(nameof(value));
     }
+
+    public string  AUTHUUID { get; set; }
+
     public string Username
     {
         get => _username;

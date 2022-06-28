@@ -46,6 +46,10 @@ public class Teacher : IAuthenticatable
         set => _studentProblems = value ?? throw new ArgumentNullException(nameof(value));
     }
 
+    // public Dictionary<string, StudentProblem> StudentProblem { get; set; }
+
+    public string  AUTHUUID { get; set; }
+
     public string Username
     {
         get => _username;

@@ -35,7 +35,8 @@
         <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
 
             <Button Height="50" Name="Submit" Grid.Row="4" Click="Submit_Click" Grid.ColumnSpan="2">Login</Button>
-            <Button Height="50" Name="NotificationTest" Grid.Row="4" Click="NotificationTest_OnClick" Grid.ColumnSpan="2">Notification Test</Button>
+            <Button Height="20" Name="NotificationListn" Grid.Row="4" Grid.Column="1" Click="NotificationListen_OnClick">Notification Listen</Button>
+            <Button Height="20" Name="NotificationTest" Grid.Row="1" Grid.Column="2" Click="NotificationTest_OnClick">Notification Test</Button>
         </StackPanel>
     </Grid>
 </Window>
