@@ -1,4 +1,6 @@
-﻿namespace Database.Model;
+﻿using Microsoft.Maps.MapControl.WPF;
+
+namespace Database.Model;
 
 public class MapNode
 {
@@ -17,7 +19,8 @@ public class MapNode
     /// map node has latitude
     /// </summary>
     private double _latitude;
-       
+
+    private LocationCollection _locationCollection;
     /// <summary>
     /// map node has a letter
     /// </summary>
@@ -64,6 +67,12 @@ public class MapNode
     {
         get => paddingHorizontal;
         set => paddingHorizontal = value;
+    }
+
+    public LocationCollection LocationCollection
+    {
+        get => _locationCollection;
+        set => _locationCollection = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     #endregion
