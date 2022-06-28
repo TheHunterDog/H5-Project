@@ -20,14 +20,14 @@ namespace WPF.ViewModels
             _nodesDiagramView = view;
         }
 
-        public void ConnectBetweenModelAndView()
+        void ConnectBetweenModelAndView()
         {
             _nodesDiagramView.StudentSupervisorStudentsAndMeetingsNodes = _nodesDiagram.GetStudentSupervisorStudentsAndMeetingsNodes();
         }
 
         public void GetData()
         {
-            _nodesDiagram.LoadFromDatabase();
+            //_nodesDiagram.LoadFromDatabase();
             ConnectBetweenModelAndView();
         }
     }

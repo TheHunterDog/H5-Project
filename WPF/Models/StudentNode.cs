@@ -18,6 +18,7 @@ namespace WPF.Models
             get { return _position; }
             set
             {
+                // x position is fixed since all students are placed in a single line
                 _position = new Vector(300, value.Y);
             }
         }
@@ -32,6 +33,7 @@ namespace WPF.Models
             get { return _position; }
             set
             {
+                // x position is fixed since all studentsupervisors are placed in a single line
                 _position = new Vector(100, value.Y);
             }
         }
@@ -47,20 +49,21 @@ namespace WPF.Models
             get { return _position; }
             set
             {
+                // x position is based on input x value, which is the index of the meeting for the student
                 _position = new Vector(440 + (value.X * 120), value.Y);
             }
         }
     }
 
-    public class StudentAndMeetingsNode
+    public class StudentAndMeetingsGroup
     {
         public StudentNode StudentNode { get; set; }
         public StudentSupervisorMeetingNode[] StudentSupervisorMeetingNodes { get; set; }
     }
 
-    public class StudentSupervisorStudentsAndMeetingsNode
+    public class StudentSupervisorStudentsAndMeetingsGroup
     {
         public StudentSupervisorNode StudentSupervisorNode { get; set; }
-        public StudentAndMeetingsNode[] StudentAndMeetingNodes { get; set; }
+        public StudentAndMeetingsGroup[] StudentAndMeetingGroups { get; set; }
     }
 }

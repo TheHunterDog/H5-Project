@@ -29,8 +29,8 @@ namespace WPF.Screens
         private double _canvasHorizontalScroll = 0, _canvasVerticalScroll = 0;
         private Vector _canvasSize = new Vector(500, 0);
 
-        private ScaleTransform scaleTransform = new ScaleTransform(1, 1);
-        private TranslateTransform translateTransform = new TranslateTransform(0, 0);
+        private ScaleTransform _scaleTransform = new ScaleTransform(1, 1);
+        private TranslateTransform _translateTransform = new TranslateTransform(0, 0);
 
         public StudentRelationsDiagram()
         {
@@ -42,7 +42,15 @@ namespace WPF.Screens
             // draw empty canvas
             DrawCanvas(view);
 
-            // draw data on canvas async for performance
+            // draw canvas
+            UpdateCanvas(view);
+        }
+
+        #region Canvas Drawing
+
+        // draw data on canvas async for performance
+        private void UpdateCanvas(NodesDiagramView view)
+        {
             Canvas.Dispatcher.BeginInvoke(
                 DispatcherPriority.Render,
                 new Action(() =>
@@ -68,8 +76,8 @@ namespace WPF.Screens
 
             // create transform groups
             TransformGroup myTransformGroup = new TransformGroup();
-            myTransformGroup.Children.Add(scaleTransform);
-            myTransformGroup.Children.Add(translateTransform);
+            myTransformGroup.Children.Add(_scaleTransform);
+            myTransformGroup.Children.Add(_translateTransform);
 
             Canvas.RenderTransform = myTransformGroup;
 
@@ -87,25 +95,25 @@ namespace WPF.Screens
                 // draw vertical line
                 DrawLineToCanvas(
                     new Vector(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentSupervisorNode.Position.X + 149, 
-                    view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[0].StudentNode.Position.Y + 25), 
-                    (view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes.Length - 1) * 100, false);
+                    view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[0].StudentNode.Position.Y + 24), 
+                    (view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups.Length - 1) * 100 + 2, false);
                 // for each student
-                for (int j = 0; j < view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes.Length; j++)
+                for (int j = 0; j < view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups.Length; j++)
                 {
                     // draw student
-                    DrawStudentToCanvas(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentNode);
+                    DrawStudentToCanvas(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentNode);
                     // for each meeting
-                    for (int k = 0; k < view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentSupervisorMeetingNodes.Length; k++)
+                    for (int k = 0; k < view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentSupervisorMeetingNodes.Length; k++)
                     {
                         // draw meeting
-                        DrawMeetingToCanvas(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentSupervisorMeetingNodes[k]);
+                        DrawMeetingToCanvas(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentSupervisorMeetingNodes[k]);
                     }
                     // draw horizontal meeting line
                     DrawLineToCanvas(
-                        new Vector(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentNode.Position.X + 100, 
-                        view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentNode.Position.Y + 4), 
-                        120 * Math.Clamp(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentSupervisorMeetingNodes.Length - 1, 0, int.MaxValue) + 
-                        (view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingNodes[j].StudentSupervisorMeetingNodes.Length > 0 ? 81 : 0), true);
+                        new Vector(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentNode.Position.X + 100, 
+                        view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentNode.Position.Y + 4), 
+                        120 * Math.Clamp(view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentSupervisorMeetingNodes.Length - 1, 0, int.MaxValue) + 
+                        (view.StudentSupervisorStudentsAndMeetingsNodes[i].StudentAndMeetingGroups[j].StudentSupervisorMeetingNodes.Length > 0 ? 81 : 0), true);
                 }
             }
 
@@ -207,81 +215,90 @@ namespace WPF.Screens
             Canvas.SetTop(rectangle, from.Y);
         }
 
+        #endregion
+
+        #region Events
         private void StudentRelationsDiagram_OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
             // zoom on scroll + LeftCTRL
             if (Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyUp(Key.LeftCtrl))
             {
-                // update value
-                _canvasScale += ((e.Delta > 0) ? .1 : -.1);
-                // clamp value
-                _canvasScale = Math.Clamp(_canvasScale, 1, 2);
-                // update viewbox
-                UpdateViewBoxZoom(_canvasScale);
-                // clamp values, has to be redone since size has changed by zooming
-                _canvasHorizontalScroll = Math.Clamp(_canvasHorizontalScroll, 0, Math.Clamp((_canvasSize.X * scaleTransform.ScaleX) - Width, 0, double.MaxValue));
-                _canvasVerticalScroll = Math.Clamp(_canvasVerticalScroll, 0, Math.Clamp((_canvasSize.Y * scaleTransform.ScaleY) - Height, 0, double.MaxValue));
-                // update viewbox
-                UpdateViewBoxScroll(new Vector(-_canvasHorizontalScroll, -_canvasVerticalScroll));
+                UpdateZoom(((e.Delta > 0) ? .1 : -.1));
+
+                UpdateScroll(new Vector(0, 0));
             }
             // scroll horizontal on scroll + LeftShift
             else if (Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyUp(Key.LeftShift))
             {
-                // update value
-                _canvasHorizontalScroll -= ((e.Delta > 0) ? 50 : -50);
-                // clamp value
-                _canvasHorizontalScroll = Math.Clamp(_canvasHorizontalScroll, 0, Math.Clamp((_canvasSize.X * scaleTransform.ScaleX) - Width, 0, double.MaxValue));
-                // update viewbox
-                UpdateViewBoxScroll(new Vector(-_canvasHorizontalScroll, -_canvasVerticalScroll));
+                UpdateScroll(new Vector(((e.Delta > 0) ? 50 : -50), 0));
             }
             // scroll vertical on scroll + LeftShift
             else
             {
-                // update value
-                _canvasVerticalScroll -= ((e.Delta > 0) ? 50 : -50);
-                // clamp value
-                _canvasVerticalScroll = Math.Clamp(_canvasVerticalScroll, 0, Math.Clamp((_canvasSize.Y * scaleTransform.ScaleY) - Height, 0, double.MaxValue));
-                // update viewbox
-                UpdateViewBoxScroll(new Vector(_canvasHorizontalScroll, -_canvasVerticalScroll));
+                UpdateScroll(new Vector(0, ((e.Delta > 0) ? 50 : -50)));
             }
+        }
+
+        // called when the window size gets changed
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateScroll(new Vector(0, 0));
+        }
+
+        #endregion
+
+        #region Zoom and Scroll
+
+        private void UpdateZoom(double delta)
+        {
+            // update value
+            _canvasScale += delta;
+            // clamp value
+            _canvasScale = Math.Clamp(_canvasScale, 1, 2);
+            // update viewbox
+            UpdateViewBoxZoom(_canvasScale);
+        }
+
+        private void UpdateScroll(Vector scroll)
+        {
+            // update values
+            _canvasHorizontalScroll -= scroll.X;
+            _canvasVerticalScroll -= scroll.Y;
+            // update scroll limits
+            _canvasHorizontalScroll = Math.Clamp(_canvasHorizontalScroll, 0, Math.Clamp((_canvasSize.X * _scaleTransform.ScaleX) - Width, 0, double.MaxValue));
+            _canvasVerticalScroll = Math.Clamp(_canvasVerticalScroll, 0, Math.Clamp((_canvasSize.Y * _scaleTransform.ScaleY) - Height, 0, double.MaxValue));
+            // update viewbox
+            UpdateViewBoxScroll(new Vector(-_canvasHorizontalScroll, -_canvasVerticalScroll));
         }
 
         private void UpdateViewBoxZoom(double scale)
         {
             // create new scaleTransform
-            scaleTransform = new ScaleTransform(scale, scale);
+            _scaleTransform = new ScaleTransform(scale, scale);
             // remove current transforms
             ((TransformGroup)Canvas.RenderTransform).Children.Clear();
             // reassign transforms
-            ((TransformGroup)Canvas.RenderTransform).Children.Add(scaleTransform);
-            ((TransformGroup)Canvas.RenderTransform).Children.Add(translateTransform);
+            ((TransformGroup)Canvas.RenderTransform).Children.Add(_scaleTransform);
+            ((TransformGroup)Canvas.RenderTransform).Children.Add(_translateTransform);
             // update size
             ZoomViewbox.Width = Canvas.ActualWidth;
             ZoomViewbox.Height = Canvas.ActualHeight;
         }
 
         private void UpdateViewBoxScroll(Vector scroll)
-        {            
+        {
             // create new translateTransform
-            translateTransform = new TranslateTransform(scroll.X, scroll.Y);
+            _translateTransform = new TranslateTransform(scroll.X, scroll.Y);
             // remove current transforms
             ((TransformGroup)Canvas.RenderTransform).Children.Clear();
             // reassign transforms
-            ((TransformGroup)Canvas.RenderTransform).Children.Add(scaleTransform);
-            ((TransformGroup)Canvas.RenderTransform).Children.Add(translateTransform);
+            ((TransformGroup)Canvas.RenderTransform).Children.Add(_scaleTransform);
+            ((TransformGroup)Canvas.RenderTransform).Children.Add(_translateTransform);
             // update size
             ZoomViewbox.Width = Canvas.ActualWidth;
             ZoomViewbox.Height = Canvas.ActualHeight;
         }
 
-        // called when the window size gets changed
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            // update scroll limits
-            _canvasHorizontalScroll = Math.Clamp(_canvasHorizontalScroll, 0, Math.Clamp((_canvasSize.X * scaleTransform.ScaleX) - Width, 0, double.MaxValue));
-            _canvasVerticalScroll = Math.Clamp(_canvasVerticalScroll, 0, Math.Clamp((_canvasSize.Y * scaleTransform.ScaleY) - Height, 0, double.MaxValue));
-            // update viewbox
-            UpdateViewBoxScroll(new Vector(-_canvasHorizontalScroll, -_canvasVerticalScroll));
-        }
+        #endregion
     }
 }
