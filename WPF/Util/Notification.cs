@@ -6,18 +6,21 @@ using System.Linq;
 using System.Security.Permissions;
 using Database.Model;
 using Microsoft.Toolkit.Uwp.Notifications;
-// using OnChangeEventHandler = Microsoft.Data.SqlClient.OnChangeEventHandler;
-// using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
-// using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
-// using SqlDependency = Microsoft.Data.SqlClient.SqlDependency;
-// using SqlNotificationEventArgs = Microsoft.Data.SqlClient.SqlNotificationEventArgs;
+
 
 namespace WPF.Util;
 
 public class NotificationBroker
 {
+    /// <summary>
+    /// Name of services in the database
+    /// </summary>
     private const string QUEUENAME = "NotificationQueue";
     private const string SERVICENAME = "NotificationChange";
+    
+    /// <summary>
+    /// Check if the broker is active
+    /// </summary>
     public bool IsActive
     {
         get
@@ -27,29 +30,32 @@ public class NotificationBroker
     }
 
     private bool _isActive = false; 
-    private delegate void RateChangeNotification(DataTable table);  
-    private SqlDependency dependency;  
-    string ConnectionString = "Server=ftp.huttennl.nl,1433;Database=StudentBegeleid;User Id=sa;Password=9CknApvBHa2aNuovTirqhmEd";
-    private int _userID;
+    // private delegate void RateChangeNotification(DataTable table);  
+    private SqlDependency _dependency;
+    private const string ConnectionString = "Server=ftp.huttennl.nl,1433;Database=StudentBegeleid;User Id=sa;Password=9CknApvBHa2aNuovTirqhmEd";
+    private readonly int _userId;
 
     public NotificationBroker(int userId)
     {
-        _userID = userId;
+        _userId = userId;
     }
 
 
-    public void Initialization()
+    private void Initialization()
     {
         // Create a dependency connection.
-        SqlDependency.Start(this.ConnectionString);
+        SqlDependency.Start(ConnectionString);
         CanRequestNotifications();
         _isActive = true;
     }
-    
+    /// <summary>
+    /// Start to listen for notifications
+    /// </summary>
+    /// <returns>DataTable with the notification data</returns>
     public DataTable StartNotification()
     {
         DataTable dt = new DataTable();
-        SqlConnection connection = new SqlConnection(this.ConnectionString);  
+        SqlConnection connection = new SqlConnection(ConnectionString);  
         connection.Open();
 
 
@@ -57,37 +63,35 @@ public class NotificationBroker
                    "SELECT Description, ReceiverId FROM dbo.Notifications",
                    connection))
         {
-
-            // SqlCommand command = new SqlCommand();  
-            // command.CommandText = "SELECT Id ,Description ,SenderId ,ReceiverId ,StudentSupervisorId ,TeacherId FROM Notifications";  
-            // command.Connection = connection;  
-            // command.CommandType = CommandType.Text;  
-
-            this.dependency = new SqlDependency(command);
-            dependency.OnChange += new OnChangeEventHandler(OnRateChange);
-            
-            
-
+            this._dependency = new SqlDependency(command);
+            _dependency.OnChange += new OnChangeEventHandler(OnRateChange);
             Initialization();
-
             dt.Load(command.ExecuteReader(CommandBehavior.CloseConnection));
         }
 
         return dt;
     }  
+    /// <summary>
+    /// Event that runs whenever something is done to the database table
+    /// </summary>
+    /// <param name="s">The sender</param>
+    /// <param name="e">The arguments</param>
     private void OnRateChange(object s, SqlNotificationEventArgs e) {
         // resubscribe
         DataTable dt = StartNotification();
-        if ((int) dt.Rows[0]["ReceiverId"] == _userID)
+        if ((int) dt.Rows[^1]["ReceiverId"] == _userId)
         {
             new ToastContentBuilder()
-                .AddText($"{ dt.Rows[0]["Description"]}")
+                .AddText($"{ dt.Rows[^1]["Description"]}")
                 .Show();
         }
 
     }  
+    /// <summary>
+    /// Stop listening to for changes to the database
+    /// </summary>
     public void StopNotification() {  
-        SqlDependency.Stop(this.ConnectionString, "QueueName");  
+        SqlDependency.Stop(ConnectionString, QUEUENAME);  
         _isActive = false;
     }  
     private bool CanRequestNotifications()
