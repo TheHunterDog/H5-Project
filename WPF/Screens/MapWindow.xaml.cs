@@ -59,11 +59,11 @@ namespace WPF.Screens
             
         }
 
-        public (double horzontalPadding, double verticalPadding) calculatePadding(MapNode node, Location TopLeftcorner)
+        public (double , double ) calculatePadding(MapNode node, Location TopLeftcorner)
         {
             double paddingH = TopLeftcorner.Latitude - node.Latitude;
             double paddingV = TopLeftcorner.Longitude - node.Longitude;
-            return (paddingH, paddingV);
+            return (Math.Abs(paddingH), Math.Abs(paddingV));
         }
 
         public void placeNodes()
@@ -87,19 +87,34 @@ namespace WPF.Screens
             {
                 (paddingH,paddingV) = calculatePadding(node, new Location(52.500774475460105, 6.078416565693611));
                 MapPolygon polygon = new MapPolygon();
-                polygon.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
-                polygon.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
+                polygon.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Yellow);
+                polygon.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Pink);
                 polygon.StrokeThickness = 5;
                 polygon.Opacity = 0.7;
                 polygon.Locations = new LocationCollection()
                 {
-                    new Location(node.Latitude - paddingH, node.Longitude + paddingV * 2),
+                    // new Location(node.Latitude - paddingH, node.Longitude + paddingV),
+                    new Location(node.Latitude + paddingH, node.Longitude + paddingV),
+                    new Location(node.Latitude + paddingH, node.Longitude - paddingV),
+                    // new Location(node.Latitude - paddingH, node.Longitude - paddingV)
+                };
+
+                Map.Children.Add(polygon);
+                MapPolygon p = new MapPolygon();
+                p.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Purple);
+                p.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Purple);
+                p.StrokeThickness = 5;
+                p.Opacity = 0.7;
+                p.Locations = new LocationCollection()
+                {
+                    new Location(node.Latitude - paddingH, node.Longitude + paddingV),
                     new Location(node.Latitude + paddingH, node.Longitude + paddingV),
                     new Location(node.Latitude + paddingH, node.Longitude - paddingV),
                     new Location(node.Latitude - paddingH, node.Longitude - paddingV)
                 };
 
-                Map.Children.Add(polygon);
+                Map.Children.Add(p);
+                
             }
         }
         public void placePlotX()
