@@ -66,8 +66,7 @@ public class StudentSupervisor: IAuthenticatable
         get => _students;
         set => _students = value ?? throw new ArgumentNullException(nameof(value));
     }
-
-    public string  AUTHUUID { get; set; }
+    
 
     public string Username
     {
@@ -88,8 +87,6 @@ public class StudentSupervisor: IAuthenticatable
     }
 
     public IEnumerable<Notification> Notifications { get; set; }
-
-    public IEnumerable<Notification> NotificationsSent { get; set; }
     public IEnumerable<Notification> NotificationsRecived { get; set; }
 
     #endregion

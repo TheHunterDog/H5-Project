@@ -48,7 +48,7 @@ public class Teacher : IAuthenticatable
 
     // public Dictionary<string, StudentProblem> StudentProblem { get; set; }
 
-    public string  AUTHUUID { get; set; }
+
 
     public string Username
     {

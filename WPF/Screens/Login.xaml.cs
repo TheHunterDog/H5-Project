@@ -117,21 +117,50 @@ namespace WPF.Screens
 
         private void NotificationListen_OnClick(object sender, RoutedEventArgs e)
         {
-            if (b.IsActive)
-            {
+            //
+            DatabaseContext d = new DatabaseContext();
+            // byte[] password = Authentication
+            //     .HashPasswordWithSalt(Encoding.ASCII.GetBytes("a"), Encoding.ASCII.GetBytes(Authentication.Salt));
+            // d.StudentSupervisor.Add(new StudentSupervisor()
+            //     {IsAdmin = true, Name = "a", Password = Encoding.Default.GetString(password) ,Username = "a",TeacherCode = "a"});
+            // d.SaveChanges();
+            var studentSupervisor =d.StudentSupervisor.Where(s => s.Name == "egg").First();
+            // foreach (var student in d.Student)
+            // {
+            //     // student.StudentSupervisor = studentSupervisor.Id;
+            //     student.Supervisor = studentSupervisor;
+            // }
 
-                b.StopNotification();
-            }
-            else
+            for (int i = 0; i < 30; i++)
             {
-                b.StartNotification();
+                d.Student.Add(new Student()
+                {
+                    FirstName = Faker.Name.First(),
+                    ClassCode = "ICTOOSDD",
+                    LastName = Faker.Name.Last(),
+                    StudentNumber = $"s{Faker.RandomNumber.Next(0, 100000)}",
+                    Supervisor = studentSupervisor,
+                });
             }
+
+
+            d.SaveChanges();
+
+            // if (b.IsActive)
+            // {
+            //
+            //     b.StopNotification();
+            // }
+            // else
+            // {
+            //     b.StartNotification();
+            // }
         }
 
         private void NotificationTest_OnClick(object sender, RoutedEventArgs e)
         {
             DatabaseContext d = new DatabaseContext();
-            d.Notifications.Add(new Notification() {Description = "TEST",Receiver = d.StudentSupervisor.First(),Sender = d.StudentSupervisor.First()});
+            d.Notifications.Add(new Notification() {Description = "TEST",Receiver = d.StudentSupervisor.First()});
             d.SaveChanges();
         }
     }

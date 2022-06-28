@@ -2,7 +2,9 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Permissions;
+using Database.Model;
 using Microsoft.Toolkit.Uwp.Notifications;
 // using OnChangeEventHandler = Microsoft.Data.SqlClient.OnChangeEventHandler;
 // using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
@@ -102,5 +104,12 @@ public class NotificationBroker
         {
             return false;
         }
+    }
+
+    public static bool CreateNotification(DatabaseContext d,StudentSupervisor studentSupervisor, string message)
+    {
+        d.Notifications.Add(new Notification() {Description = message,Receiver = studentSupervisor});
+        d.SaveChanges();
+        return true;
     }
 }

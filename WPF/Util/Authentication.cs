@@ -27,6 +27,16 @@ public class Authentication
     {
         try
         {
+            var teacher =  ctx.Teacher.Where(s => s.Username.Equals(username));
+            var studentSuperVisor =  ctx.StudentSupervisor.Where(s => s.Username.Equals(username));
+            if (teacher.Count() != 0)
+            {
+                return teacher.First() as IAuthenticatable;
+            }
+            else if ( studentSuperVisor.Count() !=  0 )
+            {
+                return studentSuperVisor.First() as IAuthenticatable;
+            }
             return (IAuthenticatable) ctx.Teacher.First(s => s.Username.Equals(username)) ??
                    (IAuthenticatable) ctx.StudentSupervisor.First(s => s.Username.Equals(username)) ?? null;
         }

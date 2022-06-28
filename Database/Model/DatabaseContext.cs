@@ -190,18 +190,14 @@ public class DatabaseContext : DbContext
             .Property(s => s.Password).IsRequired();
         modelBuilder.Entity<StudentSupervisor>()
             .HasIndex(s => s.Username).IsUnique();
-        modelBuilder.Entity<StudentSupervisor>()
-            .HasIndex(s => s.AUTHUUID).IsUnique();
         modelBuilder.Entity<Teacher>()
             .Property(s => s.Username).IsRequired();
         modelBuilder.Entity<Teacher>()
             .HasIndex(s => s.Username).IsUnique();
         modelBuilder.Entity<Teacher>()
             .Property(s => s.Password).IsRequired();
-        modelBuilder.Entity<Teacher>()
-            .HasIndex(s => s.AUTHUUID).IsUnique();
 
-        
+
         #endregion
         
         #region Subject
@@ -233,22 +229,11 @@ public class DatabaseContext : DbContext
             .HasForeignKey(s => s.ReceiverId)
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(false);
-        modelBuilder.Entity<Notification>()
-            .HasOne(n => n.Sender)
-            .WithMany(i => i.NotificationsSent)
-            .HasForeignKey(s => s.SenderId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .IsRequired(false);
-        
+
         modelBuilder.Entity<StudentSupervisor>()
             .HasMany(s => s.NotificationsRecived)
             .WithOne(s => s.Receiver)
             .HasForeignKey(s => s.ReceiverId)
-            .OnDelete(DeleteBehavior.NoAction);
-        modelBuilder.Entity<StudentSupervisor>()
-            .HasMany(s => s.NotificationsSent)
-            .WithOne(s => s.Sender)
-            .HasForeignKey(s => s.SenderId)
             .OnDelete(DeleteBehavior.NoAction);
         #endregion
 

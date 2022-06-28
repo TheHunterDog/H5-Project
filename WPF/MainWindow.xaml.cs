@@ -24,6 +24,7 @@ namespace WPF
         private int _screen = -1;
         private IAuthenticatable? user;
         private NotificationBroker b;
+        private StudentSupervisor? _supervisor;
 
         public MainWindow()
         {
@@ -34,8 +35,13 @@ namespace WPF
             InitializeComponent();
             this.user = user;
              UsernameBtn.Header = user.Username;
-             // b = new NotificationBroker(user);
-             b.StartNotification();
+             _supervisor = user as StudentSupervisor;
+             if (_supervisor != null)
+             {
+                 b = new NotificationBroker(_supervisor.Id);
+                 b.StartNotification();
+             }
+
 
         }
 
