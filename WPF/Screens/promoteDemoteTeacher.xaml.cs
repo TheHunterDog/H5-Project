@@ -14,20 +14,20 @@ namespace WPF.Screens
     /// </summary>
     public partial class promoteDemoteTeacher : Window
     {
-        public List<StudentBegeleider> coaches;
+        public List<StudentSupervisor> coaches;
         public List<Teacher> teachers;
         public Teacher SelectedTeacher;
-        public StudentBegeleider SelectedSber;
+        public StudentSupervisor SelectedSber;
         public bool promotion;
-        public promoteDemoteTeacher(bool promote, StudentBegeleider sber = null, Teacher teacher = null)
+        public promoteDemoteTeacher(bool promote, StudentSupervisor sber = null, Teacher teacher = null)
         {
             
             InitializeComponent();
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 //create a teacher and coaches list
-                coaches = context.StudentBegeleiders.ToList();
-                teachers = context.Teachers.ToList();
+                coaches = context.StudentSupervisor.ToList();
+                teachers = context.Teacher.ToList();
             }
             SelectedSber = sber;
             SelectedTeacher = teacher;
@@ -42,35 +42,35 @@ namespace WPF.Screens
             // check to promote or demote
             if (promotion)
             {
-                using (var context = new StudentBeleidContext())
+                using (var context = new DatabaseContext())
                 {
                     // create new sber
-                    StudentBegeleider studentBegeleider = new StudentBegeleider
+                    StudentSupervisor studentSupervisor = new StudentSupervisor
                     {
-                        Naam = SelectedTeacher.Name,
-                        Docentcode = SelectedTeacher.DocentCode,
+                        Name = SelectedTeacher.Name,
+                        TeacherCode = SelectedTeacher.TeacherCode,
                         Password = SelectedTeacher.Password,
                         Username = SelectedTeacher.Username
                     };
                     // add sber to database and save
-                    context.StudentBegeleiders.Add(studentBegeleider);
+                    context.StudentSupervisor.Add(studentSupervisor);
                     context.SaveChanges();
                 }
             }
             else
             {
-                using (var context = new StudentBeleidContext())
+                using (var context = new DatabaseContext())
                 {
                     // create new teacher
                     Teacher teacher = new Teacher
                     {
-                        Name = SelectedSber.Naam,
-                        DocentCode = SelectedSber.Docentcode,
+                        Name = SelectedSber.Name,
+                        TeacherCode = SelectedSber.TeacherCode,
                         Password = SelectedSber.Password,
                         Username = SelectedSber.Username
                     };
                     // add teacher to database and save
-                    context.Teachers.Add(teacher);
+                    context.Teacher.Add(teacher);
                     context.SaveChanges();
                 }
             }
@@ -93,7 +93,7 @@ namespace WPF.Screens
                 Confirmation.Content = $"Weet u zeker dat u: {SelectedTeacher.Name} wilt veranderen naar SBer?";
             else
                 // set header to display sber name
-                Confirmation.Content = $"Weet u zeker dat u: {SelectedSber.Naam} wilt veranderen naar docent?";
+                Confirmation.Content = $"Weet u zeker dat u: {SelectedSber.Name} wilt veranderen naar docent?";
         }
 
     }

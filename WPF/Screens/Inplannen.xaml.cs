@@ -41,28 +41,28 @@ namespace WPF.Screens
             datumAfspraak = new DateTime(datumAfspraak.Year, datumAfspraak.Month, datumAfspraak.Day, Int16.Parse(Hours.Text), Int16.Parse(Minutes.Text), 0);
 
             // specify the database
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // make the meeting
-                StudentBegeleiderGesprekken meeting = new StudentBegeleiderGesprekken
+                StudentSupervisorMeeting meeting = new StudentSupervisorMeeting
                 {
                     StudentId = selectedstudent.Id,
-                    StudentBegeleiderId = selectedstudent.StudentbegeleiderId,
-                    GesprekDatum = datumAfspraak,
-                    Opmerkingen = $"{opmerkingen.Text}",
-                    Voltooid = false
+                    StudentSupervisorId = selectedstudent.StudentSupervisor,
+                    MeetingDate = datumAfspraak,
+                    Comments = $"{opmerkingen.Text}",
+                    Done = false
                 };
 
                 // check if the meeting already exists
-                if (context.StudentBegeleiderGesprekken.Any(a => a.GesprekDatum == datumAfspraak && a.StudentId == meeting.StudentId))
+                if (context.StudentSupervisorMeeting.Any(a => a.MeetingDate == datumAfspraak && a.StudentId == meeting.StudentId))
                 {
                     MessageBox.Show("Afspraak bestaat al!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 //send a mail to the student
-                send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.Studentnummer);
+                send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.StudentNumber);
                 // save and add the meeting to the database
-                context.StudentBegeleiderGesprekken.Add(meeting);
+                context.StudentSupervisorMeeting.Add(meeting);
                 context.SaveChanges();
             }
             Close();

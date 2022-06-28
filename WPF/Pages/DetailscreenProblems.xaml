@@ -44,7 +44,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding ="{Binding StudentId}" Header="StudentID" Width="*"/>
                 <DataGridTextColumn Binding ="{Binding Priority}" Header="Priority" Width="*"/>
-                <DataGridTextColumn Binding ="{Binding Name}" Header="Docent Naam" Width="*"/>
+                <DataGridTextColumn Binding ="{Binding Name}" Header="Docent Name" Width="*"/>
                 <DataGridTextColumn Binding ="{Binding Description}" Header="Omschrijving" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

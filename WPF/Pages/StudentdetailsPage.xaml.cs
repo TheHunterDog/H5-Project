@@ -27,14 +27,14 @@ namespace WPF.Pages
          */
         public void addStudentInfo()
         {
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
                 // fill the labels with the student's info
-                information.Content = $"Informatie student: {selectedStudent.Studentnummer}";
-                naam.Content = $"Naam: {selectedStudent.Voornaam}{(" " + selectedStudent.Tussenvoegsel).TrimEnd()} {selectedStudent.Achternaam}";
-                studentnum.Content = $"Studentnummer: {selectedStudent.Studentnummer}";
-                klas.Content = $"Klas: {selectedStudent.Klasscode}";
-                SBer.Content = $"Studentbegeleider: {context.StudentBegeleiders.Where(x => x.Id == selectedStudent.StudentbegeleiderId).First().Naam}";
+                information.Content = $"Informatie student: {selectedStudent.StudentNumber}";
+                naam.Content = $"Name: {selectedStudent.FirstName}{(" " + selectedStudent.MiddleName).TrimEnd()} {selectedStudent.LastName}";
+                studentnum.Content = $"StudentNumber: {selectedStudent.StudentNumber}";
+                klas.Content = $"Klas: {selectedStudent.ClassCode}";
+                SBer.Content = $"Supervisor: {context.StudentSupervisor.Where(x => x.Id == selectedStudent.StudentSupervisor).First().Name}";
                 isMessagePlanned.Content = meetingIsPlanned();
                 lastMeeting.Content = lastMeetingCheck();
             }
@@ -45,14 +45,14 @@ namespace WPF.Pages
         string meetingIsPlanned()
         {
             string message = "";
-            using (StudentBeleidContext context = new StudentBeleidContext())
+            using (DatabaseContext context = new DatabaseContext())
             {
-                var gesprek = context.StudentBegeleiderGesprekken.Where(x => x.StudentId == selectedStudent.Id && x.GesprekDatum >= DateTime.Now).FirstOrDefault();
+                var gesprek = context.StudentSupervisorMeeting.Where(x => x.StudentId == selectedStudent.Id && x.MeetingDate >= DateTime.Now).FirstOrDefault();
                 // check if there is a meeting planned
                 if (gesprek == null)
                     message = "Op dit moment is er geen gesprek ingepland";
                 else
-                    message = $"Er is een gesprek geplanned voor: {gesprek.GesprekDatum}";
+                    message = $"Er is een gesprek geplanned voor: {gesprek.MeetingDate}";
                 return message;
             }
         }
@@ -63,12 +63,12 @@ namespace WPF.Pages
         string lastMeetingCheck()
         {
             string message = "";
-            using (var context = new StudentBeleidContext())
+            using (var context = new DatabaseContext())
             {
-                var gesprek = context.StudentBegeleiderGesprekken.Where(x => x.GesprekDatum < DateTime.Now && x.StudentId == selectedStudent.Id).FirstOrDefault();
+                var gesprek = context.StudentSupervisorMeeting.Where(x => x.MeetingDate < DateTime.Now && x.StudentId == selectedStudent.Id).FirstOrDefault();
                 // check if there was a meeting
-                if (gesprek != null && gesprek.Voltooid )
-                    message = $"Laatste gesprek was op: {gesprek.GesprekDatum}";
+                if (gesprek != null && gesprek.Done )
+                    message = $"Laatste gesprek was op: {gesprek.MeetingDate}";
                 else
                     message = "Er is nog geen gesprek geweest";
                 return message;

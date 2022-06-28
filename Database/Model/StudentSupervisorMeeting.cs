@@ -1,6 +1,6 @@
 ﻿namespace Database.Model;
 
-public class StudentBegeleiderGesprekken
+public class StudentSupervisorMeeting
 {
     #region PrivateFields
  /// <summary>
@@ -14,44 +14,44 @@ public class StudentBegeleiderGesprekken
     private Student _student;
     
     /// <summary>
-    /// A meeting has a StudentBegeleider Forgeinkey
+    /// A meeting has a StudentSupervisor Forgeinkey
     /// </summary>
-    private int _studentBegeleiderId;
+    private int _studentSupervisorId;
     
     /// <summary>
     /// A meeting has a studentbegeleider
     /// </summary>
-    private StudentBegeleider _studentBegeleider;
+    private StudentSupervisor _studentSupervisor;
     
     /// <summary>
     /// A meeting has a date
     /// </summary>
-    private DateTime _gesprekDatum;
+    private DateTime _meetingDate;
     
     /// <summary>
     /// A meeting can be completed
     /// </summary>
-    private bool _voltooid;
+    private bool _done;
     
     /// <summary>
     /// A meeting may have notes
     /// </summary>
-    private string _opmerkingen;
+    private string _comments;
     
     #endregion
     
     #region Properties
 
-    public int StudentBegeleiderId
+    public int StudentSupervisorId
     {
-        get => _studentBegeleiderId;
-        set => _studentBegeleiderId = value;
+        get => _studentSupervisorId;
+        set => _studentSupervisorId = value;
     }
 
-    public StudentBegeleider StudentBegeleider
+    public StudentSupervisor StudentSupervisor
     {
-        get => _studentBegeleider;
-        set => _studentBegeleider = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentSupervisor;
+        set => _studentSupervisor = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public int StudentId
@@ -66,22 +66,22 @@ public class StudentBegeleiderGesprekken
         set => _student = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public DateTime GesprekDatum
+    public DateTime MeetingDate
     {
-        get => _gesprekDatum;
-        set => _gesprekDatum = value;
+        get => _meetingDate;
+        set => _meetingDate = value;
     }
 
-    public bool Voltooid
+    public bool Done
     {
-        get => _voltooid;
-        set => _voltooid = value;
+        get => _done;
+        set => _done = value;
     }
 
-    public string Opmerkingen
+    public string Comments
     {
-        get => _opmerkingen;
-        set => _opmerkingen = value ?? throw new ArgumentNullException(nameof(value));
+        get => _comments;
+        set => _comments = value ?? throw new ArgumentNullException(nameof(value));
     }
     #endregion
 }

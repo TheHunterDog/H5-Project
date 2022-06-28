@@ -1,33 +1,33 @@
 ﻿namespace Database.Model;
 
-public class StudentBegeleider: IAuthenticatable
+public class StudentSupervisor: IAuthenticatable
 {
     
     #region PrivateFields
    /// <summary>
-    /// studentbegeleider has an id
+    /// StudentSupervisor has an id
     /// </summary>
    private int _id;
    
     /// <summary>
-    /// Studentbegeleider has a name
+    /// StudentSupervisor has a name
     /// </summary>
-    private string _naam;
+    private string? _name;
     
     /// <summary>
-    /// StudentBegeleider has a docentcode
+    /// StudentSupervisor has a docentcode
     /// </summary>
-    private string _docentcode;
+    private string _teacherCode;
     
     /// <summary>
-    /// StudentBegeleider belongs to many students
+    /// StudentSupervisor belongs to many students
     /// </summary>
     private IEnumerable<Student> _students;
     
     /// <summary>
-    /// Studentbegeleider belongs to many meetings
+    /// StudentSupervisor belongs to many meetings
     /// </summary>
-    private IEnumerable<StudentBegeleiderGesprekken> _studentBegeleiderGesprekken;
+    private IEnumerable<StudentSupervisorMeeting> _studentSupervisorMeetings;
     
     private String _username;
     private string _password;
@@ -37,10 +37,10 @@ public class StudentBegeleider: IAuthenticatable
 
     #region Properties
 
-    public IEnumerable<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken
+    public IEnumerable<StudentSupervisorMeeting> StudentSupervisorMeetings
     {
-        get => _studentBegeleiderGesprekken;
-        set => _studentBegeleiderGesprekken = value ?? throw new ArgumentNullException(nameof(value));
+        get => _studentSupervisorMeetings;
+        set => _studentSupervisorMeetings = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public int Id
@@ -49,16 +49,16 @@ public class StudentBegeleider: IAuthenticatable
         set => _id = value;
     }
 
-    public string Naam
+    public string? Name
     {
-        get => _naam;
-        set => _naam = value ?? throw new ArgumentNullException(nameof(value));
+        get => _name;
+        set => _name = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public string Docentcode
+    public string TeacherCode
     {
-        get => _docentcode;
-        set => _docentcode = value ?? throw new ArgumentNullException(nameof(value));
+        get => _teacherCode;
+        set => _teacherCode = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public IEnumerable<Student> Students
@@ -86,16 +86,16 @@ public class StudentBegeleider: IAuthenticatable
 
     #endregion
 
-    public StudentBegeleider()
+    public StudentSupervisor()
     {
-        _naam = "";
-        _docentcode = "";
-        this.Naam = "";
-        this.Docentcode = "";
+        _name = "";
+        _teacherCode = "";
+        Name = "";
+        TeacherCode = "";
     }
 
     public override string ToString()
     {
-        return $"{Id}, {Naam}, {Docentcode}";
+        return $"{Id}, {Name}, {TeacherCode}";
     }
 }

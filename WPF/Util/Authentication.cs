@@ -13,6 +13,8 @@ namespace WPF.Util;
 public class Authentication
 {
     public static readonly string Salt = "APP";
+
+
     public static bool CheckAdmin<T>(T user) where T :IAuthenticatable
     {
         return user.IsAdmin;
@@ -21,12 +23,12 @@ public class Authentication
     /**
      * <summary>get the user with the password and username</summary>
      */
-    public static IAuthenticatable? GetUserWithCredentials(string password, string username,StudentBeleidContext ctx)
+    public static IAuthenticatable? GetUserWithCredentials(string password, string username,DatabaseContext ctx)
     {
         try
         {
-            return (IAuthenticatable) ctx.Teachers.First(s => s.Username.Equals(username)) ??
-                   (IAuthenticatable) ctx.StudentBegeleiders.First(s => s.Username.Equals(username)) ?? null;
+            return (IAuthenticatable) ctx.Teacher.First(s => s.Username.Equals(username)) ??
+                   (IAuthenticatable) ctx.StudentSupervisor.First(s => s.Username.Equals(username)) ?? null;
         }
         catch (InvalidOperationException e)
         {

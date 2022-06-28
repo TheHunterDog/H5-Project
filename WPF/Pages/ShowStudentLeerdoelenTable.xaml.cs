@@ -13,18 +13,18 @@ namespace WPF.Pages;
 
 public partial class ShowStudentLeerdoelenTable : Page
 {
-    public List<Leerdoel> Leerdoelen { get; set; }
+    public List<LearningGoal> Leerdoelen { get; set; }
     public Student SelectedStudent;
     public ShowStudentLeerdoelenTable(Student st)
     {
         InitializeComponent();
         SelectedStudent = st;
-        using (var context = new StudentBeleidContext())
+        using (var context = new DatabaseContext())
         {
             // get all leerdoelen and put them in the table
-            List<Leerdoel> leerdoelen = context.Leerdoelen.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+            List<LearningGoal> leerdoelen = context.LearningGoals.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             StudentLeerdoelen.ItemsSource = leerdoelen;
-            studentnrlbl.Content = $"Leerdoelen van Student: {SelectedStudent.Studentnummer}";
+            studentnrlbl.Content = $"LearningGoals van Student: {SelectedStudent.StudentNumber}";
         }
     }
 

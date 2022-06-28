@@ -4,6 +4,7 @@ using Database.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class StudentBeleidContextModelSnapshot : ModelSnapshot
+    [Migration("20220526105637_Authentication")]
+    partial class Authentication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,95 +154,6 @@ namespace Database.Migrations
                     b.ToTable("StudentSupervisorMeeting");
                 });
 
-            modelBuilder.Entity("Database.Model.Subject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ec")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Lessons")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubjectCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentsId", "SubjectsId");
-
-                    b.HasIndex("SubjectsId");
-
-                    b.ToTable("StudentSubjects", (string)null);
-                });
-
-            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("StudentProblem");
-                });
-
-            modelBuilder.Entity("WPF.Model.Teacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teacher");
-                });
-
             modelBuilder.Entity("Database.Model.StudentProblem", b =>
                 {
                     b.Property<int>("Id")
@@ -349,22 +262,7 @@ namespace Database.Migrations
                     b.Navigation("StudentSupervisor");
                 });
 
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.HasOne("Database.Model.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Database.Model.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
                 {
                     b.HasOne("Database.Model.Student", "Student")
                         .WithMany("StudentProblem")
@@ -372,7 +270,7 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WPF.Model.Teacher", "Teacher")
+                    b.HasOne("Database.Model.Teacher", "Teacher")
                         .WithMany("StudentProblem")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
