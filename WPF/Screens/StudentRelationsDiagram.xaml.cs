@@ -59,7 +59,7 @@ namespace WPF.Screens
                     NodesDiagramViewModel nodesDiagramViewModel = new NodesDiagramViewModel(view);
 
                     // populate view
-                    nodesDiagramViewModel.GetData();
+                    nodesDiagramViewModel.GetExampleData();
 
                     // draw data on canvas
                     DrawCanvas(view);
@@ -254,7 +254,7 @@ namespace WPF.Screens
             // update value
             _canvasScale += delta;
             // clamp value
-            _canvasScale = Math.Clamp(_canvasScale, 1, 2);
+            _canvasScale = Math.Clamp(_canvasScale, 0.25, 2);
             // update viewbox
             UpdateViewBoxZoom(_canvasScale);
         }

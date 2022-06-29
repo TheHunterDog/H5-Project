@@ -107,4 +107,9 @@ public class StudentSupervisor: IAuthenticatable
     {
         return $"{Id}, {Name}, {TeacherCode}";
     }
+
+    public override bool Equals(object? obj)
+    {
+        return ((StudentSupervisor)obj).TeacherCode == TeacherCode;
+    }
 }

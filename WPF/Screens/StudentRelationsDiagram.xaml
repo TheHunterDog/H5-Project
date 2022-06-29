@@ -8,7 +8,7 @@
         Title="StudentRelationsDiagram" Height="800" Width="1600">
     <Grid MouseWheel="StudentRelationsDiagram_OnMouseWheel" SizeChanged="OnSizeChanged">
         <Viewbox x:Name="ZoomViewbox" Height="4000" Width="1600">
-            <Canvas Name="Canvas" Height="4000" Width="4000"/>
+            <Canvas Name="Canvas" Height="40000" Width="40000"/>
         </Viewbox>
     </Grid>
 </Window>

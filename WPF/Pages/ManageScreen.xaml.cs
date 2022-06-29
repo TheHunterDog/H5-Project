@@ -123,5 +123,13 @@ namespace WPF.Pages
             SubjectAssigning win = new SubjectAssigning();
             win.Show();
         }
+
+        private void ButtonNodesDiagram_Click(object sender, RoutedEventArgs e)
+        {
+            //open new add subject window
+            StudentRelationsDiagram win = new StudentRelationsDiagram();
+            win.Show();
+        }
+        
     }
 }

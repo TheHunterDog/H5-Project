@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,27 @@ namespace WPF.ViewModels
 
         void ConnectBetweenModelAndView()
         {
-            _nodesDiagramView.StudentSupervisorStudentsAndMeetingsNodes = _nodesDiagram.GetStudentSupervisorStudentsAndMeetingsNodes();
+            _nodesDiagramView.StudentSupervisorStudentsAndMeetingsNodes = _nodesDiagram.GetStudentSupervisorStudentsAndMeetingsGroups();
         }
 
-        public void GetData()
+        public void GetDataFromDataBase()
         {
-            //_nodesDiagram.LoadFromDatabase();
+            _nodesDiagram.LoadFromDatabase();
             ConnectBetweenModelAndView();
+        }
+        public void GetExampleData()
+        {
+            ConnectBetweenModelAndView();
+        }
+        public void SetTestData(Student[] studentsT, StudentSupervisor[] studentSupervisorsT, StudentSupervisorMeeting[] meetingsT)
+        {
+            _nodesDiagram.LoadFromTest(studentsT, studentSupervisorsT, meetingsT);
+            ConnectBetweenModelAndView();
+        }
+
+        public NodesDiagramModel NodesDiagramModel()
+        {
+            return _nodesDiagram;
         }
     }
 }

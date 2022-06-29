@@ -40,6 +40,8 @@ namespace WPF.Models
         // loads all students, studentsupervisors and meetings from the database
         public void LoadFromDatabase()
         {
+            students = null; studentSupervisors = null; studentSupervisorMeetings = null;
+
             // loading from database logic
             using (var context = new DatabaseContext())
             {
@@ -49,29 +51,38 @@ namespace WPF.Models
             }
         }
 
+        public void LoadFromTest(Student[] studentsT, StudentSupervisor[] studentSupervisorsT, StudentSupervisorMeeting[] meetingsT)
+        {
+            students = null; studentSupervisors = null; studentSupervisorMeetings = null;
+
+            studentSupervisorMeetings = meetingsT;
+            studentSupervisors = studentSupervisorsT;
+            students = studentsT;
+        }
+
         // returns all students that were loaded from the database
-        private Student[] GetStudents()
+        public Student[] GetStudents()
         {
             return students;
         }
         // returns all studentsupervisors that were loaded from the database
-        private StudentSupervisor[] GetStudentSupervisors()
+        public StudentSupervisor[] GetStudentSupervisors()
         {
             return studentSupervisors;
         }
         // returns all studentsupervisormeetings that were loaded from the database
-        private StudentSupervisorMeeting[] GetStudentSupervisorMeetings()
+        public StudentSupervisorMeeting[] GetStudentSupervisorMeetings()
         {
             return studentSupervisorMeetings;
         }
 
         // returns all students from a studentsupervisor that were loaded from the database
-        private Student[] GetStudentSupervisorStudents(StudentSupervisor studentSupervisor)
+        public Student[] GetStudentSupervisorStudents(StudentSupervisor studentSupervisor)
         {
             return GetStudents().Where(s => s.StudentSupervisor == studentSupervisor.Id).ToArray();
         }
         // returns a node object that contains the position and studentdata
-        private StudentNode CreateStudentNode(Student student, int previousStudents)
+        public StudentNode CreateStudentNode(Student student, int previousStudents)
         {
             // create student node
             StudentNode node = new StudentNode();
@@ -82,7 +93,7 @@ namespace WPF.Models
             return node;
         }
         // returns a node object that contains the position and studentsupervisordata
-        private StudentSupervisorNode CreateStudentSupervisorNode(StudentSupervisor studentSupervisor, int previousStudents, int currentStudents)
+        public StudentSupervisorNode CreateStudentSupervisorNode(StudentSupervisor studentSupervisor, int previousStudents, int currentStudents)
         {
             // create studentsupervisor node
             StudentSupervisorNode node = new StudentSupervisorNode();
@@ -93,7 +104,7 @@ namespace WPF.Models
             return node;
         }
         // returns a node object that contains the position and studentsupervisordata
-        private StudentSupervisorMeetingNode CreateStudentSupervisorMeetingNode(StudentNode student, StudentSupervisorMeeting studentSupervisorMeeting, int index)
+        public StudentSupervisorMeetingNode CreateStudentSupervisorMeetingNode(StudentNode student, StudentSupervisorMeeting studentSupervisorMeeting, int index)
         {
             // create studentsupervisormeeting node
             StudentSupervisorMeetingNode node = new StudentSupervisorMeetingNode();
@@ -104,7 +115,7 @@ namespace WPF.Models
             return node;
         }
         // returns a group that contains a studentnode and an array of meetingnodes of that student
-        private StudentAndMeetingsGroup CreateStudentAndMeetingsGroup(StudentNode student)
+        public StudentAndMeetingsGroup CreateStudentAndMeetingsGroup(StudentNode student)
         {
             // create studentsupervisormeeting node
             StudentAndMeetingsGroup group = new StudentAndMeetingsGroup();
@@ -114,7 +125,7 @@ namespace WPF.Models
             return group;
         }
         // returns a group that contains a studentsupervisornode and an array of studentandmeetingsGroups of that studentsupervisor
-        private StudentSupervisorStudentsAndMeetingsGroup CreateStudentSupervisorStudentsAndMeetingsGroup(StudentSupervisor studentSupervisor, int previousStudents, out int currentStudents)
+        public StudentSupervisorStudentsAndMeetingsGroup CreateStudentSupervisorStudentsAndMeetingsGroup(StudentSupervisor studentSupervisor, int previousStudents, out int currentStudents)
         {
             Student[] studentsFromSupervisor = GetStudentSupervisorStudents(studentSupervisor);
             currentStudents = studentsFromSupervisor.Length;
@@ -124,7 +135,7 @@ namespace WPF.Models
                 StudentSupervisorStudentsAndMeetingsGroup group = new StudentSupervisorStudentsAndMeetingsGroup();
 
                 group.StudentSupervisorNode = CreateStudentSupervisorNode(studentSupervisor, previousStudents, studentsFromSupervisor.Length);
-                group.StudentAndMeetingGroups = GetStudentAndMeetingsNodes(studentSupervisor, previousStudents);
+                group.StudentAndMeetingGroups = GetStudentAndMeetingsGroups(studentSupervisor, previousStudents);
 
                 return group;
             }
@@ -132,7 +143,7 @@ namespace WPF.Models
         }
 
         // returns a node object that contains the position and studentsupervisormeetingdata
-        private StudentSupervisorMeetingNode[] GetStudentSupervisorMeetingNodes(StudentNode student)
+        public StudentSupervisorMeetingNode[] GetStudentSupervisorMeetingNodes(StudentNode student)
         {
             // get all meetings involving a certain student
             StudentSupervisorMeeting[] studentSupervisorMeetingsArray = GetStudentSupervisorMeetings().Where(s => s.Student == student.Student).ToArray();
@@ -147,7 +158,7 @@ namespace WPF.Models
             return studentSupervisorMeetingNodes;
         }
         // returns a node object that contains a studentnode and an array of studentsupervisormeetingnodes
-        private StudentAndMeetingsGroup[] GetStudentAndMeetingsNodes(StudentSupervisor studentSupervisor, int previousStudents)
+        public StudentAndMeetingsGroup[] GetStudentAndMeetingsGroups(StudentSupervisor studentSupervisor, int previousStudents)
         {
             // get students from studentSupervisor
             Student[] studentsArray = GetStudentSupervisorStudents(studentSupervisor);
@@ -169,7 +180,7 @@ namespace WPF.Models
             return studentAndMeetingsGroup;
         }
         // returns a node object that contains the studentsupervisor and an array of studentandmeetingnodes
-        public StudentSupervisorStudentsAndMeetingsGroup[] GetStudentSupervisorStudentsAndMeetingsNodes()
+        public StudentSupervisorStudentsAndMeetingsGroup[] GetStudentSupervisorStudentsAndMeetingsGroups()
         {
             StudentSupervisor[] studentSupervisors = GetStudentSupervisors();
 

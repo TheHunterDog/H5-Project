@@ -93,8 +93,8 @@ public class Model_Should_Property_Changed
     [Test]
     public void StudentBegeleider_Change_Property_changed_Should_Change()
     {
-        Assert.AreEqual(_studentSupervisor.Name,null);
-        Assert.AreEqual(_studentSupervisor.TeacherCode,null);
+        Assert.AreEqual(_studentSupervisor.Name, "");
+        Assert.AreEqual(_studentSupervisor.TeacherCode, "");
         Assert.AreEqual(_studentSupervisor.Id,0);
         Assert.AreEqual(_studentSupervisor.Students,null);
         Assert.AreEqual(_studentSupervisor.StudentSupervisorMeetings, null);
