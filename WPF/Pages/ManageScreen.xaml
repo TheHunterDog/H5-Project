@@ -100,7 +100,7 @@
             Content="Inzien diagram"
             Click="ButtonNodesDiagram_Click"
             Background="#113B69"
-            Foreground="White" Margin="250,0,0,0"
+            Foreground="White" Margin="325,0,75,0" Grid.ColumnSpan="2"
             />
         <Button 
             Grid.Column="2"
