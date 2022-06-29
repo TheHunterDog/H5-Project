@@ -6,6 +6,9 @@ using System.Text;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Xml.Linq;
 using Database.Model;
 using Microsoft.Maps.MapControl.WPF;
 using WPF.Util;
@@ -17,20 +20,6 @@ namespace WPF.Screens
     /**
      * <summary>Interaction logic for MapWindow.xaml</summary>
      */
-    // <wpf:Pushpin Location="52.50107401581845, 6.079146517870714" Content="T"/>
-    //     <wpf:Pushpin Location="52.500923791962734, 6.080712958728256" Content="D"/>
-    //     <wpf:Pushpin Location="52.50035230568534, 6.078647631938577" Content="X"/>
-    //     <wpf:Pushpin Location="52.50001920899266, 6.080696842326544" Content="C"/>
-    //     <wpf:Pushpin Location="52.50069192111236, 6.081522991392552" Content="E"/>
-    //     <wpf:Pushpin Location="52.50046005144939, 6.082016512539299" Content="F"/>
-    
-    
-    //     <wpf:Pushpin Location="52.5005220814926, 6.082762179955078" Content="G"/>
-    //     <wpf:Pushpin Location="52.500682120525745, 6.083167147146193" Content="H"/>
-    //     <wpf:Pushpin Location="52.499773620755064, 6.078321891079488" Content="Z"/>
-    //     <wpf:Pushpin Location="52.49916731581769, 6.0789601186802456" Content="S"/>
-    //     <wpf:Pushpin Location="52.499071882476706, 6.080186480709502" Content="A"/>
-    //     <wpf:Pushpin Location="52.49956131951883, 6.080314542718152" Content="B"/>
     public partial class MapWindow : Window
     {
         
@@ -141,15 +130,22 @@ namespace WPF.Screens
             placeNodes();
             
         }
-
+        
+        public MapLayer getLayer(Location center, string letter)
+        {
+            MapLayer layer = new MapLayer();
+            MapLayer.SetPosition(layer,center);
+            layer.Children.Add(new TextBlock()
+            {
+                Text = letter
+            });
+            return layer;
+        }
 
         public void placeNodes()
         {
             foreach (var node in Nodes)
             {
-                Pushpin pin = new Pushpin();
-                double minLongitude = node.LocationCollection[0].Longitude, maxLongitude = node.LocationCollection[0].Longitude;
-                double minLatitude = node.LocationCollection[0].Latitude, maxLatitude = node.LocationCollection[0].Latitude;
                 double longSum = 0;
                 double latSum = 0;
                 foreach (var location in node.LocationCollection)
@@ -157,9 +153,7 @@ namespace WPF.Screens
                     longSum += location.Longitude;
                     latSum += location.Latitude;
                 }
-                pin.Location = new Location((latSum) / node.LocationCollection.Count, (longSum)/node.LocationCollection.Count);
-                pin.Content = node.Letter;
-                Map.Children.Add(pin);
+                Map.Children.Add(getLayer(new Location((latSum) / node.LocationCollection.Count, (longSum)/node.LocationCollection.Count),node.Letter));
             }
 
         }
@@ -173,8 +167,8 @@ namespace WPF.Screens
             {
                 // (paddingH,paddingV) = calculatePadding(node, new Location(52.500774475460105, 6.078416565693611));
                 MapPolygon polygon = new MapPolygon();
-                polygon.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Yellow);
-                polygon.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Pink);
+                polygon.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+                polygon.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Yellow);
                 polygon.StrokeThickness = 5;
                 polygon.Opacity = 0.7;
                 polygon.Locations =  node.LocationCollection;

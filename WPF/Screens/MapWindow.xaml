@@ -9,7 +9,7 @@
     <Grid>
 
         <DockPanel>
-            <wpf:Map x:Name="Map" CredentialsProvider="Aur6GSfS0xzIxxkVCkJzrtu8OAvbVPl8Apfa1qQUvVEqt6Eufxd20mW4nCl0OWWm" ZoomLevel="17" Mode="AerialWithLabels" Center="52.500370, 6.079140">
+            <wpf:Map x:Name="Map" CredentialsProvider="Aur6GSfS0xzIxxkVCkJzrtu8OAvbVPl8Apfa1qQUvVEqt6Eufxd20mW4nCl0OWWm" ZoomLevel="17" Mode="aerial" Center="52.500370, 6.079140">
             
 
             </wpf:Map>
