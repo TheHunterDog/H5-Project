@@ -16,59 +16,13 @@ public class ExcelImporter
 
     }
 
-    public static void RemoveStudentsAndCoaches()
-    {
-        using (var context = new DatabaseContext())
-        {
-            // remove studentbegeleiders first to avoid relation conflicts
-            context.StudentSupervisor.RemoveRange(context.StudentSupervisor); 
-            // remove students
-            context.Student.RemoveRange(context.Student); 
-            // save changes to database
-            context.SaveChanges(); 
-        }
-    }
-    public static void PrintStudents()
-    {
-        Trace.WriteLine("\n All Student in database:");
-        using (var context = new DatabaseContext())
-        {
-            // obtain students from database
-            List<Student> students = context.Student.ToList(); 
-            for (int i = 0; i < students.Count; i++)
-            {
-                // get student from list
-                Student student = students.ElementAt(i);
-                // print student data
-                Trace.WriteLine(student); 
-            }
-        }
-    }
-
-    public static void PrintCoaches()
-    {
-        Console.WriteLine("\n All Coaches in database:");
-        using (var context = new DatabaseContext())
-        {
-            // obtain coaches from database
-            List<StudentSupervisor> coaches = context.StudentSupervisor.ToList(); 
-            for (int i = 0; i < coaches.Count; i++)
-            {
-                // get coach from list
-                StudentSupervisor coach = coaches.ElementAt(i); 
-                // print coach data
-                Console.WriteLine(coach); 
-            }
-        }
-    }
-
     /**
      * <summary>Imports students from excel file</summary>
      */
     public static void ImportStudentsFromFile(string fileLocation = "")
     {
         // get data from file
-        DataTable? data = GetDataTableFromFile(fileLocation);//, "Student");
+        DataTable? data = GetDataTableFromFile(fileLocation);
         // if data is null, file could not be found
         if(data == null) return;
         // get strings with student data
@@ -126,51 +80,6 @@ public class ExcelImporter
                     {
                         // add student to database
                         context.Student.Add(student);
-                    }
-                }
-            }
-            // save changes to database
-            context.SaveChanges();
-        }
-    }
-
-    /**
-     * <summary>Import coaches from excel file</summary>
-     */
-    public static void ImportCoachesFromFile(string fileLocation = "")
-    {
-        // get data from file
-        DataTable? data = GetDataTableFromFile(fileLocation);//, "Coaches");
-        // if data is null, file could not be found
-        if (data == null) return;
-        // get strings with coach data
-        string[] coachStrings = ReadDataFromDataTable(data);
-        // save data to database
-        using (var context = new DatabaseContext())
-        {
-            for (int i = 0; i < coachStrings.Length; i++)
-            {
-                // convert string to object of type Coach
-                StudentSupervisor? coach = CreateCoachFromDataString(coachStrings[i]);
-                // add coach to database
-                if (coach != null)
-                {
-                    // get whether there is already a coach with the same code in the database
-                    int count = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).Count();
-                    // when yes, update coach with new name etc.
-                    if (count > 0)
-                    {
-                        // get coach from database
-                        var result = context.StudentSupervisor.Where(x => x.TeacherCode.Equals(coach.TeacherCode)).First();
-                        // update coach parameters
-                        result.Name = coach.Name;
-                        result.TeacherCode = coach.TeacherCode; // redundant
-                    }
-                    // when no, add the coach to the database
-                    else
-                    {
-                        //Console.WriteLine("Add");
-                        context.StudentSupervisor.Add(coach);
                     }
                 }
             }

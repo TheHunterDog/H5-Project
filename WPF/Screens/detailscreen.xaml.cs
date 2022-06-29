@@ -57,7 +57,7 @@ namespace WPF.Screens
         private void planMeeting(object sender, RoutedEventArgs e)
         {
             //open screen to plan a meeting
-            Inplannen inplannen = new(selectedStudent);
+            MeetingPlanning inplannen = new(selectedStudent);
             inplannen.studentnr = studentnr;
             inplannen.ShowDialog();
         }
@@ -86,8 +86,8 @@ namespace WPF.Screens
             if (screen == 2) return;
             screen = 2;
             // create and goto page
-            ShowStudentLeerdoelenTable StudentLeerdoelenTable = new(selectedStudent);
-            DetailFrame.NavigationService.Navigate(StudentLeerdoelenTable);
+            ShowStudentLearningGoalsTable StudentLearningGoalsTable = new(selectedStudent);
+            DetailFrame.NavigationService.Navigate(StudentLearningGoalsTable);
         }
 
         

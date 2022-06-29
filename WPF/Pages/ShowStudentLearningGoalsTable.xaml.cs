@@ -11,11 +11,11 @@ using WPF.Screens;
 
 namespace WPF.Pages;
 
-public partial class ShowStudentLeerdoelenTable : Page
+public partial class ShowStudentLearningGoalsTable : Page
 {
     public List<LearningGoal> Leerdoelen { get; set; }
     public Student SelectedStudent;
-    public ShowStudentLeerdoelenTable(Student st)
+    public ShowStudentLearningGoalsTable(Student st)
     {
         InitializeComponent();
         SelectedStudent = st;
@@ -34,7 +34,7 @@ public partial class ShowStudentLeerdoelenTable : Page
     private void AddLeerdoelbtn(object sender, RoutedEventArgs e)
     {
         // open window to add leerdoelen
-        StudentLeerdoelenToevoegen toevoegen = new StudentLeerdoelenToevoegen(SelectedStudent);
+        StudentAddLearningGoal toevoegen = new StudentAddLearningGoal(SelectedStudent);
         toevoegen.Show();
     }
 }

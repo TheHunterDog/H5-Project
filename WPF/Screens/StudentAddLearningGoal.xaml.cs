@@ -10,17 +10,17 @@ namespace WPF.Screens
     /// <summary>
     /// Interaction logic for StudentLeerdoelenToevoegen.xaml
     /// </summary>
-    public partial class StudentLeerdoelenToevoegen : Window
+    public partial class StudentAddLearningGoal : Window
     {
         Student selectedstudent;
-        public StudentLeerdoelenToevoegen(Student st)
+        public StudentAddLearningGoal(Student st)
         {
             InitializeComponent();
             selectedstudent = st;
         }
         
         /// <summary>
-        /// Submit the <see cref="leerdoel"/> Binded to <see cref="Student"/>
+        /// Submit the <see cref="LearningGoal"/> Binded to <see cref="Student"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

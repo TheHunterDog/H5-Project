@@ -14,11 +14,11 @@ namespace WPF.Screens
     /**
      * <summary>Interaction logic for Inplannen.xaml</summary>
      */
-    public partial class Inplannen : Window
+    public partial class MeetingPlanning : Window
     {
         public string studentnr = "";
         Student selectedstudent;
-        public Inplannen(Student st)
+        public MeetingPlanning(Student st)
         {
             InitializeComponent();
             // make the dates before today unselectable

@@ -25,6 +25,16 @@ namespace WPF.Models
             new Student("s1234544", "Loek", "", "Bak", "HBOICTOOSDDh", studentSupervisors[2]),
             new Student("s1234545", "Jan", "", "Struik", "HBOICTOOSDDh", studentSupervisors[2]),
             new Student("s1234546", "Koos", "", "Boos", "HBOICTOOSDDh", studentSupervisors[1]),
+
+            new Student("s1234567", "Henk", "", "Jansen", "HBOICTOOSDDh", studentSupervisors[0]),
+            new Student("s1234568", "Loek", "", "Bak", "HBOICTOOSDDh", studentSupervisors[0]),
+            new Student("s1234569", "Jan", "", "Struik", "HBOICTOOSDDh", studentSupervisors[2]),
+            new Student("s1234542", "Koos", "", "Boos", "HBOICTOOSDDh", studentSupervisors[1]),
+            new Student("s1234543", "Henk", "", "Jansen", "HBOICTOOSDDh", studentSupervisors[2]),
+            new Student("s1234544", "Loek", "", "Bak", "HBOICTOOSDDh", studentSupervisors[2]),
+            new Student("s1234545", "Jan", "", "Struik", "HBOICTOOSDDh", studentSupervisors[2]),
+            new Student("s1234546", "Koos", "", "Boos", "HBOICTOOSDDh", studentSupervisors[1]),
+
             new Student("s1234561", "Peter", "van der", "Voort", "HBOICTOOSDDh", studentSupervisors[1])};
         static StudentSupervisorMeeting[] studentSupervisorMeetings = new StudentSupervisorMeeting[] {
             new StudentSupervisorMeeting(students[0], studentSupervisors.Where(s => s.Id == students[0].StudentSupervisor).First(), new DateTime(2022, 06, 08), true),
