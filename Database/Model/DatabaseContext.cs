@@ -12,6 +12,16 @@ public class DatabaseContext : DbContext
   /// <summary>
   /// Dbsets required for OnModelCreating
   /// </summary>
+<<<<<<< HEAD:Database/Model/StudentBeleidContext.cs
+  public DbSet<Student> Students { get; set; }
+  public DbSet<Leerdoel> Leerdoelen { get; set; }
+  public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
+  public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
+  public DbSet<StudentProblem> StudentProblems { get; set; }
+  public DbSet<Teacher> Teachers { get; set; }
+  public DbSet<Subject> Subjects { get; set; }
+  public DbSet<Notification> Notifications { get; set; }
+=======
   public DbSet<Student> Student { get; set; }
   public DbSet<LearningGoal> LearningGoals { get; set; }
   public DbSet<StudentSupervisor> StudentSupervisor { get; set; }
@@ -19,6 +29,7 @@ public class DatabaseContext : DbContext
   public DbSet<StudentProblem> StudentProblem { get; set; }
   public DbSet<Teacher> Teacher { get; set; }
   public DbSet<Subject> Subject { get; set; }
+>>>>>>> main_english:Database/Model/DatabaseContext.cs
 
     #region Constructors
 
@@ -198,6 +209,42 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Subject>()
             .Property(s => s.Description).IsRequired(false);
         #endregion
+
+        #region Notification
+
+        modelBuilder.Entity<Notification>()
+            .HasKey(s => new {s.Id});
+        modelBuilder.Entity<Notification>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<Notification>()
+            .Property(s => s.Description).IsRequired();
+
+        modelBuilder.Entity<Notification>()
+            .HasOne(n => n.Receiver)
+            .WithMany(i => i.NotificationsRecived)
+            .HasForeignKey(s => s.ReceiverId)
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
+        modelBuilder.Entity<Notification>()
+            .HasOne(n => n.Sender)
+            .WithMany(i => i.NotificationsSent)
+            .HasForeignKey(s => s.SenderId)
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
+        
+        modelBuilder.Entity<StudentBegeleider>()
+            .HasMany(s => s.NotificationsRecived)
+            .WithOne(s => s.Receiver)
+            .HasForeignKey(s => s.ReceiverId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<StudentBegeleider>()
+            .HasMany(s => s.NotificationsSent)
+            .WithOne(s => s.Sender)
+            .HasForeignKey(s => s.SenderId)
+            .OnDelete(DeleteBehavior.Cascade);
+        #endregion
+
 
     }
 

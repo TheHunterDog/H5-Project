@@ -84,6 +84,11 @@ public class StudentSupervisor: IAuthenticatable
         set => _isAdmin = value;
     }
 
+    public IEnumerable<Notification> Notifications { get; set; }
+
+    public IEnumerable<Notification> NotificationsSent { get; set; }
+    public IEnumerable<Notification> NotificationsRecived { get; set; }
+
     #endregion
 
     public StudentSupervisor()

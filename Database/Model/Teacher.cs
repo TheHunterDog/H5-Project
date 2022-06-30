@@ -60,6 +60,8 @@ public class Teacher : IAuthenticatable
 
     public bool IsAdmin { get; set; }
 
+    public IEnumerable<Notification> Notifications { get; set; }
+
 
     public string TeacherCode { get; init; }
 

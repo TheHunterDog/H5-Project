@@ -8,6 +8,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
+using Microsoft.Toolkit.Uwp.Notifications;
 using WPF.Util;
 
 #endregion
