@@ -29,8 +29,7 @@ public class NotificationBroker
         }
     }
 
-    private bool _isActive = false; 
-    // private delegate void RateChangeNotification(DataTable table);  
+    private bool _isActive = false;
     private SqlDependency _dependency;
     private const string ConnectionString = "Server=ftp.huttennl.nl,1433;Database=StudentBegeleid;User Id=sa;Password=9CknApvBHa2aNuovTirqhmEd";
     private readonly int _userId;
@@ -85,7 +84,6 @@ public class NotificationBroker
                 .AddText($"{ dt.Rows[^1]["Description"]}")
                 .Show();
         }
-
     }  
     /// <summary>
     /// Stop listening to for changes to the database
@@ -110,10 +108,25 @@ public class NotificationBroker
         }
     }
 
-    public static bool CreateNotification(DatabaseContext d,StudentSupervisor studentSupervisor, string message)
+    /// <summary>
+    /// Expected format for each notification
+    /// </summary>
+    /// <param name="context"><see cref="DatabaseContext"/></param>
+    /// <param name="studentSupervisor"><see cref="StudentSupervisor"/></param>
+    /// <param name="message">The text of the description</param>
+    /// <returns>Boolean if successfull</returns>
+    public static bool CreateNotification(DatabaseContext context,StudentSupervisor studentSupervisor, string message)
     {
-        d.Notifications.Add(new Notification() {Description = message,Receiver = studentSupervisor});
-        d.SaveChanges();
-        return true;
+        try
+        {
+            context.Notifications.Add(new Notification() {Description = message, Receiver = studentSupervisor});
+            context.SaveChanges();
+            return true;
+        }
+        catch (SqlException e)
+        {
+            
+            return false;
+        }
     }
 }

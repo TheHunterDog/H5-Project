@@ -23,22 +23,24 @@ public class Authentication
     /**
      * <summary>get the user with the password and username</summary>
      */
-    public static IAuthenticatable? GetUserWithCredentials(string password, string username,DatabaseContext ctx)
+    public static IAuthenticatable? GetUserWithCredentials(string password, string username,DatabaseContext? ctx)
     {
         try
         {
-            var teacher =  ctx.Teacher.Where(s => s.Username.Equals(username));
-            var studentSuperVisor =  ctx.StudentSupervisor.Where(s => s.Username.Equals(username));
-            if (teacher.Count() != 0)
+            if (ctx != null)
             {
-                return teacher.First() as IAuthenticatable;
+                var teacher = ctx.Teacher.Where(s => s.Username.Equals(username));
+                var studentSuperVisor = ctx.StudentSupervisor.Where(s => s.Username.Equals(username));
+                if (teacher.Count() != 0)
+                {
+                    return teacher.First() as IAuthenticatable;
+                }
+                else if (studentSuperVisor.Count() != 0)
+                {
+                    return studentSuperVisor.First() as IAuthenticatable;
+                }
             }
-            else if ( studentSuperVisor.Count() !=  0 )
-            {
-                return studentSuperVisor.First() as IAuthenticatable;
-            }
-            return (IAuthenticatable) ctx.Teacher.First(s => s.Username.Equals(username)) ??
-                   (IAuthenticatable) ctx.StudentSupervisor.First(s => s.Username.Equals(username)) ?? null;
+            return null;
         }
         catch (InvalidOperationException e)
         {

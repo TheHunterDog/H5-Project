@@ -12,6 +12,26 @@ namespace WPF
     /// </summary>
     public partial class App : Application
     {
-        public static DatabaseContext context = new DatabaseContext();
+        public static DatabaseContext? Context;
+
+        public static bool CreateDatabaseConntection()
+        {
+            if (DatabaseContext.PingServer())
+            {
+                Context = new DatabaseContext();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void DisposeDatabaseConnection()
+        {
+            Context?.Dispose();
+        }
+        
+        
     }
 }

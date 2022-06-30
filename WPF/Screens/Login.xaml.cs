@@ -37,6 +37,8 @@ namespace WPF.Screens
             username.LostFocus += AddText;
             password.GotFocus += RemoveText;
             password.LostFocus += AddText;
+            App.CreateDatabaseConntection();
+
         }
         
         /**
@@ -69,12 +71,14 @@ namespace WPF.Screens
             if ((username.Text.Length > 0 && password.Text.Length > 0 ) && (password.Text != password.Name && username.Text != username.Name))
             {
                 // check if the user has the correct password
-                IAuthenticatable? suspect = Authentication.GetUserWithCredentials(password.Text, username.Text, App.context);
+                IAuthenticatable? suspect = Authentication.GetUserWithCredentials(password.Text, username.Text, App.Context);
                 if (suspect != null &&Authentication.CheckPassword(Encoding.UTF8.GetBytes(password.Text), suspect.Password,Encoding.ASCII.GetBytes(Authentication.Salt)))
                 {
                     // if all things match, open the main window
                     MainWindow m = new MainWindow(suspect);
                     m.Show();
+                    App.DisposeDatabaseConnection();
+
                     Close();
                 }
                 else

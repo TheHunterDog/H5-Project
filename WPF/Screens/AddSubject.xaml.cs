@@ -87,7 +87,7 @@ namespace WPF.Screens
          */
         public void AddSubjectToDatabase(Subject subject)
         {
-            using (var context = App.context)
+            using (var context = App.Context)
             {
                 // add and save the subject
                 context.Subject.Add(subject);

@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using ABI.Windows.System;
 using Database.Model;
+using WPF.Screens;
 using WPF.Util;
 
 #endregion
@@ -78,7 +79,10 @@ namespace WPF
         }
 
 
-
-        
+        private void OpenMap_Onclick(object sender, RoutedEventArgs e)
+        {
+            MapWindow m = new MapWindow();
+            m.Show();
+        }
     }
 }

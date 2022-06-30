@@ -1,5 +1,6 @@
 #region
 
+using System.Net.NetworkInformation;
 using Microsoft.EntityFrameworkCore;
 
 #endregion
@@ -12,16 +13,7 @@ public class DatabaseContext : DbContext
   /// <summary>
   /// Dbsets required for OnModelCreating
   /// </summary>
-// <<<<<<< HEAD:Database/Model/StudentBeleidContext.cs
-//   public DbSet<Student> Students { get; set; }
-//   public DbSet<Leerdoel> Leerdoelen { get; set; }
-//   public DbSet<StudentBegeleider> StudentBegeleiders { get; set; }
-//   public DbSet<StudentBegeleiderGesprekken> StudentBegeleiderGesprekken { get; set; }
-//   public DbSet<StudentProblem> StudentProblems { get; set; }
-//   public DbSet<Teacher> Teachers { get; set; }
-//   public DbSet<Subject> Subjects { get; set; }
-//   public DbSet<Notification> Notifications { get; set; }
-// =======
+
   public DbSet<Student> Student { get; set; }
   public DbSet<LearningGoal> LearningGoals { get; set; }
   public DbSet<StudentSupervisor> StudentSupervisor { get; set; }
@@ -31,17 +23,20 @@ public class DatabaseContext : DbContext
   public DbSet<Subject> Subject { get; set; }
   public DbSet<Notification> Notifications { get; set; }
 
-// >>>>>>> main_english:Database/Model/DatabaseContext.cs
-
-    #region Constructors
+  #region Constructors
 
     public DatabaseContext()
     {
-
     }
 
     #endregion
 
+    public static bool PingServer()
+    {
+        var ping = new Ping();
+        return ping.Send("ftp.huttennl.nl").Status.ToString().Equals("Success");
+    }
+    
     /// <summary>
     /// Tell EntityFramework which database to use
     /// </summary>
@@ -154,20 +149,20 @@ public class DatabaseContext : DbContext
 
         #region studentProblems
 
-        // modelBuilder.Entity<StudentProblem>()
-        //     .HasKey(sp => new { sp.Id });
-        //
-        // modelBuilder.Entity<StudentProblem>()
-        //     .HasOne(sp => sp.Student)
-        //     .WithMany(s => s.StudentProblems)
-        //     .HasForeignKey(sp => sp.StudentId)
-        //     .OnDelete(DeleteBehavior.Cascade);
-        //
-        // modelBuilder.Entity<StudentProblem>()
-        //     .HasOne(sp => sp.Teacher)
-        //     .WithMany(s => s.StudentProblems)
-        //     .HasForeignKey(sp => sp.TeacherId)
-        //     .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<StudentProblem>()
+            .HasKey(sp => new { sp.Id });
+
+        modelBuilder.Entity<StudentProblem>()
+            .HasOne(sp => sp.Student)
+            .WithMany(s => s.StudentProblems)
+            .HasForeignKey(sp => sp.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<StudentProblem>()
+            .HasOne(sp => sp.Teacher)
+            .WithMany(s => s.StudentProblems)
+            .HasForeignKey(sp => sp.TeacherId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         #endregion
 
@@ -190,14 +185,13 @@ public class DatabaseContext : DbContext
             .Property(s => s.Password).IsRequired();
         modelBuilder.Entity<StudentSupervisor>()
             .HasIndex(s => s.Username).IsUnique();
+        
         modelBuilder.Entity<Teacher>()
             .Property(s => s.Username).IsRequired();
         modelBuilder.Entity<Teacher>()
             .HasIndex(s => s.Username).IsUnique();
         modelBuilder.Entity<Teacher>()
             .Property(s => s.Password).IsRequired();
-
-
         #endregion
         
         #region Subject
@@ -234,7 +228,7 @@ public class DatabaseContext : DbContext
             .HasMany(s => s.NotificationsRecived)
             .WithOne(s => s.Receiver)
             .HasForeignKey(s => s.ReceiverId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
         #endregion
 
 
