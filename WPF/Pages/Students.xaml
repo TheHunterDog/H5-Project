@@ -44,7 +44,7 @@
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            x:Name="StudentsTable"
+            x:Name="StudentDetail"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             Margin="16,0"

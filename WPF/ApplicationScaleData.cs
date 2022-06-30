@@ -2,38 +2,43 @@
 
 public class ApplicationScaleData
 {
+    /**
+     * <summary>Minimum width the application should have at any moment.</summary>
+     */
+    public double MinWidth = 640;
+    
+    /**
+     * <summary>Minimum height the application should have at any moment.</summary>
+     */
+    public double MinHeight = 480;
+    
+    
+    /**
+     * <summary>Holds the current window width.</summary>
+     */
     private double _windowWidth = 640;
+    /**
+     * <summary>Holds the current window height.</summary>
+     */
     private double _windowHeight = 480;
-    private int _windowFontSize = 12;
-    
 
-    private const int SideBarWidth = 42;
     
+    /**
+     * <summary>Gets the current window width.</summary>
+     */
     public double WindowWidth
     {
         get => _windowWidth;
         protected set => _windowWidth = value >= 320 ? value : 320;
     }
     
+    
+    /**
+     * <summary>Gets the current window height.</summary>
+     */
     public double WindowHeight
     {
         get => _windowHeight;
         protected set => _windowHeight = value >= 240 ? value : 240;
     }
-    
-    public int WindowFontSize
-    {
-        get => _windowFontSize;
-        protected set => _windowFontSize = value;
-    }
-    
-    
-    
-    #region FontSizes
-    
-    // FontSizes
-    private int _navbarFontSize = 24;
-    public int NavbarFontSize { get => _navbarFontSize; set => _navbarFontSize = value; }
-    
-    #endregion
 }

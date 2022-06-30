@@ -4,12 +4,15 @@ namespace WPF;
 
 public class ScaleEngine : ApplicationScaleData
 {
-    public void ReCalculateNavbarFontSize()
+    /**
+     * Recalculate the application wide font size using the current width and height of the application. 
+     */
+    private void ReCalculateFontSize()
     {
-        double controlsize = WindowWidth / 12 / 3 * 2.15 / 5 * 1.8;
-        if (controlsize > 25)
+        double controlsize = WindowWidth / 12 / 3 * 2.15 / 5 * 1.2;
+        if (controlsize > 22)
         {
-            controlsize = 25;
+            controlsize = 22;
         }
 
         AddOrEditResources("ControlFontSize", controlsize);
@@ -19,15 +22,18 @@ public class ScaleEngine : ApplicationScaleData
     #region HelperMethods
     
     /**
-     * <summary>Set the Window Height.</summary>
+     * <summary>Sets the Window height.</summary>
+     * <param name="height">The new height of the window.</param>
      */
     private void SetWindowHeight(double height)
     {
         WindowHeight = height;
     }
     
+    
     /**
-     * <summary>Set the Window Width</summary>
+     * <summary>Sets the Window width.</summary>
+     * <param name="width">The new width of the window.</param>
      */
     private void SetWindowWidth(double width)
     {
@@ -36,6 +42,8 @@ public class ScaleEngine : ApplicationScaleData
     
     /**
      * <summary>Add or Edit a <see cref="FrameworkElement.Resources"/>.</summary>
+     * <param name="key">The resource key</param>
+     * <param name="value">The new resource value</param>
      */
     private void AddOrEditResources(string key, double value)
     {
@@ -53,18 +61,38 @@ public class ScaleEngine : ApplicationScaleData
     
     /**
      * <summary>Dispatch method called from the MainWindow.</summary>
+     * <param name="sender">The object calling this method</param>
+     * <param name="e">The <see cref="SizeChangedEventArgs"/> arguments</param>
      */
     public virtual void OnWindowSizeChange(object sender, SizeChangedEventArgs e)
     {
-        // Check for new Height
+        // Check for new height
         if (e.HeightChanged)
             SetWindowHeight(e.NewSize.Height);
     
-        // Check for new Width
+        // Check for new width
         if(e.WidthChanged)
             SetWindowWidth(e.NewSize.Width);
 
-        ReCalculateNavbarFontSize();
+        // Recalculate the application font size
+        ReCalculateFontSize();
+    }
+    
+    public virtual void OnWindowSizeChange(Window sender)
+    {
+        double height = sender.ActualHeight;
+        double width = sender.ActualWidth;
+        
+        
+        // Check for new Height
+        if (WindowHeight != height)
+            SetWindowHeight(height);
+    
+        // Check for new Width
+        if(WindowWidth != width)
+            SetWindowWidth(width);
+
+        ReCalculateFontSize();
     }
     
     #endregion

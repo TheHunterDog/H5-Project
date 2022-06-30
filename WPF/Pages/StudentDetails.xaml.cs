@@ -11,13 +11,13 @@ using Database.Model;
 namespace WPF.Pages
 {
     /// <summary>
-    /// Interaction logic for StudentdetailsPage.xaml
+    /// Interaction logic for StudentDetailsPage.xaml
     /// </summary>
-    public partial class StudentdetailsPage : Page
+    public partial class StudentDetailsPage : Page
     {
         public string studentnr;
         Student selectedStudent;
-        public StudentdetailsPage(Student st)
+        public StudentDetailsPage(Student st)
         {
             InitializeComponent();
             selectedStudent = st;
@@ -26,24 +26,24 @@ namespace WPF.Pages
         /**
          * <summary>Add the info of the selected student to the page</summary>
          */
-        public void addStudentInfo()
+        public void AddStudentInfo()
         {
             using (var context = new DatabaseContext())
             {
                 // fill the labels with the student's info
-                information.Content = $"Informatie student: {selectedStudent.StudentNumber}";
+                Information.Content = $"Informatie student: {selectedStudent.StudentNumber}";
                 naam.Content = $"Name: {selectedStudent.FirstName}{(" " + selectedStudent.MiddleName).TrimEnd()} {selectedStudent.LastName}";
                 studentnum.Content = $"StudentNumber: {selectedStudent.StudentNumber}";
-                klas.Content = $"Klas: {selectedStudent.ClassCode}";
+                Klas.Content = $"Klas: {selectedStudent.ClassCode}";
                 SBer.Content = $"Supervisor: {context.StudentSupervisor.Where(x => x.Id == selectedStudent.StudentSupervisor).First().Name}";
-                isMessagePlanned.Content = meetingIsPlanned();
-                lastMeeting.Content = lastMeetingCheck();
+                IsMessagePlanned.Content = MeetingIsPlanned();
+                LastMeeting.Content = LastMeetingCheck();
             }
 
         }
 
         /**<summary>Function to check if there is a meeting planned</summary> */
-        string meetingIsPlanned()
+        string MeetingIsPlanned()
         {
             string message = "";
             using (DatabaseContext context = new DatabaseContext())
@@ -61,7 +61,7 @@ namespace WPF.Pages
         /**
          * <summary>Check when the last meeting was</summary>
          */
-        string lastMeetingCheck()
+        string LastMeetingCheck()
         {
             string message = "";
             using (var context = new DatabaseContext())

@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Windows;
 using Database.Model;
 using WPF.Pages;
@@ -15,24 +16,36 @@ namespace WPF.Screens
     {
         public string studentnr;
         Student selectedStudent;
+
+        private ScaleEngine _scaleEngine;
         // Keep track of open page
         // 0 is details page
         // 1 is problem page
         // 2 is leerdoelen page
         private int screen = 0;
+
         public Detailscreen(Student st)
         {
+            _scaleEngine = MainWindow.GetScaleEngineInstance();
             InitializeComponent();
+            DetailscreenWindow.MinHeight = _scaleEngine.MinHeight;
+            DetailscreenWindow.MinWidth = _scaleEngine.MinWidth;
+
+            DetailscreenWindow.Height = _scaleEngine.WindowHeight;
+            DetailscreenWindow.Width = _scaleEngine.WindowWidth;
+            
             selectedStudent = st;
-            StudentdetailsPage pg = new StudentdetailsPage(selectedStudent);
-            pg.addStudentInfo();
+            StudentDetailsPage pg = new StudentDetailsPage(selectedStudent);
+            
+            pg.AddStudentInfo();
             DetailFrame.NavigationService.Navigate(pg);
+            
         }
 
         /**
          * <summary>Button to go back to the detailscherm</summary>
          */
-        private void backButton(object sender, RoutedEventArgs e)
+        private void BackButton(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -40,21 +53,21 @@ namespace WPF.Screens
         /**
          * <summary>Show the overzicht screen</summary>
          */
-        private void Overzichtscreen(object sender, RoutedEventArgs e)
+        private void OverviewScreen(object sender, RoutedEventArgs e)
         {
             // check if not already on this screen
             if (screen == 0) return;
             screen = 0;
             // create and goto page
-            StudentdetailsPage pg = new(selectedStudent);
-            pg.addStudentInfo();
+            StudentDetailsPage pg = new(selectedStudent);
+            pg.AddStudentInfo();
             DetailFrame.NavigationService.Navigate(pg);
         }
 
         /**
          * <summary>Plan a meeting</summary>
          */
-        private void planMeeting(object sender, RoutedEventArgs e)
+        private void CreateMeetingScreen(object sender, RoutedEventArgs e)
         {
             //open screen to plan a meeting
             Inplannen inplannen = new(selectedStudent);
@@ -65,7 +78,7 @@ namespace WPF.Screens
         /**
          * <summary>Show the problems screen</summary>
          */
-        private void ProblemBtn(object sender, RoutedEventArgs e)
+        private void StudentProblemsOverviewScreen(object sender, RoutedEventArgs e)
         {
             // check if not already on this screen
             if (screen == 1) return;
@@ -80,17 +93,21 @@ namespace WPF.Screens
         /**
          * <summary>Show the leerdoelen screen</summary>
          */
-        private void LeerdoelenList(object sender, RoutedEventArgs e)
+        private void StudentLearningGoalsList(object sender, RoutedEventArgs e)
         {
             // check if not already on this screen
             if (screen == 2) return;
             screen = 2;
             // create and goto page
-            ShowStudentLeerdoelenTable StudentLeerdoelenTable = new(selectedStudent);
-            DetailFrame.NavigationService.Navigate(StudentLeerdoelenTable);
+            ShowStudentLeerdoelenTable StudentLearningGoalTable = new(selectedStudent);
+            DetailFrame.NavigationService.Navigate(StudentLearningGoalTable);
         }
 
-        
+
+        private void Detailscreen_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _scaleEngine.OnWindowSizeChange(sender, e);
+        }
     }
 }
  

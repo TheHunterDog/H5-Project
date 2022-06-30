@@ -3,87 +3,102 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
-        Title="detailscreen" Height="1080" Width="1920" 
+        Title="detailscreen"
+        ResizeMode="CanResizeWithGrip"
+        Name="DetailscreenWindow"
         Background="#113B69"
-        WindowState="Maximized">
+        SizeChanged="Detailscreen_OnSizeChanged"
+        FontSize="{DynamicResource ControlFontSize}">
+
+
     <Grid Background="White" ShowGridLines="false">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="85" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="85" />
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="42" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="42" />
+            <ColumnDefinition Width="100*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="85*" />
+            <RowDefinition Height="48" />
+        </Grid.RowDefinitions>
 
-        <!-- Application Borders -->
-        <Rectangle Grid.Row="0" Fill="#113B69" Grid.ColumnSpan="3" Grid.Column="0" />
-        <Rectangle Grid.Row="2" Fill="#113B69" Grid.ColumnSpan="3" Grid.Column="0" />
-        <Rectangle Grid.Column="0" Fill="#113B69" Grid.Row="1" />
-        <Rectangle Grid.Column="2" Fill="#113B69" Grid.Row="1" />
-        
-        
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Source="/Images/HBO-ICT-bin.png" MaxHeight="42.5" Stretch="Uniform"  HorizontalAlignment="Right" VerticalAlignment="Top"/>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="/Images/HBO-ICT.jpg" Stretch="Uniform" HorizontalAlignment="Left" />
-
-        <Grid Grid.Row="1" Grid.Column="1" ShowGridLines="false">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="70"/>
-            </Grid.RowDefinitions>
+        <!-- Top Grid -->
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="459"/>
-                <ColumnDefinition Width="459"/>
-                <ColumnDefinition Width="459"/>
-                <ColumnDefinition Width="459"/>
+                <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
-            
-            <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Name="DetailFrame" NavigationUIVisibility="Hidden"/>
-            <Button 
-                Grid.Row="1" 
-                Grid.Column="0"  
-                Width="120" Height="50" 
-                HorizontalAlignment="Center" 
-                Margin="10" 
-                Click="Overzichtscreen"
-                Background="#113B69"
-                Foreground="White">Overzicht</Button>
-            <Button 
-                Grid.Row="1" 
-                Grid.Column="1"  
-                Width="120" Height="50" 
-                HorizontalAlignment="Center" 
-                Margin="10" 
-                Click="LeerdoelenList"
-                Background="#113B69"
-                Foreground="White">LearningGoals</Button>
-            <Button 
-                Grid.Row="1" 
-                Grid.Column="2" 
-                Width="120" Height="50" 
-                HorizontalAlignment="Center" 
-                Click="planMeeting"
-                Background="#113B69"
-                Foreground="White">Gesprek inplannen</Button>
-            <Button 
-                Grid.Row="1" 
-                Grid.Column="3" 
-                Width="120" 
-                Height="50" 
-                HorizontalAlignment="Center" 
-                Margin="10" 
-                Click="ProblemBtn"
-                Background="#113B69"
-                Foreground="White">Problemen</Button>
-         </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*" />
+            </Grid.RowDefinitions>
+
+            <Viewbox Grid.Column="0" Grid.Row="0" Stretch="UniformToFill">
+                <Image Source="../Images/Header.png" Stretch="Fill"></Image>
+            </Viewbox>
         </Grid>
+        
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*" />
+            </Grid.RowDefinitions>
+            <Frame FontSize="{DynamicResource ControlFontSize}" Grid.Column="0" Grid.Row="0" Name="DetailFrame"  Margin="0 0 0 16" />
+        </Grid>
+
+        
+        <Grid VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*" />
+                <ColumnDefinition Width="25*" />
+                <ColumnDefinition Width="25*" />
+                <ColumnDefinition Width="25*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*" />
+            </Grid.RowDefinitions>
+
+            <Button
+                Grid.Row="0" Grid.Column="0"
+                Width="Auto" 
+                Height="50"
+                Padding="10"
+                Click="OverviewScreen"
+                Background="#113B69"
+                Foreground="White">
+                Overzicht
+            </Button>
+            <Button
+                Grid.Row="0" Grid.Column="1"
+                Width="Auto" 
+                Height="50"
+                Padding="10"
+                Click="StudentLearningGoalsList"
+                Background="#113B69"
+                Foreground="White">
+                LearningGoals
+            </Button>
+            <Button
+                Grid.Row="0" Grid.Column="2"
+                Width="Auto" 
+                Height="50"
+                Padding="10"
+                Click="CreateMeetingScreen"
+                Background="#113B69"
+                Foreground="White">
+                Gesprek inplannen
+            </Button>
+            <Button
+                Grid.Row="0" Grid.Column="3"
+                Width="Auto"
+                Height="50"
+                Padding="10"
+                Click="StudentProblemsOverviewScreen"
+                Background="#113B69"
+                Foreground="White">
+                Problemen
+            </Button>
+        </Grid>
+    </Grid>
 </Window>

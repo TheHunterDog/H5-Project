@@ -1,7 +1,10 @@
 ﻿#region
 
+using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using Database;
 using Database.Model;
 
@@ -14,26 +17,19 @@ namespace WPF;
 /// </summary>
 public partial class MainWindow
 {
-    private int _screen;
     private IAuthenticatable _user;
     private bool _loaded = false;
-
-    private ScaleEngine ScaleEngine;
-
-    private bool ShowGridLines = true;
+    private static ScaleEngine _scaleEngine;
+    public static ScaleEngine GetScaleEngineInstance()
+    {
+        return _scaleEngine;
+    }
 
     // Main constructor
     public MainWindow()
     {
-        _screen = -1;
-        ScaleEngine = new ScaleEngine();
-        
+        _scaleEngine = new ScaleEngine();
         InitializeComponent();
-
-
-        ShowDebugGridLines();
-
-
         _user = new DatabaseContext().Teacher.First();
     }
 
@@ -43,44 +39,41 @@ public partial class MainWindow
         _user = user;
     }
 
-    private void Btn4_OnClick(object sender, RoutedEventArgs e)
+    /**
+     * <summary>Changes the loaded page on the MainWindow.</summary>
+     * <remarks>Uses the x:Name attribute of the calling object to determine which Page to load.</remarks>
+     */
+    private void ChangeActiveScreen(object sender, RoutedEventArgs e)
     {
-        MasterGrid.ShowGridLines = !MasterGrid.ShowGridLines;
-        TopGrid.ShowGridLines = !TopGrid.ShowGridLines;
-        NavbarGrid.ShowGridLines = !NavbarGrid.ShowGridLines;
-        ContentGrid.ShowGridLines = !ContentGrid.ShowGridLines;
+        Button caller = (Button) sender;
+        
+        var fileName = caller.Name;
+        var filePath = $".\\Pages\\{fileName}.xaml".ToString();
+        Uri fileUri = new Uri(filePath, UriKind.RelativeOrAbsolute);
+        ActiveFrame.Source = fileUri;
     }
-
+    
     /**
      * <summary>When app is loaded set initial sizes.</summary>
      */
     private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        MainWindowObj.MinHeight = ScaleEngine.WindowHeight;
-        MainWindowObj.MinWidth = ScaleEngine.WindowWidth;
+        MainWindowObj.MinHeight = _scaleEngine.WindowHeight;
+        MainWindowObj.MinWidth = _scaleEngine.WindowWidth;
 
-        MainWindowObj.Height = ScaleEngine.WindowHeight;
-        MainWindowObj.Width = ScaleEngine.WindowWidth;
+        MainWindowObj.Height = _scaleEngine.MinHeight;
+        MainWindowObj.Width = _scaleEngine.MinWidth;
+        
         _loaded = true;
     }
-    
+
 
     /**
      * <summary>Subscribe to the ScaleEngine Event.</summary>
      */
     private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        if(_loaded)
-            ScaleEngine.OnWindowSizeChange(sender, e);
-    }
-    
-    private void ShowDebugGridLines()
-    {
-        if (!ShowGridLines) return;
-        
-        MasterGrid.ShowGridLines = true;
-        TopGrid.ShowGridLines = true;
-        NavbarGrid.ShowGridLines = true;
-        ContentGrid.ShowGridLines = true;
+        if (_loaded)
+            _scaleEngine.OnWindowSizeChange(sender, e);
     }
 }

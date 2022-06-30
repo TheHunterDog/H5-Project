@@ -1,0 +1,40 @@
+﻿<Page x:Class="WPF.Pages.StudentDetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      Name="StudentDetails"
+      Title="StudentDetailsPage"
+      FontSize="{DynamicResource ControlFontSize}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="75*" />
+            <RowDefinition Height="100*" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="Information" HorizontalAlignment="Center" FontSize="{DynamicResource ControlFontSize}" VerticalAlignment="Center" ></Label>
+        <Line Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000"></Line>
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="naam" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="{DynamicResource ControlFontSize}" />
+        <Line Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Name="studentnum" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="{DynamicResource ControlFontSize}" />
+        <Line Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Name="Klas" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="{DynamicResource ControlFontSize}" />
+        <Line Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Name="SBer" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="{DynamicResource ControlFontSize}" />
+        <Line Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Stroke="Black" X1="0" X2="2000" ></Line>
+        <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="IsMessagePlanned" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="{DynamicResource ControlFontSize}"></Label>
+        <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="LastMeeting" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="{DynamicResource ControlFontSize}"></Label>
+        
+    </Grid>
+</Page>

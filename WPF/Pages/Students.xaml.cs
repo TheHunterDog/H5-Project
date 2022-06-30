@@ -25,7 +25,6 @@ public partial class StudentTable : Page
     public StudentTable()
     {
         InitializeComponent();
-
         using (var context = new DatabaseContext())
         {
             var students = context.Student.ToList();
@@ -34,35 +33,30 @@ public partial class StudentTable : Page
                 student.SupervisorMeetings = context.StudentSupervisorMeeting
                     .Where(x => x.Student.Id == student.Id).ToList();
             }
-            
-            // set the source of the datagrid to the list
-            StudentsTable.ItemsSource = students;
+
+            // set the source of the dataGrid to the list
+            StudentDetail.ItemsSource = students;
         }
-        
     }
 
     /**
-     * <summary>Select a row and open the detailscreen</summary>
+     * <summary>Select a row and open the detailScreen</summary>
      */
     private void SelectRow(object sender, MouseButtonEventArgs e)
     {
-        
-        var SelectedItem = StudentsTable.SelectedItem;
-        // get the studentID from the selected item 
-        var SelectedStudentID = int.Parse(SelectedItem.GetType().GetProperty("Id").GetValue(SelectedItem).ToString());
+        var selectedItem = StudentDetail.SelectedItem;
+        // get the studentID from the selected item
+        int selectedStudentId = int.Parse(selectedItem.GetType().GetProperty("Id").GetValue(selectedItem).ToString());
         Student selectedStudent;
         using (var context = new DatabaseContext())
         {
             // get the student from the selected ID
-            selectedStudent = context.Student.Where(x => x.Id == SelectedStudentID).First();
+            selectedStudent = context.Student.First(x => x.Id == selectedStudentId);
         }
-        // check if there is a student selected
-        if (selectedStudent != null)
-        {   
-            // open a new detailscreen
-            Detailscreen detailScreen = new Detailscreen(selectedStudent);
-            detailScreen.Show();
-        }
+
+        // open a new detailScreen
+        Detailscreen detailScreen = new Detailscreen(selectedStudent);
+        detailScreen.Show();
     }
 
     /**
