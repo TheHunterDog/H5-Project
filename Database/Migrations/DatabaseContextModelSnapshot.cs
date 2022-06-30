@@ -47,6 +47,30 @@ namespace Database.Migrations
                     b.ToTable("LearningGoals");
                 });
 
+            modelBuilder.Entity("Database.Model.MapNode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Letter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LocationCollection")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Letter")
+                        .IsUnique();
+
+                    b.ToTable("MapNodes");
+                });
+
             modelBuilder.Entity("Database.Model.Notification", b =>
                 {
                     b.Property<int>("Id")
@@ -306,7 +330,7 @@ namespace Database.Migrations
                     b.HasOne("Database.Model.StudentSupervisor", "Receiver")
                         .WithMany("NotificationsRecived")
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Database.Model.StudentSupervisor", null)
                         .WithMany("Notifications")

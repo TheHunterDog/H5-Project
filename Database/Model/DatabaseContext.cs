@@ -1,7 +1,10 @@
 #region
 
 using System.Net.NetworkInformation;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Maps.MapControl.WPF;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -22,6 +25,8 @@ public class DatabaseContext : DbContext
   public DbSet<Teacher> Teacher { get; set; }
   public DbSet<Subject> Subject { get; set; }
   public DbSet<Notification> Notifications { get; set; }
+  
+  public DbSet<MapNode> MapNodes { get; set; }
 
   #region Constructors
 
@@ -231,7 +236,24 @@ public class DatabaseContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
         #endregion
 
+        #region MapNodes
 
+        modelBuilder.Entity<MapNode>()
+            .HasKey(s => new {s.Id});
+        modelBuilder.Entity<MapNode>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<MapNode>()
+            .HasIndex(s => s.Letter).IsUnique();
+        modelBuilder.Entity<MapNode>()
+            .Property(s => s.Letter).IsRequired();
+        
+        modelBuilder.Entity<MapNode>().Property(node => node.LocationCollection)
+            .HasConversion(
+                a => (string)JsonConvert.SerializeObject(a),
+                a => JsonConvert.DeserializeObject<LocationCollection>(a));
+
+        #endregion
     }
 
 }

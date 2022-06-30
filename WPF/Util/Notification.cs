@@ -1,8 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Permissions;
 using Database.Model;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -15,23 +12,18 @@ public class NotificationBroker
     /// <summary>
     /// Name of services in the database
     /// </summary>
-    private const string QUEUENAME = "NotificationQueue";
-    private const string SERVICENAME = "NotificationChange";
+    private const string QueueName = "NotificationQueue";
+    private const string ServiceName = "NotificationChange";
     
     /// <summary>
     /// Check if the broker is active
     /// </summary>
-    public bool IsActive
-    {
-        get
-        {
-            return _isActive;
-        }
-    }
+    public bool IsActive => _isActive;
 
-    private bool _isActive = false;
-    private SqlDependency _dependency;
+    private bool _isActive;
+    private SqlDependency? _dependency;
     private const string ConnectionString = "Server=ftp.huttennl.nl,1433;Database=StudentBegeleid;User Id=sa;Password=9CknApvBHa2aNuovTirqhmEd";
+    //The userId that is the receiver
     private readonly int _userId;
 
     public NotificationBroker(int userId)
@@ -53,20 +45,18 @@ public class NotificationBroker
     /// <returns>DataTable with the notification data</returns>
     public DataTable StartNotification()
     {
-        DataTable dt = new DataTable();
-        SqlConnection connection = new SqlConnection(ConnectionString);  
+        var dt = new DataTable();
+        var connection = new SqlConnection(ConnectionString);  
         connection.Open();
 
 
-        using (SqlCommand command = new SqlCommand(
-                   "SELECT Description, ReceiverId FROM dbo.Notifications",
-                   connection))
-        {
-            this._dependency = new SqlDependency(command);
-            _dependency.OnChange += new OnChangeEventHandler(OnRateChange);
-            Initialization();
-            dt.Load(command.ExecuteReader(CommandBehavior.CloseConnection));
-        }
+        using var command = new SqlCommand(
+            "SELECT Description, ReceiverId FROM dbo.Notifications",
+            connection);
+        this._dependency = new SqlDependency(command);
+        _dependency.OnChange += OnRateChange;
+        Initialization();
+        dt.Load(command.ExecuteReader(CommandBehavior.CloseConnection));
 
         return dt;
     }  
@@ -75,9 +65,11 @@ public class NotificationBroker
     /// </summary>
     /// <param name="s">The sender</param>
     /// <param name="e">The arguments</param>
-    private void OnRateChange(object s, SqlNotificationEventArgs e) {
+    private void OnRateChange(object s, SqlNotificationEventArgs e)
+    {
+        _isActive = false;
         // resubscribe
-        DataTable dt = StartNotification();
+        var dt = StartNotification();
         if ((int) dt.Rows[^1]["ReceiverId"] == _userId)
         {
             new ToastContentBuilder()
@@ -89,12 +81,12 @@ public class NotificationBroker
     /// Stop listening to for changes to the database
     /// </summary>
     public void StopNotification() {  
-        SqlDependency.Stop(ConnectionString, QUEUENAME);  
+        SqlDependency.Stop(ConnectionString, QueueName);  
         _isActive = false;
     }  
     private bool CanRequestNotifications()
     {
-        SqlClientPermission permission =
+        var permission =
             new SqlClientPermission(
                 PermissionState.Unrestricted);
         try
@@ -114,7 +106,7 @@ public class NotificationBroker
     /// <param name="context"><see cref="DatabaseContext"/></param>
     /// <param name="studentSupervisor"><see cref="StudentSupervisor"/></param>
     /// <param name="message">The text of the description</param>
-    /// <returns>Boolean if successfull</returns>
+    /// <returns>Boolean if successful</returns>
     public static bool CreateNotification(DatabaseContext context,StudentSupervisor studentSupervisor, string message)
     {
         try
@@ -123,7 +115,7 @@ public class NotificationBroker
             context.SaveChanges();
             return true;
         }
-        catch (SqlException e)
+        catch (SqlException)
         {
             
             return false;
