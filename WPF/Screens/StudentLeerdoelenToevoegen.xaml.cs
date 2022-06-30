@@ -34,7 +34,7 @@ namespace WPF.Screens
                     Description = this.leerdoel.Text,
                     StudentId = selectedstudent.Id,
                 };
-                context.LearningGoals.Add(learningGoal);
+                context.LearningGoal.Add(learningGoal);
                 context.SaveChanges();
             }
             Close();

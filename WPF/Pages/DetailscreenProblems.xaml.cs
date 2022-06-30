@@ -25,6 +25,12 @@ public partial class DetailscreenProblems : Page
         {
             // create the problems list
             List<StudentProblem> problems = context.StudentProblem.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+
+            foreach (StudentProblem studentProblem in problems)
+            {
+                studentProblem.Teacher = context.Teacher.First(x => x.Id == studentProblem.TeacherId);
+            }
+            
             // add the problems to the table
             StudentProbleen.ItemsSource = problems;
             // set the header to match the student

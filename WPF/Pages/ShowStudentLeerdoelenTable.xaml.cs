@@ -23,7 +23,7 @@ public partial class ShowStudentLeerdoelenTable : Page
         using (var context = new DatabaseContext())
         {
             // get all leerdoelen and put them in the table
-            List<LearningGoal> leerdoelen = context.LearningGoals.Where(x => x.StudentId == SelectedStudent.Id).ToList();
+            List<LearningGoal> leerdoelen = context.LearningGoal.Where(x => x.StudentId == SelectedStudent.Id).ToList();
             StudentLeerdoelen.ItemsSource = leerdoelen;
             studentnrlbl.Content = $"LearningGoals van Student: {SelectedStudent.StudentNumber}";
         }

@@ -14,7 +14,7 @@ public class DatabaseContext : DbContext
   /// Dbsets required for OnModelCreating
   /// </summary>
   public DbSet<Student> Student { get; set; }
-  public DbSet<LearningGoal> LearningGoals { get; set; }
+  public DbSet<LearningGoal> LearningGoal { get; set; }
   public DbSet<StudentSupervisor> StudentSupervisor { get; set; }
   public DbSet<StudentSupervisorMeeting> StudentSupervisorMeeting { get; set; }
   public DbSet<StudentProblem> StudentProblem { get; set; }

@@ -32,7 +32,7 @@
         <DataGrid 
             AutoGenerateColumns="False" 
             Grid.Row="1" 
-            x:Name = "StudentLeerdoelen" 
+            x:Name = "StudentLeerdoelen"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             CanUserAddRows="FALSE"
@@ -40,7 +40,7 @@
             FontSize="24">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Leerdoelid" Binding ="{Binding Id}" Header="id" IsReadOnly="TRUE" Width="*" />
-                <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Beschrijving}" Header="LearningGoal" IsReadOnly="TRUE" Width="*" />
+                <DataGridTextColumn x:Name="Leerdoel" Binding ="{Binding Description}" Header="LearningGoal" IsReadOnly="TRUE" Width="*" />
                 <DataGridTextColumn x:Name="studentId" Binding ="{Binding StudentId}" Header="StudentId" IsReadOnly="TRUE" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
