@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Database.Model;
+using WPF.Util;
 
 #endregion
 
@@ -119,6 +120,8 @@ namespace WPF.Screens
                 studentProblem.TeacherId = teacherId;
                 studentProblem.Description = "";
                 studentProblem.Priority = 0;
+                
+
             }
 
             return studentProblem;
@@ -155,6 +158,9 @@ namespace WPF.Screens
 
                 context.StudentProblem.Add(studentProblem);
                 // save changes to database
+                var supervisor = context.StudentSupervisor.First(s => s.Id == studentProblem.Student.StudentSupervisor);
+                NotificationBroker.CreateNotification(context, supervisor,
+                    $"A problem was submitted for student {studentProblem.Student.LastName},{studentProblem.Student.FirstName}");
                 context.SaveChanges();
             }
         }

@@ -2,7 +2,9 @@
 
 using System;
 using System.Windows;
+using ABI.Windows.System;
 using Database.Model;
+using WPF.Util;
 
 #endregion
 
@@ -21,6 +23,8 @@ namespace WPF
         // 3 is manage screen
         private int _screen = -1;
         private IAuthenticatable? user;
+        private NotificationBroker b;
+        private StudentSupervisor? _supervisor;
 
         public MainWindow()
         {
@@ -31,6 +35,14 @@ namespace WPF
             InitializeComponent();
             this.user = user;
              UsernameBtn.Header = user.Username;
+             _supervisor = user as StudentSupervisor;
+             if (_supervisor != null)
+             {
+                 b = new NotificationBroker(_supervisor.Id);
+                 b.StartNotification();
+             }
+
+
         }
 
         private void OpenStudentListView(object sender, RoutedEventArgs e)

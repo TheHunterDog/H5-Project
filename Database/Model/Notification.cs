@@ -7,21 +7,11 @@ public class Notification
     /// Notification has an id
     /// </summary>
     private int _id;
-    
-    /// <summary>
-    /// Notification has an sender
-    /// </summary>
-    private StudentBegeleider _sender;
 
-    /// <summary>
-    /// Notification has a senderId
-    /// </summary>
-    private int _senderId;
-    
     /// <summary>
     /// Notification has a receiver
     /// </summary>
-    private StudentBegeleider _receiver;
+    private StudentSupervisor _receiver;
     
     /// <summary>
     /// Notification has a receiverId
@@ -42,14 +32,7 @@ public class Notification
         set => _id = value;
     }
 
-    public StudentBegeleider Sender
-    {
-        get => _sender;
-        set => _sender = value ?? throw new ArgumentNullException(nameof(value));
-    }
-    
-    
-    public StudentBegeleider Receiver
+    public StudentSupervisor Receiver
     {
         get => _receiver;
         set => _receiver = value ?? throw new ArgumentNullException(nameof(value));
@@ -59,12 +42,6 @@ public class Notification
     {
         get => _description;
         set => _description = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
-    public int SenderId
-    {
-        get => _senderId;
-        set => _senderId = value;
     }
 
     public int ReceiverId

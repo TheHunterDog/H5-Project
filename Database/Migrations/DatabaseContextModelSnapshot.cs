@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class StudentBeleidContextModelSnapshot : ModelSnapshot
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,38 @@ namespace Database.Migrations
                     b.ToTable("LearningGoals");
                 });
 
+            modelBuilder.Entity("Database.Model.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReceiverId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudentSupervisorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("StudentSupervisorId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -55,190 +87,36 @@ namespace Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ClassCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentBegeleiderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentSupervisorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StudentSupervisor")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("StudentBegeleiderId");
-
-                    b.HasIndex("StudentSupervisorId");
 
                     b.HasIndex("StudentNumber")
                         .IsUnique();
 
+                    b.HasIndex("StudentSupervisor");
+
                     b.ToTable("Student");
-                });
-
-            modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("TeacherCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherCode")
-                        .IsUnique();
-
-                    b.ToTable("StudentSupervisor");
-                });
-
-            modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentBegeleiderId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("MeetingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Done")
-                        .HasColumnType("bit");
-
-                    b.HasKey("StudentId", "StudentBegeleiderId", "MeetingDate");
-
-                    b.HasIndex("StudentBegeleiderId");
-
-                    b.ToTable("StudentSupervisorMeeting");
-                });
-
-            modelBuilder.Entity("Database.Model.Subject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ec")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Lessons")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubjectCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentsId", "SubjectsId");
-
-                    b.HasIndex("SubjectsId");
-
-                    b.ToTable("StudentSubjects", (string)null);
-                });
-
-            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("StudentProblem");
-                });
-
-            modelBuilder.Entity("WPF.Model.Teacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teacher");
                 });
 
             modelBuilder.Entity("Database.Model.StudentProblem", b =>
@@ -271,6 +149,99 @@ namespace Database.Migrations
                     b.ToTable("StudentProblem");
                 });
 
+            modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherCode")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("StudentSupervisor");
+                });
+
+            modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentSupervisorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MeetingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Done")
+                        .HasColumnType("bit");
+
+                    b.HasKey("StudentId", "StudentSupervisorId", "MeetingDate");
+
+                    b.HasIndex("StudentSupervisorId");
+
+                    b.ToTable("StudentSupervisorMeeting");
+                });
+
+            modelBuilder.Entity("Database.Model.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ec")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Lessons")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubjectCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subject");
+                });
+
             modelBuilder.Entity("Database.Model.Teacher", b =>
                 {
                     b.Property<int>("Id")
@@ -283,23 +254,41 @@ namespace Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
+                    b.Property<string>("TeacherCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Teacher");
+                });
+
+            modelBuilder.Entity("StudentSubject", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentsId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("StudentSubject");
                 });
 
             modelBuilder.Entity("Database.Model.LearningGoal", b =>
@@ -312,35 +301,64 @@ namespace Database.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Database.Model.Student", b =>
+            modelBuilder.Entity("Database.Model.Notification", b =>
                 {
-                    b.HasOne("Database.Model.StudentSupervisor", "StudentSupervisor")
-                        .WithMany()
-                        .HasForeignKey("StudentBegeleiderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Database.Model.StudentSupervisor", "Supervisor")
-                        .WithMany("Student")
-                        .HasForeignKey("StudentSupervisorId")
+                    b.HasOne("Database.Model.StudentSupervisor", "Receiver")
+                        .WithMany("NotificationsRecived")
+                        .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("StudentSupervisor");
+                    b.HasOne("Database.Model.StudentSupervisor", null)
+                        .WithMany("Notifications")
+                        .HasForeignKey("StudentSupervisorId");
+
+                    b.HasOne("Database.Model.Teacher", null)
+                        .WithMany("Notifications")
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Receiver");
+                });
+
+            modelBuilder.Entity("Database.Model.Student", b =>
+                {
+                    b.HasOne("Database.Model.StudentSupervisor", "Supervisor")
+                        .WithMany("Students")
+                        .HasForeignKey("StudentSupervisor")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Supervisor");
                 });
 
-            modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>
+            modelBuilder.Entity("Database.Model.StudentProblem", b =>
                 {
-                    b.HasOne("Database.Model.StudentSupervisor", "StudentSupervisor")
-                        .WithMany("StudentSupervisorMeeting")
-                        .HasForeignKey("StudentBegeleiderId")
+                    b.HasOne("Database.Model.Student", "Student")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Database.Model.Teacher", "Teacher")
+                        .WithMany("StudentProblems")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Database.Model.StudentSupervisorMeeting", b =>
+                {
                     b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("StudentSupervisorMeeting")
+                        .WithMany("SupervisorMeetings")
                         .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Model.StudentSupervisor", "StudentSupervisor")
+                        .WithMany("StudentSupervisorMeetings")
+                        .HasForeignKey("StudentSupervisorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -364,44 +382,31 @@ namespace Database.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WPF.Model.StudentProblem", b =>
-                {
-                    b.HasOne("Database.Model.Student", "Student")
-                        .WithMany("StudentProblem")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WPF.Model.Teacher", "Teacher")
-                        .WithMany("StudentProblem")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("Database.Model.Student", b =>
                 {
                     b.Navigation("LearningGoals");
 
-                    b.Navigation("StudentSupervisorMeeting");
+                    b.Navigation("StudentProblems");
 
-                    b.Navigation("StudentProblem");
+                    b.Navigation("SupervisorMeetings");
                 });
 
             modelBuilder.Entity("Database.Model.StudentSupervisor", b =>
                 {
-                    b.Navigation("StudentSupervisorMeeting");
+                    b.Navigation("Notifications");
 
-                    b.Navigation("Student");
+                    b.Navigation("NotificationsRecived");
+
+                    b.Navigation("StudentSupervisorMeetings");
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("Database.Model.Teacher", b =>
                 {
-                    b.Navigation("StudentProblem");
+                    b.Navigation("Notifications");
+
+                    b.Navigation("StudentProblems");
                 });
 #pragma warning restore 612, 618
         }
