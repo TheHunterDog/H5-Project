@@ -1,72 +1,86 @@
 ﻿#region
 
-using System;
+using System.Linq;
 using System.Windows;
+using Database;
 using Database.Model;
 
 #endregion
 
-namespace WPF
+namespace WPF;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow
+    private int _screen;
+    private IAuthenticatable _user;
+    private bool _loaded = false;
+
+    private ScaleEngine ScaleEngine;
+
+    private bool ShowGridLines = true;
+
+    // Main constructor
+    public MainWindow()
     {
-
-        // Keep track of open page
-        // 0 is studentList
-        // 1 is Meeting List
-        // 2 is Meldingen List
-        // 3 is manage screen
-        private int _screen = -1;
-        private IAuthenticatable? user;
-
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-        public MainWindow(IAuthenticatable? user)
-        {
-            InitializeComponent();
-            this.user = user;
-             UsernameBtn.Header = user.Username;
-        }
-
-        private void OpenStudentListView(object sender, RoutedEventArgs e)
-        {
-            if (_screen == 0) return;
-            MainFrame.Navigate(new Uri("Pages/StudentTable.xaml", UriKind.RelativeOrAbsolute));
-            MainFrame.NavigationService.RemoveBackEntry();
-            _screen = 0;
-        }
-
-        private void OpenMeetingListView(object sender, RoutedEventArgs e)
-        {
-            if (_screen == 1) return;
-            MainFrame.Navigate(new Uri("Pages/MeetingList.xaml", UriKind.RelativeOrAbsolute));
-            MainFrame.NavigationService.RemoveBackEntry();
-            _screen = 1;
-        }
-
-        private void OpenMeldingListView(object sender, RoutedEventArgs e)
-        {
-            if (_screen == 2) return;
-            MainFrame.Navigate(new Uri("Pages/ProblemsList.xaml", UriKind.RelativeOrAbsolute));
-            MainFrame.NavigationService.RemoveBackEntry();
-            _screen = 2;
-        }
-
-        private void ManageCoachesBtn(object sender, RoutedEventArgs e)
-        {
-            if (_screen == 3) return;
-            MainFrame.Navigate(new Uri("Pages/ManageScreen.xaml", UriKind.RelativeOrAbsolute));
-            MainFrame.NavigationService.RemoveBackEntry();
-            _screen = 3;
-        }
-
-
-
+        _screen = -1;
+        ScaleEngine = new ScaleEngine();
         
+        InitializeComponent();
+
+
+        ShowDebugGridLines();
+
+
+        _user = new DatabaseContext().Teacher.First();
+    }
+
+
+    public MainWindow(IAuthenticatable user) : this()
+    {
+        _user = user;
+    }
+
+    private void Btn4_OnClick(object sender, RoutedEventArgs e)
+    {
+        MasterGrid.ShowGridLines = !MasterGrid.ShowGridLines;
+        TopGrid.ShowGridLines = !TopGrid.ShowGridLines;
+        NavbarGrid.ShowGridLines = !NavbarGrid.ShowGridLines;
+        ContentGrid.ShowGridLines = !ContentGrid.ShowGridLines;
+    }
+
+    /**
+     * <summary>When app is loaded set initial sizes.</summary>
+     */
+    private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        MainWindowObj.MinHeight = ScaleEngine.WindowHeight;
+        MainWindowObj.MinWidth = ScaleEngine.WindowWidth;
+
+        MainWindowObj.Height = ScaleEngine.WindowHeight;
+        MainWindowObj.Width = ScaleEngine.WindowWidth;
+        _loaded = true;
+    }
+    
+
+    /**
+     * <summary>Subscribe to the ScaleEngine Event.</summary>
+     */
+    private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if(_loaded)
+            ScaleEngine.OnWindowSizeChange(sender, e);
+    }
+    
+    private void ShowDebugGridLines()
+    {
+        if (!ShowGridLines) return;
+        
+        MasterGrid.ShowGridLines = true;
+        TopGrid.ShowGridLines = true;
+        NavbarGrid.ShowGridLines = true;
+        ContentGrid.ShowGridLines = true;
     }
 }

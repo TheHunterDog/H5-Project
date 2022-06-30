@@ -1,10 +1,11 @@
 #region
 
+using Database.Model;
 using Microsoft.EntityFrameworkCore;
 
 #endregion
 
-namespace Database.Model;
+namespace Database;
 
 public class DatabaseContext : DbContext
 {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Database;
 using Database.Model;
 using DataImporting;
 using Microsoft.Win32;
@@ -27,26 +28,15 @@ public partial class StudentTable : Page
 
         using (var context = new DatabaseContext())
         {
-            // a query to show to last seen date in the datagrid
-            var query = from s in context.Student
-                        join g in context.StudentSupervisorMeeting
-                        on s.Id equals g.StudentId
-                        into studentgesprekGroup
-                        from t in studentgesprekGroup.DefaultIfEmpty()
-                        select new
-                        {
-                            Id = s.Id,
-                            Studentnummer = s.StudentNumber,
-                            Voornaam = s.FirstName,
-                            Tussenvoegsel = s.MiddleName,
-                            Achternaam = s.LastName,
-                            Klasscode = s.ClassCode,
-                            StudentbegeleiderId = s.StudentSupervisor,
-                            LaatstGesproken = (t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate)
-                        };
-            var List = query.ToList().DistinctBy(x => x.Id).OrderBy(x => x.LaatstGesproken);
+            var students = context.Student.ToList();
+            foreach (Student student in students)
+            {
+                student.SupervisorMeetings = context.StudentSupervisorMeeting
+                    .Where(x => x.Student.Id == student.Id).ToList();
+            }
+            
             // set the source of the datagrid to the list
-            StudentsTable.ItemsSource = List;
+            StudentsTable.ItemsSource = students;
         }
         
     }

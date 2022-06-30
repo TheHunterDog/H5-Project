@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Windows;
+using Database;
 using Database.Model;
 
 #endregion

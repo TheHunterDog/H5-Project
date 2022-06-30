@@ -4,55 +4,65 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="StudentTable" Height="auto" Width="auto">
+      >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition MinHeight="48" Height="10*"/>
+            <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Studentenoverzicht:" 
-               FontSize="24"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Grid.ColumnSpan="2"
+        
+        
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Studenten Overzicht:" 
+            FontSize="{DynamicResource ControlFontSize}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
                />
-        <DataGrid
-            x:Name="StudentsTable"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Margin="100,0"
-            CanUserAddRows="false"
-            AutoGenerateColumns="False"
-            IsReadOnly="True"
-            MouseDoubleClick="SelectRow"
-            FontSize="24">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" Header="studentID" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Studentnummer}" Header="student nummer" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Voornaam}" Header="Firstname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Tussenvoegsel}" Header="Midname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Achternaam}" Header="Lastname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Klasscode}" Header="Classname" Width="*"/>
-                <DataGridTextColumn Binding="{Binding StudentbegeleiderId}" Header="Supervisor" Width="*"/>
-                <DataGridTextColumn Binding="{Binding LaatstGesproken}" Header="Laatst gesproken" Width="*" x:Name="LastSeen"/>
-            </DataGrid.Columns>
-        </DataGrid>
         <Button 
             Grid.Row="0" 
             Grid.Column="1" 
             HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom" 
-            Margin="0,10,100,10" 
-            Height="50" Width="150" 
+            VerticalAlignment="Top" 
+            Margin="8"
+            Padding="32 8"
+            MinHeight="16"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
             Click="ImportExcelBtn" 
-            Content="Importeer"
             Background="#113B69"
-            Foreground="White"/>
+            Foreground="White"
+        >
+            Importeren
+        </Button>
+        <DataGrid
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="StudentsTable"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Margin="16,0"
+            CanUserAddRows="false"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ColumnWidth="14.28*"
+            MouseDoubleClick="SelectRow"
+            FontSize="{DynamicResource ControlFontSize}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding StudentNumber}" Header="Student nummer"/>
+                <DataGridTextColumn Binding="{Binding FirstName}" Header="Voornaam"/>
+                <DataGridTextColumn Binding="{Binding MiddleName}" Header="Tussenvoegsel"/>
+                <DataGridTextColumn Binding="{Binding LastName}" Header="Achternaam"/>
+                <DataGridTextColumn Binding="{Binding ClassCode}" Header="Klas"/>
+                <DataGridTextColumn Binding="{Binding StudentSupervisor.Name}" Header="SB'er"/>
+                <DataGridTextColumn Binding="{Binding LastMeeting}" Header="Laatste gesprek"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
