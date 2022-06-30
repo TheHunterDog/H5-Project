@@ -60,7 +60,7 @@ namespace WPF.Screens
                     return;
                 }
                 //send a mail to the student
-                send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.StudentNumber);
+                //send_Mail(datumAfspraak, opmerkingen.Text, selectedstudent.StudentNumber);
                 // save and add the meeting to the database
                 context.StudentSupervisorMeeting.Add(meeting);
                 context.SaveChanges();

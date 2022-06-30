@@ -110,6 +110,15 @@ public class StudentSupervisor: IAuthenticatable
 
     public override bool Equals(object? obj)
     {
-        return ((StudentSupervisor)obj).TeacherCode == TeacherCode;
+        bool value = false;
+        try
+        {
+            value = (((StudentSupervisor)obj).TeacherCode == TeacherCode);
+        }
+        catch (Exception ex)
+        {
+            return value;
+        }
+        return value;
     }
 }

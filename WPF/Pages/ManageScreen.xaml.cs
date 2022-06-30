@@ -127,7 +127,7 @@ namespace WPF.Pages
         private void ButtonNodesDiagram_Click(object sender, RoutedEventArgs e)
         {
             //open new add subject window
-            StudentRelationsDiagram win = new StudentRelationsDiagram();
+            NodesDiagram win = new NodesDiagram();
             win.Show();
         }
         

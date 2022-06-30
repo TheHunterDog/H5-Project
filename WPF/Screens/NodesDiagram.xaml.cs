@@ -23,7 +23,7 @@ namespace WPF.Screens
     /// <summary>
     /// Interaction logic for StudentRelationsDiagram.xaml
     /// </summary>
-    public partial class StudentRelationsDiagram : Window
+    public partial class NodesDiagram : Window
     {
         private double _canvasScale = 1;
         private double _canvasHorizontalScroll = 0, _canvasVerticalScroll = 0;
@@ -32,7 +32,7 @@ namespace WPF.Screens
         private ScaleTransform _scaleTransform = new ScaleTransform(1, 1);
         private TranslateTransform _translateTransform = new TranslateTransform(0, 0);
 
-        public StudentRelationsDiagram()
+        public NodesDiagram()
         {
             InitializeComponent();
 
@@ -59,7 +59,7 @@ namespace WPF.Screens
                     NodesDiagramViewModel nodesDiagramViewModel = new NodesDiagramViewModel(view);
 
                     // populate view
-                    nodesDiagramViewModel.GetExampleData();
+                    nodesDiagramViewModel.GetDataFromDataBase();
 
                     // draw data on canvas
                     DrawCanvas(view);

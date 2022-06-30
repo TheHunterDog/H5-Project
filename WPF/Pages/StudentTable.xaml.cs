@@ -42,13 +42,13 @@ public partial class StudentTable : Page
                             LastName = s.LastName,
                             ClassCode = s.ClassCode,
                             StudentSupervisor = s.StudentSupervisor,
-                            LastMeeting = t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate
+                            //LastMeeting = t.MeetingDate == null ? DateTime.MaxValue : t.MeetingDate
                         };
-            var List = query.ToList().DistinctBy(x => x.Id)/*.OrderBy(x => x.LastMeeting);*/;
+            var List = query.ToList().DistinctBy(x => x.Id);//.OrderBy(x => x.LastMeeting); ;
             // set the source of the datagrid to the list
             StudentsTable.ItemsSource = List;
         }
-        
+
     }
 
     /**

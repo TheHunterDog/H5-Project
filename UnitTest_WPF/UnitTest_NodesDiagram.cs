@@ -31,8 +31,9 @@ namespace UnitTest_WPF_Inplannen
             StudentSupervisor[] studentSupervisors = new StudentSupervisor[] {
             new StudentSupervisor("Piet Post", "BHK01", 10),
             new StudentSupervisor("Klaas Hak", "BHK02", 11),
-            new StudentSupervisor("Daan Steen", "BHK04", 12)};
-            Student[] students = new Student[] {
+            new StudentSupervisor("Daan Steen", "BHK04", 12),
+            new StudentSupervisor("Henk Hak", "BHK05", 13)};
+        Student[] students = new Student[] {
             new Student("s1234567", "Henk", "", "Jansen", "HBOICTOOSDDh", studentSupervisors[0]),
             new Student("s1234568", "Loek", "", "Bak", "HBOICTOOSDDh", studentSupervisors[0]),
             new Student("s1234569", "Jan", "", "Struik", "HBOICTOOSDDh", studentSupervisors[2]),
@@ -69,7 +70,7 @@ namespace UnitTest_WPF_Inplannen
         public void InitializationContents()
         {
             Assert.IsTrue(_nodesDiagramViewModel.NodesDiagramModel().GetStudents().Length == 9);
-            Assert.IsTrue(_nodesDiagramViewModel.NodesDiagramModel().GetStudentSupervisors().Length == 3);
+            Assert.IsTrue(_nodesDiagramViewModel.NodesDiagramModel().GetStudentSupervisors().Length == 4);
             Assert.IsTrue(_nodesDiagramViewModel.NodesDiagramModel().GetStudentSupervisorMeetings().Length == 9);
         }
 

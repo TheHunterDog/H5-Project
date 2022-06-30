@@ -52,12 +52,19 @@ namespace WPF.Models
         {
             students = null; studentSupervisors = null; studentSupervisorMeetings = null;
 
-            // loading from database logic
-            using (var context = new DatabaseContext())
+            try
             {
-                students = context.Student.ToArray();
-                studentSupervisors = context.StudentSupervisor.ToArray();
-                studentSupervisorMeetings = context.StudentSupervisorMeeting.ToArray();
+                // loading from database logic
+                using (var context = new DatabaseContext())
+                {
+                    students = context.Student.ToArray();
+                    studentSupervisors = context.StudentSupervisor.ToArray();
+                    studentSupervisorMeetings = context.StudentSupervisorMeeting.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
 
